@@ -1,0 +1,4 @@
+name = Custom module
+description = Custom module to disable title and field_publish
+core = 7.x
+package = Custom 
