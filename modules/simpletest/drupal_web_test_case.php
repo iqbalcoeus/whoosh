@@ -854,13 +854,6 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected $cookieFile = NULL;
 
   /**
-   * The cookies of the page currently loaded in the internal browser.
-   *
-   * @var array
-   */
-  protected $cookies = array();
-
-  /**
    * Additional cURL options.
    *
    * DrupalWebTestCase itself never sets this but always obeys what is set.
@@ -949,6 +942,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected function drupalCreateNode($settings = array()) {
     // Populate defaults array.
     $settings += array(
+      'body'      => array(LANGUAGE_NONE => array(array())),
       'title'     => $this->randomName(8),
       'comment'   => 2,
       'changed'   => REQUEST_TIME,
@@ -961,12 +955,6 @@ class DrupalWebTestCase extends DrupalTestCase {
       'type'      => 'page',
       'revisions' => NULL,
       'language'  => LANGUAGE_NONE,
-    );
-
-    // Add the body after the language is defined so that it may be set
-    // properly.
-    $settings += array(
-      'body' => array($settings['language'] => array(array())),
     );
 
     // Use the original node's created time for existing nodes.
@@ -1705,10 +1693,8 @@ class DrupalWebTestCase extends DrupalTestCase {
       $GLOBALS['conf']['language_default'] = $this->originalLanguageDefault;
     }
 
-    // Close the CURL handler and reset the cookies array so test classes
-    // containing multiple tests are not polluted.
+    // Close the CURL handler.
     $this->curlClose();
-    $this->cookies = array();
   }
 
   /**
@@ -2598,11 +2584,6 @@ class DrupalWebTestCase extends DrupalTestCase {
    *
    * @param $xpath
    *   The xpath string to use in the search.
-   * @param array $arguments
-   *   An array of arguments with keys in the form ':name' matching the
-   *   placeholders in the query. The values may be either strings or numeric
-   *   values.
-   *
    * @return
    *   The return value of the xpath search. For details on the xpath string
    *   format and return values see the SimpleXML documentation,
@@ -2774,7 +2755,7 @@ class DrupalWebTestCase extends DrupalTestCase {
         $path = substr($path, $length);
       }
       // Ensure that we have an absolute path.
-      if (empty($path) || $path[0] !== '/') {
+      if ($path[0] !== '/') {
         $path = '/' . $path;
       }
       // Finally, prepend the $base_url.
