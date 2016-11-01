@@ -1,0 +1,49 @@
+div.ac-select-image {
+}
+
+div.ac-select-image ul.preview{
+    overflow: hidden;
+    padding-left: 0px;
+}
+
+div.ac-select-image ul.preview {
+    list-style-type: none;
+}
+
+div.ac-select-image ul.preview li {
+    cursor: move;
+    position: relative;
+    background: #F5F5F5;
+    padding: 4px;
+    float: left;
+    margin: 0px 5px 5px 0;
+    min-height: 75px;
+    min-width: 75px;
+    line-height: 70px;
+    text-align: center;
+}
+
+div.ac-select-image ul.preview li img {
+    max-height: 75px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.ac-select-image .icon-remove,
+div.ac-select-image .icon-remove {
+    background-color: gray;
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+div.ac-select-image .icon-remove:hover,
+div.ac-select-image .icon-remove:hover {
+    opacity: 0.7;
+}
+
+#linkit-modal {
+    background-color: white;
+}

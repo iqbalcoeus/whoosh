@@ -1,0 +1,19 @@
+name = Azexo composer
+version = "7.x-1.11"
+core = 7.x
+
+
+;dependencies[] = php
+dependencies[] = jquery_update
+;dependencies[] = underscore
+dependencies[] = field
+dependencies[] = filter
+;dependencies[] = icon
+;dependencies[] = token
+dependencies[] = entity
+dependencies[] = linkit
+dependencies[] = views
+dependencies[] = file_entity
+dependencies[] = media
+;dependencies[] = plupload
+;dependencies[] = google_fonts

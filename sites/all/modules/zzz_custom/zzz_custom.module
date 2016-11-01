@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function zzz_custom_menu() {
+    $items = array();
+    $items['admin/config/content/custom'] = array(
+        'title' => 'Custom settings',
+        'description' => 'Disable the title and and other fields when the node is published',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('zzz_custom_admin_form'),
+        'access arguments' => array('custom for settings'),
+        'position' => 'left',
+        'weight' => -15,
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function zzz_custom_permission() {
+    return array(
+        'custom for settings' => array(
+            'title' => t('custom  for settings'),
+            'restrict access' => TRUE,
+        ),
+    );
+}
+
+function zzz_custom_admin_form() {
+    $form = array();
+
+
+    $nodeTypes = node_type_get_types();
+    $nTs = array();
+
+    $nFs = array();
+    $nFs['title'] = 'title';
+    foreach ($nodeTypes as $key => $nodeType) {
+        $nTs[$key] = $key;
+        $my_fields = field_info_instances("node", $key);
+
+        foreach ($my_fields as $key2 => $my_field) {
+            if (!in_array($key2, $nFs)) {
+                $nFs[$key2] = $key2;
+            }
+        }
+    }
+    $form['zzz_custom_nodes'] = array(
+        '#title' => "Choose Nodes, which node's fields will disabled after this node is published",
+        '#type' => 'checkboxes',
+        '#default_value' => variable_get('zzz_custom_nodes', array()),
+        '#options' => $nTs
+    );
+
+    $form['zzz_custom_fields'] = array(
+        '#title' => "Choose Fields, the fields will disable after the node is published",
+        '#type' => 'checkboxes',
+        '#default_value' => variable_get('zzz_custom_fields', array()),
+        '#options' => $nFs
+    );
+ 
+
+    return system_settings_form($form);
+}
+
+function zzz_custom_form_alter(&$form, &$form_state, $form_id) {
+    $fields = variable_get('zzz_custom_fields', array());
+    $nodes = variable_get('zzz_custom_nodes', array());
+ 
+    $right = false;
+    foreach ($nodes as $key => $node) {
+        if($node){
+        if ($node . '_node_form' == $form_id) {
+            $right = true;
+        }
+        }
+    } 
+    if ($right) { 
+      if (isset($form['#node']) && isset($form['#node']->status) && $form['#node']->status == 1) { 
+//            $form['title']['#disabled'] = TRUE;
+//            $form['field_publish']['#disabled'] = TRUE;
+            foreach ($fields as $key => $field) {
+                if($field&& isset($form[$field])){
+                 $form[$field]['#disabled'] = TRUE;
+                }
+            }
+       }
+    }
+}

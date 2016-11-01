@@ -1,0 +1,137 @@
+<?php
+
+function azexo_composer_enable() {
+    db_update('system')
+            ->fields(array('weight' => 100))
+            ->condition('type', 'module')
+            ->condition('name', 'azexo_composer')
+            ->execute();
+
+
+    $format = array(
+        'format' => 'azexo_composer',
+        'name' => 'Azexo composer',
+        'cache' => 0,
+        'status' => 1,
+        'weight' => 0,
+        'filters' => array(
+            'azexo_composer' => array('status' => 1, 'weight' => 0, 'module' => 'azexo_composer', 'settings' => array())
+        )
+    );
+    $format = (object) $format;
+    filter_format_save($format);
+
+    ctools_include('export');
+    $profile = ctools_export_crud_new('linkit_profiles');
+    $profile->name = 'azexo_composer';
+    $profile->admin_title = 'Azexo composer';
+    $profile->admin_description = 'Azexo composer';
+    $profile->data = array();
+    $profile->profile_type = LINKIT_PROFILE_TYPE_EDITOR;
+    $profile->data['insert_plugin'] = array(
+        'plugin' => 'raw_url',
+        'url_method' => LINKIT_URL_METHOD_RAW,
+    );
+    $profile->data['text_formats'] = array(
+        'azexo_composer' => 'azexo_composer',
+    );
+    $profile->data['search_plugins'] = array(
+        'entity:node' => array(
+            'enabled' => 1,
+            'weight' => '-10',
+        ),
+    );
+    $profile->data['entity:node'] = array(
+        'result_description' => '',
+        'bundles' => array(
+            'article' => 'article',
+            'page' => 'page',
+        ),
+        'group_by_bundle' => 1,
+        'include_unpublished' => 0,
+    );
+    ctools_export_crud_save('linkit_profiles', $profile);
+}
+
+function azexo_composer_disable() {
+    $format = array('format' => 'azexo_composer', 'name' => 'Azexo composer', 'cache' => 0, 'status' => 1, 'weight' => 0);
+    $format = (object) $format;
+    filter_format_disable($format);
+
+    ctools_include('export');
+    $profile = ctools_export_crud_new('linkit_profiles');
+    $profile->name = 'azexo_composer';
+    ctools_export_crud_delete('linkit_profiles', $profile);
+}
+
+function azexo_composer_install() {
+    
+}
+
+function azexo_composer_uninstall() {
+    
+}
+
+function azexo_composer_schema() {
+    $schema['az_form_submissions'] = array(
+        'description' => t('Azexo form submissions'),
+        'fields' => array(
+            'entity_type' => array(
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => ''
+            ),
+            'bundle' => array(
+                'type' => 'varchar',
+                'length' => 128,
+                'not null' => TRUE,
+                'default' => ''
+            ),
+            'entity_id' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+            ),
+            'field_name' => array(
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => ''
+            ),
+            'name' => array(
+                'type' => 'varchar',
+                'length' => 128,
+                'not null' => TRUE,
+                'default' => ''
+            ),
+            'created' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'submission' => array(
+                'type' => 'text',
+            ),
+        ),
+        'primary key' => array('entity_type', 'bundle', 'entity_id', 'field_name', 'name', 'created'),
+    );
+    $schema['az_user_templates'] = array(
+        'description' => t('Azexo user saved templates'),
+        'fields' => array(
+            'uid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'type' => 'varchar',
+                'length' => 128,
+                'not null' => TRUE,
+            ),
+            'template' => array(
+                'type' => 'text',
+            ),
+        ),
+        'primary key' => array('uid', 'name'),
+    );
+    return $schema;
+}
