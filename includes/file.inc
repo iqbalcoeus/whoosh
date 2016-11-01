@@ -273,9 +273,7 @@ function file_default_scheme() {
  *   The normalized URI.
  */
 function file_stream_wrapper_uri_normalize($uri) {
-  // Inline file_uri_scheme() function call for performance reasons.
-  $position = strpos($uri, '://');
-  $scheme = $position ? substr($uri, 0, $position) : FALSE;
+  $scheme = file_uri_scheme($uri);
 
   if ($scheme && file_stream_wrapper_valid_scheme($scheme)) {
     $target = file_uri_target($uri);
@@ -2024,7 +2022,7 @@ function file_download() {
  *
  * @see file_transfer()
  * @see file_download_access()
- * @see hook_file_download()
+ * @see hook_file_downlaod()
  */
 function file_download_headers($uri) {
   // Let other modules provide headers and control access to the file.
