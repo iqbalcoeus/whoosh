@@ -565,3 +565,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash signs to disable.
  */
 # $conf['allow_authorize_operations'] = FALSE;
+$local_settings = __DIR__ . "/local.settings.php";
+if (!isset($_SERVER['PANTHEON_ENVIRONMENT']) && file_exists($local_settings)) {
+  include $local_settings;
+}
