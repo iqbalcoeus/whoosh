@@ -569,3 +569,8 @@ $local_settings = __DIR__ . "/local.settings.php";
 if (!isset($_SERVER['PANTHEON_ENVIRONMENT']) && file_exists($local_settings)) {
   include $local_settings;
 }
+
+error_reporting(E_ERROR);
+ini_set('display_errors', FALSE);
+ini_set('display_startup_errors', FALSE);
+$conf['error_level']=0;
