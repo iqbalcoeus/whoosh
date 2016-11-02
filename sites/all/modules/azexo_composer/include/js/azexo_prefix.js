@@ -1,0 +1,1 @@
+window.azexo_prefix = 'ax-';

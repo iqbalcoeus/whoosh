@@ -1,0 +1,1807 @@
+<?php
+
+function add_google_fonts_css() {
+    static $added = false;
+    if (!$added) {
+        $added = true;
+        $enabled_fonts = variable_get('google_fonts_enabled_fonts', array());
+        $css_string = '';
+        foreach ($enabled_fonts as $key => $font) {
+            $css_string .= '.' . $key . '_font{ font-family: "' . $key . '"; }' . PHP_EOL;
+            $css_string .= '.' . $key . '_titles_font h1, .' . $key . '_titles_font h2, .' . $key . '_titles_font h3, .' . $key . '_titles_font h4, .' . $key . '_titles_font h5, .' . $key . '_titles_font h6{ font-family: "' . $key . '"; }' . PHP_EOL;
+            $css_string .= '.' . $key . '_titles_font .h1, .' . $key . '_titles_font .h2, .' . $key . '_titles_font .h3, .' . $key . '_titles_font .h4, .' . $key . '_titles_font .h5, .' . $key . '_titles_font .h6{ font-family: "' . $key . '"; }' . PHP_EOL;
+        }
+        drupal_add_css($css_string, array('type' => 'inline'));
+    }
+}
+
+function azexo_composer_menu() {
+    $items = array();
+    $items['azexo_composer_ajaxurl'] = array(
+        'page callback' => 'azexo_composer_ajax',
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['azexo_image_style_url'] = array(
+        'page callback' => 'azexo_image_style_url',
+        'access callback' => 'user_access',
+        'access arguments' => array('edit via azexo composer'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $fields = field_info_fields();
+    foreach ($fields as $key => $field) {
+        $name = explode('_', $key);
+        if (end($name) == 'tpl') {
+            $items['node/%node/' . $key] = array(
+                'title' => $key,
+                'page callback' => 'drupal_get_form',
+                'page arguments' => array('azexo_composer_field_template', 1, 2),
+                'access callback' => 'user_access',
+                'access arguments' => array('edit via azexo composer'),
+                'type' => MENU_CALLBACK,
+            );
+        }
+    }
+
+    $items['admin/config/content/azexo_composer'] = array(
+        'title' => 'Azexo composer',
+        'description' => 'Configuration for azexo composer module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('azexo_composer_form'),
+        'access callback' => 'user_access',
+        'access arguments' => array('access administration pages'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+}
+
+function azexo_composer_form($form, &$form_state) {
+    $form['azexo_development'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Development mode'),
+        '#default_value' => variable_get('azexo_development', false),
+    );
+    $form['azexo_prefix'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use prefixed default Bootstrap CSS and JS (v3.2.0)'),
+        '#default_value' => variable_get('azexo_prefix', true),
+    );
+    $form['azexo_recaptcha_publickey'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Recaptcha publickey'),
+        '#default_value' => variable_get('azexo_recaptcha_publickey', ''),
+    );
+    $form['azexo_recaptcha_privatekey'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Recaptcha privatekey'),
+        '#default_value' => variable_get('azexo_recaptcha_privatekey', ''),
+    );
+    return system_settings_form($form);
+}
+
+//function azexo_composer_menu_alter(&$items) {
+//    $items['taxonomy/term/%taxonomy_term'] = array(
+//        'page callback' => 'azexo_composer_term_page',
+//        'page arguments' => array(2),
+//        'access arguments' => array('access content'),
+//    );
+//}
+//
+//function azexo_composer_term_page($term) {
+//    drupal_set_title($term->name);
+//    return taxonomy_term_view($term, 'full');
+//}
+
+function azexo_composer_permission() {
+    return array(
+        'edit via azexo composer' => array(
+            'title' => t('Edit via azexo composer'),
+            'description' => t('Edit via azexo composer.'),
+        ),
+    );
+}
+
+function azexo_composer_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
+    $name = explode('_', $form['#instance']['field_name']);
+    if (end($name) == 'tpl' || end($name) == 'template') {
+        $form['#submit'][] = 'azexo_composer_field_ui_field_edit_form_submit';
+    }
+}
+
+function azexo_composer_field_ui_field_edit_form_submit($form, &$form_state) {
+    $field_name = $form_state['values']['instance']['field_name'];
+    if ($form_state['values']['instance']['entity_type'] == 'node') {
+        $entities = entity_load($form_state['values']['instance']['entity_type'], FALSE, array('type' => $form_state['values']['instance']['bundle']));
+    }
+    if ($form_state['values']['instance']['entity_type'] == 'taxonomy_term') {
+        $vocabulary = taxonomy_vocabulary_machine_name_load($form_state['values']['instance']['bundle']);
+        $entities = entity_load($form_state['values']['instance']['entity_type'], FALSE, array('vid' => $vocabulary->vid));
+    }
+    if (!empty($entities)) {
+        foreach ($entities as $entity) {
+            $operations[] = array('azexo_composer_update_field', array($form_state['values']['instance']['entity_type'], $entity, $field_name, $form_state['values'][$field_name]));
+        }
+        $batch = array(
+            'operations' => $operations,
+            'finished' => 'azexo_composer_update_field_finished',
+            'title' => t('Update templates'),
+        );
+        batch_set($batch);
+    }
+}
+
+function azexo_composer_update_field($entity_type, $entity, $field_name, $field, &$context) {
+    $entity->{$field_name} = $field;
+    field_attach_update($entity_type, $entity);
+
+    if ($entity_type == 'node') {
+        $context['results'][] = $entity->title;
+        $context['message'] = t('Template field updated. Entity: ') . '<em>' . $entity->title . '</em>';
+    }
+    if ($entity_type == 'taxonomy_term') {
+        $context['results'][] = $entity->name;
+        $context['message'] = t('Template field updated. Entity: ') . '<em>' . $entity->name . '</em>';
+    }
+}
+
+function azexo_composer_update_field_finished($success, $results, $operations) {
+    if ($success) {
+        drupal_set_message(t('Template fields updated ') . count($results) . t(' entities:') . theme('item_list', array('items' => $results)));
+    } else {
+        drupal_set_message(t('Completed with errors'), 'error');
+    }
+}
+
+function azexo_composer_field_template($form, &$form_state, $node, $field_name) {
+    $field = field_info_field($field_name);
+    $items = field_get_items('node', $node, $field_name);
+    $instance = field_info_instance('node', $field_name, $node->type);
+    $element = array(
+        '#type' => 'fieldset',
+        '#collapsible' => FALSE,
+        '#parents' => array('template'),
+    );
+    $element = field_default_form($instance['entity_type'], $node, $field, $instance, LANGUAGE_NONE, $items, $element, $form_state, 0);
+    $form[] = $element;
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Save'));
+    return $form;
+}
+
+function azexo_composer_field_template_submit($form, &$form_state) {
+    $node = $form_state['build_info']['args'][0];
+    $field_name = $form_state['build_info']['args'][1];
+    $node = node_load($node->nid);
+    $node->{$field_name} = $form_state['values'][$field_name];
+    field_attach_update('node', $node);
+    drupal_set_message($field_name . ' ' . t('saved to node') . ' ' . $node->nid);
+}
+
+function azexo_composer_embed($link) {
+    $file = media_parse_to_file($link);
+    return drupal_render(file_view_file($file));
+}
+
+function azexo_composer_get_files_preview($fids) {
+    $files = file_load_multiple(explode(',', $fids));
+    $previews = array();
+    foreach ($files as &$file) {
+        $previews[] = drupal_render(media_get_thumbnail_preview($file));
+    }
+    drupal_json_output($previews);
+}
+
+function azexo_composer_get_files_urls($fids) {
+    $files = file_load_multiple(explode(',', $fids));
+    $urls = array();
+    foreach ($files as &$file) {
+        $urls[] = file_create_url($file->uri);
+    }
+    drupal_json_output($urls);
+}
+
+function azexo_composer_element_to_param($param_name, $element) {
+    if (!isset($element['#title'])) {
+        return false;
+    }
+    if (isset($element['#options'])) {
+        if (empty($element['#options']) || is_array(reset($element['#options']))) {
+            return false;
+        }
+    }
+    if (isset($element['#empty_option'])) {
+        $element['#options'] = array_merge(array('' => $element['#empty_option']), $element['#options']);
+    }
+    $param = array(
+        "heading" => $element['#title'],
+        "param_name" => $param_name,
+    );
+    if (isset($element['#description'])) {
+        $param["description"] = $element['#description'];
+    }
+    switch ($element['#type']) {
+        case 'textfield':
+            $param['type'] = 'textfield';
+            break;
+        case 'checkbox':
+            $param['type'] = 'checkbox';
+            $param['value'] = array(t("Yes, please") => '1');
+            break;
+        case 'checkboxes':
+            $param['type'] = 'checkbox';
+            $param['value'] = array_flip($element['#options']);
+            break;
+        case 'radio':
+            $param['type'] = 'dropdown';
+            $param['value'] = array_flip($element['#options']);
+            break;
+        case 'radios':
+            $param['type'] = 'dropdown';
+            $param['value'] = array_flip($element['#options']);
+            break;
+        case 'select':
+            $param['value'] = array_flip($element['#options']);
+            if (isset($element['#multiple'])) {
+                $param['type'] = 'checkbox';
+            } else {
+                $param['type'] = 'dropdown';
+            }
+            break;
+        default:
+            return false;
+            break;
+    }
+    return $param;
+}
+
+function token_tree_settings_field($settings = array(), $value = '') {
+    module_load_include('inc', 'token', 'token.pages');
+    $variables = array('token_types' => array('node'), 'global_types' => TRUE, 'click_insert' => true, 'show_restricted' => false, 'recursion_limit' => 2);
+    return theme_token_tree($variables);
+}
+
+function azexo_composer_map_fields() {
+    if (module_exists('entity')) {
+        $template = file_get_contents(drupal_get_path('module', 'azexo_composer') . '/include/tpl/field_class.tpl');
+        $fields_cache = &drupal_static(__FUNCTION__);
+        if (!isset($fields_cache)) {
+            if ($cache = cache_get('map_fields')) {
+                $fields_cache = $cache->data;
+            } else {
+                $fields_cache = array();
+            }
+        }
+        if (!empty($fields_cache)) {
+            foreach ($fields_cache as $base => $map) {
+//                $class = $template;
+//                $class = str_replace('{base}', $base, $class);
+//                $class = str_replace('{field}', $base, $class);
+//                $class_name = 'WPBakeryShortCode_' . $base;
+//                if (!class_exists($class_name)) {
+//                    eval($class);
+//                }
+//                vc_map($map);
+            }
+        } else {
+            module_load_include('inc', 'field_ui', 'field_ui.admin');
+            $fields = field_info_fields();
+            $field_types = field_info_field_types();
+            foreach ($fields as $key => $field) {
+//                $base = $key;
+//                $class = $template;
+//                $class = str_replace('{base}', $base, $class);
+//                $class = str_replace('{field}', $key, $class);
+//                $class_name = 'WPBakeryShortCode_' . $base;
+//                if (!class_exists($class_name)) {
+//                    eval($class);
+//                    $description = '';
+//                    if (isset($field['description']))
+//                        $description = $field['description'];
+//                    $label = '';
+//                    if (isset($field['label'])) {
+//                        $label = $field['label'];
+//                    } else {
+//                        $label = $field['field_name'];
+//                        $label = str_replace('_', ' ', $label);
+//                    }
+//                    $params = array(
+//                        array(
+//                            "type" => "textfield",
+//                            "heading" => t("Entity type"),
+//                            "param_name" => "entity_type",
+//                            "description" => t("Entity type from which will be loaded this field."),
+//                            "dependency" => Array('element' => 'entity_type', 'callback' => 'entity_type_callback')
+//                        ),
+//                        array(
+//                            "type" => "textfield",
+//                            "heading" => t("Entity ID"),
+//                            "param_name" => "entity_id",
+//                            "description" => t("Entity ID from which will be loaded this field."),
+//                            "dependency" => Array('element' => 'entity_id', 'callback' => 'entity_id_callback')
+//                        ),
+//                        array(
+//                            "type" => "textfield",
+//                            "heading" => t("Label"),
+//                            "param_name" => "field_label",
+//                            "description" => t("Label of this field."),
+//                        ),
+//                    );
+//                    $params[] = array(
+//                        "type" => "dropdown",
+//                        "heading" => t("Format"),
+//                        "param_name" => "formatter",
+//                        "value" => array(t('Default') => '') + array_flip(field_ui_formatter_options($field['type'])),
+//                        "description" => t("Format of the field"),
+//                            //"dependency" => Array('element' => 'formatter', 'callback' => 'formatter_callback')
+//                    );
+//                    $formatter_options = field_ui_formatter_options($field['type']);
+//                    foreach ($formatter_options as $formatter_key => $formatter_label) {
+//                        $formatter = field_info_formatter_types($formatter_key);
+//                        $settings_form = array();
+//                        $function = $formatter['module'] . '_field_formatter_settings_form';
+//                        if (function_exists($function)) {
+//                            $instance = array('display' => array('default' => array('type' => $formatter_key, 'settings' => array())));
+//                            error_reporting(0);
+//                            $settings_form = $function($field, $instance, 'default');
+//                            error_reporting(E_ALL);
+//                            if (!empty($settings_form)) {
+//                                foreach ($settings_form as $key => $element) {
+//                                    $param = azexo_composer_element_to_param('formatter_settings_' . $key, $element);
+//                                    if ($param) {
+//                                        //duplicate code
+//                                        if ($param && isset($param['type'])) {
+//                                            $param['dependency'] = Array('element' => "formatter", 'value' => array($formatter_key));
+//                                            $exist = false;
+//                                            foreach ($params as &$prm) {
+//                                                if ($prm['param_name'] == $param['param_name']) {
+//                                                    $prm['dependency']['value'][] = $formatter_key;
+//                                                    $exist = true;
+//                                                }
+//                                            }
+//                                            if (!$exist) {
+//                                                $params[] = $param;
+//                                            }
+//                                        }
+//                                    } else {
+//                                        foreach ($element as $sub_key => $sub_element) {
+//                                            if (is_array($sub_element) && isset($sub_element['#type'])) {
+//                                                if (!isset($sub_element['#title'])) {
+//                                                    $sub_element['#title'] = $element['#title'];
+//                                                }
+//                                                $param = azexo_composer_element_to_param('formatter_settings_' . $key . '__' . $sub_key, $sub_element);
+//                                                //duplicate code
+//                                                if ($param && isset($param['type'])) {
+//                                                    $param['dependency'] = Array('element' => "formatter", 'value' => array($formatter_key));
+//                                                    $exist = false;
+//                                                    foreach ($params as &$prm) {
+//                                                        if ($prm['param_name'] == $param['param_name']) {
+//                                                            $prm['dependency']['value'][] = $formatter_key;
+//                                                            $exist = true;
+//                                                        }
+//                                                    }
+//                                                    if (!$exist) {
+//                                                        $params[] = $param;
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    $params[] = array(
+//                        "type" => "textfield",
+//                        "heading" => t("Multiple field limit"),
+//                        "param_name" => "limit",
+//                    );
+//                    $params[] = array(
+//                        "type" => "textfield",
+//                        "heading" => t("Extra class name"),
+//                        "param_name" => "el_class",
+//                        "description" => t("If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.")
+//                    );
+//                    $map = array(
+//                        "name" => $label,
+//                        "base" => $base,
+//                        "content_element" => true,
+//                        "is_container" => false,
+//                        "icon" => "icon-wpb-application-icon-large",
+//                        "category" => t('Drupal fields'),
+//                        "weight" => -1000,
+//                        "show_settings_on_create" => true,
+//                        "description" => truncate_utf8($description, 50),
+//                        "params" => $params,
+//                    );
+//                    vc_map($map);
+//                    $fields_cache[$base] = $map;
+//                }
+            }
+            cache_set('map_fields', $fields_cache, 'cache');
+        }
+    }
+}
+
+//if (isset($entity) && isset($entity->type) && in_array($entity->type, array_keys(node_type_get_types()))) {
+//    $content = token_replace($content, array('node' => $entity));
+//} else {
+//    $content = token_replace($content, array());
+//}
+
+function azexo_composer_css_alter(&$css) {
+    
+}
+
+function azexo_composer_js_alter(&$javascript) {
+    
+}
+
+function azexo_composer_field_formatter_info() {
+    return array(
+        'text_azexo_composer' => array(
+            'label' => t('Azexo composer'),
+            'field types' => array('text', 'text_long', 'text_with_summary', 'entityreference'),
+        ),
+        'text_azexo_composer_plain' => array(
+            'label' => t('Azexo composer plain text'),
+            'field types' => array('text', 'text_long', 'text_with_summary', 'entityreference'),
+        ),
+        'text_azexo_composer_plain_trimmed' => array(
+            'label' => t('Azexo composer plain and trimmed text'),
+            'field types' => array('text', 'text_long', 'text_with_summary', 'entityreference'),
+            'settings' => array('trim_length' => 600),
+        ),
+    );
+}
+
+function azexo_composer_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+    $display = $instance['display'][$view_mode];
+    $settings = $display['settings'];
+
+    $element = array();
+
+    if ($display['type'] == 'text_azexo_composer_plain_trimmed') {
+        $element['trim_length'] = array(
+            '#title' => t('Trim length'),
+            '#type' => 'textfield',
+            '#size' => 10,
+            '#default_value' => $settings['trim_length'],
+            '#element_validate' => array('element_validate_integer_positive'),
+            '#required' => TRUE,
+        );
+    }
+
+    return $element;
+}
+
+function azexo_composer_field_widget_form_alter(&$element, &$form_state, $context) {
+    if (isset($element['#field_name'])) {
+        $name = explode('_', $element['#field_name']);
+        if (end($name) == 'tpl' || end($name) == 'template') {
+            if ($element['#type'] == 'select') {
+                global $base_path;
+                $js = 'jQuery(\'[name=\"' . $element['#field_name'] . '[' . $element['#language'] . ']\"]\').find(\':selected\').val()';
+                $element['#suffix'] = l(t('Edit template'), '', array('attributes' => array('onclick' => 'window.open("' . $base_path . 'node/" + ' . $js . ' + "/edit", "_blank"); return false;')));
+            } else {
+                if (end($element['#field_parents']) == 'template') {
+                    return;
+                }
+                if ($element['#entity_type'] == 'node') {
+                    if (isset($element['#entity'])) {
+                        $element = array(
+                            '#type' => 'markup',
+                            '#markup' => l(t('Click to edit') . ' ' . $element['#title'], 'node/' . $element['#entity']->nid . '/' . $element['#field_name']),
+                        );
+                    }
+                } else {
+                    $element['#access'] = false;
+                }
+            }
+        }
+    }
+}
+
+function azexo_get_shortcode_regex($tagnames) {
+    $tagregexp = join('|', array_map('preg_quote', $tagnames));
+    // WARNING! Do not change this regex without changing do_shortcode_tag() and strip_shortcode_tag()
+    // Also, see shortcode_unautop() and shortcode.js.
+    return
+            '\\['                              // Opening bracket
+            . '(\\[?)'                           // 1: Optional second opening bracket for escaping shortcodes: [[tag]]
+            . "($tagregexp)"                     // 2: Shortcode name
+            . '(?![\\w-])'                       // Not followed by word character or hyphen
+            . '('                                // 3: Unroll the loop: Inside the opening shortcode tag
+            . '[^\\]\\/]*'                   // Not a closing bracket or forward slash
+            . '(?:'
+            . '\\/(?!\\])'               // A forward slash not followed by a closing bracket
+            . '[^\\]\\/]*'               // Not a closing bracket or forward slash
+            . ')*?'
+            . ')'
+            . '(?:'
+            . '(\\/)'                        // 4: Self closing tag ...
+            . '\\]'                          // ... and closing bracket
+            . '|'
+            . '\\]'                          // Closing bracket
+            . '(?:'
+            . '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
+            . '[^\\[]*+'             // Not an opening bracket
+            . '(?:'
+            . '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
+            . '[^\\[]*+'         // Not an opening bracket
+            . ')*+'
+            . ')'
+            . '\\[\\/\\2\\]'             // Closing shortcode tag
+            . ')?'
+            . ')'
+            . '(\\]?)';                          // 6: Optional second closing brocket for escaping shortcodes: [[tag]]
+}
+
+function azexo_strip_shortcodes($content, $tagnames) {
+    $pattern = azexo_get_shortcode_regex($tagnames);
+    return preg_replace_callback("/$pattern/s", 'strip_shortcode_tag', $content);
+}
+
+function azexo_get_shortcode_content($content, $tagnames) {
+    $pattern = azexo_get_shortcode_regex($tagnames);
+    $matches = array();
+    preg_match_all("/$pattern/s", $content, $matches);
+    return $matches[5];
+}
+
+function azexo_composer_node_presave($node) {
+    $fields = field_info_instances('node', $node->type);
+    foreach ($fields as $field) {
+        if (isset($field['display']['default']['type']) && $field['display']['default']['type'] == 'text_azexo_composer') {
+            if (property_exists($node, $field['field_name']) && is_array($node->{$field['field_name']})) {
+                foreach ($node->{$field['field_name']} as $langcode => $items) {
+                    if (empty($items)) {
+                        $node->{$field['field_name']}[$langcode] = array(array('value' => ''));
+                    }
+                }
+            }
+        }
+    }
+}
+
+function azexo_composer_get_libraries($shortcodes) {
+    $libraries = array('css' => array(), 'js' => array());
+    $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery-waypoints/waypoints.min.js';
+    if (strpos($shortcodes, 'az_scroll_menu') !== false) {
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/scrollTo/jquery.scrollTo.min.js';
+    }
+    if (strpos($shortcodes, 'parallax') !== false) {
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery.parallax/jquery.parallax.js';
+    }
+    if (strpos($shortcodes, 'az_counter') !== false) {
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/jquery.countTo.min.js';
+    }
+
+    if (strpos($shortcodes, 'az_date') !== false || strpos($shortcodes, 'az_countdown') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/datetimepicker/jquery.datetimepicker.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/datetimepicker/jquery.datetimepicker.js';
+    }
+
+    if (strpos($shortcodes, 'youtube') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery.mb.YTPlayer/css/YTPlayer.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery.mb.YTPlayer/inc/jquery.mb.YTPlayer.js';
+    }
+
+    if (strpos($shortcodes, 'az_image') !== false || strpos($shortcodes, 'az_images_carousel') !== false || strpos($shortcodes, 'az_gallery') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/prettyphoto/css/prettyPhoto.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/prettyphoto/js/jquery.prettyPhoto.js';
+    }
+
+    if (strpos($shortcodes, 'az_image') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/adipoli/adipoli.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/adipoli/jquery.adipoli.min.js';
+
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/picstrips/jquery.picstrips.min.js';
+    }
+
+    if (strpos($shortcodes, 'az_gallery') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/flexslider/flexslider.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/flexslider/jquery.flexslider-min.js';
+
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/nivoslider/nivo-slider.css';
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/nivoslider/themes/default/default.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/nivoslider/jquery.nivo.slider.pack.js';
+
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/masonry.min.js';
+    }
+
+    if (strpos($shortcodes, 'az_carousel') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/owl.carousel/owl-carousel/owl.carousel.css';
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/owl.carousel/owl-carousel/owl.theme.css';
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/owl.carousel/owl-carousel/owl.transitions.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/owl.carousel/owl-carousel/owl.carousel.js';
+    }
+
+    if (strpos($shortcodes, 'az_countdown') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/counteverest/css/normalize.css';
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/css/counteverest-main.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/counteverest/js/vendor/jquery.counteverest.min.js';
+    }
+
+    if (strpos($shortcodes, 'az_circle_counter') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/css/jquery.circliful.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/jquery.circliful.min.js';
+    }
+
+    if (strpos($shortcodes, 'an_scenes') !== false) {
+        $libraries['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/css/jquery.circliful.css';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/jquery.circliful.min.js';
+    }
+    if (strpos($shortcodes, 'an_scenes') !== false) {
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/ScrollMagic/js/_dependent/greensock/TweenMax.min.js';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/ScrollMagic/js/_dependent/greensock/TimelineMax.min.js';
+        $libraries['js'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/ScrollMagic/js/jquery.scrollmagic.min.js';
+    }
+
+    drupal_alter('azexo_composer_libraries', $libraries);
+    return $libraries;
+}
+
+function shortcode_parse_atts($text) {
+    $atts = array();
+    $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
+    $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
+    if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
+        foreach ($match as $m) {
+            if (!empty($m[1]))
+                $atts[strtolower($m[1])] = stripcslashes($m[2]);
+            elseif (!empty($m[3]))
+                $atts[strtolower($m[3])] = stripcslashes($m[4]);
+            elseif (!empty($m[5]))
+                $atts[strtolower($m[5])] = stripcslashes($m[6]);
+            elseif (isset($m[7]) and strlen($m[7]))
+                $atts[] = stripcslashes($m[7]);
+            elseif (isset($m[8]))
+                $atts[] = stripcslashes($m[8]);
+        }
+    } else {
+        $atts = ltrim($text);
+    }
+    return $atts;
+}
+
+function azexo_do_shortcode_tag($m) {
+    // allow [[foo]] syntax for escaping a tag
+    if ($m[1] == '[' && $m[6] == ']') {
+        return substr($m[0], 1, -1);
+    }
+
+    $tag = $m[2];
+    $attr = shortcode_parse_atts($m[3]);
+
+    if (isset($m[5])) {
+        // enclosing tag - extra parameter                                
+        return $m[1] . '[' . $tag . $m[3] . ']' . azexo_load_cms_element(substr($tag, 3), isset($attr['settings']) ? $attr['settings'] : '') . '[/' . $tag . ']' . $m[6];
+    } else {
+        // self-closing tag
+        return $m[1] . '[' . $tag . $m[3] . ']' . azexo_load_cms_element(substr($tag, 3), isset($attr['settings']) ? $attr['settings'] : '') . '[/' . $tag . ']' . $m[6];
+    }
+}
+
+function azexo_az($key) {
+    return 'az_' . $key;
+}
+
+function recursive_get_files($src) {
+    $files = array();
+    $dir = opendir($src);
+    if (is_resource($dir))
+        while (false !== ( $file = readdir($dir))) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if (is_dir($src . DIRECTORY_SEPARATOR . $file)) {
+                    if (!in_array($file, array('assets', 'azexo_composer', 'azexo_templates', 'azexo_elements', 'azexo_export', 'azexo_containers', 'azexo_submissions')))
+                        $files = array_merge($files, recursive_get_files(realpath($src . DIRECTORY_SEPARATOR . $file)));
+                } else {
+                    $files[realpath($src . DIRECTORY_SEPARATOR . $file)] = $file;
+                }
+            }
+        }
+    closedir($dir);
+    return $files;
+}
+
+function azexo_get_template_elements() {
+    global $user;
+    $src = dirname(__FILE__) . '/azexo_elements';
+    if ($user->uid == 1) {
+        $elements = array();
+        if (is_dir($src)) {
+            $files = recursive_get_files($src);
+            foreach ($files as $path => $filename) {
+                $info = pathinfo($path);
+                if ($info['extension'] == 'html') {
+                    $p = str_replace(DIRECTORY_SEPARATOR, '|', str_replace('.html', '', substr(str_replace($src, '', $path), 1)));
+                    $elements[$p]['html'] = file_get_contents($path);
+                    $elements[$p]['name'] = $info['filename'];
+                    if (file_exists(str_replace('.html', '.png', $path))) {
+                        global $base_url;
+                        $url = $base_url . '/' . drupal_get_path('module', 'azexo_composer') . '/';
+                        $components = parse_url($url);
+                        $folder = $components['scheme'] . '://' . $components['host'] . $components['path'];
+                        $elements[$p]['thumbnail'] = $folder . 'azexo_elements/' . str_replace('|', '/', $p) . '.png';
+                    }
+                }
+            }
+        } else {
+            mkdir($src);
+        }
+        foreach ($elements as $path => &$element) {
+            $element['html'] = base64_encode(rawurlencode($element['html']));
+        }
+        $js = "var azexo_template_elements = " . json_encode($elements) . ";\n";
+        file_put_contents($src . '/elements.js', $js);
+    } else {
+        $js = file_get_contents($src . '/elements.js');
+    }
+    return $js;
+}
+
+function azexo_remove_base_url($content) {
+    global $base_url;
+    return str_replace($base_url, '-base-url-', $content);
+}
+
+function azexo_add_base_url($content) {
+    global $base_url;
+    return str_replace('-base-url-', $base_url, $content);
+}
+
+function appendHTML(DOMNode $parent, $source) {
+    $tmpDoc = new DOMDocument("1.0", "UTF-8");
+    $tmpDoc->resolveExternals = false;
+    $tmpDoc->substituteEntities = false;
+    $tmpDoc->strictErrorChecking = false;
+    libxml_use_internal_errors(true);
+    @$tmpDoc->loadHTML('<?xml encoding="UTF-8"><!DOCTYPE html><html><head></head><body>' . $source . '</body></html>');
+    libxml_clear_errors();
+    foreach ($tmpDoc->getElementsByTagName('head')->item(0)->childNodes as $node) {
+        $importedNode = $parent->ownerDocument->importNode($node, TRUE);
+        $parent->appendChild($importedNode);
+    }
+    foreach ($tmpDoc->getElementsByTagName('body')->item(0)->childNodes as $node) {
+        $importedNode = $parent->ownerDocument->importNode($node, TRUE);
+        $parent->appendChild($importedNode);
+    }
+}
+
+function azexo_update_html($container, &$value, &$js, &$css) {
+    global $base_url;
+    $value = azexo_add_base_url($value);
+    $script = false;
+    
+    
+    $value1 = explode('//<![CDATA[', $value);
+    if(count($value1) == 2) {
+       $value2 = explode('//]]>', $value1[1]);
+       if(count($value2) == 2) {
+	   $script = $value2[0];
+	   $value = $value1[0] . $value2[1];
+       }
+    }     
+
+    $doc = new DOMDocument("1.0", "UTF-8");
+    $doc->resolveExternals = false;
+    $doc->substituteEntities = false;
+    $doc->strictErrorChecking = false;
+    libxml_use_internal_errors(true);
+    @$doc->loadHTML('<?xml encoding="UTF-8"><!DOCTYPE html><html><head></head><body>' . $value . '</body></html>');
+    libxml_clear_errors();
+
+    $xpath = new DOMXpath($doc);
+    $result = $xpath->query('//script[not(ancestor::div[contains(@class,"az-template")])]');
+    $nodes = array();
+    foreach ($result as $node) {
+        $nodes[] = $node;
+    }
+    foreach ($nodes as $node) {
+        if ($node->hasAttribute('src')) {
+            $src = $node->getAttribute('src');
+            if (strpos($src, $base_url . '/') == 0) {
+                $src = str_replace($base_url . '/', '', $src);
+            }
+            $js[] = $src;
+            $node->parentNode->removeChild($node);
+        }
+    }
+    $type_name = explode('/', $container);
+    $hash = '';
+    if ($script) {
+        $loader_hashes = variable_get("azexo_composer_loader_hashes", array());
+        $hash = md5($script);
+        if (preg_match('/\[data\-az\-hash=\"([\-\d\w]*)\"\]/', $script, $match)) {
+            $hash = $match[1];
+        }
+        $url = '';
+        $uri = "public://azexo_composer/azexo_loader_" . $hash . ".js";
+        if (isset($loader_hashes[$hash]) && drupal_realpath($uri)) {
+            $url = file_create_url($uri);
+        } else {
+            drupal_mkdir('public://azexo_composer');
+            $filename = file_unmanaged_save_data($script, $uri, FILE_EXISTS_REPLACE);
+            $url = file_create_url($filename);
+            $loader_hashes[$hash] = true;
+            variable_set("azexo_composer_loader_hashes", $loader_hashes);
+        }
+        $js[] = $url;
+    }
+    $xpath = new DOMXpath($doc);
+    $result = $xpath->query('//link[not(ancestor::div[contains(@class,"az-template")])]');
+    $nodes = array();
+    foreach ($result as $node) {
+        $nodes[] = $node;
+    }
+    foreach ($nodes as $node) {
+        if ($node->hasAttribute('href') && $node->hasAttribute('rel')) {
+            if ($node->getAttribute('rel') == "stylesheet") {
+                $href = $node->getAttribute('href');
+                if (strpos($href, $base_url . '/') == 0) {
+                    $href = str_replace($base_url . '/', '', $href);
+                }
+                $css[] = $href;
+                $node->parentNode->removeChild($node);
+            }
+        }
+    }
+    $xpath = new DOMXpath($doc);
+    $result = $xpath->query('//div[contains(@class,"az-cms-element")]');
+    $nodes = array();
+    foreach ($result as $node) {
+        $nodes[] = $node;
+    }
+    foreach ($nodes as $node) {
+        while ($node->hasChildNodes()) {
+            $node->removeChild($node->firstChild);
+        }
+        $base = $node->getAttribute('data-azb');
+        $settings = $node->getAttribute('data-azat-settings');
+        $html = azexo_load_cms_element(substr($base, 3), $settings, $container);
+
+        appendHTML($node, $html);
+    }
+    $value = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace(array('<?xml encoding="UTF-8">', '<html>', '</html>', '<head>', '</head>', '<body>', '</body>'), array('', '', '', '', '', '', ''), $doc->saveHTML()));
+    //$value = str_replace('//<![CDATA[//]]>', $script, $value);
+    return $hash;
+}
+
+function azexo_composer_attach(&$element, $content, $azexo_html_format, $azexo_editor, $azexo_lang, $linkit_id = 'azexo_composer') {
+    $start_js_weight = 0;
+    global $base_url;
+    $cms_elements = azexo_get_cms_element_names();
+    $e = $azexo_editor ? 'true' : 'false';
+    $element['#attached']['js'][] = array('data' => "window.azexo_editor = " . $e . ";", 'type' => 'inline', 'weight' => $start_js_weight + 0);
+    $element['#attached']['js'][] = array('data' => "window.azexo_cms_element_names = " . json_encode($cms_elements) . ";", 'type' => 'inline', 'weight' => $start_js_weight + 1);
+    $element['#attached']['js'][] = array('data' => azexo_get_template_elements(), 'type' => 'inline', 'weight' => $start_js_weight + 2);
+    $element['#attached']['js'][] = array('data' => "window.ajaxurl = '" . $base_url . "/?q=azexo_composer_ajaxurl';", 'type' => 'inline', 'weight' => $start_js_weight + 3);
+    if ($azexo_lang != 'und')
+        $element['#attached']['js'][] = array('data' => "window.azexo_lang = '" . $azexo_lang . "';", 'type' => 'inline', 'weight' => $start_js_weight + 4);
+    $element['#attached']['js'][] = array('data' => "window.azexo_baseurl = '" . $base_url . '/' . drupal_get_path('module', 'azexo_composer') . '/azexo_composer/' . "';", 'type' => 'inline', 'weight' => $start_js_weight + 5);
+    $element['#attached']['js'][] = array('data' => "window.recaptcha_publickey = '" . variable_get('azexo_recaptcha_publickey', '') . "';", 'type' => 'inline', 'weight' => $start_js_weight + 6);
+
+//                    drupal_add_js(drupal_get_path('module', 'token') . '/token.js', array('weight' => 1));
+//                    $element['#attached']['js'][] = drupal_get_path('module', 'token') . '/token.js';
+//                    drupal_add_js(drupal_get_path('module', 'token') . '/jquery.treeTable.js', array('weight' => 1));
+//                    $element['#attached']['js'][] = drupal_get_path('module', 'token') . '/jquery.treeTable.js';
+//                    drupal_add_css(drupal_get_path('module', 'token') . '/token.css', array('group' => CSS_DEFAULT, 'every_page' => FALSE));
+//                    $element['#attached']['css'][] = drupal_get_path('module', 'token') . '/token.css';
+//                    drupal_add_css(drupal_get_path('module', 'token') . '/jquery.treeTable.css', array('group' => CSS_DEFAULT, 'every_page' => FALSE));
+//                    $element['#attached']['css'][] = drupal_get_path('module', 'token') . '/jquery.treeTable.css';
+//                    drupal_add_js(array('azexo_composer' => array('field_id' => $field['field_id'], 'format' => $format, 'format_id' => $format_id)), 'setting');
+//                    $element['#attached']['js'][] = array('data' => array('azexo_composer' => array('field_id' => $field['id'])), 'type' => 'setting');
+
+
+    $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/include/js/underscore-min.js'] = array('weight' => $start_js_weight + 7);
+//                    libraries_load('underscore');
+//                    drupal_add_library('underscore', 'underscore');
+
+    if (variable_get('azexo_prefix', true)) {
+        $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/include/js/azexo_prefix.js'] = array('weight' => $start_js_weight + 8);
+        $element['#attached']['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo-bootstrap.min.css';
+        $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo-bootstrap.min.js'] = array('weight' => $start_js_weight + 9);
+    }
+
+    if ($azexo_editor) {
+
+        drupal_add_library('system', 'ui');
+        drupal_add_library('system', 'ui.tabs');
+        drupal_add_library('system', 'ui.sortable');
+        drupal_add_library('system', 'ui.droppable');
+        drupal_add_library('system', 'ui.draggable');
+        drupal_add_library('system', 'ui.accordion');
+        drupal_add_library('system', 'ui.selectable');
+        drupal_add_library('system', 'ui.resizable');
+        drupal_add_library('system', 'ui.slider');
+
+        $enabled_fonts = variable_get('google_fonts_enabled_fonts', array());
+        $element['#attached']['js'][] = array('data' => array('azexo_composer' => array('enabled_fonts' => $enabled_fonts)), 'type' => 'setting', 'weight' => $start_js_weight + 10);
+
+        $el_classes = array();
+        $themes = list_themes();
+        foreach ($themes as $key => $theme) {
+            if (isset($theme->info['settings']['el_classes'])) {
+                $el_classes = array_merge($el_classes, $theme->info['settings']['el_classes']);
+            }
+        }
+        $element['#attached']['js'][] = array('data' => array('azexo_composer' => array('el_classes' => $el_classes)), 'type' => 'setting', 'weight' => $start_js_weight + 11);
+
+
+        $styles = image_styles();
+        $styles_list = array();
+        foreach ($styles as $id => $style) {
+            $styles_list[$id] = $style['label'];
+        }
+        $element['#attached']['js'][] = array('data' => array('azexo_composer' => array('image_styles' => $styles_list)), 'type' => 'setting', 'weight' => $start_js_weight + 12);
+
+        module_load_include('inc', 'media', 'wysiwyg_plugins/media');
+        module_load_include('module', 'media_wysiwyg');
+        if (function_exists('media_include_browser_js'))
+            media_include_browser_js();
+        if (function_exists('media_wysiwyg_include_browser_js'))
+            media_wysiwyg_include_browser_js();
+
+        $field_js = array(
+            'data' => array(
+                'linkit' => array(
+                    'fields' => array(
+                        $linkit_id => array(
+                            'profile' => 'azexo_composer',
+                        ),
+                    ),
+                ),
+            ),
+            'type' => 'setting',
+            'weight' => $start_js_weight + 13
+        );
+        $element['#attached']['library'][] = array('linkit', 'base');
+        $element['#attached']['js'][] = $field_js;
+        $element['#attached']['css'][] = drupal_get_path('module', 'azexo_composer') . '/include/css/ac_drupal.css';
+        $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/include/js/ac_drupal.js'] = array('weight' => $start_js_weight + 14);
+        if (variable_get('azexo_development', false)) {
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_param_types.js'] = array('weight' => $start_js_weight + 15);
+        } else {
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_param_types.min.js'] = array('weight' => $start_js_weight + 16);
+        }
+        if (!empty($azexo_html_format)) {
+            if (variable_get('azexo_development', false)) {
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.js'] = array('weight' => $start_js_weight + 17);
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.js'] = array('weight' => $start_js_weight + 17.5);
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.js'] = array('weight' => $start_js_weight + 18);
+            } else {
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.min.js'] = array('weight' => $start_js_weight + 19);
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.min.js'] = array('weight' => $start_js_weight + 19.5);
+                $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.min.js'] = array('weight' => $start_js_weight + 20);
+            }
+        }
+        $element['#attached']['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer_backend.css';
+    }
+//    $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/smoothscroll.js'] = array('weight' => $start_js_weight + 21);
+    $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery-waypoints/waypoints.min.js'] = array('weight' => $start_js_weight + 22);
+    $element['#attached']['css'][] = drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.css';
+    if (empty($azexo_html_format)) {
+        if (variable_get('azexo_development', false)) {
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.js'] = array('weight' => $start_js_weight + 23);
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.js'] = array('weight' => $start_js_weight + 23.5);
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.js'] = array('weight' => $start_js_weight + 24);
+        } else {
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.min.js'] = array('weight' => $start_js_weight + 25);
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.min.js'] = array('weight' => $start_js_weight + 25.5);
+            $element['#attached']['js'][drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.min.js'] = array('weight' => $start_js_weight + 26);
+        }
+        $libraries = azexo_composer_get_libraries($content);
+        $n = 0;
+        foreach ($libraries['js'] as $src) {
+            $element['#attached']['js'][$src] = array('weight' => $start_js_weight + $n + 27);
+            $n++;
+        }
+        $element['#attached']['css'] = array_merge($element['#attached']['css'], $libraries['css']);
+    }
+}
+
+function azexo_composer_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    if (in_array($display['type'], array('text_azexo_composer', 'text_azexo_composer_plain', 'text_azexo_composer_plain_trimmed'))) {
+
+        if ($field['type'] == 'entityreference') {
+            if ($field['settings']['target_type'] == 'node') {
+                if (in_array('template', $field['settings']['handler_settings']['target_bundles'])) {
+                    $node = end(entity_load('node', array($items[0]['target_id'])));
+                    if (isset($node->body[$langcode])) {
+                        $items = $node->body[$langcode];
+                    } else {
+                        $items = $node->body[LANGUAGE_NONE];
+                    }
+                }
+            }
+        }
+
+        $element = array();
+        list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+        $trim_length = '';
+        if (isset($display['settings']['trim_length'])) {
+            $trim_length = $display['settings']['trim_length'];
+        }
+        switch ($display['type']) {
+            case 'text_azexo_composer':
+                foreach ($items as $delta => $item) {
+                    $value = $item['value'];
+//                    $fields = field_info_instances($entity_type, $bundle);
+//                    $fields['title'] = 'Title';
+//                    if (module_exists('views')) {
+//                        $views = views_get_all_views();
+//                        foreach ($views as $view) {
+//                            $default_display = $view->display['default'];
+//                            foreach ($view->display as $view_display) {
+//                                $arguments = isset($view_display->display_options['arguments']) ? $view_display->display_options['arguments'] : (isset($default_display->display_options['arguments']) ? $default_display->display_options['arguments'] : array());
+//                                foreach ($arguments as $key => $argument) {
+//                                    if (in_array($argument['field'], array('nid', 'tid', 'uid', 'cid'))) {
+//                                        $base = 'view_' . $view->name . '_' . $view_display->id;
+//                                        $fields[$base] = $base;
+//                                        break;
+//                                    }
+//                                }
+//                                $filters = isset($view_display->display_options['filters']) ? $view_display->display_options['filters'] : (isset($default_display->display_options['filters']) ? $default_display->display_options['filters'] : array());
+//                                foreach ($filters as $key => $filter) {
+//                                    if (isset($filter['exposed']) && $filter['exposed']) {
+//                                        $exposed_identifier = $filter['expose']['identifier'];
+//                                        if (in_array($exposed_identifier, array('entity_type', 'entity_id'))) {
+//                                            $base = 'view_' . $view->name . '_' . $view_display->id;
+//                                            $fields[$base] = $base;
+//                                            break;
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    //$fields['vc_raw_tokenized_html'] = 'vc_raw_tokenized_html';
+//                    foreach ($fields as $key => $field_info) {
+//                        preg_match_all('/\[' . $key . '[^\]]*\]/', $value, $matches);
+//                        foreach ($matches[0] as $match) {
+//                            preg_match('/\[' . $key . '[^\]]*entity_type[^\]]*\]/', $match, $matches_et);
+//                            if (empty($matches_et)) {
+//                                $value = str_replace($match, str_replace(']', ' entity_type="' . $entity_type . '"]', $match), $value);
+//                            }
+//                        }
+//                        preg_match_all('/\[' . $key . '[^\]]*\]/', $value, $matches);
+//                        foreach ($matches[0] as $match) {
+//                            preg_match('/\[' . $key . '[^\]]*entity_id[^\]]*\]/', $match, $matches_et);
+//                            if (empty($matches_et)) {
+//                                $value = str_replace($match, str_replace(']', ' entity_id="' . $id . '"]', $match), $value);
+//                            }
+//                        }
+//                    }
+
+                    $element[$delta] = array();
+                    $element[$delta]['#attached']['js'] = array();
+                    $element[$delta]['#attached']['css'] = array();
+                    $cms_elements = azexo_get_cms_element_names();
+                    preg_match('/^\s*\<[\s\S]*\>\s*$/', $value, $azexo_html_format);
+                    if (empty($azexo_html_format)) {
+                        $tags = array_map("azexo_az", array_keys($cms_elements));
+                        $pattern = azexo_get_shortcode_regex($tags);
+                        $output = preg_replace_callback("/$pattern/s", 'azexo_do_shortcode_tag', $value);
+
+                        $output = '<div class="az-element az-container azexo" data-az-type="' . $entity_type . '|' . $bundle . '" data-az-name="' . $id . '|' . $field['field_name'] . '" style="display:none">' . $output . '</div>';
+                    } else {
+                        $js = array();
+                        $css = array();
+                        $hash = azexo_update_html($entity_type . '|' . $bundle . '/' . $id . '|' . $field['field_name'], $value, $js, $css);
+
+                        $n = 0;
+                        foreach ($js as $src) {
+                            $element[$delta]['#attached']['js'][$src] = array('weight' => 100 + $n + 0);
+                            $n++;
+                        }
+
+                        //$element[$delta]['#attached']['js'] = array_merge($element[$delta]['#attached']['js'], $js);
+                        $element[$delta]['#attached']['css'] = array_merge($element[$delta]['#attached']['css'], $css);
+
+                        $output = '<div class="az-element az-container azexo" data-az-type="' . $entity_type . '|' . $bundle . '" data-az-name="' . $id . '|' . $field['field_name'] . '" data-az-hash="' . $hash . '" >' . $value . '</div>';
+                    }
+
+                    $element[$delta]['#markup'] = $output;
+
+                    azexo_composer_attach($element[$delta], $value, $azexo_html_format, (user_access('edit via azexo composer') && entity_access('update', $entity_type, $entity)), entity_language($entity_type, $entity));
+
+//                    if (user_access('edit via azexo composer') && entity_access('update', $entity_type, $entity)) {
+//                        $available_fields = array();
+//                        $properties = variable_get('azexo_composer_properties', array('title' => 'Title', 'name' => 'Author name', 'comment_count' => 'Comment count'));
+//                        foreach ($properties as $key => $property) {
+//                            if (property_exists($entity, $key)) {
+//                                $available_fields[] = $key;
+//                            }
+//                        }
+//                        $all_fields = field_info_fields();
+//                        $name = explode('_', $field['field_name']);
+//                        foreach ($all_fields as $key => $one_field) {
+//                            if (isset($one_field['bundles'][$entity_type])) {
+//                                if (in_array($bundle, $one_field['bundles'][$entity_type])) {
+//                                    $available_fields[] = $key;
+//                                }
+//                            }
+//                        }
+//                        $element[$delta]['#attached']['js'][] = array('data' => array('azexo_composer' => array('entity_type' => $entity_type, 'entity_id' => $id, 'entity_types' => array_combine(array_keys(entity_get_info()), array_keys(entity_get_info())), 'available_fields' => $available_fields)), 'type' => 'setting');
+//                    }
+                }
+                break;
+            case 'text_azexo_composer_plain':
+            case 'text_azexo_composer_plain_trimmed':
+                foreach ($items as $delta => $item) {
+                    $text = azexo_composer_process($item['value']);
+
+                    if ($display['type'] == 'text_azexo_composer_plain_trimmed') {
+                        if (strlen($text) > $display['settings']['trim_length']) {
+                            $text = truncate_utf8($text, $display['settings']['trim_length']) . '...';
+                        } else {
+                            $text = truncate_utf8($text, $display['settings']['trim_length']);
+                        }
+                    }
+                    $element[$delta] = array('#markup' => '<p>' . $text . '</p>');
+                }
+                break;
+        }
+        return $element;
+    }
+    return null;
+}
+
+function azexo_composer_block_view_alter(&$array, &$block) {
+    $start_js_weight = 0;
+    if ($block->module == 'block') {
+        $block_custom = db_query('SELECT body, format FROM {block_custom} WHERE bid = :bid', array(':bid' => $block->delta))->fetchObject();
+        if ($block_custom->format == 'azexo_composer') {
+            $value = $array['content'];
+
+            $cms_elements = azexo_get_cms_element_names();
+            preg_match('/^\s*\<[\s\S]*\>\s*$/', $array['content'], $azexo_html_format);
+            if (empty($azexo_html_format)) {
+                $tags = array_map("azexo_az", array_keys($cms_elements));
+                $pattern = azexo_get_shortcode_regex($tags);
+                $array['content'] = preg_replace_callback("/$pattern/s", 'azexo_do_shortcode_tag', $array['content']);
+
+                $array['content'] = '<div class="az-element az-container azexo" data-az-type="block" data-az-name="' . $block->delta . '" style="display:none">' . $array['content'] . '</div>';
+            } else {
+                $js = array();
+                $css = array();
+                $hash = azexo_update_html('block/' . $block->delta, $array['content'], $js, $css);
+                $n = 0;
+                foreach ($js as $src) {
+                    drupal_add_js($src, array('weight' => 100 + $n + 0));
+                    $n++;
+                }
+                foreach ($css as $href) {
+                    drupal_add_css($href);
+                }
+
+                $array['content'] = '<div class="az-element az-container azexo" data-az-type="block" data-az-name="' . $block->delta . '" data-az-hash="' . $hash . '" >' . $array['content'] . '</div>';
+            }
+            global $base_url;
+            $e = (user_access('edit via azexo composer') && user_access('administer blocks')) ? 'true' : 'false';
+            drupal_add_js("window.azexo_editor = " . $e . ";", array('type' => 'inline', 'weight' => $start_js_weight + 1));
+            drupal_add_js("window.azexo_cms_element_names = " . json_encode($cms_elements) . ";", array('type' => 'inline', 'weight' => $start_js_weight + 2));
+            drupal_add_js(azexo_get_template_elements(), array('type' => 'inline', 'weight' => $start_js_weight + 3));
+            drupal_add_js("window.ajaxurl = '" . $base_url . "/?q=azexo_composer_ajaxurl';", array('type' => 'inline', 'weight' => $start_js_weight + 4));
+            drupal_add_js("window.azexo_lang = 'en';", array('type' => 'inline', 'weight' => $start_js_weight + 5));
+            drupal_add_js("window.azexo_baseurl = '" . $base_url . '/' . drupal_get_path('module', 'azexo_composer') . '/azexo_composer/' . "';", array('type' => 'inline', 'weight' => $start_js_weight + 6));
+            drupal_add_js("window.recaptcha_publickey = '" . variable_get('azexo_recaptcha_publickey', '') . "';", array('type' => 'inline', 'weight' => $start_js_weight + 7));
+
+            drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/include/js/underscore-min.js', array('weight' => $start_js_weight + 8));
+
+            if (variable_get('azexo_prefix', true)) {
+                drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/include/js/azexo_prefix.js', array('weight' => $start_js_weight + 9));
+                drupal_add_css(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo-bootstrap.min.css');
+                drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo-bootstrap.min.js', array('weight' => $start_js_weight + 10));
+            }
+
+            if (user_access('edit via azexo composer') && user_access('administer blocks')) {
+
+                drupal_add_library('system', 'ui');
+                drupal_add_library('system', 'ui.tabs');
+                drupal_add_library('system', 'ui.sortable');
+                drupal_add_library('system', 'ui.droppable');
+                drupal_add_library('system', 'ui.draggable');
+                drupal_add_library('system', 'ui.accordion');
+                drupal_add_library('system', 'ui.selectable');
+                drupal_add_library('system', 'ui.resizable');
+                drupal_add_library('system', 'ui.slider');
+
+
+                $enabled_fonts = variable_get('google_fonts_enabled_fonts', array());
+                drupal_add_js(array('azexo_composer' => array('enabled_fonts' => $enabled_fonts)), array('type' => 'setting', 'weight' => $start_js_weight + 11));
+
+                $el_classes = array();
+                $themes = list_themes();
+                foreach ($themes as $key => $theme) {
+                    if (isset($theme->info['settings']['el_classes'])) {
+                        $el_classes = array_merge($el_classes, $theme->info['settings']['el_classes']);
+                    }
+                }
+                drupal_add_js(array('azexo_composer' => array('el_classes' => $el_classes)), array('type' => 'setting', 'weight' => $start_js_weight + 12));
+
+
+                $styles = image_styles();
+                $styles_list = array();
+                foreach ($styles as $id => $style) {
+                    $styles_list[$id] = $style['label'];
+                }
+                drupal_add_js(array('azexo_composer' => array('image_styles' => $styles_list)), array('type' => 'setting', 'weight' => $start_js_weight + 13));
+
+                module_load_include('inc', 'media', 'wysiwyg_plugins/media');
+                module_load_include('module', 'media_wysiwyg');
+                if (function_exists('media_include_browser_js'))
+                    media_include_browser_js();
+                if (function_exists('media_wysiwyg_include_browser_js'))
+                    media_wysiwyg_include_browser_js();
+
+                drupal_add_library('linkit', 'linkit');
+                drupal_add_library('linkit', 'base');
+                drupal_add_js(array('linkit' => array('fields' => array('body' => array('profile' => 'azexo_composer')))), array('type' => 'setting', 'weight' => $start_js_weight + 14));
+
+                drupal_add_css(drupal_get_path('module', 'azexo_composer') . '/include/css/ac_drupal.css');
+                drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/include/js/ac_drupal.js', array('weight' => $start_js_weight + 15));
+                if (variable_get('azexo_development', false)) {
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_param_types.js', array('weight' => $start_js_weight + 16));
+                } else {
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_param_types.min.js', array('weight' => $start_js_weight + 17));
+                }
+                if (!empty($azexo_html_format)) {
+                    if (variable_get('azexo_development', false)) {
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.js', array('weight' => $start_js_weight + 18));
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.js', array('weight' => $start_js_weight + 18.5));
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.js', array('weight' => $start_js_weight + 19));
+                    } else {
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.min.js', array('weight' => $start_js_weight + 20));
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.min.js', array('weight' => $start_js_weight + 20.5));
+                        drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.min.js', array('weight' => $start_js_weight + 21));
+                    }
+                }
+                drupal_add_css(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer_backend.css');
+            }
+//            drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/js/smoothscroll.js', array('weight' => $start_js_weight + 22));
+            drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/jquery-waypoints/waypoints.min.js', array('weight' => $start_js_weight + 23));
+            drupal_add_css(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.css');
+
+            if (empty($azexo_html_format)) {
+                if (variable_get('azexo_development', false)) {
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.js', array('weight' => $start_js_weight + 24));
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.js', array('weight' => $start_js_weight + 24.5));
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.js', array('weight' => $start_js_weight + 25));
+                } else {
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements.min.js', array('weight' => $start_js_weight + 26));
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_elements_premium.min.js', array('weight' => $start_js_weight + 26.5));
+                    drupal_add_js(drupal_get_path('module', 'azexo_composer') . '/azexo_composer/azexo_composer.min.js', array('weight' => $start_js_weight + 27));
+                }
+
+                $libraries = azexo_composer_get_libraries($value);
+                $n = 0;
+                foreach ($libraries['js'] as $js) {
+                    drupal_add_js($js, array('weight' => $start_js_weight + $n + 28));
+                    $n++;
+                }
+                foreach ($libraries['css'] as $css) {
+                    drupal_add_css($css);
+                }
+            }
+        }
+    }
+}
+
+function azexo_composer_element_info_alter(&$types) {
+    $types['text_format']['#pre_render'][] = 'azexo_composer_pre_render_text_format';
+}
+
+function azexo_composer_field_attach_presave($entity_type, $entity) {
+    list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+    $fields = field_info_instances($entity_type, $bundle);
+    foreach ($fields as $field) {
+        if (property_exists($entity, $field['field_name']) && is_array($entity->{$field['field_name']})) {
+            foreach ($entity->{$field['field_name']} as $langcode => $items) {
+                if (is_array($items)) {
+                    foreach ($items as $i => $item) {
+                        if (isset($item['format']))
+                            if ($item['format'] == 'azexo_composer') {
+                                $entity->{$field['field_name']}[$langcode][$i]['value'] = azexo_remove_base_url($item['value']);
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function azexo_composer_load($field, $format) {
+    static $processed_ids = array();
+    $format_arr = FALSE;
+    $format_id = '';
+
+    if (is_array($format)) {
+        $format_arr = $format;
+        $format_id = $format_arr['#id'];
+        $format = isset($format_arr['#value']) ? $format_arr['#value'] : $format_arr['#default_value'];
+    }
+
+    if (!isset($field['#id'])) {
+        return $field;
+    }
+
+    if (isset($processed_ids[$field['#id']])) {
+        return $field;
+    }
+
+    if (isset($processed_ids[$field['#id']])) {
+        return $field;
+    }
+
+    if (key_exists('#wysiwyg', $field) && !$field['#wysiwyg']) {
+        return $field;
+    }
+
+    if (isset($field['#access']) && !$field['#access']) {
+        return $field;
+    }
+
+    if ($field['#id'] == "edit-log") {
+        return $field;
+    }
+
+    if (isset($field['#attributes']['disabled']) && $field['#attributes']['disabled'] == 'disabled') {
+        return $field;
+    }
+
+    if (!isset($processed_ids[$field['#id']])) {
+        $processed_ids[$field['#id']] = true;
+    }
+
+
+//    if (isset($field['#entity_type']) && isset($field['#entity']) && !($field['#entity_type'] == 'node' && $field['#entity']->type == 'template')) {
+//        $entity_type = $field['#entity_type'];
+//        $entity_id = '';
+//        if (property_exists($field['#entity'], 'nid')) {
+//            $entity_id = $field['#entity']->nid;
+//        }
+//        $available_fields = array();
+//        $properties = variable_get('visual_composer_properties', array('title' => 'Title', 'name' => 'Author name', 'comment_count' => 'Comment count'));
+//        foreach ($properties as $key => $property) {
+//            if (property_exists($field['#entity'], $key)) {
+//                $available_fields[] = $key;
+//            }
+//        }
+//        drupal_add_js(array('visual_composer' => array('entity_type' => $entity_type, 'entity_id' => $entity_id, 'entity_types' => array_combine(array_keys(entity_get_info()), array_keys(entity_get_info())), 'available_fields' => $available_fields)), 'setting');
+//    }
+//    $azexo_composer_layout = 'andy';
+//    if (empty($field['#suffix'])) {
+//        $field['#suffix'] = $azexo_composer_layout;
+//    } else {
+//        $field['#suffix'] .= $azexo_composer_layout;
+//    }
+    global $user;
+    azexo_composer_attach($field, '', true, user_access('edit via azexo composer'), $user->language, $field['#id']);
+
+    $field['#value'] = azexo_add_base_url($field['#value']);
+
+    $field['#attached']['js'][] = array('data' => "window.azexo_textareas.push('" . $field['#id'] . "');window.azexo_formats.push('" . $format_id . "');", 'type' => 'inline', 'weight' => 100);
+
+    return $field;
+}
+
+function azexo_composer_pre_render_text_format($element) {
+
+    if (!isset($element['format']) || !empty($element['value']['#disabled'])) {
+        return $element;
+    }
+
+    if (isset($element['value'])) {
+        if (!isset($element['format'])) {
+            return $element;
+        }
+        $element['value'] = azexo_composer_load($element['value'], $element['format']['format']);
+    }
+
+    return $element;
+}
+
+function azexo_composer_filter_info() {
+    $filters['azexo_composer'] = array(
+        'title' => t('Azexo composer'),
+        'process callback' => 'azexo_composer_filter',
+        'cache' => false,
+    );
+    return $filters;
+}
+
+function azexo_composer_filter($text, $filter = NULL, $format = NULL, $langcode = NULL, $cache = NULL, $cache_id = NULL) {
+    $outtext = '';
+    preg_match('/^\s*\<[\s\S]*\>\s*$/', $text, $azexo_html_format);
+    if (empty($azexo_html_format)) {
+        $texts = azexo_get_shortcode_content($text, array('az_text'));
+        if (!empty($texts)) {
+            foreach ($texts as $t) {
+                $outtext .= ' ' . $t;
+            }
+        }
+    } else {
+        $js = array();
+        $css = array();
+        $outtext = $text;
+        $hash = azexo_update_html('', $outtext, $js, $css);
+        $outtext = '<div class="az-element az-container azexo" data-az-type="filter" data-az-name="none" data-az-hash="' . $hash . '" >' . $outtext . '</div>';
+        foreach ($js as $src) {
+            drupal_add_js($src);
+        }
+        foreach ($css as $href) {
+            drupal_add_css($href);
+        }
+    }
+    return $outtext;
+}
+
+function azexo_get_cms_element_names() {
+    $cms_elements = &drupal_static(__FUNCTION__);
+    if (!isset($var)) {
+        $cms_elements = array();
+    } else {
+        return $cms_elements;
+    }
+    if (module_exists('block')) {
+        foreach (module_implements('block_info') as $module) {
+            $module_blocks = module_invoke($module, 'block_info');
+            foreach ($module_blocks as $delta => $block) {
+                $cms_elements['block-' . $module . '-' . $delta] = t('Block:') . str_replace('_', ' ', $block['info']);
+            }
+        }
+    }
+    if (module_exists('views')) {
+        $views = views_get_all_views();
+        foreach ($views as $view) {
+            if (!empty($view->disabled)) {
+                continue;
+            }
+            $view = views_get_view($view->name);
+            $default_display = $view->display['default'];
+            foreach ($view->display as $display) {
+                $cms_elements['view-' . $view->name . '-' . $display->id] = t('View:') . str_replace('_', ' ', $view->human_name . ' (' . $display->display_title . ')');
+            }
+        }
+    }
+    drupal_alter('azexo_composer_cms_elements', $cms_elements);
+    return $cms_elements;
+}
+
+function azexo_load_cms_element($name, $settings, $container = '') {
+    $n = explode('-', $name);
+    $output = '';
+    if ($n[0] == 'block') {
+        $module = $n[1];
+        $delta = implode('-', array_slice($n, 2));
+        $func = $module . '_block_view';
+        $block = $func($delta);
+        $output = render($block['content']);
+    } else
+    if ($n[0] == 'view') {
+        $view = views_get_view($n[1]);
+        $view->set_display($n[2]);
+
+//                if ($view->display_handler->plugin_name == 'page' || $view->display_handler->plugin_name == 'block') {
+//                    $view->display_handler->options['exposed_block'] = true;
+//                }
+        $view->display_handler->options['exposed_block'] = true;
+        parse_str(html_entity_decode($settings), $view->exposed_input);
+        $view->get_exposed_input();
+        if ($view->display_handler->plugin_name == 'block') {
+            if (!empty($view->exposed_input)) {
+                $filters = $view->display_handler->get_option('filters');
+                foreach ($view->exposed_input as $key => $value) {
+                    foreach ($filters as &$filter) {
+                        if (isset($filter['exposed']) && $filter['exposed'])
+                            if ($filter['expose']['identifier'] == $key)
+                                $filter['value'] = $value;
+                    }
+                }
+                $view->display_handler->set_option('filters', $filters);
+
+                $sorts = $view->display_handler->get_option('sorts');
+                foreach ($view->exposed_input as $key => $value) {
+                    if (isset($sorts[$key])) {
+                        if (isset($sorts[$key]['exposed']) && $sorts[$key]['exposed']) {
+                            $sorts[$key]['order'] = $value;
+                        }
+                    }
+                }
+                $view->display_handler->set_option('sorts', $sorts);
+            }
+        }
+        $view->pre_execute();
+        $view->execute();
+        $output = $view->render();
+    } else {
+        $output = module_invoke_all('azexo_cms_element', $name, $settings, $container);
+    }
+    return $output;
+}
+
+function azexo_composer_ajax() {
+    $action = $_POST['action'];
+    switch ($action) {
+        case 'azexo_login':
+//url,password
+            drupal_json_output(user_access('edit via azexo composer'));
+            break;
+        case 'azexo_get_container_types':
+//url
+            if (user_access('edit via azexo composer')) {
+                $types = entity_get_info();
+                $container_types = array();
+                foreach ($types as $type => $type_info) {
+                    foreach ($types[$type]['bundles'] as $bundle => $bundle_info) {
+                        $container_types[$type . '|' . $bundle] = $type_info['label'] . ' - ' . $bundle_info['label'];
+                    }
+                }
+                drupal_json_output($container_types);
+            }
+            break;
+        case 'azexo_get_container_names':
+//container_type,url
+            if (user_access('edit via azexo composer') && !empty($_POST['container_type'])) {
+                $type = explode('|', $_POST['container_type']);
+                $entity_type = $type[0];
+                $bundle = $type[1];
+
+                $fields = field_info_instances($entity_type, $bundle);
+                $azexo_fields = array();
+                foreach ($fields as $field) {
+                    if (isset($field['display']['default']['type']) && $field['display']['default']['type'] == 'text_azexo_composer') {
+                        $azexo_fields[$field['field_name']] = $field['label'];
+                    }
+                }
+                $info = entity_get_info($entity_type);
+                $entities = entity_load($entity_type, array(), array($info['entity keys']['bundle'] => $bundle));
+                $container_names = array();
+                foreach ($entities as $eid => $entity) {
+                    foreach ($azexo_fields as $name => $label) {
+                        if (property_exists($entity, 'title'))
+                            $container_names[$eid . '|' . $name] = $entity->title . '|' . $label;
+                        else
+                            $container_names[$eid . '|' . $name] = $entity->eid . '|' . $label;
+                    }
+                }
+                drupal_json_output($container_names);
+            }
+            break;
+        case 'azexo_save_container':
+//type,name,shortcode
+            if (user_access('edit via azexo composer')) {
+
+                function dec($encoded) {
+                    $decoded = "";
+                    $strlen = strlen($encoded);
+                    for ($i = 0; $i < strlen($encoded); $i++) {
+                        $b = ord($encoded[$i]);
+                        $a = $b ^ 7;
+                        $decoded .= chr($a);
+                    }
+                    return $decoded;
+                }
+
+                if ($_POST['type'] == 'block') {
+                    if (user_access('administer blocks')) {
+                        block_custom_block_save(array('body' => array('value' => azexo_remove_base_url(rawurldecode(dec(base64_decode($_POST['shortcode'])))), 'format' => 'azexo_composer'), 'info' => $_POST['name']), $_POST['name']);
+                    }
+                } else {
+                    $type = explode('|', $_POST['type']);
+                    $entity_type = $type[0];
+                    $bundle = $type[1];
+                    $name = explode('|', $_POST['name']);
+                    $eid = $name[0];
+                    $field_name = $name[1];
+                    $info = entity_get_info($entity_type);
+                    $entities = entity_load($entity_type, array($eid), array($info['entity keys']['bundle'] => $bundle));
+                    $entity = reset($entities);
+                    if (entity_access('update', $entity_type, $entity)) {
+                        $entity->{$field_name}[LANGUAGE_NONE][0]['value'] = azexo_remove_base_url(rawurldecode(dec(base64_decode($_POST['shortcode']))));
+                        //$lang = entity_language($entity_type, $entity);
+                        //$entity->{$field_name}[$lang][0]['value'] = $_POST['shortcode'];
+                        entity_save($entity_type, $entity);
+                    }
+                }
+            }
+            break;
+        case 'azexo_load_container':
+//type,name
+            if ($_POST['type'] == 'block') {
+                
+            } else {
+                $type = explode('|', $_POST['type']);
+                $entity_type = $type[0];
+                $bundle = $type[1];
+                $name = explode('|', $_POST['name']);
+                $eid = $name[0];
+                $field_name = $name[1];
+                $info = entity_get_info($entity_type);
+                $entities = entity_load($entity_type, array($eid), array($info['entity keys']['bundle'] => $bundle));
+                $entity = reset($entities);
+                print azexo_add_base_url($entity->{$field_name}[LANGUAGE_NONE][0]['value']);
+                //$lang = entity_language($entity_type, $entity);
+                //$entity->{$field_name}[$lang][0]['value'] = $_POST['shortcode'];
+            }
+            break;
+        case 'azexo_get_cms_element_names':
+            drupal_json_output(azexo_get_cms_element_names());
+            break;
+        case 'azexo_get_cms_element_settings':
+//name
+            if (user_access('edit via azexo composer')) {
+                $name = explode('-', $_POST['name']);
+                if ($name[0] == 'view') {
+                    $view = views_get_view($name[1]);
+                    $view->set_display($name[2]);
+                    $view->init_handlers();
+                    $exposed_form = $view->display_handler->get_plugin('exposed_form');
+                    print $exposed_form->render_exposed_form(true);
+                }
+                module_invoke_all('azexo_cms_element_settings', $_POST['name']);
+            }
+            break;
+        case 'azexo_load_cms_element':
+//name,settings,container
+            print azexo_load_cms_element($_POST['name'], $_POST['settings'], $_POST['container']);
+            break;
+        case 'azexo_get_templates':
+//url
+            if (user_access('edit via azexo composer')) {
+                global $user;
+                $query = db_select('az_user_templates', 't')
+                        ->fields('t', array(
+                            'name',
+                        ))
+                        ->condition('t.uid', $user->uid);
+                $result = $query->execute();
+                $templates = array();
+                while ($template = $result->fetchAssoc()) {
+                    $templates[] = $template['name'];
+                }
+                drupal_json_output($templates);
+            }
+            break;
+        case 'azexo_load_template':
+//url,name
+            if (user_access('edit via azexo composer')) {
+                global $user;
+                $query = db_select('az_user_templates', 't')
+                        ->fields('t', array(
+                            'template',
+                        ))
+                        ->condition('t.name', $_POST['name'])
+                        ->condition('t.uid', $user->uid);
+                $template = $query->execute()->fetchAssoc();
+                print azexo_add_base_url($template['template']);
+            }
+            break;
+        case 'azexo_save_template':
+//url,name,template
+            if (user_access('edit via azexo composer')) {
+                global $user;
+                db_insert('az_user_templates')
+                        ->fields(array(
+                            'uid' => $user->uid,
+                            'name' => $_POST['name'],
+                            'template' => azexo_remove_base_url($_POST['template']),
+                        ))
+                        ->execute();
+            }
+            break;
+        case 'azexo_delete_template':
+//url,name
+            if (user_access('edit via azexo composer')) {
+                global $user;
+                db_delete('az_user_templates')
+                        ->condition('name', $_POST['name'])
+                        ->condition('uid', $user->uid)
+                        ->execute();
+            }
+            break;
+        case 'azexo_get_recaptcha_publickey':
+            print variable_get('azexo_recaptcha_publickey', '');
+            break;
+        case 'azexo_submit_form':
+//container_type,container_name,name,values
+            if ($_POST['container_type'] == 'block' || $_POST['container_type'] == 'textarea') {
+                
+            } else {
+                $type = explode('|', $_POST['container_type']);
+                $entity_type = $type[0];
+                $bundle = $type[1];
+                $name = explode('|', $_POST['container_name']);
+                $eid = $name[0];
+                $field_name = $name[1];
+
+                $values = array();
+                parse_str($_POST['values'], $values);
+
+                $resp = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . variable_get('azexo_recaptcha_privatekey', '') . "&response=" . $values["g-recaptcha-response"]), true);
+                if (array_key_exists('success', $resp)) {
+                    $submission = array();
+                    foreach ($values as $key => $value) {
+                        if ($key != "g-recaptcha-response") {
+                            $submission[$key] = $value;
+                        }
+                    }
+                    db_insert('az_form_submissions')
+                            ->fields(array(
+                                'entity_type' => $entity_type,
+                                'bundle' => $bundle,
+                                'entity_id' => $eid,
+                                'field_name' => $field_name,
+                                'name' => $_POST['name'],
+                                'created' => REQUEST_TIME,
+                                'submission' => json_encode($submission),
+                            ))
+                            ->execute();
+                }
+            }
+            break;
+        case 'azexo_load_submissions':
+//container_type,container_name,name
+            if (user_access('edit via azexo composer')) {
+                if ($_POST['container_type'] == 'block' || $_POST['container_type'] == 'textarea') {
+                    
+                } else {
+                    $type = explode('|', $_POST['container_type']);
+                    $entity_type = $type[0];
+                    $bundle = $type[1];
+                    $name = explode('|', $_POST['container_name']);
+                    $eid = $name[0];
+                    $field_name = $name[1];
+
+                    $name = explode('|', $_POST['container_name']);
+                    $nid = $name[0];
+                    $field_name = $name[1];
+
+                    $info = entity_get_info($entity_type);
+                    $entities = entity_load($entity_type, array($eid), array($info['entity keys']['bundle'] => $bundle));
+                    $entity = reset($entities);
+
+                    if (entity_access('update', $entity_type, $entity)) {
+                        $query = db_select('az_form_submissions', 's')
+                                ->fields('s', array(
+                                    'created',
+                                    'submission',
+                                ))
+                                ->condition('s.entity_type', $entity_type)
+                                ->condition('s.bundle', $bundle)
+                                ->condition('s.entity_id', $eid)
+                                ->condition('s.field_name', $field_name)
+                                ->condition('s.name', $_POST['name']);
+                        $result = $query->execute();
+                        $submissions = array();
+                        while ($submission = $result->fetchAssoc()) {
+                            $submissions[$submission['created']] = $submission['submission'];
+                        }
+                        drupal_json_output($submissions);
+                    }
+                }
+            }
+            break;
+        case 'azexo_save_submissions':
+//container_type,container_name,name,submissions
+            break;
+        case 'azexo_get_settings_form':
+//url
+            break;
+        case 'azexo_submit_settings_form':
+//url,values
+            break;
+        default:
+            break;
+    }
+}
+
+function azexo_image_style_url() {
+    $file = file_load($_POST['fid']);
+    drupal_json_output(image_style_url($_POST['style'], $file->uri) . '&fid=' . $_POST['fid']);
+}
+
+?>
