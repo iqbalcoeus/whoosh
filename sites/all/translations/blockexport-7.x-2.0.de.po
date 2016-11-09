@@ -1,0 +1,20 @@
+# German translation of Blockexport (7.x-2.0)
+# Copyright (c) 2014 by the German translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Blockexport (7.x-2.0)\n"
+"POT-Creation-Date: 2014-12-08 12:23+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Block"
+msgstr "Block"
+msgid "Installation"
+msgstr "Installation"
+msgid "Dependencies"
+msgstr "Abhängigkeiten"
