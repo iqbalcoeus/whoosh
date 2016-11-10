@@ -26,4 +26,17 @@ function jobboard_form_alter(&$form, &$form_state, $form_id) {
       '#value' => t('Buy now!'),
     );
   }
+  else {
+    if (module_exists('hybridauth') && !user_is_logged_in()) {
+      $element['#type'] = 'hybridauth_widget';
+      switch ($form_id) {
+        case 'user_register_form':
+        case 'user_login_form':
+          $form['deko'] = array(
+            '#markup' => drupal_render($element),
+          );
+      }
+    }
+  }
 }
+
