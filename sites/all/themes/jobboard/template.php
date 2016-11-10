@@ -30,6 +30,10 @@ function jobboard_form_alter(&$form, &$form_state, $form_id) {
     switch ($form_id) {
       case 'user_register_form':
         $form['actions']['submit']['#value'] = t('Sign up');
+        $form['terms'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('I confirm the Terms of Use'),
+        );
         break;
     }
   }
