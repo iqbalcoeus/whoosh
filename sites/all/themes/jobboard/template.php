@@ -26,5 +26,12 @@ function jobboard_form_alter(&$form, &$form_state, $form_id) {
       '#value' => t('Buy now!'),
     );
   }
+  else {
+    switch ($form_id) {
+      case 'user_register_form':
+        $form['actions']['submit']['#value'] = t('Sign up');
+        break;
+    }
+  }
 }
 
