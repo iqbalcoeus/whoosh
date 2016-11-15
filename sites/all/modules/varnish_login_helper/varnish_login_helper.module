@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function varnish_login_helper_init() {
+  // If this is an anonymous request we need to add in some javascript to make
+  // sure it actually IS an anonymous request. Varnish invokes client-side
+  // caching which means a cached page can still be served to an authenticated
+  // user for up to 15 minutes.
+  // We'll put this straight in the document to avoid having to load another js
+  // file.
+  
+  // We need jQuery cookie on every page (unavoidable as far as I can tell).
+  drupal_add_library('system', 'jquery.cookie');
+  
+  if (user_is_anonymous()) {
+    drupal_add_js("
+      var cookieVal = jQuery.cookie('mototribe_custom_user');
+      if (cookieVal != null) {
+        var urls = cookieVal.split(',');
+        
+        // Make sure this page hasn't already been reloaded to avoid loops.
+        var processed = false;
+        jQuery.each(urls, function(i,e) {
+          if (e == document.URL) {
+            processed = true;
+          }
+        });
+        
+        if (!processed) {
+          urls.push(document.URL);
+          cookieVal = urls.join(',');
+          
+          jQuery.cookie('mototribe_custom_user', cookieVal);
+          window.location.reload(true);
+        }
+      }", 
+    'inline');
+  }
+  else {
+    // If the request is from an authenticated used, we need make sure the
+    // jQuery cookie is set for every page. This logic needs to be here because
+    // hook_user_login() doesn't necessarily get called during a displayed page.
+    // The request is normally redirected so we can't inject any JS. We reset to
+    // an empty string so all future chains of similar requests also continue to 
+    // work, and we can avoid js redirect loops.
+    drupal_add_js("if (jQuery.cookie('mototribe_custom_user') == null) { jQuery.cookie('mototribe_custom_user', '', { path: '/' }); }", 'inline');
+  }
+}

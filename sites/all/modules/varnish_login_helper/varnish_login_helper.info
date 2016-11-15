@@ -1,0 +1,3 @@
+name = Varnish Login Helper
+description = Small module to force page refreshes when authenticated users visit a page that has been cached on the client side prior to login.
+core = 7.x
