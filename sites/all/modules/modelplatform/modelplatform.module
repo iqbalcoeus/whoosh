@@ -1,1 +1,30 @@
 <?php
+
+define('MODELPLATFORM_MODEL_ROLE_NAME', 'Model');
+
+/**
+ * Implements hook_form_alter().
+ */
+function modelplatform_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case 'user_profile_form':
+      $access = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
+      $access = $access && user_access('modelplatform administer models');
+      $form['field_model_is_active']['#access'] = $access;
+      break;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function modelplatform_permission() {
+  $permissions = array(
+    'modelplatform administer models' => array(
+      'title' => t('Administer models'),
+      'description' => t('Can moderate models profiles.'),
+    ),
+  );
+
+  return $permissions;
+}
