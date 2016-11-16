@@ -18,18 +18,16 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     case 'user_pass_reset':
-      if (arg(5) != 'login' && ($uid = (int) arg(2))) {
+      if ($uid = (int) arg(2)) {
         if ($account = user_load($uid)) {
-          if (module_exists('logintoboggan')) {
-            $id = logintoboggan_validating_id();
-            $in_pre_auth_role = in_array($id, array_keys($account->roles));
-            if ($in_pre_auth_role) {
-              drupal_set_title(t('E-mail verification.'));
-              drupal_set_message(t('You have successfully validated your e-mail address.'));
-              $message = t('<p>Click on this button to log in to the site.</p>',
-                array('%user_name' => $user->name));
-              $form['message']['#markup'] = $message;
-            }
+          $id = variable_get('logintoboggan_pre_auth_role', DRUPAL_AUTHENTICATED_RID);
+          $in_pre_auth_role = in_array($id, array_keys($account->roles));
+          if ($in_pre_auth_role) {
+            drupal_set_title(t('E-mail verification.'));
+            drupal_set_message(t('You have successfully validated your e-mail address.'));
+            $message = t('<p>Click on this button to log in to the site.</p>',
+              array('%user_name' => $user->name));
+            $form['message']['#markup'] = $message;
           }
         }
       }
