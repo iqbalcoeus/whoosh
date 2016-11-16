@@ -6,12 +6,28 @@ define('MODELPLATFORM_MODEL_ROLE_NAME', 'Model');
  * Implements hook_form_alter().
  */
 function modelplatform_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
   switch($form_id) {
     case 'user_profile_form':
-      $access = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
-      $access = $access && user_access('modelplatform administer models');
-      $form['field_model_is_active']['#access'] = $access;
+      if (isset($form['field_model_is_active'])) {
+        $access = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
+        $access = $access && user_access('modelplatform administer models');
+        $form['field_model_is_active']['#access'] = $access;
+      }
       break;
+
+    case 'user_pass_reset':
+      if (isset($form['message']['#markup'])) {
+        $message = t('<p>This is a one-time login for %user_name.</p>
+         <p>Click on this button to log in to the site.</p>',
+          array('%user_name' => $user->name));
+        $form['message']['#markup'] = $message;
+      }
+      break;
+
+    default:
+      // Nothing to do.
   }
 }
 
