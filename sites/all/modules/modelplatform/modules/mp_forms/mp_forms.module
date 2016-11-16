@@ -1,0 +1,21 @@
+<?php
+
+require_once 'mp_forms.inc';
+
+/**
+ * Implements hook_form_profile2_form_alter().
+ */
+function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
+  if (isset($form['#user_category'])) {
+    $profile_id = 'profile_' . $form['#user_category'];
+
+    switch ($form['#user_category']) {
+      case 'model_private_data':
+        _mp_forms_model_private_data_form($form, $form_state, $profile_id);
+        break;
+
+      default:
+        // Nothing to do.
+    }
+  }
+}
