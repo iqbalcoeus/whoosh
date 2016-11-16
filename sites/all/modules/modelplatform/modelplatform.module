@@ -19,8 +19,7 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
 
     case 'user_pass_reset':
       if (isset($form['message']['#markup'])) {
-        $message = t('<p>This is a one-time login for %user_name.</p>
-         <p>Click on this button to log in to the site.</p>',
+        $message = t('<p>Click on this button to log in to the site.</p>',
           array('%user_name' => $user->name));
         $form['message']['#markup'] = $message;
       }
