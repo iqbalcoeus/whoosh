@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile2 - Model Private Data feature.
+ */
+
+include_once 'profile2_model_private_data.features.inc';
