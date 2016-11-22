@@ -1,0 +1,7 @@
+name = Model Platform - Profile 2 Moderation
+description = "Model Platform - Profile 2 Moderation page with some permissions."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform
+dependencies[] = profile2_moderation

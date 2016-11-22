@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cimpleo
+ * Date: 22.11.16
+ * Time: 16:20
+ */
+
+require_once 'mp_profile2_moderation.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function mp_profile2_moderation_menu() {
+  $items = array();
+  $items['admin/profile/%profile2/revisions/%/reject'] = array(
+    'title' => 'Delete revision',
+    'load arguments' => array(4),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('profile2_moderation_revision_reject_confirm', 2, 4),
+    'access arguments' =>  array('delete profile revisions'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function mp_profile2_moderation_menu_alter(&$items) {
+  if (isset($items['admin/people/profiles/moderation'])) {
+    $items['admin/people/profiles/moderation']['page callback'] = '_mp_profile2_moderation_page';
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_profile2_moderation_permission() {
+  $permissions = array(
+    'reject profile revisions' => array(
+      'title' => t('Reject model profile revisions.'),
+      'description' => t('Can moderate models profiles.'),
+    ),
+  );
+
+  return $permissions;
+}
