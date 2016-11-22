@@ -14,6 +14,10 @@ function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
         _mp_forms_model_private_data_form($form, $form_state, $profile_id);
         break;
 
+      case 'model_basic_informaiton':
+        _mp_forms_model_basic_informaiton_form($form, $form_state, $profile_id);
+        break;
+
       default:
         // Nothing to do.
     }

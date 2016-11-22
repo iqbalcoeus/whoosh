@@ -1,13 +1,17 @@
 <?php
 
+require_once 'modelplatform.inc';
+
+// Roles.
 define('MODELPLATFORM_MODEL_ROLE_NAME', 'Model');
+
+// Vocabularies.
+define('MODELPLATFORM_VOCABULARY_AGE_CATEGORY', 'age_category');
 
 /**
  * Implements hook_form_alter().
  */
 function modelplatform_form_alter(&$form, &$form_state, $form_id) {
-  global $user;
-
   switch($form_id) {
     case 'user_profile_form':
       if (isset($form['field_model_is_active'])) {

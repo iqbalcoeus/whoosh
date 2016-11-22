@@ -45,3 +45,19 @@ function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
     );
   }
 }
+
+/**
+ * Customization of model basic information profile form.
+ */
+function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_id) {
+  $form[$profile_id]['field_verification_status']['#disabled'] = TRUE;
+  $form[$profile_id]['field_age_category']['#access'] = FALSE;
+  $form['#submit'][] = '_mp_forms_model_basic_informaiton_form_submit';
+}
+
+/**
+ * .
+ */
+function _mp_forms_model_basic_informaiton_form_submit($form, &$form_state) {
+  _modelplatform_update_model_age_category($form['#user']);
+}
