@@ -16,7 +16,11 @@ function profile2_install() {
       'type' => 'main',
       'label' => t('Main profile'),
       'weight' => 0,
-      'data' => array('registration' => TRUE, 'use_page' => TRUE),
+      'data' => array(
+        'registration' => TRUE,
+        'use_page' => TRUE,
+        'revisions' => 0,
+      ),
     ));
     $type->save();
     user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('edit own main profile', 'view own main profile'));
@@ -36,6 +40,7 @@ function profile2_schema() {
         'not null' => TRUE,
         'description' => 'Primary Key: Unique profile item ID.',
       ),
+      'vid' => _profile2_vid_field(),
       'type' => array(
         'description' => 'The {profile_type}.type of this profile.',
         'type' => 'varchar',
@@ -82,7 +87,12 @@ function profile2_schema() {
       ),
     ),
     'primary key' => array('pid'),
+    'unique keys' => array(
+      'vid' => array('vid'),
+    ),
   );
+
+  $schema['profile_revision'] = _profile2_revision_table();
 
   $schema['profile_type'] = array(
     'description' => 'Stores information about all defined profile types.',
@@ -141,6 +151,93 @@ function profile2_schema() {
     ),
   );
   return $schema;
+}
+
+/**
+ * Define the vid (version ID) field for the {profile} table.
+ *
+ * Put it in a separate function in order to guarantee that we use the same
+ * definition in hook_schema() and hook_update_N().
+ */
+function _profile2_vid_field() {
+  $vid_field = array(
+    'description' => 'The current {profile_revision}.vid version identifier.',
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => FALSE,
+    'default' => NULL,
+  );
+
+  return $vid_field;
+}
+
+/**
+ * Define the {profile_revision} table.
+ *
+ * Put it in a separate function in order to guarantee that we use the same
+ * definition in hook_schema() and hook_update_N().
+ */
+function _profile2_revision_table() {
+  $profile_revision = array(
+    'description' => 'Stores information about each saved version of a {profile}.',
+    'fields' => array(
+      'pid' => array(
+        'description' => 'The {profile} this version belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'vid' => array(
+        'description' => 'Primary Key: Unique identifier of this version.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'authorid' => array(
+        'description' => 'The {users}.uid that created this version.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'label' => array(
+        'description' => 'A human-readable label for this profile.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'log' => array(
+        'description' => 'The log entry explaining the changes in this version.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'timestamp' => array(
+        'description' => 'A Unix timestamp indicating when this version was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'pid' => array('pid'),
+      'authorid' => array('authorid'),
+    ),
+    'primary key' => array('vid'),
+    'foreign keys' => array(
+      'versioned_profile' => array(
+        'table' => 'profile',
+        'columns' => array('pid' => 'pid'),
+      ),
+      'version_uid' => array(
+        'table' => 'users',
+        'columns' => array('authorid' => 'uid'),
+      ),
+    ),
+  );
+
+  return $profile_revision;
 }
 
 /**
@@ -203,4 +300,30 @@ function profile2_update_7102() {
     'type' => 'int',
     'not null' => FALSE,
   ));
+}
+
+/**
+ * Add revisioning support.
+ */
+function profile2_update_7103() {
+  db_add_field('profile', 'vid', _profile2_vid_field());
+
+  $profile_revision = _profile2_revision_table();
+  db_create_table('profile_revision', $profile_revision);
+
+  // Add version id data to the profile.
+  db_query('UPDATE {profile} SET vid = pid');
+
+  // Add current revision data to the revision table.
+  db_query("INSERT INTO {profile_revision} (pid, vid, authorid, label, log, timestamp)
+            SELECT pid, vid, uid, label, '', UNIX_TIMESTAMP()
+            FROM {profile}");
+
+  db_add_unique_key('profile', 'vid', array('vid'));
+
+  // Set the revisions flag for existing profiles.
+  foreach (profile2_get_types() as $profile_type) {
+    $profile_type->data['revisions'] = 0;
+    $profile_type->save();
+  }
 }

@@ -58,6 +58,13 @@ function profile2_type_form($form, &$form_state, $profile_type, $op = 'edit') {
     '#default_value' => !empty($profile_type->data['registration']),
   );
 
+  $form['data']['revisions'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Create new revision.'),
+    '#default_value' => !empty($profile_type->data['revisions']),
+    '#description' => t('Users with <em>Administer profiles</em> will be able to override this option.'),
+  );
+
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
