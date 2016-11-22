@@ -103,7 +103,7 @@ function profile2_moderation_unmoderate_revision_list() {
       u.name AS username
     FROM {profile_revision} r 
     LEFT JOIN {profile} p ON p.pid = r.pid 
-    INNER JOIN {users} u ON u.uid = p.uid 
+    INNER JOIN {users} u ON u.uid = p.uid     
     WHERE r.status = 0 AND r.vid > p.vid
     GROUP BY p.pid, p.vid, u.name
     ORDER BY r.vid DESC
@@ -116,27 +116,65 @@ function profile2_moderation_unmoderate_revision_list() {
 }
 
 /**
+ * Returns value.
+ */
+function _profile2_moderation_get_value($value) {
+  return $value;
+}
+
+/**
+ * Returns file uri by fid.
+ */
+function _profile2_moderation_get_file_uri($fid) {
+  $file = file_load($fid);
+  $uri = isset($file->uri) ? $file->uri : NULL;
+
+  return $uri;
+}
+
+/**
+ * Returns term name by tid.
+ */
+function _profile2_moderation_get_term_name($tid) {
+  $term = taxonomy_term_load($tid);
+  $name = isset($term->name) ? $term->name : NULL;
+
+  return $name;
+}
+
+/**
  * Diffs two profile revisions.
  */
 function profile2_moderation_get_revisions_diff($profile1, $profile2) {
+  $value_handlers = array(
+    'value' => '_profile2_moderation_get_value',
+    'fid' => '_profile2_moderation_get_file_uri',
+    'tid' => '_profile2_moderation_get_term_name',
+  );
   $properties = get_object_vars($profile1);
   $result = array();
   foreach ($properties as $key => $value) {
     if ($profile2->{$key} != $value) {
-      // Just fields please.
-      if (isset($value[LANGUAGE_NONE][0]) || isset($profile2->{$key}[LANGUAGE_NONE][0])) {
-        $result[$key] = array();
+      foreach ($value_handlers as $value_name => $function) {
+        // Just fields please.
+        if (isset($value[LANGUAGE_NONE][0][$value_name]) || isset($profile2->{$key}[LANGUAGE_NONE][0][$value_name])) {
+          $result[$key] = array();
 
-        if (isset($value[LANGUAGE_NONE][0])) {
-          $result[$key][] = $value[LANGUAGE_NONE][0]['value'];
-        } else {
-          $result[$key][] = "'" . t('Empty') . "'";
-        }
+          if (isset($value[LANGUAGE_NONE][0][$value_name])) {
+            $_value = $value[LANGUAGE_NONE][0][$value_name];
+            $result[$key][] = $function($_value);
+          }
+          else {
+            $result[$key][] = "'" . t('Empty') . "'";
+          }
 
-        if (isset($profile2->{$key}[LANGUAGE_NONE][0])) {
-          $result[$key][] = $profile2->{$key}[LANGUAGE_NONE][0]['value'];
-        } else {
-          $result[$key][] = "'" . t('Empty') . "'";
+          if (isset($profile2->{$key}[LANGUAGE_NONE][0][$value_name])) {
+            $_value = $profile2->{$key}[LANGUAGE_NONE][0][$value_name];
+            $result[$key][] = $function($_value);
+          }
+          else {
+            $result[$key][] = "'" . t('Empty') . "'";
+          }
         }
       }
     }
