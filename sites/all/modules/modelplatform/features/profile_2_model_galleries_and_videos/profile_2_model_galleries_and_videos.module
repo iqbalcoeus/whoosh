@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile 2 - Model Galleries and Videos feature.
+ */
+
+include_once 'profile_2_model_galleries_and_videos.features.inc';

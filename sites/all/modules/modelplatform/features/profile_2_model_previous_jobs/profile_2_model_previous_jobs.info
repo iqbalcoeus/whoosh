@@ -1,0 +1,17 @@
+name = Profile 2 - Model Previous Jobs
+description = Profile 2 - Model Previous Jobs
+core = 7.x
+package = Model Platform
+dependencies[] = entity
+dependencies[] = features
+dependencies[] = field_collection
+dependencies[] = profile2
+dependencies[] = text
+features[features_api][] = api:2
+features[field_base][] = field_client
+features[field_base][] = field_job_title
+features[field_base][] = field_previous_jobs
+features[field_instance][] = field_collection_item-field_previous_jobs-field_client
+features[field_instance][] = field_collection_item-field_previous_jobs-field_job_title
+features[field_instance][] = profile2-previous_model_jobs-field_previous_jobs
+features[profile2_type][] = previous_model_jobs

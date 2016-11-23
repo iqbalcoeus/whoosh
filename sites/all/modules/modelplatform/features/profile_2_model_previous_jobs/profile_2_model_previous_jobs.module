@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile 2 - Model Previous Jobs feature.
+ */
+
+include_once 'profile_2_model_previous_jobs.features.inc';

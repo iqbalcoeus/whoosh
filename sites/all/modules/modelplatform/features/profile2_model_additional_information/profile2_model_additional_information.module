@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile2 - Model Additional Information feature.
+ */
+
+include_once 'profile2_model_additional_information.features.inc';

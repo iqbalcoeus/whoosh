@@ -11,41 +11,6 @@ function profile2_model_private_data_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_c_base_city-field_base_city'.
-  $field_instances['field_collection_item-field_c_base_city-field_base_city'] = array(
-    'bundle' => 'field_c_base_city',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_base_city',
-    'label' => 'Base City',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance:
   // 'field_collection_item-field_c_base_city-field_base_city_checked'.
   $field_instances['field_collection_item-field_c_base_city-field_base_city_checked'] = array(
     'bundle' => 'field_c_base_city',
@@ -80,6 +45,41 @@ function profile2_model_private_data_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_c_base_city-field_model_base_city'.
+  $field_instances['field_collection_item-field_c_base_city-field_model_base_city'] = array(
+    'bundle' => 'field_c_base_city',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_model_base_city',
+    'label' => 'Base city',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 4,
     ),
   );
 
@@ -200,6 +200,40 @@ function profile2_model_private_data_field_default_field_instances() {
       'settings' => array(),
       'type' => 'link_field',
       'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-model_private_data-field_base_city'.
+  $field_instances['profile2-model_private_data-field_base_city'] = array(
+    'bundle' => 'model_private_data',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_base_city',
+    'label' => 'Base city',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
     ),
   );
 
@@ -806,7 +840,6 @@ function profile2_model_private_data_field_default_field_instances() {
   t('Account holder');
   t('Account number');
   t('Additional documents');
-  t('Base City');
   t('Base City Checked');
   t('Base city');
   t('Certificate of registration');

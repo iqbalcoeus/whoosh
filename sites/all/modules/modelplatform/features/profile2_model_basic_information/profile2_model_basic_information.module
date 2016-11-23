@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile2 - Model Basic Information feature.
+ */
+
+include_once 'profile2_model_basic_information.features.inc';
