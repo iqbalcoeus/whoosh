@@ -1,0 +1,53 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: cimpleo
+ * Date: 23.11.16
+ * Time: 10:03
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function mp_profile2_moderation_schema() {
+  $schema['pfile2_field_rejects'] = array(
+    'description' => 'Stores profile rejected profile revisions.',
+    'fields' => array(
+      'pid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique profile item ID.',
+      ),
+      'vid' => array(
+        'description' => 'The current {profile_revision}.vid version identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => "The {users}.uid of the associated user.",
+      ),
+    ),
+    'primary key' => array('pid'),
+    'unique keys' => array(
+      'vid' => array('vid'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Create pfile2_field_rejects table if it not exists.
+ */
+function mp_profile2_moderation_update_7101() {
+  if (!db_table_exists('pfile2_field_rejects')) {
+    $schema = drupal_get_schema('pfile2_field_rejects');
+    db_create_table('pfile2_field_rejects', $schema);
+  }
+}
