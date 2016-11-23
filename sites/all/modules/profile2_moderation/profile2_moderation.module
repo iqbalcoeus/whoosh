@@ -59,7 +59,6 @@ function profile2_moderation_profile2_update($profile) {
     return FALSE;
   }
 
-  watchdog('profile test', 'skip_moderation_update_hook ?');
   if ($profile->vid != $profile->original->vid && !isset($profile->skip_moderation_update_hook)) {
     // Set newly created revision status to 0 (not moderated).
     db_update('profile_revision')->fields(array(
@@ -69,7 +68,6 @@ function profile2_moderation_profile2_update($profile) {
     $profile->original->skip_moderation_update_hook = TRUE;
     entity_revision_set_default('profile2', $profile->original);
     entity_save('profile2', $profile->original);
-    watchdog('profile test', 'skip_moderation_update_hook = 1');
   }
 }
 
