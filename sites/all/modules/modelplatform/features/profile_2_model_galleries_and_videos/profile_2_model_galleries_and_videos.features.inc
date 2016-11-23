@@ -22,8 +22,8 @@ function profile_2_model_galleries_and_videos_default_profile2_type() {
     "userCategory" : true,
     "userView" : true,
     "type" : "model_videos",
-    "label" : "Model Videos",
-    "weight" : "0",
+    "label" : "Video section",
+    "weight" : "10",
     "data" : { "registration" : 0, "revisions" : 1, "moderation" : 1, "use_page" : 0 },
     "rdf_mapping" : []
   }');
