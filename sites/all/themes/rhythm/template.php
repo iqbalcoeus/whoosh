@@ -178,7 +178,7 @@ function rhythm_status_messages($variables) {
     'warning' => 'fa-times-circle',
   ); 
   foreach (drupal_get_messages($display) as $type => $messages) {
-    $output .= "<div style=\"display: none;\" class=\"alert " . $types[$type] . "\">\n<i class=\"fa fa-lg fa-" . $icons[$type] . "\"></i>";
+    $output .= "<div class=\"alert " . $types[$type] . "\">\n<i class=\"fa fa-lg fa-" . $icons[$type] . "\"></i>";
     if (!empty($status_heading[$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";
     }
