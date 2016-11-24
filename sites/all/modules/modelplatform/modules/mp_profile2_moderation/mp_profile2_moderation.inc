@@ -25,36 +25,33 @@ function _mp_get_field_label($field_name, $entity_type, $bundle) {
  * Get Profile2 revision diff.
  */
 function _mp_profile2_moderation_get_revisions_diff($profile1, $profile2) {
-  $value_handlers = array(
-    'value' => '_profile2_moderation_get_value',
-    'fid' => '_profile2_moderation_get_file_uri',
-    'tid' => '_profile2_moderation_get_term_name',
+  $_fields = array(
+    'vid',
+    'timestamp',
+    'default_revision',
+  );
+  $display = array(
+    'label' => 'hidden',
   );
   $properties = get_object_vars($profile1);
   $result = array();
   foreach ($properties as $key => $value) {
-    if ($profile2->{$key} != $value) {
+    if (!in_array($key, $_fields) && $profile2->{$key} != $value) {
       $_key = _mp_get_field_label($key, 'profile2', $profile1->type);
-      foreach ($value_handlers as $value_name => $function) {
-        // Just fields please.
-        if (isset($value[LANGUAGE_NONE][0][$value_name]) || isset($profile2->{$key}[LANGUAGE_NONE][0][$value_name])) {
-          $result[$_key] = array();
+      if (is_array($value) || is_array($profile2->{$key})) {
+        $result[$_key] = array();
+        if (is_array($value)) {
+          $result[$_key][] = field_view_field('profile2', $profile1, $key, $display);
+        }
+        else {
+          $result[$_key][] = "'" . t('Empty') . "'";
+        }
 
-          if (isset($value[LANGUAGE_NONE][0][$value_name])) {
-            $_value = $value[LANGUAGE_NONE][0][$value_name];
-            $result[$_key][] = $function($_value);
-          }
-          else {
-            $result[$_key][] = "'" . t('Empty') . "'";
-          }
-
-          if (isset($profile2->{$key}[LANGUAGE_NONE][0][$value_name])) {
-            $_value = $profile2->{$key}[LANGUAGE_NONE][0][$value_name];
-            $result[$_key][] = $function($_value);
-          }
-          else {
-            $result[$_key][] = "'" . t('Empty') . "'";
-          }
+        if (is_array($profile2->{$key})) {
+          $result[$_key][] = field_view_field('profile2', $profile2, $key, $display);
+        }
+        else {
+          $result[$_key][] = "'" . t('Empty') . "'";
         }
       }
     }
@@ -103,9 +100,9 @@ function _mp_profile2_moderation_page() {
     $diff_rows = array();
     foreach ($diff as $key => $value) {
       $diff_row = array();
-      $diff_row[] = '<em>' . $key . '</em>: ';
-      $diff_row[] = '<span><b>' . $value[0] . '</b></span>';
-      $diff_row[] = '<span>' . $value[1] . '</span>';
+      $diff_row[] = '<em><b>' . $key . '</b></em>: ';
+      $diff_row[] = '<span>' . drupal_render($value[0]) . '</span>';
+      $diff_row[] = '<span>' . drupal_render($value[1]) . '</span>';
       $diff_rows[] = $diff_row;
     }
 
@@ -162,7 +159,10 @@ function _mp_profile2_moderation_unmoderate_revision_list() {
   $qrev->condition('pr.status', 0);
   $qrev->innerJoin('profile', 'p', 'p.pid = pr.pid AND p.vid < pr.vid');
   $qrev->innerJoin('users', 'u', 'u.uid = p.uid');
-  $qrev->innerJoin('field_data_field_model_is_active', 'ma', 'ma.field_model_is_active_value = 1 AND ma.entity_id = u.uid AND ma.entity_type = \'user\'');
+  $qrev->innerJoin('field_data_field_model_is_active', 'ma',
+    'ma.field_model_is_active_value = 1 AND 
+     ma.entity_id = u.uid AND 
+     ma.entity_type = \'user\'');
   $qrev->groupBy('p.pid');
   $qrev->groupBy('p.vid');
   $qrev->groupBy('u.name');
@@ -179,6 +179,7 @@ function _mp_profile2_moderation_unmoderate_revision_list() {
     foreach ($rejected as $reject) {
       if ($reject->pid == $revision->pid && $reject->vid == $revision->vid) {
         $flag = FALSE;
+        break;
       }
     }
     if ($flag) {
