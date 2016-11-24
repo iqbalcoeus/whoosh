@@ -46,3 +46,23 @@ function mp_profile2_moderation_permission() {
 
   return $permissions;
 }
+
+/**
+ * Implements hook_user_insert().
+ */
+function mp_profile2_moderation_user_insert(&$edit, $account, $category) {
+  if (in_array(MODELPLATFORM_MODEL_ROLE_NAME, $account->roles)) {
+    $types = array(
+      'model_private_data',
+      'model_basic_informaiton',
+      'model_additional_info',
+      'previous_model_jobs',
+      'galleries',
+      'model_videos',
+    );
+    foreach ($types as $type) {
+      $profile = profile2_create(array('type' => $type, 'uid' => $account->uid));
+      profile2_save($profile);
+    }
+  }
+}
