@@ -16,3 +16,7 @@
 .field-name-field-base-city-checked label {
   display: none;
 }
+
+.file-widget {
+  display: flex;
+}
