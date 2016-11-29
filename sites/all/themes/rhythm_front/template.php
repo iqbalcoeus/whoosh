@@ -8,7 +8,7 @@ function rhythm_front_menu_local_tasks(array $variables) {
 
   if (!empty($variables['primary'])) {
     $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
-    $variables['primary']['#prefix'] .= '<div class = "align-center mb-40 mb-xxs-30"><ul class="nav nav-tabs tpl-tabs">';
+    $variables['primary']['#prefix'] .= '<div class = "align-center mb-40 mb-xxs-30"><ul class="nav nav-tabs tpl-minimal-tabs">';
     $variables['primary']['#suffix'] = '</ul></div>';
     $output .= drupal_render($variables['primary']);
   }
