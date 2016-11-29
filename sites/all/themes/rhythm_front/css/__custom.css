@@ -1,7 +1,8 @@
 @charset "UTF-8";
 /* Insert your custom CSS styles */
 
-.field-name-field-c-base-city tr > td:nth-child(2) {
+.field-name-field-c-base-city tr > td:nth-child(2),
+.field-name-field-previous-jobs tr > td:nth-child(2) {
   display: flex;
   flex-flow: nowrap row;
   justify-content: space-between;
@@ -9,7 +10,10 @@
 
 .page-user-edit .field-name-field-base-city-checked,
 .page-user-edit .field-name-field-model-base-city,
-.page-user-edit .field-name-field-c-base-city .form-submit {
+.page-user-edit .field-name-field-c-base-city .form-submit,
+.page-user-edit .field-name-field-previous-jobs .form-submit,
+.page-user-edit .field-name-field-client,
+.page-user-edit .field-name-field-job-title {
   margin-right: 10px;
 }
 
