@@ -3,7 +3,7 @@
 /**
  * Overrides theme_menu_local_tasks().
  */
-function rhythm_menu_local_tasks(array $variables) {
+function rhythm_front_menu_local_tasks(array $variables) {
   $output = '';
 
   if (!empty($variables['primary'])) {
