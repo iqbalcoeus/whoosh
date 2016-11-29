@@ -1,4 +1,18 @@
 @charset "UTF-8";
 /* Insert your custom CSS styles */
 
+.field-name-field-c-base-city tr > td:nth-child(2) {
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-between;
+}
 
+.field-name-field-base-city-checked,
+.field-name-field-model-base-city,
+.field-name-field-c-base-city .form-submit {
+  margin-right: 10px;
+}
+
+.field-name-field-base-city-checked label {
+  display: none;
+}

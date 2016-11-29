@@ -13,7 +13,7 @@ regions[content_full]       = Content Full Width
 regions[bottom]             = Content Bottom
 regions[footer]             = Footer
 
-;stylesheets[all][] = css/custom.css
+stylesheets[all][] = css/__custom.css
 
 features[] = name
 features[] = logo
