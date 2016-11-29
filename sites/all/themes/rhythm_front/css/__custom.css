@@ -7,13 +7,14 @@
   justify-content: space-between;
 }
 
-.field-name-field-base-city-checked,
-.field-name-field-model-base-city,
-.field-name-field-c-base-city .form-submit {
+.page-user-edit .field-name-field-base-city-checked,
+.page-user-edit .field-name-field-model-base-city,
+.page-user-edit .field-name-field-c-base-city .form-submit {
   margin-right: 10px;
 }
 
-.field-name-field-base-city-checked label {
+.page-user-edit .field-name-field-base-city-checked label,
+.page-user-edit .field-type-addressfield label {
   display: none;
 }
 
