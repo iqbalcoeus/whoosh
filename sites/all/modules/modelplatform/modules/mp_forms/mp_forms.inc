@@ -94,6 +94,36 @@ function _mp_forms_get_changed_fields() {
  * Customization of model basic information profile form.
  */
 function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_id) {
+  drupal_add_library('system', 'ui.widget');
+  drupal_add_library('system', 'ui.mouse');
+  drupal_add_library('system', 'ui.slider');
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
+  );
+
+  // Sliders fields.
+  $slider_fields = array(
+    'field_height',
+    'field_waist',
+    'field_chest',
+    'field_hip',
+  );
+
+  // Prepare sliders
+  $sliders = array();
+  foreach ($slider_fields as $field_name) {
+    $field_instance = field_info_instance('profile2', $field_name, $form['#user_category']);
+    $field_settings = $field_instance['settings'];
+    $selector = '#' . str_replace('_', '-', 'edit-' . $profile_id . '-' . $field_name);
+    $sliders[$field_name] = array(
+      'selector' => $selector,
+      'min' => $field_settings['min'],
+      'max' => $field_settings['max'],
+      'label' => '<label>' . t($form[$profile_id][$field_name][LANGUAGE_NONE]['#title']) . '</label>'
+    );
+  }
+  drupal_add_js(array('mp_forms' => array('sliders' => $sliders)), 'setting');
+
   $form[$profile_id]['field_verification_status']['#disabled'] = TRUE;
   $form[$profile_id]['field_age_category']['#access'] = FALSE;
   $form['#submit'][] = '_mp_forms_model_basic_informaiton_form_submit';
