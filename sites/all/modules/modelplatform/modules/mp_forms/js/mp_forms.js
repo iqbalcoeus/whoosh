@@ -20,7 +20,6 @@
               _value.val(ui.value);
             }
           });
-          wrapper.before(slider.label);
         });
       });
     }
