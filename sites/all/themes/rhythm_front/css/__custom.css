@@ -43,3 +43,7 @@
   padding-top: 0;
   background: transparent;
 }
+
+.field-name-field-c-base-city .field-name-field-model-base-city label {
+  display: none;
+}
