@@ -7,10 +7,7 @@ define('MP_FORMS_COUNTRY_CODE', 'DE');
  * Hide/display fields on the model private data profile form.
  */
 function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
-  $active_field_names = array(
-    'field_local_registration_documen',
-    'field_travel_passport',
-  );
+  $active_field_names = _mp_forms_get_changed_fields();
 
   foreach ($active_field_names as $field_name) {
     $form[$profile_id][$field_name]['#states'] = array(
@@ -44,6 +41,53 @@ function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
       ),
     );
   }
+
+  $form['#validate'][] = '_mp_forms_model_private_data_form_validate';
+}
+
+/**
+ * Validation.
+ *
+ * @see _mp_forms_model_private_data_form()
+ */
+function _mp_forms_model_private_data_form_validate($form, &$form_state) {
+  $active_field_names = _mp_forms_get_changed_fields();
+  $profile_id = 'profile_' . $form_state['build_info']['args'][1];
+
+  $values = &$form_state['values'][$profile_id];
+  $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
+  if ($country !== MP_FORMS_COUNTRY_CODE) {
+    foreach ($active_field_names as $field_name) {
+      if (!$values[$field_name][LANGUAGE_NONE][0]['fid']) {
+        $title = $form[$profile_id][$field_name]['und'][0]['#title'];
+        $message = t('Please upload @title', array('@title' => $title));
+        form_set_error($field_name, $message);
+      }
+    }
+  }
+
+  $model_agency_terms = $values['field_model_agensy_terms_of_use'][LANGUAGE_NONE][0]['value'];
+  $model_agency = $values['field_model_agency'][LANGUAGE_NONE][0]['value'];
+  if ($model_agency) {
+    if (!$model_agency_terms) {
+      $title = $form[$profile_id]['field_model_agensy_terms_of_use'][LANGUAGE_NONE]['#title'];
+      $message = t('You should accept !title', array('!title' => $title));
+      form_set_error('field_model_agensy_terms_of_use', $message);
+    }
+  }
+  else {
+    $values['field_model_agensy_terms_of_use'][LANGUAGE_NONE][0]['value'] = $model_agency;
+  }
+}
+
+/**
+ * Get required documents for non german citizens.
+ */
+function _mp_forms_get_changed_fields() {
+  return array(
+    'field_local_registration_documen',
+    'field_travel_passport',
+  );
 }
 
 /**
