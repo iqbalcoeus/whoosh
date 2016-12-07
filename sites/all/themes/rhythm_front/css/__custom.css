@@ -17,11 +17,6 @@
   margin-right: 10px;
 }
 
-.page-user-edit .field-name-field-base-city-checked label,
-.page-user-edit .field-type-addressfield label {
-  display: none;
-}
-
 .file-widget {
   display: flex;
 }
