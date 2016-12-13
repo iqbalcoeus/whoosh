@@ -42,6 +42,15 @@ function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
     );
   }
 
+  $title_suffix = "";
+  if ($fid = variable_get('parental_approval_for_minors', '')) {
+    $file = file_load($fid);
+    if (isset($file->uri)) {
+      $url = file_create_url($file->uri);
+      $title_suffix = ' (' . l(t('Example'), $url) . ')';
+    }
+  }
+  $form[$profile_id]['field_parental_approval_for_mino'][LANGUAGE_NONE][0]['#title'] .= $title_suffix;
   $form['#validate'][] = '_mp_forms_model_private_data_form_validate';
 }
 

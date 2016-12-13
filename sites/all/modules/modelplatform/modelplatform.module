@@ -9,6 +9,21 @@ define('MODELPLATFORM_MODEL_ROLE_NAME', 'Model');
 define('MODELPLATFORM_VOCABULARY_AGE_CATEGORY', 'age_category');
 
 /**
+ * Implements hook_menu().
+ */
+function modelplatform_menu() {
+  $items = array();
+  $items['admin/configure/modelplatform/documents'] = array(
+    'title' => t('Modelplatform documents'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('modelplatform_documents_form'),
+    'access arguments' =>  array('moderate modelplatform documents'),
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function modelplatform_form_alter(&$form, &$form_state, $form_id) {
@@ -43,7 +58,47 @@ function modelplatform_permission() {
       'title' => t('Administer models'),
       'description' => t('Can moderate models profiles.'),
     ),
+    'moderate modelplatform documents' => array(
+      'title' => t('Administer Modelplatform documents'),
+      'description' => t('Can moderate modelplatform document templates.'),
+    ),
   );
 
   return $permissions;
+}
+
+/**
+ * Modelplatform admin settings.
+ */
+function modelplatform_documents_form($form, &$form_state) {
+  $form['parental_approval_for_minors'] = array(
+    '#title' => t('Parental approval for minors'),
+    '#type' => 'managed_file',
+    '#description' => t('Template parental approval for minors.'),
+    '#default_value' => variable_get('parental_approval_for_minors', ''),
+    '#upload_location' => 'public://document_templates/',
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
+  return $form;
+}
+
+/**
+ * Modelplatform admin settings submit.
+ *
+ * @see modelplatform_documents_form()
+ */
+function modelplatform_documents_form_submit($form, &$form_state) {
+  global $user;
+  $file = file_load($form_state['values']['parental_approval_for_minors']);
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+
+  variable_set('parental_approval_for_minors', $file->fid);
+
+  file_usage_add($file, 'modelplatform', 'user', $user->uid);
 }
