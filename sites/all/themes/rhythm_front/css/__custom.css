@@ -64,4 +64,15 @@ a.tabledrag-handle .handle {
   padding-top: 20%;
 }
 
+.page-user-edit-model-videos .field-name-field-videos .form-item label {
+  display: none;
+}
+
+.page-user-edit-model-videos .field-name-field-videos .form-item {
+  margin: 10px;
+}
+
+.page-user-edit-model-videos .draggable a.tabledrag-handle {
+  padding-top: 33%;
+}
 
