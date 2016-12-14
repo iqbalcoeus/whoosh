@@ -42,3 +42,7 @@
 .field-name-field-c-base-city .field-name-field-model-base-city label {
   display: none;
 }
+
+a.tabledrag-toggle-weight {
+  display: none;
+}
