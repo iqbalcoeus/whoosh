@@ -66,3 +66,52 @@ function mp_profile2_moderation_user_insert(&$edit, $account, $category) {
     }
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function mp_profile2_moderation_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'node_gallery_item_node_form':
+      $form['field_ver_status']['#disabled'] = !user_access('reject profile revisions');
+      break;
+
+    default:
+      // Nothing to do.
+  }
+}
+
+/**
+ * Implements hook_workbench_moderation_transition().
+ */
+function mp_profile2_moderation_workbench_moderation_transition($node, $previous_state, $new_state) {
+  if ($_SESSION['prevent_error']) {
+    $_SESSION['prevent_error'] = FALSE;
+    return;
+  }
+  if ($previous_state !== $new_state && user_access('reject profile revisions')) {
+    $status_field = field_get_items('node', $node, 'field_ver_status');
+    if (isset($status_field[0]['tid'])) {
+      $terms = array();
+      switch ($new_state) {
+        case 'draft':
+          $terms = taxonomy_get_term_by_name('hidden/rejected', 'verification_status');
+          break;
+
+        case 'published':
+          $terms = taxonomy_get_term_by_name('approved', 'verification_status');
+          break;
+
+        default:
+          // Nothing to do.
+      }
+
+      if (count($terms)) {
+        $_SESSION['prevent_error'] = TRUE;
+        $term = reset($terms);
+        $node->field_ver_status[LANGUAGE_NONE][0]['tid'] = $term->tid;
+        node_save($node);
+      }
+    }
+  }
+}
