@@ -57,6 +57,11 @@ a.tabledrag-toggle-weight {
 a.tabledrag-handle .handle {
   margin: 0;
   padding: 0;
+  background-position: 0 0;
+}
+.draggable a.tabledrag-handle {
+  margin-left: 0;
+  padding-top: 20%;
 }
 
 
