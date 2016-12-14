@@ -1,11 +1,19 @@
 @charset "UTF-8";
 /* Insert your custom CSS styles */
-
 .field-name-field-c-base-city tr > td:nth-child(2),
 .field-name-field-previous-jobs tr > td:nth-child(2) {
+  margin: 10px;
+}
+.field-name-field-c-base-city tr > td:nth-child(2),
+.field-name-field-previous-jobs tr > td:nth-child(2),
+.field-name-field-c-base-city .ajax-new-content,
+.field-name-field-previous-jobs .ajax-new-content {
   display: flex;
   flex-flow: nowrap row;
   justify-content: space-between;
+}
+.form-type-checkbox {
+  margin-top: 20%;
 }
 
 .page-user-edit .field-name-field-base-city-checked,
@@ -46,3 +54,9 @@
 a.tabledrag-toggle-weight {
   display: none;
 }
+a.tabledrag-handle .handle {
+  margin: 0;
+  padding: 0;
+}
+
+
