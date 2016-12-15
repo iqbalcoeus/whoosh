@@ -28,8 +28,8 @@ function profile_2_model_galleries_and_videos_default_profile2_type() {
     "rdf_mapping" : []
   }');
 
-  t("Image section");
-  t("Video section");
+  t('Image section');
+  t('Video section');
 
   return $items;
 }
