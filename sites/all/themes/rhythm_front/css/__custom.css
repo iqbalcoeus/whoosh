@@ -76,3 +76,6 @@ a.tabledrag-handle .handle {
   padding-top: 33%;
 }
 
+.page-user-edit-galleries #user-profile-form {
+  display: none;
+}
