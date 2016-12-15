@@ -1,0 +1,6 @@
+name = Model Platform - Galleries
+description = "Model Platform Galleries."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform

@@ -12,7 +12,7 @@
   flex-flow: nowrap row;
   justify-content: space-between;
 }
-.form-type-checkbox {
+.field-type-field-collection .form-type-checkbox {
   margin-top: 20%;
 }
 
