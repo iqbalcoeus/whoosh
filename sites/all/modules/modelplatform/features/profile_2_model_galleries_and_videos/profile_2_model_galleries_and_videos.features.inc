@@ -13,7 +13,7 @@ function profile_2_model_galleries_and_videos_default_profile2_type() {
     "userCategory" : true,
     "userView" : true,
     "type" : "galleries",
-    "label" : "Galleries",
+    "label" : "Image section",
     "weight" : "8",
     "data" : { "registration" : 0, "revisions" : 1, "moderation" : 1, "use_page" : 0 },
     "rdf_mapping" : []
