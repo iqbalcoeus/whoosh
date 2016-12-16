@@ -139,3 +139,25 @@ function modelplatform_menu_local_tasks_alter(&$data, $router_item, $root_path) 
     }
   }
 }
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function modelplatform_node_view_alter(&$build) {
+  if ($build['#entity_type'] == 'node'
+   && $build['#bundle'] == 'node_gallery_gallery'
+   && $build['#view_mode'] == 'teaser') {
+    $old = $build['links']['node']['#links']['node-readmore'];
+    $build['links']['node']['#links']['node-add-image'] = array(
+      'title' => t('Add more images'),
+      'href' => $old['href'] . '/upload',
+      'html' => TRUE,
+      'attributes' => array(
+        'rel' => 'tag',
+        'title' => t('Add more images'),
+      ),
+    );
+    unset($build['links']['node']['#links']['node-readmore']);
+    unset($build['links']['comment']);
+  }
+}
