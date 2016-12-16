@@ -102,3 +102,40 @@ function modelplatform_documents_form_submit($form, &$form_state) {
 
   file_usage_add($file, 'modelplatform', 'user', $user->uid);
 }
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function modelplatform_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  global $language ;
+  $lang_name = $language->language;
+  foreach ($data['tabs'] as $key => &$data_item) {
+    if ($data_item['count']) {
+      foreach ($data_item['output'] as $i => &$link_item) {
+        if ($link_item['#link']['title_callback'] !== 't') {
+          $title = $link_item['#link']['title'];
+
+          $query = db_select('locales_source', 'ls');
+          $query->condition('ls.source', $title);
+          $query->innerJoin('locales_target', 'lt', 'lt.lid = ls.lid');
+          $query->condition('lt.language', $lang_name);
+          $query->fields('lt', array('translation'));
+
+          $new_title = $query->execute()->fetchfield();
+          if (!$new_title) {
+            $query = db_select('locales_target', 'lt');
+            $query->condition('lt.translation', $title);
+            $query->condition('lt.language', $lang_name, '!=');
+            $query->innerJoin('locales_source', 'ls', 'lt.lid = ls.lid');
+            $query->fields('ls', array('source'));
+
+            $new_title = $query->execute()->fetchfield();
+          }
+          if ($new_title) {
+            $link_item['#link']['title'] = $new_title;
+          }
+        }
+      }
+    }
+  }
+}
