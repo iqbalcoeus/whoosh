@@ -18,20 +18,47 @@ function mp_galleries_user_insert(&$edit, $account, $category) {
 
     node_save($node);
 
-    $new_revision = (object) array(
-      'from_state' => workbench_moderation_state_none(),
-      'state' => workbench_moderation_state_published(),
-      'nid' => $node->nid,
-      'vid' => $node->vid,
-      'uid' => $account->uid,
-      'is_current' => TRUE,
-      'published' => TRUE,
-      'stamp' => $node->changed,
-    );
+    $from_state = workbench_moderation_state_none();
+    $state = workbench_moderation_state_published();
+    $new_revision = _mp_galleries_create_revision($node, $from_state, $state);
+
     $node->workbench_moderation = array();
     $node->workbench_moderation['my_revision'] = $new_revision;
     $node->workbench_moderation['current'] = $new_revision;
 
     node_save($node);
   }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function mp_galleries_node_insert($node) {
+  if ($node->type === 'node_gallery_item') {
+    $from_state = workbench_moderation_state_none();
+    $state = 'needs_review';
+    $new_revision = _mp_galleries_create_revision($node, $from_state, $state);
+
+    $node->workbench_moderation_state_new = $state;
+    $node->workbench_moderation['my_revision'] = $new_revision;
+    $node->workbench_moderation['current'] = $new_revision;
+  }
+}
+
+/**
+ * Create new revision.
+ */
+function _mp_galleries_create_revision($node, $from_state, $state) {
+  $new_revision = (object) array(
+    'from_state' => $from_state,
+    'state' => $state,
+    'nid' => $node->nid,
+    'vid' => $node->vid,
+    'uid' => $node->uid,
+    'is_current' => TRUE,
+    'published' => TRUE,
+    'stamp' => $node->changed,
+  );
+
+  return $new_revision;
 }
