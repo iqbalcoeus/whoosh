@@ -18,8 +18,7 @@ function mp_galleries_user_insert(&$edit, $account, $category) {
 
     node_save($node);
 
-    $node->workbench_moderation = array();
-    $node->workbench_moderation['my_revision'] = $node->workbench_moderation['current'] = (object) array(
+    $new_revision = (object) array(
       'from_state' => workbench_moderation_state_none(),
       'state' => workbench_moderation_state_published(),
       'nid' => $node->nid,
@@ -29,6 +28,9 @@ function mp_galleries_user_insert(&$edit, $account, $category) {
       'published' => TRUE,
       'stamp' => $node->changed,
     );
+    $node->workbench_moderation = array();
+    $node->workbench_moderation['my_revision'] = $new_revision;
+    $node->workbench_moderation['current'] = $new_revision;
 
     node_save($node);
   }
