@@ -79,3 +79,36 @@ a.tabledrag-handle .handle {
 .page-user-edit-galleries #user-profile-form {
   display: none;
 }
+
+.block-social-login-widget .social_login > div {
+  overflow: hidden;
+  position: relative;
+  height: 60px;
+  width: 140px;
+  margin: auto;
+}
+
+.block-social-login-widget .model iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.block-social-login-widget .customer iframe {
+  position: absolute;
+  top: -60px;
+  left: 0;
+}
+.region-content {
+  position: relative;
+}
+.xing_apply_btn a {
+  position: absolute;
+  top: 20px;
+  display: block;
+  background-image: url('images/xing-logo.svg');
+  background-size: 100% 100%;
+  width: 35px;
+  height: 35px;
+  font-size: 0;
+}
