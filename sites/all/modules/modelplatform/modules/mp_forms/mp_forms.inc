@@ -10,6 +10,9 @@ function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
   $active_field_names = _mp_forms_get_changed_fields();
 
   foreach ($active_field_names as $field_name) {
+    if (!isset($form[$profile_id][$field_name])) {
+      continue;
+    }
     $form[$profile_id][$field_name]['#states'] = array(
       'visible' => array(
         array(
@@ -96,6 +99,9 @@ function _mp_forms_get_changed_fields() {
   return array(
     'field_local_registration_documen',
     'field_travel_passport',
+    'field_tax_number',
+    'field_vat_id',
+    'field_commercial_registry_number',
   );
 }
 
@@ -140,8 +146,71 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
 }
 
 /**
- * .
+ * Form submit.
+ *
+ * @see _mp_forms_model_basic_informaiton_form()
  */
 function _mp_forms_model_basic_informaiton_form_submit($form, &$form_state) {
   _modelplatform_update_model_age_category($form['#user']);
+}
+
+/**
+ * Get required fields for customer private data.
+ */
+function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
+  $active_field_names = _mp_forms_get_changed_fields();
+
+  foreach ($active_field_names as $field_name) {
+    if (!isset($form[$profile_id][$field_name])) {
+      continue;
+    }
+    $form[$profile_id][$field_name]['#states'] = array(
+      'required' => array(
+        array(
+          MP_FORMS_COUNTRY_SELECTOR => array(
+            '!value' => MP_FORMS_COUNTRY_CODE,
+          ),
+        ),
+      ),
+      'unrequired' => array(
+        array(
+          MP_FORMS_COUNTRY_SELECTOR => array(
+            'value' => MP_FORMS_COUNTRY_CODE,
+          ),
+        ),
+      ),
+    );
+  }
+
+  $form['#validate'][] = '_mp_forms_customer_private_data_form_validate';
+}
+
+/**
+ * Validation.
+ *
+ * @see _mp_forms_customer_private_data_form()
+ */
+function _mp_forms_customer_private_data_form_validate($form, $form_state) {
+  $active_field_names = _mp_forms_get_changed_fields();
+  $profile_id = 'profile_' . $form_state['build_info']['args'][1];
+
+  $values = &$form_state['values'][$profile_id];
+  $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
+  if ($country !== MP_FORMS_COUNTRY_CODE) {
+    foreach ($active_field_names as $field_name) {
+      if (!isset($form[$profile_id][$field_name])) {
+        continue;
+      }
+      if (!isset($values[$field_name])) {
+        if (isset($form[$profile_id][$field_name][LANGUAGE_NONE][0]['#title'])) {
+          $title = $form[$profile_id][$field_name][LANGUAGE_NONE][0]['#title'];
+        }
+        else {
+          $title = $form[$profile_id][$field_name]['#title'];
+        }
+        $message = t('Please upload @title', array('@title' => $title));
+        form_set_error($field_name, $message);
+      }
+    }
+  }
 }
