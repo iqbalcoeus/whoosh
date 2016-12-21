@@ -1,0 +1,11 @@
+name = Model Platform - Registration part
+description = "Model Platform - Registration part."
+core = 7.x
+package = Model Platform
+
+dependencies[] = xing_connect
+dependencies[] = modelplatform
+dependencies[] = entity
+dependencies[] = php
+dependencies[] = rules
+dependencies[] = social_login_core

@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: cimpleo
+ * Date: 21.12.16
+ * Time: 13:29
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function mp_registration_form_alter(&$form, &$form_state, $form_id) {
+  // Switch if in the feature we will need alter more then 1 registration form.
+  switch ($form_id) {
+    case 'user_register_form':
+      $selector = 'input[name="user_roles"]';
+      $form['field_small_business']['#states'] = array(
+        'visible' => array(
+          array(
+            $selector => array(
+              'value' => 5,
+            ),
+          ),
+        ),
+        'invisible' => array(
+          array(
+            $selector => array(
+              '!value' => 5,
+            ),
+          ),
+        ),
+      );
+      $form['autoassignrole_user']['#weight'] = -100;
+      break;
+
+    default:
+      // Nothing to do.
+  }
+}
+
+/**
+ * Implements hook_xing_connect_register_alter().
+ */
+function mp_registration_xing_connect_register_alter(&$fields, $xing_candidate_info) {
+  $fields['roles'][4] = 'Customer';
+}
+
+/**
+ * Implements hook_default_rules_configuration().
+ */
+function mp_registration_default_rules_configuration() {
+  $items = array();
+
+  $items['rules_social_login'] = entity_import('rules_config', '{ "rules_social_login" : {
+      "LABEL" : "Social login",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "php", "rules", "social_login_core" ],
+      "ON" : { "social_login_core_user_insert" : [] },
+      "DO" : [
+        { 
+          "php_eval" : { 
+            "code" : "
+switch ($oneall_identity_provider) {  
+  case \\u0027facebook\\u0027:  
+  case \\u0027instagram\\u0027:    
+    $account-\\u003Eroles[5] = \\u0027Model\\u0027;    
+    break;
+                      
+  case \\u0027linkedin\\u0027:    
+    $account-\\u003Eroles[4] = \\u0027Customer\\u0027;    
+    break;
+}" 
+          } 
+        }
+      ]
+    }
+  }');
+
+  return $items;
+}
