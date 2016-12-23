@@ -32,6 +32,27 @@ function mp_registration_form_alter(&$form, &$form_state, $form_id) {
         ),
       );
       $form['autoassignrole_user']['#weight'] = -100;
+      // Checking wheather consumer and secreat key set to show login with xing
+      // link.
+      if (variable_get('xing_connect_ckey') &&
+        variable_get('xing_connect_skey')) {
+
+        $variables = array(
+          'path' => 'xing/auth',
+          'query' => drupal_get_query_parameters(),
+        );
+
+        $form['xing_btn'] = array(
+          '#type' => 'markup',
+          '#theme' => 'xing_connect_button_display',
+          '#data' => $variables,
+          '#weight' => -10,
+        );
+      }
+      else {
+        watchdog('xing_connect', 'Xing API keys is not configured correctly.');
+        drupal_set_message(t('Xing API keys/secreat key is not configured correctly.'), 'warning');
+      }
       break;
 
     default:
