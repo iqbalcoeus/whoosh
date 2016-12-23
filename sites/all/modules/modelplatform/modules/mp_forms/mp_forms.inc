@@ -158,6 +158,8 @@ function _mp_forms_model_basic_informaiton_form_submit($form, &$form_state) {
  * Get required fields for customer private data.
  */
 function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
+  global $user;
+
   $active_field_names = _mp_forms_get_changed_fields();
 
   foreach ($active_field_names as $field_name) {
@@ -181,6 +183,8 @@ function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
       ),
     );
   }
+
+  $disabled = !$user->uid;
 
   $form['#validate'][] = '_mp_forms_customer_private_data_form_validate';
 }
