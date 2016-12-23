@@ -166,17 +166,18 @@ function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
     if (!isset($form[$profile_id][$field_name])) {
       continue;
     }
+    $selector = 'name="profile_customer_private_data[field_complete_address][und][0][country]"';
     $form[$profile_id][$field_name]['#states'] = array(
       'required' => array(
         array(
-          MP_FORMS_COUNTRY_SELECTOR => array(
+          $selector => array(
             '!value' => MP_FORMS_COUNTRY_CODE,
           ),
         ),
       ),
       'unrequired' => array(
         array(
-          MP_FORMS_COUNTRY_SELECTOR => array(
+          $selector => array(
             'value' => MP_FORMS_COUNTRY_CODE,
           ),
         ),
@@ -185,6 +186,10 @@ function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
   }
 
   $disabled = !$user->uid;
+
+  $form[$profile_id]['field_commercial_registry_number']['#disabled'] = $disabled;
+  $form[$profile_id]['field_payment_method_credit_card']['#disabled'] = $disabled;
+  $form[$profile_id]['field_vat_id']['#disabled'] = $disabled;
 
   $form['#validate'][] = '_mp_forms_customer_private_data_form_validate';
 }
