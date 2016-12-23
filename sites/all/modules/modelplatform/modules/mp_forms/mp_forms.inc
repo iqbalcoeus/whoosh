@@ -185,7 +185,10 @@ function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
     );
   }
 
-  $disabled = !$user->uid;
+  $disabled = FALSE;
+  if (isset($form['#user']->uid)) {
+    $disabled = !($user->uid == $form['#user']->uid);
+  }
 
   $form[$profile_id]['field_commercial_registry_number']['#disabled'] = $disabled;
   $form[$profile_id]['field_payment_method_credit_card']['#disabled'] = $disabled;
