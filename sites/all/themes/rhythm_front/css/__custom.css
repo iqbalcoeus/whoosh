@@ -144,3 +144,14 @@ a.tabledrag-handle .handle {
 .xing_apply_btn a.customer {
   left: 85px !important;
 }
+
+#block-locale-language,
+#block-system-user-menu,
+.page-user #block-system-main-menu {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.bg-gray .submitted {
+  display: none;
+}
