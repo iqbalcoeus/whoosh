@@ -113,7 +113,8 @@ a.tabledrag-handle .handle {
   font-size: 11px;
   line-height: 14px;
   margin-top: 38px;
-  color: #555;
+  color: #222;
+  font-weight: 500;
   text-decoration: none;
 }
 
