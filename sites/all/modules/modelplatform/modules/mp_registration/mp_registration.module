@@ -31,6 +31,22 @@ function mp_registration_form_alter(&$form, &$form_state, $form_id) {
           ),
         ),
       );
+
+      $form['#attached']['js'] = array(
+        array(
+          'data' => array(
+            'mp_forms' => array(
+              'model' => 5,
+              'customer' => 4,
+            ),
+          ),
+          'type' => 'setting',
+        ),
+        array(
+          'data' => drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
+        ),
+      );
+
       $form['autoassignrole_user']['#weight'] = -100;
       // Checking wheather consumer and secreat key set to show login with xing
       // link.

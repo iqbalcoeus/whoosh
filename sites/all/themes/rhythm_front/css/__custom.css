@@ -105,3 +105,20 @@ a.tabledrag-handle .handle {
   font-size: 0;
   cursor: pointer;
 }
+
+.xing_apply_btn a:hover {
+  text-decoration: none;
+}
+
+.xing_apply_btn a:after {
+  display: block;
+  content: 'XING';
+  text-align: center;
+  color: #000;
+  font-size: 11px;
+  line-height: 14px;
+  margin-top: 38px;
+  font-weight: 500;
+  text-decoration: none;
+}
+

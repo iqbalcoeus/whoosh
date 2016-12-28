@@ -28,4 +28,18 @@
     }
   };
 
+  $(document).ready(function() {
+    $('#edit-user-roles input').click(function() {
+      var socialBlock = $('.block-social-login-widget .social_login');
+      if ($(this).val() == Drupal.settings.mp_forms.model) {
+        socialBlock.addClass('model');
+        socialBlock.removeClass('customer');
+      }
+      else {
+        socialBlock.addClass('customer');
+        socialBlock.removeClass('model');
+      }
+    });
+  });
+
 })(jQuery);
