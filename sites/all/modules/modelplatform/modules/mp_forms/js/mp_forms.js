@@ -33,13 +33,23 @@
       var socialBlock = $('.block-social-login-widget .social_login');
       if ($(this).val() == Drupal.settings.mp_forms.model) {
         socialBlock.addClass('model');
+        $('.xing_apply_btn a').addClass('hidden');
         socialBlock.removeClass('customer');
       }
       else {
         socialBlock.addClass('customer');
         socialBlock.removeClass('model');
+        $('.xing_apply_btn a').removeClass('hidden');
+        $('.xing_apply_btn a').addClass('customer');
       }
     });
+
+
+
+
   });
+
+
+
 
 })(jQuery);

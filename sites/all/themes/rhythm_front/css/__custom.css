@@ -132,3 +132,15 @@ a.tabledrag-handle .handle {
     margin-left: 33.33333%;
   }
 }
+
+.social_login.model > div {
+  width: 140px;
+}
+
+.social_login.customer > div iframe {
+  margin-left: -139px;
+}
+
+.xing_apply_btn a.customer {
+  left: 85px !important;
+}
