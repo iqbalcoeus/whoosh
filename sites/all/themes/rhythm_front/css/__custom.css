@@ -79,10 +79,6 @@ a.tabledrag-handle .handle {
 .page-user-edit-galleries #user-profile-form {
   display: none;
 }
-.block-social-login-widget .block-content {
-  width: 280px;
-  margin-left: 33.33333%;
-}
 .block-social-login-widget .social_login > div {
   overflow: hidden;
   position: relative;
@@ -94,16 +90,16 @@ a.tabledrag-handle .handle {
   position: relative;
 }
 .xing_apply_btn a {
-  position: absolute;
-  top: -90px;
-  left: 230px;
-  display: block;
   background-image: url('images/xing-logo.svg');
   background-size: 100% 100%;
   width: 35px;
   height: 35px;
   font-size: 0;
+  position: absolute;
+  display: block;
   cursor: pointer;
+  top: -90px;
+  left: 225px;
 }
 
 .xing_apply_btn a:hover {
@@ -122,3 +118,17 @@ a.tabledrag-handle .handle {
   text-decoration: none;
 }
 
+.block-social-login-widget .block-content {
+  width: 280px;
+  margin-left: -11px;
+}
+
+@media screen and (min-width: 992px) {
+  .xing_apply_btn a {
+    top: -90px;
+    left: 230px;
+  }
+  .block-social-login-widget .block-content {
+    margin-left: 33.33333%;
+  }
+}
