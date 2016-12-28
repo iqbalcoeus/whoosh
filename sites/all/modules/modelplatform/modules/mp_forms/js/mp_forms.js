@@ -43,13 +43,7 @@
         $('.xing_apply_btn a').addClass('customer');
       }
     });
-
-
-
-
+    $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
   });
-
-
-
 
 })(jQuery);
