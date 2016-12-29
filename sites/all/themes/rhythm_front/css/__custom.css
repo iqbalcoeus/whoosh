@@ -263,3 +263,35 @@ a.tabledrag-handle .handle {
 .form select {
   width: auto;
 }
+
+.view-models .view-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.view-models .views-row {
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+}
+
+.view-models .views-row .views-field-picture {
+  margin-bottom: 10px;
+}
+
+.view-models .views-row .views-field-picture img {
+  border-radius: 3px;
+}
