@@ -40,6 +40,7 @@
         socialBlock.addClass('customer');
         socialBlock.removeClass('model');
         $('.xing_apply_btn a').removeClass('hidden');
+        // @TODO Fix it.
         $('.xing_apply_btn a').addClass('customer');
       }
     });

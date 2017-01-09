@@ -69,7 +69,7 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
   $values = &$form_state['values'][$profile_id];
   $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
   if ($country !== MP_FORMS_COUNTRY_CODE) {
-    foreach ($active_field_names as $field_name) {
+    foreach ($active_field_names['model'] as $field_name) {
       if (!$values[$field_name][LANGUAGE_NONE][0]['fid']) {
         $title = $form[$profile_id][$field_name]['und'][0]['#title'];
         $message = t('Please upload @title', array('@title' => $title));
@@ -90,6 +90,14 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
   else {
     $values['field_model_agensy_terms_of_use'][LANGUAGE_NONE][0]['value'] = $model_agency;
   }
+
+  if (isset($values['field_income_tax_id'][LANGUAGE_NONE][0]['value'])) {
+    if (!is_numeric($values['field_income_tax_id'][LANGUAGE_NONE][0]['value'])) {
+      $title = $form[$profile_id]['field_income_tax_id'][LANGUAGE_NONE]['#title'];
+      $message = t('!title must be numeric', array('!title' => $title));
+      form_set_error('field_income_tax_id', $message);
+    }
+  }
 }
 
 /**
@@ -97,11 +105,15 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
  */
 function _mp_forms_get_changed_fields() {
   return array(
-    'field_local_registration_documen',
-    'field_travel_passport',
-    'field_tax_number',
-    'field_vat_id',
-    'field_commercial_registry_number',
+    'model' => array(
+      'field_local_registration_documen',
+      'field_travel_passport',
+    ),
+    'customer' => array(
+      'field_tax_number',
+      'field_vat_id',
+      'field_commercial_registry_number',
+    )
   );
 }
 
@@ -209,7 +221,7 @@ function _mp_forms_customer_private_data_form_validate($form, $form_state) {
   $values = &$form_state['values'][$profile_id];
   $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
   if ($country !== MP_FORMS_COUNTRY_CODE) {
-    foreach ($active_field_names as $field_name) {
+    foreach ($active_field_names['customer'] as $field_name) {
       if (!isset($form[$profile_id][$field_name])) {
         continue;
       }
@@ -220,7 +232,7 @@ function _mp_forms_customer_private_data_form_validate($form, $form_state) {
         else {
           $title = $form[$profile_id][$field_name]['#title'];
         }
-        $message = t('Please upload @title', array('@title' => $title));
+        $message = t('Please enter @title', array('@title' => $title));
         form_set_error($field_name, $message);
       }
     }
