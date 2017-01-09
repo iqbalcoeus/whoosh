@@ -25,6 +25,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
       'profile2_private' => 0,
     ),
@@ -47,6 +48,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
       'profile2_private' => 0,
     ),
@@ -74,6 +76,7 @@ function profile2_model_private_data_field_default_field_bases() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
       'title' => 'optional',
       'title_maxlength' => 128,
@@ -82,28 +85,6 @@ function profile2_model_private_data_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'link_field',
-  );
-
-  // Exported field_base: 'field_base_city'.
-  $field_bases['field_base_city'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_base_city',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
   );
 
   // Exported field_base: 'field_base_city_checked'.
@@ -126,6 +107,7 @@ function profile2_model_private_data_field_default_field_bases() {
         1 => 'Yes',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
@@ -147,6 +129,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
       'profile2_private' => 0,
@@ -166,6 +149,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'addressfield',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -183,6 +167,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'iban_field',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 31,
       'profile2_private' => 0,
     ),
@@ -207,6 +192,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),
@@ -231,6 +219,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),
@@ -238,22 +229,27 @@ function profile2_model_private_data_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_income_tax_number'.
-  $field_bases['field_income_tax_number'] = array(
+  // Exported field_base: 'field_income_tax_id'.
+  $field_bases['field_income_tax_id'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_income_tax_number',
-    'indexes' => array(),
+    'field_name' => 'field_income_tax_id',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
-    'type' => 'number_float',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_instagram'.
@@ -276,6 +272,7 @@ function profile2_model_private_data_field_default_field_bases() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
       'title' => 'optional',
       'title_maxlength' => 128,
@@ -303,6 +300,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),
@@ -330,6 +330,7 @@ function profile2_model_private_data_field_default_field_bases() {
         1 => 'Yes',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -356,10 +357,34 @@ function profile2_model_private_data_field_default_field_bases() {
         1 => 'Yes',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'field_model_apartment'.
+  $field_bases['field_model_apartment'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_model_apartment',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+      'profile2_private' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_model_base_city'.
@@ -383,11 +408,35 @@ function profile2_model_private_data_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_model_house'.
+  $field_bases['field_model_house'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_model_house',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+      'profile2_private' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_model_mega'.
@@ -410,10 +459,57 @@ function profile2_model_private_data_field_default_field_bases() {
         1 => 'Yes',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'field_model_postal_code'.
+  $field_bases['field_model_postal_code'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_model_postal_code',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+      'profile2_private' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_model_street'.
+  $field_bases['field_model_street'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_model_street',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+      'profile2_private' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_other_documents'.
@@ -433,6 +529,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),
@@ -457,6 +556,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),
@@ -475,6 +577,7 @@ function profile2_model_private_data_field_default_field_bases() {
     'locked' => 0,
     'module' => 'email',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -498,6 +601,9 @@ function profile2_model_private_data_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'private',
     ),

@@ -35,6 +35,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Base City Checked',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -69,6 +70,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Base city',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -93,9 +95,8 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
+        'type' => 'hidden',
         'weight' => 13,
       ),
     ),
@@ -104,6 +105,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Account holder',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -114,7 +116,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 10,
     ),
   );
 
@@ -136,8 +138,9 @@ function profile2_model_private_data_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_account_number_paypal',
     'label' => 'Account number',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -148,7 +151,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 9,
     ),
   );
 
@@ -185,6 +188,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'none',
       'title_label_use_field_label' => 0,
@@ -199,41 +203,7 @@ function profile2_model_private_data_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 13,
-    ),
-  );
-
-  // Exported field_instance: 'profile2-model_private_data-field_base_city'.
-  $field_instances['profile2-model_private_data-field_base_city'] = array(
-    'bundle' => 'model_private_data',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 12,
-      ),
-    ),
-    'entity_type' => 'profile2',
-    'field_name' => 'field_base_city',
-    'label' => 'Base city',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 17,
     ),
   );
 
@@ -246,15 +216,8 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 19,
       ),
     ),
@@ -263,6 +226,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Base city',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -270,7 +234,7 @@ function profile2_model_private_data_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 3,
+      'weight' => 8,
     ),
   );
 
@@ -292,8 +256,9 @@ function profile2_model_private_data_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_complete_address',
     'label' => 'Complete Address',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -304,13 +269,13 @@ function profile2_model_private_data_field_default_field_instances() {
         'default_country' => 'DE',
         'format_handlers' => array(
           'address' => 'address',
-          'address-optional' => 'address-optional',
-          'address-hide-postal-code' => 0,
-          'address-hide-street' => 0,
+          'address-hide-postal-code' => 'address-hide-postal-code',
+          'address-hide-street' => 'address-hide-street',
           'address-hide-country' => 0,
           'organisation' => 0,
           'name-full' => 0,
           'name-oneline' => 0,
+          'address-optional' => 0,
         ),
       ),
       'type' => 'addressfield_standard',
@@ -331,17 +296,17 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'iban_field',
         'settings' => array(),
-        'type' => 'iban_field_default',
+        'type' => 'hidden',
         'weight' => 14,
       ),
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_iban',
     'label' => 'IBAN',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'iban_field_country_settings' => array(
         'iban_field_enabled_countries' => array(
           'AD' => 'AD',
@@ -374,6 +339,40 @@ function profile2_model_private_data_field_default_field_instances() {
           'IE' => 'IE',
           'IL' => 'IL',
           'IS' => 'IS',
+          'IT' => 'IT',
+          'KW' => 'KW',
+          'KZ' => 'KZ',
+          'LB' => 'LB',
+          'LI' => 'LI',
+          'LT' => 'LT',
+          'LU' => 'LU',
+          'LV' => 'LV',
+          'MC' => 'MC',
+          'MD' => 'MD',
+          'ME' => 'ME',
+          'MK' => 'MK',
+          'MR' => 'MR',
+          'MT' => 'MT',
+          'MU' => 'MU',
+          'NL' => 'NL',
+          'NO' => 'NO',
+          'PK' => 'PK',
+          'PL' => 'PL',
+          'PS' => 'PS',
+          'PT' => 'PT',
+          'QA' => 'QA',
+          'RO' => 'RO',
+          'RS' => 'RS',
+          'SA' => 'SA',
+          'SE' => 'SE',
+          'SI' => 'SI',
+          'SK' => 'SK',
+          'SM' => 'SM',
+          'TL' => 'TL',
+          'TN' => 'TN',
+          'TR' => 'TR',
+          'VG' => 'VG',
+          'XK' => 'XK',
         ),
       ),
       'text_processing' => 0,
@@ -384,7 +383,7 @@ function profile2_model_private_data_field_default_field_instances() {
       'module' => 'iban_field',
       'settings' => array(),
       'type' => 'iban_field',
-      'weight' => 7,
+      'weight' => 11,
     ),
   );
 
@@ -408,6 +407,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/card_pasport',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -433,9 +433,8 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
         'settings' => array(),
-        'type' => 'file_default',
+        'type' => 'hidden',
         'weight' => 17,
       ),
     ),
@@ -445,6 +444,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/tax-certificate',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -461,9 +461,8 @@ function profile2_model_private_data_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'profile2-model_private_data-field_income_tax_number'.
-  $field_instances['profile2-model_private_data-field_income_tax_number'] = array(
+  // Exported field_instance: 'profile2-model_private_data-field_income_tax_id'.
+  $field_instances['profile2-model_private_data-field_income_tax_id'] = array(
     'bundle' => 'model_private_data',
     'default_value' => NULL,
     'deleted' => 0,
@@ -471,28 +470,29 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 1,
+        'type' => 'text_default',
+        'weight' => 25,
       ),
     ),
     'entity_type' => 'profile2',
-    'field_name' => 'field_income_tax_number',
+    'field_name' => 'field_income_tax_id',
     'label' => 'Income tax ID',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'max' => 100,
-      'min' => 0,
-      'prefix' => '',
-      'suffix' => '',
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 2,
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 7,
     ),
   );
 
@@ -528,6 +528,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'none',
       'title_label_use_field_label' => 0,
@@ -542,7 +543,7 @@ function profile2_model_private_data_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 9,
+      'weight' => 13,
     ),
   );
 
@@ -566,6 +567,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/card_pasport',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -605,6 +607,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Model agency entry',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -614,7 +617,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 10,
+      'weight' => 14,
     ),
   );
 
@@ -642,6 +645,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Model Agency <a href="/content/terms">terms</a> of use',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -651,7 +655,78 @@ function profile2_model_private_data_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 11,
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'profile2-model_private_data-field_model_apartment'.
+  $field_instances['profile2-model_private_data-field_model_apartment'] = array(
+    'bundle' => 'model_private_data',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 24,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_model_apartment',
+    'label' => 'Apartment No',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-model_private_data-field_model_house'.
+  $field_instances['profile2-model_private_data-field_model_house'] = array(
+    'bundle' => 'model_private_data',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 23,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_model_house',
+    'label' => 'House No',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
     ),
   );
 
@@ -678,6 +753,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'label' => 'Model Mega',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -687,7 +763,78 @@ function profile2_model_private_data_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 12,
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'profile2-model_private_data-field_model_postal_code'.
+  $field_instances['profile2-model_private_data-field_model_postal_code'] = array(
+    'bundle' => 'model_private_data',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 22,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_model_postal_code',
+    'label' => 'Postal code',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-model_private_data-field_model_street'.
+  $field_instances['profile2-model_private_data-field_model_street'] = array(
+    'bundle' => 'model_private_data',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 21,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_model_street',
+    'label' => 'Street',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
     ),
   );
 
@@ -711,6 +858,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/other',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -736,9 +884,8 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
         'settings' => array(),
-        'type' => 'file_default',
+        'type' => 'hidden',
         'weight' => 16,
       ),
     ),
@@ -748,6 +895,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/other',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -773,17 +921,17 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'email',
         'settings' => array(),
-        'type' => 'email_default',
+        'type' => 'hidden',
         'weight' => 15,
       ),
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_paypal',
     'label' => 'PayPal',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -793,7 +941,7 @@ function profile2_model_private_data_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 8,
+      'weight' => 12,
     ),
   );
 
@@ -806,9 +954,8 @@ function profile2_model_private_data_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
         'settings' => array(),
-        'type' => 'file_default',
+        'type' => 'hidden',
         'weight' => 18,
       ),
     ),
@@ -818,6 +965,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'model_documents/[current-user:uid]/card_pasport',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -840,10 +988,12 @@ function profile2_model_private_data_field_default_field_instances() {
   t('Account holder');
   t('Account number');
   t('Additional documents');
+  t('Apartment No');
   t('Base City Checked');
   t('Base city');
   t('Certificate of registration');
   t('Complete Address');
+  t('House No');
   t('IBAN');
   t('Income tax ID');
   t('Income tax certificate');
@@ -854,6 +1004,8 @@ function profile2_model_private_data_field_default_field_instances() {
   t('Model agency entry');
   t('Parental approval for minors');
   t('PayPal');
+  t('Postal code');
+  t('Street');
   t('Travel passport');
 
   return $field_instances;
