@@ -13,7 +13,7 @@ function profile_2_model_previous_jobs_default_profile2_type() {
     "userCategory" : true,
     "userView" : true,
     "type" : "previous_model_jobs",
-    "label" : "Previous model jobs",
+    "label" : "Model jobs",
     "weight" : "6",
     "data" : { "registration" : 0, "revisions" : 1, "moderation" : 1, "use_page" : 0 },
     "rdf_mapping" : []
