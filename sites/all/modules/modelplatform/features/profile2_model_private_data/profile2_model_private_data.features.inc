@@ -22,7 +22,7 @@ function profile2_model_private_data_default_profile2_type() {
     "userCategory" : true,
     "userView" : true,
     "type" : "model_private_data",
-    "label" : "Model Private Data",
+    "label" : "Private Data",
     "weight" : "0",
     "data" : { "registration" : 0, "revisions" : 1, "moderation" : 1, "use_page" : 0 },
     "rdf_mapping" : []
