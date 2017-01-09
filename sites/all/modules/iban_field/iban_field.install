@@ -47,6 +47,15 @@ function iban_field_schema() {
  * Implements hook_install().
  */
 function iban_field_install() {
+  // Prevent duplicates.
+  $cnt = db_select('iban_field_countries')
+    ->addExpression('COUNT(*)', 'cnt')
+    ->execute()
+    ->fetchField();
+
+  if ($cnt) {
+    return;
+  }
   // Open CSV file containing country name and IBAN data.
   $handle = fopen(dirname(__FILE__) . '/iban_field.csv', 'r');
   $headers = fgetcsv($handle, 1024, ",");
