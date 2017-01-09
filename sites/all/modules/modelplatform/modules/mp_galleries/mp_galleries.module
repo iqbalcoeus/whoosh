@@ -46,6 +46,45 @@ function mp_galleries_node_insert($node) {
 }
 
 /**
+ * Implements hook_node_presave().
+ */
+function mp_galleries_node_presave($node) {
+  if ($node->type === 'node_gallery_item') {
+    $field_main_picture = field_get_items('node', $node, 'field_main_picture');
+    if (isset($field_main_picture[0]['value']) && $field_main_picture[0]['value'] == TRUE) {
+      // Assign picture to the user if approved.
+      // 91 - approved.
+      if (isset($node->field_ver_status[LANGUAGE_NONE][0]['tid'])
+        && $node->field_ver_status[LANGUAGE_NONE][0]['tid'] == 91
+      ) {
+        $nids = db_select('node', 'n')
+          ->condition('n.type', 'node_gallery_item')
+          ->condition('n.uid', $node->uid)
+          ->condition('n.nid', $node->nid, '!=')
+          ->fields('n', array('nid'))
+          ->execute()
+          ->fetchCol(0);
+
+        db_update('field_data_field_main_picture')
+          ->condition('entity_id', $nids, 'IN')
+          ->condition('entity_type', 'node')
+          ->fields(array(
+            'field_main_picture_value' => 0,
+          ))
+          ->execute();
+
+        $account = user_load($node->uid);
+        if (isset($node->node_gallery_media[LANGUAGE_NONE][0]['fid'])) {
+          $picture = file_load($node->node_gallery_media[LANGUAGE_NONE][0]['fid']);
+          $account->picture = $picture;
+        }
+        user_save($account);
+      }
+    }
+  }
+}
+
+/**
  * Create new revision.
  */
 function _mp_galleries_create_revision($node, $from_state, $state) {
