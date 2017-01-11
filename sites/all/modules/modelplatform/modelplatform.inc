@@ -54,3 +54,22 @@ function _modelplatform_update_model_age_category($account) {
   // Save profile.
   profile2_save($profile);
 }
+
+/**
+ * Job node form submit action to redirect on the model search page.
+ */
+function modelplatform_job_node_form_submit($form, &$form_state) {
+  $query = array();
+  if (isset($form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'])) {
+    $query['daily_rate[min]'] = $form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'];
+  }
+  if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
+    $query['daily_rate[max]'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
+  }
+  $form_state['redirect'] = array(
+    'models',
+    array(
+      'query' => $query,
+    ),
+  );
+}

@@ -48,6 +48,10 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       }
       break;
 
+    case 'job_node_form':
+      $form['#submit'][] = 'modelplatform_job_node_form_submit';
+      break;
+
     default:
       // Nothing to do.
   }
