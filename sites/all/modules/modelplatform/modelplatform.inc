@@ -1,9 +1,8 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: cimpleo
- * Date: 21.11.16
- * Time: 17:03
+ * @file
+ * Model platform none hook functions.
  */
 
 /**
@@ -57,6 +56,8 @@ function _modelplatform_update_model_age_category($account) {
 
 /**
  * Job node form submit action to redirect on the model search page.
+ *
+ * @see modelplatform_form_alter()
  */
 function modelplatform_job_node_form_submit($form, &$form_state) {
   $query = array();
@@ -72,4 +73,67 @@ function modelplatform_job_node_form_submit($form, &$form_state) {
       'query' => $query,
     ),
   );
+}
+
+/**
+ * Job node form validation..
+ *
+ * @see modelplatform_form_alter()
+ */
+function modelplatform_job_node_form_validate($form, &$form_state) {
+  $min = $max = 0;
+  if (isset($form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'])) {
+    $min = $form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'];
+  }
+  if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
+    $max = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
+  }
+  if ($min > $max) {
+    form_set_error('field_job_daily_rate_to', t('Daily payment rate to should be more then Daily payment rate from'));
+  }
+}
+
+/**
+ * Clone model job.
+ */
+function modelplatform_job_clone($node) {
+  $job = $node;
+  $job->nid = $job->vid = NULL;
+  $job->field_job_start_date = NULL;
+  $job->field_job_payment_approval = NULL;
+  $job->created = REQUEST_TIME;
+  $job->changed = REQUEST_TIME;
+  node_save($job);
+
+  if ($job->nid) {
+    $message = t('Job was cloned successfully.');
+  }
+  else {
+    $message = t('Job was not cloned.');
+  }
+  drupal_set_message($message);
+
+  return $job;
+}
+
+/**
+ * Job node clone action.
+ *
+ * @see modelplatform_form_alter()
+ */
+function modelplatform_job_node_form_clone($form, &$form_state) {
+  if (isset($form['#node']->nid)) {
+    $job = modelplatform_job_clone($form['#node']);
+    $form_state['redirect'] = 'node/' . $job->nid . '/edit';
+  }
+}
+
+/**
+ * Callback function.
+ */
+function modelplatform_job_clone_callback($node) {
+  if ($node->type === 'job') {
+    $job = modelplatform_job_clone($node);
+    drupal_goto('node/' . $job->nid . '/edit');
+  }
 }
