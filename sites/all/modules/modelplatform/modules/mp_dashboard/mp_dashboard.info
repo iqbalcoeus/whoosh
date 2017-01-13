@@ -1,0 +1,6 @@
+name = Model Platform - Dashboard
+description = "Model Platform - Dashboard."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform

@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Model platform - Dahboard
+ */
+
+define('MP_DASHBOARD_CUSTOMER_PERMISSION', 'customer dashboard access');
+
+/**
+ * Implements hook_menu().
+ */
+function mp_dashboard_menu() {
+  $items = array();
+
+  $items['customer/dashboard'] = array(
+    'title' => 'Dashboard',
+    'page callback' => 'mp_dashboard_page',
+    'access arguments' => array(MP_DASHBOARD_CUSTOMER_PERMISSION),
+  );
+
+  return $items;
+}
+
+/**
+ * Dashboard page callback.
+ */
+function mp_dashboard_page() {
+  $output = '';
+
+  return $output;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_dashboard_permission() {
+  return array(
+    MP_DASHBOARD_CUSTOMER_PERMISSION => array(
+      'title' => t('Customer dashboard access'),
+      'description' => t('Perform customer dashboard access.'),
+    ),
+  );
+}
