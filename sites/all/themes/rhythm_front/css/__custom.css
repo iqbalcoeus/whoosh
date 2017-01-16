@@ -277,9 +277,6 @@ a.tabledrag-handle .handle {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 .view-models .views-row {
@@ -484,3 +481,57 @@ a.tabledrag-handle .handle {
   align-content: stretch;
 }
 
+.view-models .views-exposed-form .views-exposed-widget {
+  float: none;
+}
+
+.view-models .view-filters form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.view-models .view-filters {
+  float: none;
+}
+
+.view-models .view-filters .form-item-daily-rate-min,
+.view-models .view-filters .form-item-daily-rate-max {
+  display: inline-block;
+  width: 49%;
+  height: 37px;
+  margin-bottom: 5px !important;
+}
+
+.view-models .view-filters .rhythm-input {
+  display: block;
+}
+
+.view-models .view-filters .form-item-daily-rate-max .rhythm-input {
+  text-align: right;
+}
+
+.view-models .view-filters .form-item-daily-rate-min input,
+.view-models .view-filters .form-item-daily-rate-max input {
+  width: 50px;
+}
+
+.view-models .view-filters .form-item-daily-rate-max label {
+  display: none;
+}
+
+.view-models .views-widget {
+  display: block;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.view-models .views-exposed-widget label {
+  font-weight: 600;
+  margin-left: -10px;
+  margin-bottom: 0;
+}
+
+.view-models .views-reset-button {
+  text-align: center;
+  margin-bottom: 20px;
+}
