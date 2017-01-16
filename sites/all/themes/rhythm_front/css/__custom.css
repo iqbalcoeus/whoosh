@@ -322,6 +322,7 @@ a.tabledrag-handle .handle {
   border-radius: 30px;
   padding: 5px 15px;
   text-decoration: none;
+  display: block;
 }
 
 .page-customer-dashboard #block-menu-menu-customer-menu ul.default-menu a:hover {
