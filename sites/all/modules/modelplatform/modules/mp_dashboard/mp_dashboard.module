@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Model platform - Dahboard
+ * Model platform - Dashboard
  */
 
 define('MP_DASHBOARD_CUSTOMER_PERMISSION', 'customer dashboard access');

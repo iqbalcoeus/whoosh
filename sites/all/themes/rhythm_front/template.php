@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Rhythm - subtheme.
+ */
+
+/**
  * Overrides theme_menu_local_tasks().
  */
 function rhythm_front_menu_local_tasks(array $variables) {
@@ -59,4 +64,31 @@ function rhythm_front_textfield($variables) {
     $output = '<div class="pi-input-with-icon' . $size_class .'"><div class="pi-input-icon"><i class="' . $element['#nd_icon'] . '"></i></div>' . $output .  '</div>';
   }
   return $output;
+}
+
+/**
+ * Theme function for 'default' fivestar field formatter.
+ */
+function rhythm_front_fivestar_formatter_default($variables) {
+  $element = $variables['element'];
+  if (empty($element['#instance_settings']['stars'])) {
+    $element['#instance_settings']['stars'] = 5;
+  }
+
+  // Add CSS and JS
+  $path = drupal_get_path('module', 'fivestar');
+  drupal_add_js($path . '/js/fivestar.js');
+  drupal_add_css($path . '/css/fivestar.css');
+
+  $variables = array(
+    'rating' => $element['#rating'],
+    'stars' => $element['#instance_settings']['stars'],
+    'widget' => $element['#widget'],
+  );
+
+  $star_display = theme('fivestar_static', $variables);
+
+  return $element['#rating']
+    ? theme('fivestar_static_element', array('description' => $element['#description'], 'star_display' => $star_display))
+    : '';
 }
