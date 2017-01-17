@@ -512,8 +512,14 @@ a.tabledrag-handle .handle {
 
 .view-models .view-filters .form-item-daily-rate-min input,
 .view-models .view-filters .form-item-daily-rate-max input {
-  width: 50px;
+  width: 80px;
+  border: none;
+  text-align: left;
 }
+.view-models .view-filters .form-item-daily-rate-max input {
+  text-align: right;
+}
+
 
 .view-models .view-filters .form-item-daily-rate-max label {
   display: none;
