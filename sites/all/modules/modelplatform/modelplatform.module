@@ -20,12 +20,12 @@ function modelplatform_menu() {
     'access arguments' =>  array('moderate modelplatform documents'),
   );
   $items['node/%node/clone'] = array(
-    'title' => 'Clone',
+    'title' => t('Duplicate Job'),
     'page callback' => 'modelplatform_job_clone_callback',
     'page arguments' => array(1),
     'access callback' => 'node_access',
     'access arguments' => array('update', 1),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
@@ -61,12 +61,12 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
     case 'job_node_form':
       $form['actions']['submit']['#submit'][] = 'modelplatform_job_node_form_submit';
       if (isset($form['#node']->nid)
-        && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
+      && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
         $form['actions']['clone'] = array(
           '#type' => 'submit',
-          '#value' => t('Clone'),
+          '#value' => t('Duplicate Job'),
           '#submit' => array(
-            'modelplatform_job_node_form_clone'
+            'modelplatform_job_node_form_clone',
           ),
         );
       }
