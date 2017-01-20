@@ -9,7 +9,7 @@ define('MP_FORMS_COUNTRY_CODE', 'DE');
 function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
   $active_field_names = _mp_forms_get_changed_fields();
 
-  foreach ($active_field_names as $field_name) {
+  foreach ($active_field_names['model'] as $field_name) {
     if (!isset($form[$profile_id][$field_name])) {
       continue;
     }
@@ -55,6 +55,7 @@ function _mp_forms_model_private_data_form(&$form, &$form_state, $profile_id) {
   }
   $form[$profile_id]['field_parental_approval_for_mino'][LANGUAGE_NONE][0]['#title'] .= $title_suffix;
   $form['#validate'][] = '_mp_forms_model_private_data_form_validate';
+  $form['#submit'][] = '_mp_forms_model_private_data_form_submit';
 }
 
 /**
@@ -98,6 +99,30 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
       form_set_error('field_income_tax_id', $message);
     }
   }
+}
+
+/**
+ * Form submit.
+ *
+ * @see _mp_forms_model_private_data_form()
+ */
+function _mp_forms_model_private_data_form_submit($form, $form_state) {
+  $form_state = $form_state;
+  $profile = profile2_load_by_user($form['#user']);
+
+  foreach ($form_state['values']['profile_model_private_data'] as $field_name => $value) {
+    if (isset($value[LANGUAGE_NONE][0]['fid']) && $value[LANGUAGE_NONE][0]['fid']) {
+      $fid = $value[LANGUAGE_NONE][0]['fid'];
+      if ($file = file_load($fid)) {
+        $file->status = FILE_STATUS_PERMANENT;
+        $file->display = 1;
+        $file->description = '';
+        file_save($file);
+        $profile['model_private_data']->{$field_name}[LANGUAGE_NONE][0] = (array) $file;
+      }
+    }
+  }
+  profile2_save($profile['model_private_data']);
 }
 
 /**

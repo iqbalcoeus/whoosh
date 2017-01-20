@@ -151,6 +151,8 @@ function _mp_profile2_moderation_page() {
 function _mp_profile2_moderation_unmoderate_revision_list() {
   $revisions = array();
 
+  $query_params = drupal_get_query_parameters();
+
   $qrejected = db_select('pfile2_field_rejects', 'rj');
   $qrejected->fields('rj', array('pid', 'vid'));
   $rejected = $qrejected->execute()->fetchAll();
@@ -159,10 +161,14 @@ function _mp_profile2_moderation_unmoderate_revision_list() {
   $qrev->condition('pr.status', 0);
   $qrev->innerJoin('profile', 'p', 'p.pid = pr.pid AND p.vid < pr.vid');
   $qrev->innerJoin('users', 'u', 'u.uid = p.uid');
-  $qrev->innerJoin('field_data_field_model_is_active', 'ma',
-    'ma.field_model_is_active_value = 1 AND 
-     ma.entity_id = u.uid AND 
-     ma.entity_type = \'user\'');
+
+  if (isset($query_params['model_active']) &&
+      $query_params['model_active'] != 0) {
+    $qrev->innerJoin('field_data_field_model_is_active', 'ma',
+      'ma.field_model_is_active_value = 1 AND 
+       ma.entity_id = u.uid AND 
+       ma.entity_type = \'user\'');
+  }
   $qrev->groupBy('p.pid');
   $qrev->groupBy('p.vid');
   $qrev->groupBy('u.name');
@@ -171,6 +177,7 @@ function _mp_profile2_moderation_unmoderate_revision_list() {
   $qrev->addField('p', 'vid', 'current_vid');
   $qrev->addField('u', 'name', 'username');
   $qrev->orderBy('pr.vid', 'DESC');
+
   $result = $qrev->execute()->fetchAll();
 
   // Ignore rejected rows.
