@@ -84,6 +84,45 @@ function profile2_moderation_form_profile2_type_form_alter(&$form, &$form_state,
   );
 }
 
+
+function _profile2_moderation_load_revision($vid) {
+  $profile = entity_revision_load('profile2', $vid);
+  $fields = field_info_instances('profile2', $profile->type);
+
+  foreach ($fields as $field_name => $instance) {
+    if (!isset($profile->{$field_name}[LANGUAGE_NONE][0])) {
+      if (!isset($instance['widget']['module'])) {
+        continue;
+      }
+      else {
+        $callback = $instance['widget']['module'] . '_load';
+      }
+      $query = db_select('field_revision_' . $field_name, 'fr')
+        ->condition('fr.entity_type', 'profile2')
+        ->condition('fr.bundle', $profile->type)
+        ->condition('fr.entity_id', $profile->pid)
+        ->condition('fr.revision_id', $vid)
+        ->fields('fr')
+        ->execute()->fetch();
+
+      $id = NULL;
+      $keys = array_keys((array) $query);
+      $item = array();
+      foreach ($keys as $key) {
+        if (strpos($key, $field_name) === 0) {
+          $id = substr($key, strlen($field_name) + 1);
+          $item[$id] = $query->{$key};
+        }
+      }
+      if (count($item)) {
+        $profile->{$field_name}[LANGUAGE_NONE][0] = $item;
+      }
+    }
+  }
+
+  return $profile;
+}
+
 function profile2_moderation_form_profile2_form_alter(&$form, &$form_state) {
   $profile_types = profile2_get_types();
   $waiting_moderation = FALSE;
@@ -93,7 +132,7 @@ function profile2_moderation_form_profile2_form_alter(&$form, &$form_state) {
       if (profile2_moderation_check_moderation($form_state['profiles'][$key])) {
         // Get the latest revision to be edited.
         $latest_revision = profile2_moderation_get_latest_revision($form_state['profiles'][$key]);
-        $last_profile = profile2_load(NULL, $latest_revision->vid);
+        $last_profile = _profile2_moderation_load_revision($latest_revision->vid);
 
         $form_state['profiles'][$key] = $last_profile;
         unset($form['profile_' . $key]);
