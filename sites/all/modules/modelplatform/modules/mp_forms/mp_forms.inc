@@ -179,16 +179,6 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
 
   $form[$profile_id]['field_verification_status']['#disabled'] = TRUE;
   $form[$profile_id]['field_age_category']['#access'] = FALSE;
-  $form['#submit'][] = '_mp_forms_model_basic_informaiton_form_submit';
-}
-
-/**
- * Form submit.
- *
- * @see _mp_forms_model_basic_informaiton_form()
- */
-function _mp_forms_model_basic_informaiton_form_submit($form, &$form_state) {
-  _modelplatform_update_model_age_category($form['#user']);
 }
 
 /**

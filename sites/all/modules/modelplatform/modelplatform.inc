@@ -19,39 +19,73 @@ function _modelplatform_get_date_diff($date_string, $diff_name) {
 /**
  * Change models age category.
  */
-function _modelplatform_update_model_age_category($account) {
-  // Stop if account has no model role.
-  if (!in_array(MODELPLATFORM_MODEL_ROLE_NAME, $account->roles)) {
-    return;
-  }
-  // Profile type name.
-  $profile_type_name = 'model_basic_informaiton';
-  // Get profile by type name.
-  $profile = profile2_load_by_user($account, $profile_type_name);
+function _modelplatform_update_model_age_category($profile) {
+  $latest_revision = profile2_moderation_get_latest_revision($profile);
+  $last_profile = profile2_load(NULL, $latest_revision->vid);
+
   // Stop if has no birthday.
-  if (!isset($profile->field_birthday[LANGUAGE_NONE][0]['value'])) {
+  if (!isset($last_profile->field_birthday[LANGUAGE_NONE][0]['value'])) {
     return;
   }
-  $birthday = $profile->field_birthday[LANGUAGE_NONE][0]['value'];
+  $birthday = $last_profile->field_birthday[LANGUAGE_NONE][0]['value'];
+
   // Calculate years old - age.
   $age = _modelplatform_get_date_diff($birthday, 'y');
+
   // Load vocabulary and its terms..
   $vocabulary = taxonomy_vocabulary_machine_name_load(MODELPLATFORM_VOCABULARY_AGE_CATEGORY);
   $terms = taxonomy_get_tree($vocabulary->vid);
+
   // Check each terms.
   foreach ($terms as $term) {
     $term_item = taxonomy_term_load($term->tid);
     $field_min = field_get_items('taxonomy_term', $term_item, 'field_min_age');
-    $field_max = field_get_items('taxonomy_term', $term_item, 'field_max_age');
+    $field_max = field_get_items('taxonomy_term', $term_item, 'field_age_to');
     $min = isset($field_min[0]['value']) ? $field_min[0]['value'] : 100;
     $max = isset($field_max[0]['value']) ? $field_max[0]['value'] : 100;
     if ($min <= $age && $max >= $age) {
-      $profile->age_category[LANGUAGE_NONE][0]['tid'] = $term->tid;
+      $last_profile->field_age_category[LANGUAGE_NONE][0]['tid'] = $term->tid;
       break;
     }
   }
+
   // Save profile.
-  profile2_save($profile);
+  profile2_save($last_profile);
+}
+
+/**
+ * Change models age category.
+ */
+function _modelplatform_get_model_age_category($profile) {
+  $latest_revision = profile2_moderation_get_latest_revision($profile);
+  $last_profile = profile2_load(NULL, $latest_revision->vid);
+
+  // Stop if has no birthday.
+  if (!isset($last_profile->field_birthday[LANGUAGE_NONE][0]['value'])) {
+    return NULL;
+  }
+  $birthday = $last_profile->field_birthday[LANGUAGE_NONE][0]['value'];
+
+  // Calculate years old - age.
+  $age = _modelplatform_get_date_diff($birthday, 'y');
+
+  // Load vocabulary and its terms..
+  $vocabulary = taxonomy_vocabulary_machine_name_load(MODELPLATFORM_VOCABULARY_AGE_CATEGORY);
+  $terms = taxonomy_get_tree($vocabulary->vid);
+
+  // Check each terms.
+  foreach ($terms as $term) {
+    $term_item = taxonomy_term_load($term->tid);
+    $field_min = field_get_items('taxonomy_term', $term_item, 'field_min_age');
+    $field_max = field_get_items('taxonomy_term', $term_item, 'field_age_to');
+    $min = isset($field_min[0]['value']) ? $field_min[0]['value'] : 100;
+    $max = isset($field_max[0]['value']) ? $field_max[0]['value'] : 100;
+    if ($min <= $age && $max >= $age) {
+      return $term->tid;
+    }
+  }
+
+  return NULL;
 }
 
 /**

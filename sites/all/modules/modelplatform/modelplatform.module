@@ -190,3 +190,22 @@ function modelplatform_node_view_alter(&$build) {
     unset($build['links']['comment']);
   }
 }
+
+/**
+ * Implements hook_profile2_update().
+ */
+function modelplatform_profile2_update($profile) {
+  if ($profile->type === 'model_basic_informaiton') {
+    $tid = _modelplatform_get_model_age_category($profile);
+
+    db_update('field_revision_field_age_category')
+      ->fields(array(
+        'field_age_category_tid' => $tid,
+      ))
+      ->condition('entity_id', $profile->pid)
+      ->condition('entity_type', 'profile2')
+      ->condition('bundle', 'model_basic_informaiton')
+      ->condition('revision_id', $profile->vid)
+      ->execute();
+  }
+}
