@@ -1,0 +1,9 @@
+name = Model Platform - Booking
+description = "Model Platform - Booking."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform
+dependencies[] = bat
+dependencies[] = bat_unit
+dependencies[] = bat_event

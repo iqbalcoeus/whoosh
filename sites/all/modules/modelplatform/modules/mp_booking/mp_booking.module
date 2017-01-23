@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Model Platform Booking module.
+ *
+ * BAT integration.
+ */
+
+define('MP_BOOKING_CUSTOMER_ROLE_ID', 4);
+define('MP_BOOKING_MODEL_ROLE_ID', 5);
+
+define('MP_BOOKING_UNIT_FIELD_NAME', 'field_bat_unit');
+define('MP_BOOKING_UNIT_TYPE', 'default');
+define('MP_BOOKING_UNIT_TYPE_ID', 1);
+
+define('MP_BOOKING_PERMISSION_JOB_INVITE', 'job model invite');
+
+define('MP_BOOKING_MODEL_AVAILABILITY', 'model_availability');
+
+require_once 'mp_booking.inc';
+require_once 'mp_booking.form.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function mp_booking_menu() {
+  $items = array();
+
+  $items['job/model/%/invite'] = array(
+    'title' => t('Model invitation'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_booking_job_model_invite_form', 2),
+    'access callback' => 'user_access',
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_INVITE),
+  );
+
+  $items['job/model/%bat_event/auction'] = array(
+    'title' => t('Job auction'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bat_event_edit_form', 2),
+    'access callback' => 'user_access',
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_INVITE),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_booking_permission() {
+  return array(
+    MP_BOOKING_PERMISSION_JOB_INVITE =>  array(
+      'title' => t('Job model invite'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function mp_booking_user_insert(&$edit, $account, $category) {
+  if (isset($account->roles[MP_BOOKING_MODEL_ROLE_ID])) {
+    $unit = _mp_booking_unit_create($account->name, $account->uid);
+    // We cann't use $account in the _mp_booking_set_unit().
+    $_account = user_load($account->uid);
+    _mp_booking_set_unit('user', $_account, $unit);
+  }
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function mp_booking_user_update(&$edit, $account, $category) {
+  if (isset($account->roles[MP_BOOKING_MODEL_ROLE_ID])) {
+    // Check field data.
+    $unit = _mp_booking_get_unit('user', $account);
+
+    // Create unit if does not exist.
+    if (!$unit) {
+      $unit = _mp_booking_unit_create($account->name, $account->uid);
+
+      // We cann't use $account in the _mp_booking_set_unit().
+      $_account = user_load($account->uid);
+      _mp_booking_set_unit('user', $_account, $unit);
+    }
+  }
+}
+
+
+/**
+ * Implements hook_commerce_cart_line_item_refresh().
+ */
+function mp_booking_commerce_cart_line_item_refresh($line_item, $order_wrapper) {
+  // @TODO Create Price function.
+//  $price = _get_price($line_item);
+//  $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['amount'] = $price;
+//  $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['data']['components']['0']['price']['amount'] = $price;
+}
