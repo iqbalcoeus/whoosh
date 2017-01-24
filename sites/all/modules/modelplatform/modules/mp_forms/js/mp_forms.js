@@ -29,8 +29,8 @@
   };
 
   $(document).ready(function() {
+    var socialBlock = $('.block-social-login-widget .social_login');
     $('#edit-user-roles input').click(function() {
-      var socialBlock = $('.block-social-login-widget .social_login');
       if ($(this).val() == Drupal.settings.mp_forms.model) {
         socialBlock.addClass('model');
         $('.xing_apply_btn a').addClass('hidden');
@@ -44,7 +44,12 @@
         $('.xing_apply_btn a').addClass('customer');
       }
     });
-    $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
+    if (socialBlock.hasClass('customer')) {
+      $('#edit-user-roles-' + Drupal.settings.mp_forms.customer).click();
+    }
+    else {
+      $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
+    }
   });
 
 })(jQuery);
