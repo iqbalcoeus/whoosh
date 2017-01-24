@@ -553,3 +553,46 @@ a.tabledrag-handle .handle {
   float: left;
   margin-right: 3px;
 }
+
+.page-node-add-job .filter-wrapper {
+  display: none;
+}
+
+.page-node-add-job .group-job-daily-rate label,
+.page-node-add-job .group-job-daily-rate .rhythm-input,
+.page-node-add-job .group-job-daily-rate .form-wrapper,
+.page-node-add-job .field-type-datetime label,
+.page-node-add-job .field-type-datetime .rhythm-input {
+  display: inline-block;
+}
+
+.page-node-add-job .group-job-daily-rate .form-wrapper {
+  max-width: 200px;
+}
+
+.page-node-add-job .group-job-daily-rate label,
+.page-node-add-job .field-type-datetime label {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.page-node-add-job .field-type-datetime .description {
+  display: none;
+}
+
+.page-node-add-job .end-date-wrapper .form-type-date-popup > label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.page-node-add-job fieldset.date-combo .container-inline-date .date-padding {
+  padding: 0;
+}
+
+.page-node-add-job .start-date-wrapper.form-group {
+  margin-bottom: 0;
+}
+
+.page-node-add-job .form-actions {
+  text-align: left;
+}
