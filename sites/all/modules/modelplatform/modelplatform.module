@@ -73,6 +73,10 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       $form['#validate'][] = 'modelplatform_job_node_form_validate';
       break;
 
+    case 'node_gallery_item_node_form':
+      $form['revision_information']['#access'] = FALSE;
+      break;
+
     default:
       // Nothing to do.
   }

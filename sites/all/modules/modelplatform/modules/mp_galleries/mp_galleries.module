@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function mp_galleries_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'user_insert') {
+    $group = $implementations['mp_galleries'];
+    unset($implementations['mp_galleries']);
+    $implementations['mp_galleries'] = $group;
+  }
+}
+
+/**
  * Implements hook_user_insert().
  */
 function mp_galleries_user_insert(&$edit, $account, $category) {
