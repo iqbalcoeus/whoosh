@@ -76,19 +76,21 @@ function mp_galleries_node_presave($node) {
           ->execute()
           ->fetchCol(0);
 
-        db_update('field_data_field_main_picture')
-          ->condition('entity_id', $nids, 'IN')
-          ->condition('entity_type', 'node')
-          ->fields(array(
-            'field_main_picture_value' => 0,
-          ))
-          ->execute();
+        if (count($nids)) {
+          db_update('field_data_field_main_picture')
+            ->condition('entity_id', $nids, 'IN')
+            ->condition('entity_type', 'node')
+            ->fields(array(
+              'field_main_picture_value' => 0,
+            ))
+            ->execute();
 
-        if (isset($node->node_gallery_media[LANGUAGE_NONE][0]['fid'])) {
-          $account = user_load($node->uid);
-          $picture = file_load($node->node_gallery_media[LANGUAGE_NONE][0]['fid']);
-          $account->picture = $picture;
-          user_save($account);
+          if (isset($node->node_gallery_media[LANGUAGE_NONE][0]['fid'])) {
+            $account = user_load($node->uid);
+            $picture = file_load($node->node_gallery_media[LANGUAGE_NONE][0]['fid']);
+            $account->picture = $picture;
+            user_save($account);
+          }
         }
       }
     }
