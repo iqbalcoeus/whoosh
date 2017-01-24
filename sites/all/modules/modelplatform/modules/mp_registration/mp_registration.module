@@ -81,4 +81,6 @@ function mp_registration_form_alter(&$form, &$form_state, $form_id) {
  */
 function mp_registration_xing_connect_register_alter(&$fields, $xing_candidate_info) {
   $fields['roles'][4] = 'Customer';
+  $fields['field_first_name'][LANGUAGE_NONE][0]['value'] = $xing_candidate_info['users'][0]['first_name'];
+  $fields['field_last_name'][LANGUAGE_NONE][0]['value'] = $xing_candidate_info['users'][0]['last_name'];
 }
