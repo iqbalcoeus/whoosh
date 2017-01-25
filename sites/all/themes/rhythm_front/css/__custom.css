@@ -585,6 +585,10 @@ a.tabledrag-handle .handle {
   margin-bottom: 15px;
 }
 
+.page-node-add-job input {
+  color: #000;
+}
+
 .page-node-add-job fieldset.date-combo .container-inline-date .date-padding {
   padding: 0;
 }
