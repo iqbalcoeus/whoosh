@@ -108,5 +108,12 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
  * Model job auction.
  */
 function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
+  module_load_include('inc', 'bat_event', 'bat_event.admin');
+  $form = bat_event_edit_form($form, $form_state, $event);
 
+  $form['event_history']['#access'] = FALSE;
+  $form['user']['#access'] = FALSE;
+  dsm($form);
+
+  return $form;
 }

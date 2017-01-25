@@ -1,5 +1,6 @@
 {
   "require": {
-    "roomify/bat": "dev-master"
+    "roomify/bat": "dev-master",
+    "Roomify/Bat": "^1.1"
   }
 }
