@@ -77,6 +77,78 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       $form['revision_information']['#access'] = FALSE;
       break;
 
+    case 'user_login':
+      if (variable_get("autoassignrole_user_active", 0) && !user_access('administer users')
+        && !autoassignrole_get_active_path_rid()) {
+
+        // Get a list of valid roles that can be selected.
+        $roles = array_intersect_key(user_roles(TRUE), array_filter(variable_get('autoassignrole_user_roles', array())));
+
+        if ($roles) {
+          $form['autoassignrole_user'] = array(
+            '#type' => 'fieldset',
+            '#title' => filter_xss(variable_get('autoassignrole_user_fieldset_title', t('User Roles'))),
+            '#collapsible' => FALSE,
+            '#collapsed' => FALSE,
+          );
+
+          // Sort the roles.
+          if (variable_get('autoassignrole_user_sort', 'SORT_ASC') == 'SORT_ASC') {
+            asort($roles);
+          }
+          elseif (variable_get('autoassignrole_user_sort', 'SORT_DESC') == 'SORT_DESC') {
+            arsort($roles);
+          }
+          else {
+            drupal_sort_weight($roles, $roles);
+          }
+
+          $multiple = variable_get('autoassignrole_user_multiple', 0);
+          $user_selection = variable_get('autoassignrole_user_selection', AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX);
+
+          $type = 'select';
+          if ($user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX) {
+            $type = $user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX && !$multiple ? 'radios' : 'checkboxes';
+          }
+
+          // If not multiple + not required + select box, need a none selection.
+          if (!$multiple && !variable_get('autoassignrole_user_required', 0) && $type == 'select') {
+            $roles = array(0 => t('None')) + $roles;
+          }
+
+          // Set the user description filter format.
+          $autoassignrole_user_description = _autoassignrole_get_user_description();
+
+          // Add in the element.
+          $form['autoassignrole_user']['user_roles'] = array(
+            '#type' => $type,
+            '#title' => filter_xss(variable_get('autoassignrole_user_title', t('Role'))),
+            '#options' => $roles,
+            '#description' => filter_xss_admin($autoassignrole_user_description['value']),
+            '#required' => variable_get('autoassignrole_user_required', 0),
+            '#multiple' => $multiple,
+          );
+        }
+      }
+
+      $form['#attached']['js'] = array(
+        array(
+          'data' => array(
+            'mp_forms' => array(
+              'model' => 5,
+              'customer' => 4,
+            ),
+          ),
+          'type' => 'setting',
+        ),
+        array(
+          'data' => drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
+        ),
+      );
+
+      $form['autoassignrole_user']['#weight'] = -100;
+      break;
+
     default:
       // Nothing to do.
   }
