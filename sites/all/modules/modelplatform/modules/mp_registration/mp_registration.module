@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: cimpleo
- * Date: 21.12.16
- * Time: 13:29
+ * @file
+ * Model Platform - Registration.
  */
 
 /**
@@ -48,6 +46,8 @@ function mp_registration_form_alter(&$form, &$form_state, $form_id) {
       );
 
       $form['autoassignrole_user']['#weight'] = -100;
+      $form['autoassignrole_user']['user_roles']['#default_value'] = isset($form_state['input']['user_roles']) ?
+        $form_state['input']['user_roles'] : 4;
       // Checking wheather consumer and secreat key set to show login with xing
       // link.
       if (variable_get('xing_connect_ckey') &&

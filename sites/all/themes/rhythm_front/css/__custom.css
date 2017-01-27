@@ -123,12 +123,12 @@ a.tabledrag-handle .handle {
   margin-left: -11px;
 }
 
-.social_login.model > div {
+.social_login.model > div,
+.social_login.customer > div {
   width: 140px;
 }
 
 .social_login.customer > div iframe {
-  /*margin-left: -139px;*/
   margin-top: -60px;
 }
 

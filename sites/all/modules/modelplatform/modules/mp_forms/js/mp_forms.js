@@ -44,10 +44,13 @@
         $('.xing_apply_btn a').addClass('customer');
       }
     });
-    if (socialBlock.hasClass('customer')) {
+    console.log($('input[name="user_roles"]:checked').val());
+    if ($('input[name="user_roles"]:checked').val() == Drupal.settings.mp_forms.customer) {
+      console.log('if');
       $('#edit-user-roles-' + Drupal.settings.mp_forms.customer).click();
     }
     else {
+      console.log('else');
       $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
     }
   });
