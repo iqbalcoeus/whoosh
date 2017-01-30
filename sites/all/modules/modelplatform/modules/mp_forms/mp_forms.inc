@@ -184,12 +184,12 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
 /**
  * Get required fields for customer private data.
  */
-function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
+function _mp_forms_customer_private_data_form(&$form, &$form_state, $profile_id) {
   global $user;
 
   $active_field_names = _mp_forms_get_changed_fields();
 
-  foreach ($active_field_names as $field_name) {
+  foreach ($active_field_names['customer'] as $field_name) {
     if (!isset($form[$profile_id][$field_name])) {
       continue;
     }
@@ -229,26 +229,28 @@ function _mp_forms_customer_private_data_form($form, $form_state, $profile_id) {
  *
  * @see _mp_forms_customer_private_data_form()
  */
-function _mp_forms_customer_private_data_form_validate($form, $form_state) {
+function _mp_forms_customer_private_data_form_validate(&$form, &$form_state) {
   $active_field_names = _mp_forms_get_changed_fields();
   $profile_id = 'profile_' . $form_state['build_info']['args'][1];
 
-  $values = &$form_state['values'][$profile_id];
+  $values = $form_state['values'][$profile_id];
   $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
   if ($country !== MP_FORMS_COUNTRY_CODE) {
     foreach ($active_field_names['customer'] as $field_name) {
       if (!isset($form[$profile_id][$field_name])) {
         continue;
       }
-      if (!isset($values[$field_name])) {
-        if (isset($form[$profile_id][$field_name][LANGUAGE_NONE][0]['#title'])) {
-          $title = $form[$profile_id][$field_name][LANGUAGE_NONE][0]['#title'];
+      if (!isset($values[$field_name][LANGUAGE_NONE][0]['value'])
+      || !$values[$field_name][LANGUAGE_NONE][0]['value']) {
+        if (isset($form[$profile_id][$field_name][LANGUAGE_NONE]['#title'])) {
+          $title = $form[$profile_id][$field_name][LANGUAGE_NONE]['#title'];
         }
         else {
           $title = $form[$profile_id][$field_name]['#title'];
         }
         $message = t('Please enter @title', array('@title' => $title));
-        form_set_error($field_name, $message);
+        $field_error = $profile_id . '][' . $field_name;
+        form_set_error($field_error, $message);
       }
     }
   }
