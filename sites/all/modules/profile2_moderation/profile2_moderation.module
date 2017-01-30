@@ -105,17 +105,19 @@ function _profile2_moderation_load_revision($vid) {
         ->fields('fr')
         ->execute()->fetch();
 
-      $id = NULL;
-      $keys = array_keys((array) $query);
-      $item = array();
-      foreach ($keys as $key) {
-        if (strpos($key, $field_name) === 0) {
-          $id = substr($key, strlen($field_name) + 1);
-          $item[$id] = $query->{$key};
+      if ($query) {
+        $id = NULL;
+        $keys = array_keys((array) $query);
+        $item = array();
+        foreach ($keys as $key) {
+          if (strpos($key, $field_name) === 0) {
+            $id = substr($key, strlen($field_name) + 1);
+            $item[$id] = $query->{$key};
+          }
         }
-      }
-      if (count($item)) {
-        $profile->{$field_name}[LANGUAGE_NONE][0] = $item;
+        if (count($item)) {
+          $profile->{$field_name}[LANGUAGE_NONE][0] = $item;
+        }
       }
     }
   }
