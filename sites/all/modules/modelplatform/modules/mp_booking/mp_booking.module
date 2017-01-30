@@ -18,6 +18,12 @@ define('MP_BOOKING_PERMISSION_JOB_INVITE', 'job model invite');
 
 define('MP_BOOKING_MODEL_AVAILABILITY', 'model_availability');
 
+define('MP_BOOKING_STATE_AVAILABLE', 1);
+define('MP_BOOKING_STATE_BUSY', 2);
+define('MP_BOOKING_STATE_JOB_CONTRACT', 3);
+define('MP_BOOKING_STATE_JOB_WAS_PROPOSED', 4);
+define('MP_BOOKING_STATE_AUCTION', 5);
+
 require_once 'mp_booking.inc';
 require_once 'mp_booking.form.inc';
 

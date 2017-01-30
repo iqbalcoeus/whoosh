@@ -92,28 +92,66 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
  * @see mp_booking_job_model_invite_form()
  */
 function mp_booking_job_model_invite_form_submit($form, &$form_state) {
-  dsm($form_state);
   $delta = $form_state['triggering_element']['#parents'][1];
-  dsm($delta);
   $values = $form_state['values'];
+
   $job_nid = $values['jobs'][$delta]['job_nid'];
+  $job = node_load($job_nid);
 
-//  $event = bat_event_create(array('type' => MP_BOOKING_MODEL_AVAILABILITY));
-//  $model_account = user_load($values['model_uid']);
-//  $unit = _mp_booking_get_unit('user', $model_account);
+  // Job dates check.
+  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+    $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+  }
+  else {
+    return;
+  }
 
+  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+    $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+  }
+  else {
+    return;
+  }
+
+  $event_params = array(
+    'type' => MP_BOOKING_MODEL_AVAILABILITY,
+  );
+  $event = bat_event_create($event_params);
+  $model_account = user_load($values['model_uid']);
+  $unit = _mp_booking_get_unit('user', $model_account);
+
+  $events = _mp_booking_get_unit_events($unit, $start_date, $end_date, 1, FALSE);
+  if (count($events)) {
+    drupal_set_message(t('Model is already busy on this dates.'));
+  }
+  else {
+    $event->field_job[LANGUAGE_NONE][0]['target_id'] = $job_nid;
+    $event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id'] = $unit->unit_id;
+    $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = MP_BOOKING_STATE_AUCTION;
+    $event->start_date = $start_date;
+    $event->end_date = $end_date;
+    bat_event_save($event);
+
+    drupal_set_message(t('Auction was created'));
+    $link = 'job/model/' . $event->event_id . '/auction';
+    $form_state['redirect'] = $link;
+  }
 }
 
 /**
  * Model job auction.
  */
 function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
-  module_load_include('inc', 'bat_event', 'bat_event.admin');
-  $form = bat_event_edit_form($form, $form_state, $event);
-
-  $form['event_history']['#access'] = FALSE;
-  $form['user']['#access'] = FALSE;
-  dsm($form);
+//  module_load_include('inc', 'bat_event', 'bat_event.admin');
+//  $form = bat_event_edit_form($form, $form_state, $event);
+//
+//  $form['event_history']['#access'] = FALSE;
+//  $form['user']['#access'] = FALSE;
+//  $form['bat_date_range']['#access'] = FALSE;
+//  $form['event_bat_unit_reference']['#access'] = FALSE;
+//  $form['event_state_reference']['#access'] = FALSE;
+//  $form['field_job']['#access'] = FALSE;
+//  dsm($form);
 
   return $form;
 }

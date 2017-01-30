@@ -107,22 +107,25 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
  * @see _mp_forms_model_private_data_form()
  */
 function _mp_forms_model_private_data_form_submit($form, $form_state) {
-  $form_state = $form_state;
-  $profile = profile2_load_by_user($form['#user']);
+  if (isset($form['#user']->uid)) {
+    $profile = profile2_load_by_user($form['#user']);
 
-  foreach ($form_state['values']['profile_model_private_data'] as $field_name => $value) {
-    if (isset($value[LANGUAGE_NONE][0]['fid']) && $value[LANGUAGE_NONE][0]['fid']) {
-      $fid = $value[LANGUAGE_NONE][0]['fid'];
-      if ($file = file_load($fid)) {
-        $file->status = FILE_STATUS_PERMANENT;
-        $file->display = 1;
-        $file->description = '';
-        file_save($file);
-        $profile['model_private_data']->{$field_name}[LANGUAGE_NONE][0] = (array) $file;
+    if (isset($profile['model_private_data'])) {
+      foreach ($form_state['values']['profile_model_private_data'] as $field_name => $value) {
+        if (isset($value[LANGUAGE_NONE][0]['fid']) && $value[LANGUAGE_NONE][0]['fid']) {
+          $fid = $value[LANGUAGE_NONE][0]['fid'];
+          if ($file = file_load($fid)) {
+            $file->status = FILE_STATUS_PERMANENT;
+            $file->display = 1;
+            $file->description = '';
+            file_save($file);
+            $profile['model_private_data']->{$field_name}[LANGUAGE_NONE][0] = (array) $file;
+          }
+        }
       }
+      profile2_save($profile['model_private_data']);
     }
   }
-  profile2_save($profile['model_private_data']);
 }
 
 /**

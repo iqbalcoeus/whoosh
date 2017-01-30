@@ -69,7 +69,7 @@ function _mp_booking_get_customer_jobs($customer_uid) {
 /**
  * Get BAT Events of the BAT Unit.
  */
-function _mp_booking_get_unit_events($unit, $start_date = NULL, $end_date = NULL, $blocking = NULL) {
+function _mp_booking_get_unit_events($unit, $start_date = NULL, $end_date = NULL, $blocking = NULL, $return_events = TRUE) {
   $or = db_or();
 
   $flag = FALSE;
@@ -117,7 +117,12 @@ function _mp_booking_get_unit_events($unit, $start_date = NULL, $end_date = NULL
   $event_query->addField('be', 'event_id', 'event_id');
   $event_ids = $event_query->execute()->fetchCol(0);
 
-  $events = entity_load('bat_event', $event_ids);
+  if ($return_events) {
+    $result = entity_load('bat_event', $event_ids);
+  }
+  else {
+    $result = $event_ids;
+  }
 
-  return $events;
+  return $result;
 }
