@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * @file
+ * Sets up the base table for our entity and a table to store information about
+ * the entity types.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function mp_auction_schema() {
+  $schema = array();
+
+  $schema['mp_auction'] = array(
+    'description' => 'The base table for mp_auction entities.',
+    'fields'      => array(
+      'mp_auction_id' => array(
+        'description' => 'Primary Key: Identifier for a mp_auction.',
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+      ),
+      'type'           => array(
+        'description' => 'The {mp_auction_type}.type of this mp_auction.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ),
+      'name'           => array(
+        'description' => 'The name of the mp_auction - a human-readable identifier.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ),
+      'created'        => array(
+        'description' => 'The Unix timestamp when the mp_auction was created.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+      ),
+      'changed'        => array(
+        'description' => 'The Unix timestamp when the mp_auction was most recently saved.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+      ),
+      'uid'            => array(
+        'type'         => 'int',
+        'foreign keys' => array(
+          'users' => array(
+            'table'   => 'users',
+            'columns' => array('uid' => 'uid'),
+          ),
+        ),
+      ),
+    ),
+    'primary key' => array('mp_auction_id'),
+    'indexes'     => array(
+      'type' => array('type'),
+    ),
+  );
+
+  $schema['mp_auction_type'] = array(
+    'description' => 'Stores information about defined mp_auction types.',
+    'fields'      => array(
+      'id'     => array(
+        'type'        => 'serial',
+        'not null'    => TRUE,
+        'description' => 'Primary Key: Unique mp_auction type identifier.',
+      ),
+      'type'   => array(
+        'description' => 'The machine-readable name of this mp_auction type.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+      ),
+      'label'  => array(
+        'description' => 'The human-readable name of this mp_auction type.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ),
+      'weight' => array(
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+        'size'        => 'tiny',
+        'description' => 'The weight of this mp_auction type in relation to others.',
+      ),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'type' => array('type'),
+    ),
+  );
+
+  return $schema;
+}

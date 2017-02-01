@@ -14,7 +14,7 @@ define('MP_BOOKING_UNIT_FIELD_NAME', 'field_bat_unit');
 define('MP_BOOKING_UNIT_TYPE', 'default');
 define('MP_BOOKING_UNIT_TYPE_ID', 1);
 
-define('MP_BOOKING_PERMISSION_JOB_INVITE', 'job model invite');
+define('MP_BOOKING_PERMISSION_JOB_PROPOSE', 'job model propose');
 
 define('MP_BOOKING_MODEL_AVAILABILITY', 'model_availability');
 
@@ -38,7 +38,7 @@ function mp_booking_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mp_booking_job_model_invite_form', 2),
     'access callback' => 'user_access',
-    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_INVITE),
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
   $items['job/model/%bat_event/auction'] = array(
@@ -46,10 +46,22 @@ function mp_booking_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mp_booking_job_auction_form', 2),
     'access callback' => 'user_access',
-    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_INVITE),
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mp_booking_theme($existing, $type, $theme, $path) {
+  return array(
+    'mp_booking_event_auctions_table' => array(
+      'variables' => array('auctions' => array()),
+      'file' => 'mp_booking.theme.inc',
+    ),
+  );
 }
 
 /**
@@ -57,8 +69,8 @@ function mp_booking_menu() {
  */
 function mp_booking_permission() {
   return array(
-    MP_BOOKING_PERMISSION_JOB_INVITE =>  array(
-      'title' => t('Job model invite'),
+    MP_BOOKING_PERMISSION_JOB_PROPOSE =>  array(
+      'title' => t('Job propose'),
     ),
   );
 }

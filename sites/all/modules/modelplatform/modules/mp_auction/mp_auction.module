@@ -1,0 +1,420 @@
+<?php
+
+/**
+ * @file
+ * Module for the MpAuction Entity.
+ */
+
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function mp_auction_entity_info() {
+  $return['mp_auction'] = array(
+    'label'             => t('MP Auction'),
+    'plural label'      => t('Auction'),
+    // The entity class and controller class extend the classes provided by the
+    // Entity API.
+    'entity class'      => 'MpAuction',
+    'controller class'  => 'MpAuctionController',
+    'base table'        => 'mp_auction',
+    'fieldable'         => TRUE,
+    'entity keys'       => array(
+      'id'     => 'mp_auction_id',
+      'bundle' => 'type',
+    ),
+    // Bundles are defined by the mp_auction types below.
+    'bundles'           => array(),
+    // Bundle keys tell the FieldAPI how to extract information from the
+    // bundle objects.
+    'bundle keys'       => array(
+      'bundle' => 'type',
+    ),
+    'label callback'    => 'entity_class_label',
+    'uri callback'      => 'entity_class_uri',
+    'creation callback' => 'mp_auction_create',
+    'access callback'   => 'mp_auction_access',
+    'module'            => 'mp_auction',
+    // The information below is used by the MpAuctionUIController
+    // (which extends the EntityDefaultUIController).
+    'admin ui'          => array(
+      'path'             => 'admin/content/mp_auctions',
+      'file'             => 'mp_auction_mp_auction.admin.inc',
+      'controller class' => 'MpAuctionUIController',
+      'menu wildcard'    => '%mp_auction',
+    ),
+    'inline entity form' => array(
+      'controller' => 'MpAuctionInlineEntityFormController'
+    ),
+  );
+
+  // The entity that holds information about the entity types.
+  $return['mp_auction_type'] = array(
+    'label'            => t('MP Auction type'),
+    'plural label'     => t('MP Auction types'),
+    'entity class'     => 'MpAuctionType',
+    'controller class' => 'MpAuctionTypeController',
+    'base table'       => 'mp_auction_type',
+    'fieldable'        => FALSE,
+    'bundle of'        => 'mp_auction',
+    'exportable'       => TRUE,
+    'entity keys'      => array(
+      'id'    => 'id',
+      'name'  => 'type',
+      'label' => 'label',
+    ),
+    'access callback'  => 'mp_auction_type_access',
+    'module'           => 'mp_auction',
+    // Enable the entity API's admin UI.
+    'admin ui'         => array(
+      'path'             => 'admin/structure/mp_auction_types',
+      'file'             => 'mp_auction_mp_auction_type.admin.inc',
+      'controller class' => 'MpAuctionTypeUIController',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * We are adding the info about the mp_auction types via a hook to avoid
+ * a recursion issue as loading the mp_auction types requires the entity
+ * info as well.
+ *
+ * @todo This needs to be improved
+ */
+function mp_auction_entity_info_alter(&$entity_info) {
+  foreach (mp_auction_get_types() as $type => $info) {
+    $entity_info['mp_auction']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path'             => 'admin/structure/mp_auction_types/manage/%mp_auction_type',
+        'real path'        => 'admin/structure/mp_auction_types/manage/' . $type,
+        'bundle argument'  => 4,
+        'access arguments' => array('administer mp_auction types'),
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_auction_permission() {
+  // We set up permisssions to manage entity types, manage all entities and the
+  // permissions for each individual entity.
+  $permissions = array(
+    'administer mp_auction types' => array(
+      'title'       => t('Administer mp_auction types'),
+      'description' => t('Create and delete fields for mp_auction types, and set their permissions.'),
+    ),
+    'administer mp_auctions'     => array(
+      'title'       => t('Administer mp_auctions'),
+      'description' => t('Edit and delete all mp_auctions'),
+    ),
+  );
+
+  // Generate permissions per mp_auction.
+  foreach (mp_auction_get_types() as $type) {
+    $type_name = check_plain($type->type);
+    $permissions += array(
+      "edit any $type_name mp_auction"   => array(
+        'title' => t('%type_name: Edit any mp_auction', array('%type_name' => $type->label)),
+      ),
+      "view any $type_name mp_auction"   => array(
+        'title' => t('%type_name: View any mp_auction', array('%type_name' => $type->label)),
+      ),
+      "view own $type_name mp_auction"   => array(
+        'title' => t('%type_name: View own mp_auction', array('%type_name' => $type->label)),
+      ),
+      "edit own $type_name mp_auction"   => array(
+        'title' => t('%type_name: Edit own mp_auction', array('%type_name' => $type->label)),
+      ),
+      "delete own $type_name mp_auction" => array(
+        'title' => t('%type_name: Delete own mp_auction', array('%type_name' => $type->label)),
+      ),
+    );
+  }
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function mp_auction_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Add action link 'admin/structure/mp_auctions/add'
+  // on 'admin/structure/mp_auctions'.
+  if ($root_path == 'admin/content/mp_auctions') {
+    $item = menu_get_item('admin/content/mp_auctions/add');
+    if ($item['access']) {
+      $data['actions']['output'][] = array(
+        '#theme' => 'menu_local_action',
+        '#link'  => $item,
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mp_auction_theme() {
+  return array(
+    'mp_auction_add_list' => array(
+      'variables' => array('content' => array()),
+      'file'      => 'mp_auction_mp_auction.admin.inc',
+    ),
+    'mp_auction'          => array(
+      'render element' => 'elements',
+      'template'       => 'mp_auction',
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function mp_auction_views_api() {
+  return array(
+    'api'  => 3,
+    'path' => drupal_get_path('module', 'mp_auction') . '/views',
+  );
+}
+
+/**
+ * Determines whether the given user has access to a mp_auction.
+ *
+ * @param string $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'
+ *   or just 'edit' (being the same as 'create' or 'update').
+ * @param object $mp_auction
+ *   Optionally a mp_auction or a mp_auction type to check access for.
+ *   If nothing is given, access for all mp_auctions is determined.
+ * @param object $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return bool
+ *   Whether access is allowed or not.
+ */
+function mp_auction_access($op, $mp_auction = NULL, $account = NULL) {
+  if (user_access('administer mp_auctions', $account)) {
+    return TRUE;
+  }
+  if (isset($mp_auction) && $type_name = $mp_auction->type) {
+    $op = ($op == 'view') ? 'view' : 'edit';
+    if (user_access("$op any $type_name mp_auction", $account)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback for the entity API.
+ */
+function mp_auction_type_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer mp_auction types', $account);
+}
+
+/**
+ * Gets an array of all mp_auction types, keyed by the type name.
+ *
+ * @param string $type_name
+ *   If set, the type with the given name is returned.
+ *
+ * @return MpAuctionType[]
+ *   Depending whether $type isset, an array of mp_auction types
+ *   or a single one.
+ */
+function mp_auction_get_types($type_name = NULL) {
+  // entity_load will get the Entity controller for our mp_auction entity
+  // and call the load function of that object - we are loading entities
+  // by name here.
+  $types = entity_load_multiple_by_name('mp_auction_type', isset($type_name) ? array($type_name) : FALSE);
+
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Menu argument loader; Load a mp_auction type by string.
+ *
+ * @param string $type
+ *   The machine-readable name of a mp_auction type to load.
+ *
+ * @return array|bool
+ *   A mp_auction type array or FALSE if $type does not exist.
+ */
+function mp_auction_type_load($type) {
+  return mp_auction_get_types($type);
+}
+
+/**
+ * Fetch a mp_auction object; make sure that the wildcard you choose
+ * in the mp_auction entity definition fits the function name here.
+ *
+ * @param int $mp_auction_id
+ *   Integer specifying the mp_auction id.
+ * @param bool $reset
+ *   A boolean indicating that the internal cache should be reset.
+ *
+ * @return object|bool
+ *   A fully-loaded $mp_auction object or FALSE if it cannot be loaded.
+ *
+ * @see mp_auction_load_multiple()
+ */
+function mp_auction_load($mp_auction_id, $reset = FALSE) {
+  $mp_auctions = mp_auction_load_multiple(array($mp_auction_id), array(), $reset);
+
+  return reset($mp_auctions);
+}
+
+/**
+ * Load multiple mp_auctions based on certain conditions.
+ *
+ * @param array $mp_auction_ids
+ *   An array of mp_auction IDs.
+ * @param array $conditions
+ *   An array of conditions to match against the {mp_auction} table.
+ * @param bool $reset
+ *   A boolean indicating that the internal cache should be reset.
+ *
+ * @return array
+ *   An array of mp_auction objects, indexed by mp_auction_id.
+ *
+ * @see entity_load()
+ * @see mp_auction_load()
+ */
+function mp_auction_load_multiple($mp_auction_ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('mp_auction', $mp_auction_ids, $conditions, $reset);
+}
+
+/**
+ * Deletes a mp_auction.
+ *
+ * @param \MpAuction $mp_auction
+ *   Entity mp_auction.
+ */
+function mp_auction_delete(MpAuction $mp_auction) {
+  $mp_auction->delete();
+}
+
+/**
+ * Delete multiple mp_auctions.
+ *
+ * @param array $mp_auction_ids
+ *   An array of mp_auction IDs.
+ */
+function mp_auction_delete_multiple(array $mp_auction_ids) {
+  entity_get_controller('mp_auction')->delete($mp_auction_ids);
+}
+
+/**
+ * Create a mp_auction object.
+ *
+ * @param array $values
+ *   An array of values.
+ */
+function mp_auction_create($values = array()) {
+  return entity_get_controller('mp_auction')->create($values);
+}
+
+/**
+ * Saves a mp_auction to the database.
+ *
+ * @param \MpAuction $mp_auction
+ *   The mp_auction object.
+ */
+function mp_auction_save(MpAuction $mp_auction) {
+  return $mp_auction->save();
+}
+
+/**
+ * Saves a mp_auction type to the db.
+ *
+ * @param \MpAuctionType $type
+ *   The mp_auction type object.
+ */
+function mp_auction_type_save(MpAuctionType $type) {
+  $type->save();
+}
+
+/**
+ * Deletes a mp_auction type from the db.
+ *
+ * @param \MpAuctionType $type
+ *   The mp_auction type object.
+ */
+function mp_auction_type_delete(MpAuctionType $type) {
+  $type->delete();
+}
+
+/**
+ * URI callback for mp_auctions.
+ *
+ * @param \MpAuction $mp_auction
+ *   The mp_auction object.
+ *
+ * @return array
+ *   URI callback.
+ */
+function mp_auction_uri(MpAuction $mp_auction) {
+  return array(
+    'path' => 'mp_auction/' . $mp_auction->mp_auction_id,
+  );
+}
+
+/**
+ * Menu title callback for showing individual entities.
+ *
+ * @param \MpAuction $mp_auction
+ *   The mp_auction object.
+ *
+ * @return string
+ *   Menu title.
+ */
+function mp_auction_page_title(MpAuction $mp_auction) {
+  return $mp_auction->name;
+}
+
+/**
+ * Sets up content to show an individual mp_auction.
+ * @todo - get rid of drupal_set_title();
+ *
+ * @param \MpAuction $mp_auction
+ *   The mp_auction object.
+ * @param string $view_mode
+ *   View mode.
+ *
+ * @return mixed
+ *   Content.
+ */
+function mp_auction_page_view(MpAuction $mp_auction, $view_mode = 'full') {
+  $controller = entity_get_controller('mp_auction');
+  $content = $controller->view(array($mp_auction->mp_auction_id => $mp_auction));
+  drupal_set_title($mp_auction->name);
+
+  return $content;
+}
+
+
+
+
+
+
+if (class_exists('EntityInlineEntityFormController')) {
+  /**
+   * The Controller for MpAuction entities for Inline Entity Form.
+   *
+   * Class MpAuctionInlineEntityFormController
+   */
+  class MpAuctionInlineEntityFormController extends EntityInlineEntityFormController {
+
+  }
+}
+
+

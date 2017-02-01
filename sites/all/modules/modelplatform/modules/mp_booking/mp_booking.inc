@@ -126,3 +126,28 @@ function _mp_booking_get_unit_events($unit, $start_date = NULL, $end_date = NULL
 
   return $result;
 }
+
+/**
+ * Get BAT Event auction ids.
+ */
+function mp_booking_get_event_auction_ids($event) {
+  $query = db_select('field_data_field_auction_event', 'fae');
+  $query->condition('field_auction_event_target_id', $event->event_id);
+  $query->condition('entity_type', 'mp_auction');
+  $query->fields('fae', array('entity_id'));
+
+  $auction_ids = $query->execute()->fetchCol(0);
+
+  return $auction_ids;
+}
+
+/**
+ * Get BAT Event auction entities.
+ */
+function mp_booking_get_event_auctions($event) {
+  $auction_ids = mp_booking_get_event_auction_ids($event);
+
+  $auctions = entity_load('mp_auction', $auction_ids);
+
+  return $auctions;
+}
