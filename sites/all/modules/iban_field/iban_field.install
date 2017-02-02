@@ -48,10 +48,9 @@ function iban_field_schema() {
  */
 function iban_field_install() {
   // Prevent duplicates.
-  $cnt = db_select('iban_field_countries')
-    ->addExpression('COUNT(*)', 'cnt')
-    ->execute()
-    ->fetchField();
+  $query = db_select('iban_field_countries', 'i');
+  $query->addExpression('COUNT(*)', 'cnt');
+  $cnt = $query->execute()->fetchField();
 
   if ($cnt) {
     return;
