@@ -15,7 +15,7 @@ function theme_mp_booking_event_auctions_table($variables) {
     foreach ($auctions as $auction) {
       $row = array();
 
-      $row[] = $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['value'];
+      $row[] = $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'];
       $row[] = $auction->field_auction_decision[LANGUAGE_NONE][0]['value'];
 
       $rows[] = $row;

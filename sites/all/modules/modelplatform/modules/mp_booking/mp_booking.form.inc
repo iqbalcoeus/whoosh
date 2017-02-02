@@ -31,6 +31,9 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
     '#tree' => TRUE,
   );
 
+  module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
+  $auction = mp_auction_create(array('type' => 'auction'));
+
   foreach ($customer_job_nids as $delta => $nid) {
     $job = node_load($nid);
     $job_wrapper = entity_metadata_wrapper('node', $job);
@@ -48,12 +51,14 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
     $form['jobs'][$delta]['job_preview'] = array(
       '#type' => 'markup',
       '#markup' => drupal_render($job_teaser),
+      '#weight' => 0,
     );
-    $form['jobs'][$delta]['job_cost'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Cost propose'),
-      '#default_value' =>  $job_wrapper->field_job_daily_rate_from->value(),
-    );
+
+    $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $job_wrapper->field_job_daily_rate_from->value() * 100;
+    $form_auction = mp_auction_edit_form($form, $form_state, $auction);
+    $form['jobs'][$delta]['job_cost'] = $form_auction['field_auction_cost_propose'];
+    $form['jobs'][$delta]['job_cost']['#weight'] = 2;
+
     $form['jobs'][$delta]['job_invite'] = array(
       '#type' => 'submit',
       '#value' => t('Send propose'),
@@ -64,6 +69,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       '#validate' => array(
         'mp_booking_job_model_invite_form_validate',
       ),
+      '#weight' => 4,
     );
   }
 
@@ -94,10 +100,10 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
 
     // Daily rate propose.
     $min_dily_rate = variable_get('mp_model_min_daily_rate', 500);
-    if (!isset($form_state['values']['jobs'][$delta]['job_cost'])) {
+    if (!isset($form_state['values']['jobs'][$delta]['job_cost'][LANGUAGE_NONE][0]['amount'])) {
       form_set_error('jobs][' . $delta, t('Daily rate propose can not be empty.'));
     }
-    elseif (intval($form_state['values']['jobs'][$delta]['job_cost']) < $min_dily_rate) {
+    elseif (intval($form_state['values']['jobs'][$delta]['job_cost'][LANGUAGE_NONE][0]['amount']) < $min_dily_rate) {
       form_set_error('jobs][' . $delta, t('Daily rate propose can not be less then @daily_rate', array('@daily_rate' => $min_dily_rate)));
     }
   }
@@ -154,6 +160,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = MP_BOOKING_STATE_AUCTION;
   $event->start_date = $start_date;
   $event->end_date = $end_date;
+  $event->uid = $user->uid;
   bat_event_save($event);
 
   // Create auction.
@@ -162,7 +169,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->name = 'Auction uid - ' . $user->uid;
   $auction->uid = $user->uid;
   $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-  $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['value'] = $form_state['values']['jobs'][$delta]['job_cost'];
+  $auction->field_auction_cost_propose = $form_state['values']['jobs'][$delta]['job_cost'];
   mp_auction_save($auction);
   drupal_set_message(t('Auction was created'));
 
@@ -185,7 +192,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       $auction->name = 'Auction event id - ' . $event->uid;
       $auction->uid = $user->uid;
       $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-      $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['value'] = $form_state['values']['field_auction_cost_propose'];
+      $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $form_state['values']['field_auction_cost_propose'];
       $form = mp_auction_edit_form($form, $form_state, $auction);
     }
 
@@ -209,12 +216,14 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
         '#tree' => TRUE,
       );
 
-      if (isset($_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['value'])) {
+      if (isset($_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'])) {
+        $amount = $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'];
+        $currency_code = $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['currency_code'];
         $form['auctions'][$delta]['cost'] = array(
           '#title' => t('Cost propose'),
           '#type' => 'markup',
           '#prefix' => '<div class="cost-propose">',
-          '#markup' => $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['value'],
+          '#markup' => commerce_currency_format($amount, $currency_code),
           '#suffix' => '</div>',
         );
       }
