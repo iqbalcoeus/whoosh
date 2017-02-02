@@ -196,7 +196,7 @@ function _mp_forms_customer_private_data_form(&$form, &$form_state, $profile_id)
     if (!isset($form[$profile_id][$field_name])) {
       continue;
     }
-    $selector = 'name="profile_customer_private_data[field_complete_address][und][0][country]"';
+    $selector = '.country[name="profile_customer_private_data[field_complete_address][und][0][country]"]';
     $form[$profile_id][$field_name]['#states'] = array(
       'required' => array(
         array(
