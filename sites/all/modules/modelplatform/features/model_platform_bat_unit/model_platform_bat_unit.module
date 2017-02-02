@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model Platform - BAT Unit feature.
+ */
+
+include_once 'model_platform_bat_unit.features.inc';
