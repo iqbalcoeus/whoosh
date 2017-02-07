@@ -716,7 +716,10 @@ a.tabledrag-handle .handle {
 
 #edit-jobs .field-type-commerce-price label,
 #edit-jobs .field-type-commerce-price .rhythm-input,
-#edit-jobs .field-type-commerce-price .field-suffix {
+#edit-jobs .field-type-commerce-price .field-suffix,
+#mp-booking-job-auction-form .field-type-commerce-price label,
+#mp-booking-job-auction-form  .field-type-commerce-price .rhythm-input,
+#mp-booking-job-auction-form  .field-type-commerce-price .field-suffix {
   display: inline-block;
   vertical-align: middle;
 }
@@ -738,8 +741,12 @@ a.tabledrag-handle .handle {
   clear: both;
 }
 
-#edit-auctions > .form-wrapper div {
+#edit-auctions > .form-wrapper div,
+#mp-booking-job-auction-form .field-type-commerce-price,
+#mp-booking-job-auction-form .form-actions {
   display: inline-block;
   vertical-align: top;
   margin-right: 10px;
 }
+
+
