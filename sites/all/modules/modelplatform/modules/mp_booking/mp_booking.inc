@@ -177,13 +177,20 @@ function _mp_booking_get_calendar_account() {
   $args = arg();
 
   $account = NULL;
-  if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
+  if (isset($args[3])
+    && $args[0] === 'job'
+    && $args[1] === 'model'
+    && $args[3] === 'invite') {
     $account = user_load(intval($args[2]));
   }
-  elseif (!isset($args[1]) && isset($args[0]) && $args[0] == 'user' && $user->uid) {
+  elseif (!isset($args[1])
+    && isset($args[0])
+    && $args[0] == 'user'
+    && $user->uid) {
     $account = user_load($user->uid);
   }
-  elseif (!isset($args[2]) && $args[0] === 'user') {
+  elseif (!isset($args[2])
+    && $args[0] === 'user') {
     $account = user_load(intval($args[1]));
   }
   elseif (isset($args[3])
