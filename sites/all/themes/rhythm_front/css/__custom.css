@@ -751,4 +751,14 @@ a.tabledrag-handle .handle {
   margin-bottom: 10px;
 }
 
+@media screen and (min-width: 768px) {
+  #block-views-bat-event-part-block {
+    margin-right: 30px;
+  }
+  #block-views-bat-event-part-block,
+  #block-views-bat-event-part-block-1 {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
 
