@@ -190,8 +190,10 @@ function _mp_booking_get_calendar_account() {
     $account = user_load($user->uid);
   }
   elseif (!isset($args[2])
+    && isset($args[1])
+    && $uid = intval($args[1])
     && $args[0] === 'user') {
-    $account = user_load(intval($args[1]));
+    $account = user_load($uid);
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
@@ -250,4 +252,43 @@ function _rcb_generate_calendar_events_path($unit) {
   $events_path = '?' . implode('&', $events_path_params);
 
   return $events_path;
+}
+
+/**
+ * Page callback.
+ */
+function mp_booking_model_propose($nid) {
+  global $user;
+
+  if (!isset($user->roles[5])) {
+    drupal_set_message(t('Only model can send propose to the customer.'), 'warning');
+
+    return '';
+  }
+
+  $job = node_load($nid);
+
+  // Job dates check.
+  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+    $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+  }
+  else {
+    return;
+  }
+  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+    $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+  }
+  else {
+    return;
+  }
+
+  // Get model unit.
+  $model_account = user_load($user->uid);
+  $unit = _mp_booking_get_unit('user', $model_account);
+
+  // Create event.
+  $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $nid, $start_date, $end_date);
+  bat_event_save($event);
+
+  drupal_goto('job/model/' . $event->event_id . '/auction');
 }

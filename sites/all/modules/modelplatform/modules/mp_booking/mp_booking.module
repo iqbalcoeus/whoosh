@@ -49,6 +49,14 @@ function mp_booking_menu() {
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
+  $items['job/propose/%'] = array(
+    'title' => t('Model propose'),
+    'page callback' => 'mp_booking_model_propose',
+    'page arguments' => array(2),
+    'access callback' => 'user_access',
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
+  );
+
   return $items;
 }
 
