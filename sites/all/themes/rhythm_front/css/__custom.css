@@ -891,6 +891,7 @@ a.tabledrag-handle .handle {
   float: left;
   margin-right: 20px;
   margin-left: 0 !important;
+  width: 67px;
 }
 
 #block-views-bat-event-part-block .views-row > div {
