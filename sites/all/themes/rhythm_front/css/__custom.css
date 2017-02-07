@@ -751,6 +751,11 @@ a.tabledrag-handle .handle {
   margin-bottom: 10px;
 }
 
+#block-views-bat-event-part-block,
+#block-views-bat-event-part-block-1 {
+  margin-bottom: 20px;
+}
+
 @media screen and (min-width: 768px) {
   #block-views-bat-event-part-block {
     margin-right: 30px;
