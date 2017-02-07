@@ -620,6 +620,10 @@ a.tabledrag-handle .handle {
   margin-bottom: 20px;
 }
 
+#block-mp-booking-mp-booking-calendar-form .form-actions {
+  text-align: left;
+}
+
 #edit-jobs .field-type-commerce-price,
 #edit-jobs .form-submit {
   display: inline-block;
@@ -807,12 +811,13 @@ a.tabledrag-handle .handle {
 
 @media screen and (min-width: 768px) {
   #block-views-bat-event-part-block {
-    margin-right: 30px;
+    margin-right: 3%;
   }
   #block-views-bat-event-part-block,
   #block-views-bat-event-part-block-1 {
     display: inline-block;
     vertical-align: top;
+    width: 47%;
   }
 }
 
@@ -880,4 +885,55 @@ a.tabledrag-handle .handle {
 .view-job-list.view-display-id-page .views-field-field-job-daily-rate-to span {
   display: inline-block;
   vertical-align: top;
+}
+
+#block-views-bat-event-part-block .views-field-picture {
+  float: left;
+  margin-right: 20px;
+  margin-left: 0 !important;
+}
+
+#block-views-bat-event-part-block .views-row > div {
+  margin-left: 87px;
+}
+
+#block-views-bat-event-part-block .views-field-field-first-name,
+#block-views-bat-event-part-block .views-field-field-last-name {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 0 !important;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#block-views-bat-event-part-block .views-field-field-daily-rate .field-content,
+#block-views-bat-event-part-block .views-field-field-daily-rate span,
+#block-views-bat-event-part-block-1 .views-field-field-job-start-date .views-label,
+#block-views-bat-event-part-block-1 .views-field-field-job-start-date .field-content,
+#block-views-bat-event-part-block-1  .views-field-field-job-start-date-1 .views-label,
+#block-views-bat-event-part-block-1  .views-field-field-job-start-date-1 .field-content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#block-views-bat-event-part-block-1 .views-field-title,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-from,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-to,
+#block-views-bat-event-part-block-1 .views-field-title,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-from .views-label,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-to .views-label,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-from .field-content,
+#block-views-bat-event-part-block-1 .views-field-field-job-daily-rate-to .field-content {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#block-views-bat-event-part-block-1 .views-field-title a {
+  text-decoration: underline;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#calendar {
+  margin-bottom: 20px;
 }
