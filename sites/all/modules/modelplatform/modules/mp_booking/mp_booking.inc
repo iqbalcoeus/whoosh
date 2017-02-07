@@ -178,13 +178,13 @@ function _mp_booking_get_calendar_account() {
 
   $account = NULL;
   if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
-    $account = user_load($args[2]);
+    $account = user_load(intval($args[2]));
   }
   elseif (!isset($args[1]) && isset($args[0]) && $args[0] == 'user' && $user->uid) {
     $account = user_load($user->uid);
   }
   elseif (!isset($args[2]) && $args[0] === 'user') {
-    $account = user_load($args[1]);
+    $account = user_load(intval($args[1]));
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
@@ -194,7 +194,8 @@ function _mp_booking_get_calendar_account() {
       $query = db_select('field_data_event_bat_unit_reference', 'b_unit');
       $query->condition('b_unit.entity_type', 'bat_event');
       $query->condition('b_unit.entity_id', $event->event_id);
-      $query->innerJoin('field_data_field_bat_unit', 'u_unit', 'u_unit.field_bat_unit_target_id = b_unit.event_bat_unit_reference_target_id');
+      $query->innerJoin('field_data_field_bat_unit', 'u_unit',
+        'u_unit.field_bat_unit_target_id = b_unit.event_bat_unit_reference_target_id');
       $query->condition('u_unit.entity_type', 'user');
       $query->addField('u_unit', 'entity_id', 'uid');
       $uid = $query->execute()->fetchField();

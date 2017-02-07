@@ -54,7 +54,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       '#weight' => 0,
     );
 
-    $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $job_wrapper->field_job_daily_rate_from->value() * 100;
+//    $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $job_wrapper->field_job_daily_rate_from->value() * 100;
     $form_auction = mp_auction_edit_form($form, $form_state, $auction);
     $form['jobs'][$delta]['job_cost'] = $form_auction['field_auction_cost_propose'];
     $form['jobs'][$delta]['job_cost']['#weight'] = 2;
