@@ -837,3 +837,47 @@ a.tabledrag-handle .handle {
   font-size: 12px;
   padding: 8px 10px;
 }
+
+.view-job-list.view-display-id-page .views-field-title a {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.view-job-list.view-display-id-page .views-field-title {
+  margin-bottom: 15px;
+}
+
+.view-job-list.view-display-id-page .like-button {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 15px;
+}
+
+.view-job-list.view-display-id-page .views-field-body {
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-from,
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-to {
+  display: block;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .view-job-list.view-display-id-page .views-field-field-job-daily-rate-from,
+  .view-job-list.view-display-id-page .views-field-field-job-daily-rate-to {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%;
+  }
+}
+
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-from .field-content,
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-from span,
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-to .field-content,
+.view-job-list.view-display-id-page .views-field-field-job-daily-rate-to span {
+  display: inline-block;
+  vertical-align: top;
+}
