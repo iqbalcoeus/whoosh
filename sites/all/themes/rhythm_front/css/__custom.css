@@ -251,6 +251,9 @@ a.tabledrag-handle .handle {
 
 .btn-mod.btn-medium {
   padding: 8px 15px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 
 .form input[type="text"],
@@ -438,7 +441,11 @@ a.tabledrag-handle .handle {
 }
 
 #block-views-my-jobs-block .actions a,
-#edit-jobs li.node-readmore a {
+#block-views-my-jobs-block .actions a:focus,
+#edit-jobs .btn-mod,
+#edit-jobs .btn-mod:focus,
+.like-button a,
+.like-button a:focus {
   vertical-align: top;
   margin: 15px 5px 0 0;
   color: #151515;
@@ -462,7 +469,8 @@ a.tabledrag-handle .handle {
 }
 
 #block-views-my-jobs-block .actions a:hover,
-#edit-jobs li.node-readmore a:hover {
+#edit-jobs .btn-mod:hover,
+.like-button a:hover {
   background: #151515;
   color: #fff;
 }
@@ -623,6 +631,7 @@ a.tabledrag-handle .handle {
   padding: 8px 10px;
   font-size: 11px;
   font-weight: 400;
+  margin-top: 0;
 }
 
 #edit-jobs h2 {
@@ -632,6 +641,7 @@ a.tabledrag-handle .handle {
 
 #edit-jobs ul {
   padding-left: 0;
+  margin-top: 10px;
 }
 
 #edit-jobs li.node-readmore {
@@ -639,13 +649,47 @@ a.tabledrag-handle .handle {
   text-align: right;
 }
 
-#edit-jobs li.node-readmore a {
+#edit-jobs li.node-readmore a,
+#edit-jobs li.node-readmore a:focus {
   margin-right: 0;
-  font-size: 12px;
+  font-size: 11px;
   padding: 8px 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  background: rgba(34,34,34, .9);
+  border: 2px solid transparent;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000)
 }
 
-#edit-jobs {
+#edit-jobs li.node-readmore a:hover {
+  font-weight: 400;
+  color: rgba(255,255,255, .85);
+  background: rgba(0,0,0, .7);
+  text-decoration: none;
+  outline: none;
+  border-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#edit-jobs,
+.view-job-list.view-display-id-page .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -664,7 +708,8 @@ a.tabledrag-handle .handle {
   margin-right: -10px;
 }
 
-#edit-jobs > .form-wrapper {
+#edit-jobs > .form-wrapper,
+.view-job-list.view-display-id-page .view-content .views-row {
   margin: 10px;
   width: 100%;
   border: 1px solid #ccc;
@@ -675,11 +720,13 @@ a.tabledrag-handle .handle {
 }
 
 @media screen and (min-width: 768px) {
-  #edit-jobs > .form-wrapper {
+  #edit-jobs > .form-wrapper,
+  .view-job-list.view-display-id-page .view-content .views-row {
     width: 48%;
     margin: 1%;
   }
-  #edit-jobs {
+  #edit-jobs,
+  .view-job-list.view-display-id-page .view-content {
     margin-left: -1%;
     margin-right: -1%;
     overflow: hidden;
@@ -687,10 +734,12 @@ a.tabledrag-handle .handle {
 }
 
 @media screen and (min-width: 1200px) {
-  #edit-jobs > .form-wrapper {
+  #edit-jobs > .form-wrapper,
+  .view-job-list.view-display-id-page .view-content .views-row {
     width: 31%;
   }
-  #edit-jobs {
+  #edit-jobs,
+  .view-job-list.view-display-id-page .view-content {
     margin-left: -1%;
     margin-right: -2%;
   }
@@ -767,3 +816,24 @@ a.tabledrag-handle .handle {
   }
 }
 
+.alert {
+  margin: 0 auto 50px;
+}
+
+.view-job-list.view-display-id-page .view-filters {
+  float: none;
+}
+
+.view-job-list.view-display-id-page .views-exposed-widgets > div {
+  display: inline-block;
+  float: none;
+}
+
+.view-job-list.view-display-id-page .views-exposed-widgets .form-submit {
+  margin-top: 0;
+}
+
+.like-button a {
+  font-size: 12px;
+  padding: 8px 10px;
+}
