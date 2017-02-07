@@ -600,3 +600,7 @@ a.tabledrag-handle .handle {
 .page-node-add-job .form-actions {
   text-align: left;
 }
+
+#ui-datepicker-div {
+  z-index: 200!important;
+}

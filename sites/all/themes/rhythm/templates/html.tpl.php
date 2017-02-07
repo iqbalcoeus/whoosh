@@ -24,7 +24,7 @@
 
     <?php print $page_top; ?>
     <?php print $page; ?>
-    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&amp;amp;language=en&amp;1424957919"></script>
+<!--    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&amp;amp;language=en&amp;1424957919"></script>-->
     <?php print $scripts; ?>
     <!--[if lt IE 10]><script type="text/javascript" src="<?php print base_path() . path_to_theme(); ?>/js/placeholder.js"></script><![endif]-->
     <?php print $page_bottom; ?>
