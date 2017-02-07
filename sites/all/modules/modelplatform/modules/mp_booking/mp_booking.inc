@@ -151,3 +151,95 @@ function mp_booking_get_event_auctions($event) {
 
   return $auctions;
 }
+
+function _mp_booking_event_create($unit_id, $state_id, $uid, $job_nid = 0, $start_date = NULL, $end_date = NULL) {
+  $event_params = array(
+    'type' => MP_BOOKING_MODEL_AVAILABILITY,
+  );
+  $event = bat_event_create($event_params);
+  $event->field_job[LANGUAGE_NONE][0]['target_id'] = $job_nid;
+  $event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id'] = $unit_id;
+  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = $state_id;
+  if ($start_date) {
+    $event->start_date = $start_date;
+  }
+  if ($end_date) {
+    $event->end_date = $end_date;
+  }
+  $event->uid = $uid;
+
+  return $event;
+}
+
+function _mp_booking_get_calendar_account() {
+  global $user;
+
+  $args = arg();
+
+  $account = NULL;
+  if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
+    $account = user_load($args[2]);
+  }
+  elseif (!isset($args[1]) && isset($args[0]) && $args[0] == 'user') {
+    $account = user_load($user->uid);
+  }
+  elseif (!isset($args[2]) && $args[0] === 'user') {
+    $account = user_load($args[1]);
+  }
+  elseif (isset($args[3])
+    && $args[0] === 'job'
+    && $args[1] === 'model'
+    && $args[3] === 'auction') {
+    if ($event = bat_event_load(intval($args[2]))) {
+      $query = db_select('field_data_event_bat_unit_reference', 'b_unit');
+      $query->condition('b_unit.entity_type', 'bat_event');
+      $query->condition('b_unit.entity_id', $event->event_id);
+      $query->innerJoin('field_data_field_bat_unit', 'u_unit', 'u_unit.field_bat_unit_target_id = b_unit.event_bat_unit_reference_target_id');
+      $query->condition('u_unit.entity_type', 'user');
+      $query->addField('u_unit', 'entity_id', 'uid');
+      $uid = $query->execute()->fetchField();
+
+      $account = user_load($uid);
+    }
+  }
+
+  return $account;
+}
+
+function _mp_booking_get_calendar_busy_access() {
+  global $user;
+
+  $args = arg();
+
+  $access = FALSE;
+  if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
+    $access = TRUE;
+  }
+  elseif (!isset($args[1]) && isset($args[0]) && $args[0] == 'user') {
+    $access = TRUE;
+  }
+  elseif (isset($args[3])
+    && $args[0] === 'job'
+    && $args[1] === 'model'
+    && intval($args[2])
+    && $args[3] === 'auction') {
+    $access = TRUE;
+  }
+
+  return $access;
+}
+
+/**
+ * Generate path for calendar events data.
+ */
+function _rcb_generate_calendar_events_path($unit) {
+  $events_path_params = array(
+    'q=bat/v2/events-calendar',
+    'unit_types=' . $unit->type_id,
+    'event_types=' . 'model_availability',
+    'unit_ids=' . $unit->unit_id,
+  );
+  $events_path = '?' . implode('&', $events_path_params);
+
+  return $events_path;
+}

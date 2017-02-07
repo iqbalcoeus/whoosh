@@ -151,16 +151,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   }
 
   // Create event.
-  $event_params = array(
-    'type' => MP_BOOKING_MODEL_AVAILABILITY,
-  );
-  $event = bat_event_create($event_params);
-  $event->field_job[LANGUAGE_NONE][0]['target_id'] = $job_nid;
-  $event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id'] = $unit->unit_id;
-  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = MP_BOOKING_STATE_AUCTION;
-  $event->start_date = $start_date;
-  $event->end_date = $end_date;
-  $event->uid = $user->uid;
+  $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $job_nid, $start_date, $end_date);
   bat_event_save($event);
 
   // Create auction.
@@ -316,6 +307,11 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
   return $form;
 }
 
+/**
+ * Submit action.
+ *
+ * @see mp_booking_job_auction_form()
+ */
 function mp_booking_job_auction_form_accept($form, &$form_state) {
   $delta = $form_state['triggering_element']['#parents'][1];
 
@@ -331,6 +327,11 @@ function mp_booking_job_auction_form_accept($form, &$form_state) {
   bat_event_save($event);
 }
 
+/**
+ * Submit action.
+ *
+ * @see mp_booking_job_auction_form()
+ */
 function mp_booking_job_auction_form_decline($form, &$form_state) {
   $delta = $form_state['triggering_element']['#parents'][1];
 
@@ -340,6 +341,120 @@ function mp_booking_job_auction_form_decline($form, &$form_state) {
   mp_auction_save($auction);
 }
 
+/**
+ * Submit action.
+ *
+ * @see mp_booking_job_auction_form()
+ */
 function mp_booking_job_auction_form_submit($form, &$form_state) {
+  $form_state['redirect'] = NULL;
+}
+
+/**
+ * Booking form.
+ */
+function mp_booking_calendar_form($form, &$form_state, $account = NULL) {
+  if ($account) {
+    // Get BAT Unit object.
+    $unit = _mp_booking_get_unit('user', $account);
+
+    // Create BAT event object.
+    module_load_include('inc', 'bat_event', 'bat_event.admin');
+    $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_BUSY, $account->uid);
+
+    if ($event) {
+      // Create form.
+      $form = bat_event_edit_form($form, $form_state, $event);
+
+      // Hide other fields.
+      // @TODO Create module configuration for this fields.
+      $form['user']['#access'] = FALSE;
+      $form['event_history']['#access'] = FALSE;
+      $form['event_bat_unit_reference']['#access'] = FALSE;
+      $form['event_state_reference']['#access'] = FALSE;
+      $form['field_job']['#access'] = FALSE;
+      $form['field_job_cost']['#access'] = FALSE;
+      $form['actions']['cancel']['#access'] = FALSE;
+
+      // Change date format.
+      $date_format = 'Y-m-d h:i A';
+      $date_year_range = '0:+1';
+
+      $form['bat_date_range']['bat_start_date']['#date_format'] = $date_format;
+      $form['bat_date_range']['bat_start_date']['#date_year_range'] = $date_year_range;
+
+      $form['bat_date_range']['bat_end_date']['#date_format'] = $date_format;
+      $form['bat_date_range']['bat_end_date']['#date_year_range'] = $date_year_range;
+
+      // I had to disable the validation of the form, because BAT generates
+      // new values for the start and end date, even if they have not been entered
+      // by the user, which causes the error when form submit.
+      $form['#validate'] = array(
+        '_rcb_bat_event_form_validate',
+      );
+      $form['bat_date_range']['bat_start_date']['#element_validate'] = array('_rcb_bat_date_validate');
+      $form['bat_date_range']['bat_end_date']['#element_validate'] = array('_rcb_bat_date_validate');
+
+      $form['actions']['submit']['#submit'] = array('mp_booking_calendar_form_submit');
+      $form['actions']['submit']['#value'] = t('Mark as unavailable');
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Element validate callback for the bat_date_range fields.
+ *
+ * Ensure a start and end date was entered and provide default value for time.
+ */
+function _rcb_bat_date_validate($element, &$form_state, $form) {
+  if (empty($element['#value']['date'])) {
+    form_error($element, t('Please choose a @title.', array('@title' => $element['#title'])));
+  }
+  elseif (empty($element['#value']['time'])) {
+    $form_state['values'][$element['#name']]['time'] = '10:00 AM';
+  }
+}
+
+/**
+ * BAT event additional form validation.
+ *
+ * @see mp_booking_calendar_form()
+ */
+function _rcb_bat_event_form_validate($form, &$form_state) {
+  $error = FALSE;
+
+  // Start date.
+  if (!isset($form_state['input']['bat_start_date']['date'])
+    || !$form_state['input']['bat_start_date']['date']) {
+    $error = TRUE;
+    form_set_error('bat_date_range][bat_start_date');
+  }
+
+  // End date.
+  if (!isset($form_state['input']['bat_end_date']['date'])
+    || !$form_state['input']['bat_end_date']['date']) {
+    $error = TRUE;
+    form_set_error('bat_date_range][bat_end_date');
+  }
+
+  // If default bat event validation will execute with date error
+  // it will create fatal error, so we need to prevent it.
+  if (!$error) {
+    bat_form_start_end_dates_validate($form, $form_state);
+    bat_event_edit_form_validate($form, $form_state);
+  }
+}
+
+/**
+ * Form submit.
+ *
+ * @see mp_booking_calendar_form()
+ */
+function mp_booking_calendar_form_submit($form, &$form_state) {
+  // Call exists BAT submit function.
+  bat_event_edit_form_submit($form, $form_state);
+
   $form_state['redirect'] = NULL;
 }

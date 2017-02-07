@@ -106,6 +106,76 @@ function mp_booking_user_update(&$edit, $account, $category) {
   }
 }
 
+/**
+ * Implements hook_block_info().
+ */
+function mp_booking_block_info() {
+  $blocks = array();
+  $blocks['mp_booking_calendar_form'] = array(
+    'info' => t('Booking form'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mp_booking_block_view($delta = '') {
+  global $user;
+
+  $block = array();
+  switch ($delta) {
+    case 'mp_booking_calendar_form':
+      $block['subject'] = '';
+
+      // Added system library to prevent $(...).tooltip is not a function error.
+      drupal_add_library('system', 'ui.tooltip');
+
+      $account = _mp_booking_get_calendar_account();
+
+      // Generate booking form.
+      if (_mp_booking_get_calendar_busy_access()) {
+        $booking_form = drupal_get_form('mp_booking_calendar_form', $account);
+        $form_rendered = drupal_render($booking_form);
+      }
+      else {
+        $form_rendered = '';
+      }
+
+      // Generate calendar.
+      $calendar = '<div id="calendar" class="fixed_event_states"></div>';
+      $library_path = libraries_get_path('fullcalendar');
+      $unit = _mp_booking_get_unit('user', $account);
+
+      $block['content']['#markup'] = $calendar . $form_rendered;
+      // Attach additional settings, js and css to block.
+      $block['content']['#attached'] = array(
+        'js' => array(
+          array('data' => $library_path . '/lib/moment.min.js'),
+          array('data' => $library_path . '/fullcalendar.js'),
+          array('data' => drupal_get_path('module', 'mp_booking') . '/js/mp_booking_calendar.js'),
+          array(
+            'data' => array(
+              'mp_booking' => array(
+                'eventsPath' => _rcb_generate_calendar_events_path($unit),
+              ),
+            ),
+            'type' => 'setting',
+          ),
+        ),
+        'css' => array(
+          array('data' => $library_path . '/fullcalendar.css'),
+        ),
+      );
+
+
+      break;
+
+  }
+  return $block;
+}
 
 /**
  * Implements hook_commerce_cart_line_item_refresh().
@@ -116,3 +186,15 @@ function mp_booking_commerce_cart_line_item_refresh($line_item, $order_wrapper) 
 //  $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['amount'] = $price;
 //  $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['data']['components']['0']['price']['amount'] = $price;
 }
+
+/**
+ * Implements hook_bat_api_events_index_calendar_alter().
+ */
+function mp_booking_bat_api_events_index_calendar_alter(&$events, $context) {
+  foreach ($events as &$event) {
+    if ($event['title']) {
+      unset($event['rendering']);
+    }
+  }
+}
+
