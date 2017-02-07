@@ -731,3 +731,15 @@ a.tabledrag-handle .handle {
   padding-right: 3px;
   width: 52px;
 }
+
+.messages.status {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+#edit-auctions > .form-wrapper div {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
+}
