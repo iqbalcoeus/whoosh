@@ -724,7 +724,8 @@ a.tabledrag-handle .handle {
   vertical-align: middle;
 }
 
-#edit-jobs .field-type-commerce-price .rhythm-input {
+#edit-jobs .field-type-commerce-price .rhythm-input,
+#mp-booking-job-auction-form .field-type-commerce-price .rhythm-input {
   margin-left: 5px;
   margin-right: 2px;
 }
@@ -747,6 +748,7 @@ a.tabledrag-handle .handle {
   display: inline-block;
   vertical-align: top;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 
