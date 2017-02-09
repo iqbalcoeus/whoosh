@@ -201,9 +201,12 @@ function mp_booking_commerce_cart_line_item_refresh($line_item, $order_wrapper) 
  */
 function mp_booking_bat_api_events_index_calendar_alter(&$events, $context) {
   foreach ($events as &$event) {
-    if ($event['title']) {
+    if ($event['bat_id']) {
+      $_event = bat_event_load($event['bat_id']);
+      $event['start'] = str_replace(' ', 'T', $_event->start_date);
+      $event['end'] = str_replace(' ', 'T', $_event->end_date);
+
       unset($event['rendering']);
     }
   }
 }
-

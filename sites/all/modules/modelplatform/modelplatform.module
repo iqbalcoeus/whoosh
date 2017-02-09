@@ -43,6 +43,8 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
         $access = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
         $access = $access && user_access('modelplatform administer models');
         $form['field_model_is_active']['#access'] = $access;
+        $form['field_bat_unit']['#access'] = $access;
+        $form['field_rating']['#access'] = FALSE;
 
         $is_model = in_array('Model', $form['#user']->roles);
         $form['field_small_business']['#access'] = $is_model;
