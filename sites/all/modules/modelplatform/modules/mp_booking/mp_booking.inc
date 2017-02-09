@@ -191,9 +191,9 @@ function _mp_booking_get_calendar_account() {
   }
   elseif (!isset($args[2])
     && isset($args[1])
-    && $uid = intval($args[1])
+    && intval($args[1])
     && $args[0] === 'user') {
-    $account = user_load($uid);
+    $account = user_load(intval($args[1]));
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
@@ -225,7 +225,7 @@ function _mp_booking_get_calendar_busy_access() {
   if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
     $access = TRUE;
   }
-  elseif (!isset($args[1]) && isset($args[0]) && $args[0] == 'user') {
+  elseif (isset($args[0]) && $args[0] == 'user') {
     $access = TRUE;
   }
   elseif (isset($args[3])
