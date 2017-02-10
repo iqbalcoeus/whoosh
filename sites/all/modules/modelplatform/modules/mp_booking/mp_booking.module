@@ -205,7 +205,7 @@ function mp_booking_bat_api_events_index_calendar_alter(&$events, $context) {
       $_event = bat_event_load($event['bat_id']);
       $event['start'] = str_replace(' ', 'T', $_event->start_date);
       $event['end'] = str_replace(' ', 'T', $_event->end_date);
-
+      $event['tooltip'] = $_event->start_date_object->format('h:i A') . ' ' . $event['title'] . ' ' . $_event->end_date_object->format('h:i A');
       unset($event['rendering']);
     }
   }

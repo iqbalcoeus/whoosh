@@ -8,6 +8,11 @@
 
   Drupal.rcOptions.init = function() {
     // this.schedulerLicenseKey = Drupal.settings.carCalendar.schedulerLicenseKey;
+    this.header = {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay,listWeek'
+    };
     this.slotWidth = 30;
     this.height = 460;
     this.editable = false;
@@ -38,6 +43,9 @@
       Drupal.t('December')
     ];
     this.events = Drupal.settings.basePath + Drupal.settings.mp_booking.eventsPath;
+    this.eventRender = function(event, element) {
+      $(element[0]).attr('title', event.tooltip);
+    }
   };
 
   // Calendar structure.
@@ -49,14 +57,6 @@
 
     Drupal.rcOptions.init();
     $(this.selector).fullCalendar(Drupal.rcOptions);
-    $(this.selector).fullCalendar({
-      eventSources: [Drupal.settings.basePath + Drupal.settings.mp_booking.eventsPath],
-      eventRender: function(event, element) {
-        element.qtip({
-          content: event.description
-        });
-      }
-    });
   };
 
   // Behavior.
