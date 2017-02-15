@@ -201,14 +201,14 @@ function _mp_forms_customer_private_data_form(&$form, &$form_state, $profile_id)
       'required' => array(
         array(
           $selector => array(
-            '!value' => MP_FORMS_COUNTRY_CODE,
+            'value' => MP_FORMS_COUNTRY_CODE,
           ),
         ),
       ),
       'unrequired' => array(
         array(
           $selector => array(
-            'value' => MP_FORMS_COUNTRY_CODE,
+            '!value' => MP_FORMS_COUNTRY_CODE,
           ),
         ),
       ),
