@@ -194,6 +194,9 @@ function _mp_booking_get_calendar_account() {
     && intval($args[1])
     && $args[0] === 'user') {
     $account = user_load(intval($args[1]));
+    if (!isset($account->roles[5])) {
+      $account = NULL;
+    }
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
