@@ -238,7 +238,7 @@ function _mp_forms_customer_private_data_form_validate(&$form, &$form_state) {
 
   $values = $form_state['values'][$profile_id];
   $country = $values['field_complete_address'][LANGUAGE_NONE][0]['country'];
-  if ($country !== MP_FORMS_COUNTRY_CODE) {
+  if ($country == MP_FORMS_COUNTRY_CODE) {
     foreach ($active_field_names['customer'] as $field_name) {
       if (!isset($form[$profile_id][$field_name])) {
         continue;
