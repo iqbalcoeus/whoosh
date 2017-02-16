@@ -141,7 +141,6 @@ a.tabledrag-handle .handle {
 #block-system-user-menu,
 #block-system-main-menu {
   padding-left: 15px;
-  padding-right: 15px;
 }
 
 .bg-gray .submitted {
@@ -156,12 +155,12 @@ a.tabledrag-handle .handle {
 #block-system-user-menu .block-content li,
 #block-locale-language .block-content li {
   display: inline-block;
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 #block-system-user-menu .block-content ul,
 #block-locale-language .block-content ul {
-  padding-left: 0;
+
 }
 
 #block-system-main-menu h5,
@@ -201,6 +200,66 @@ a.tabledrag-handle .handle {
   margin-bottom: 15px;
 }
 
+.local-scroll {
+  display: none;
+}
+
+.logo-img{
+  padding:15px 6px 10px 20px;
+  float: left;
+  display: inline;
+  position: relative; /* Относительное позиционирование */
+}
+
+li.en:after {
+  content: "\2044";
+  padding-left: 10px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+ul.default-menu li{display: inline;}
+
+ul.language-switcher-locale-url, ul.default-menu {
+  margin-right: 5px; /* Отступ слева */
+  padding: 3px; /* Поля вокруг текста */
+  vertical-align: middle;
+}
+
+.block-menu, .block-locale, .block-delta-blocks{
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 0px;
+  padding-top: 25px;
+}
+
+.region .region-top{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.block-locale{
+  padding-top: 40px;
+  vertical-align: middle;
+}
+
+.contextual-links-region{
+  padding-top: 10px;
+}
+
+.region-top ul{
+  padding-top: 30px;
+}
 @media screen and (min-width: 768px) {
   .tpl-minimal-tabs li {
     display: inline-block;
@@ -221,8 +280,6 @@ a.tabledrag-handle .handle {
   #block-locale-language,
   #block-system-user-menu,
   #block-system-main-menu {
-    padding-left: 40px;
-    padding-right: 40px;
   }
   #block-system-main-menu .block-content h5,
   #block-system-user-menu .block-content h5,
