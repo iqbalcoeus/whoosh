@@ -115,9 +115,13 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
         $access = $access && user_access('modelplatform administer models');
         $form['field_model_is_active']['#access'] = $access;
         $form['field_bat_unit']['#access'] = $access;
+        $form['field_front_page']['#access'] = $access;
+        $form['field_front_page_logo']['#access'] = $access;
+        $form['field_front_page_text']['#access'] = $access;
+        $form['field_front_page_slider']['#access'] = $access;
         $form['field_rating']['#access'] = FALSE;
 
-        $is_model = in_array('Model', $form['#user']->roles);
+        $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
         $form['field_small_business']['#access'] = $is_model;
         $form['picture']['#access'] = !$is_model;
       }
