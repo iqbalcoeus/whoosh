@@ -1074,6 +1074,11 @@ li.en > a:hover{
   padding: 0 30px;
 }
 
+#block-block-9,
+#block-modelplatform-modelplatform-newsletter {
+  margin-top: 55px;
+}
+
 #block-block-9 h5,
 #block-block-10 h5,
 #block-modelplatform-modelplatform-newsletter h5 {
@@ -1229,7 +1234,11 @@ li.en > a:hover{
 }
 
 #footer_bottom {
-  margin-top: 4em;
+  margin-top: 5em;
+}
+
+.region-footer-bottom {
+  padding-top: 20px;
 }
 
 #footer_bottom .region-footer-bottom > div {
@@ -1309,7 +1318,7 @@ a.link-to-top {
   text-align: center;
   left: 0;
   right:0;
-  bottom: 5em;
+  bottom: 6.2em;
 }
 
 a.link-to-top .fa {
