@@ -147,9 +147,6 @@ a.tabledrag-handle .handle {
   display: none;
 }
 
-#block-system-main-menu {
-}
-
 #block-system-user-menu .block-content li,
 #block-locale-language .block-content li {
   display: inline-block;
@@ -319,17 +316,12 @@ li.en > a:hover{
 #block-system-main-menu{
   padding: 40px;
   float:right;
-  Helvetica, Arial, sans-serif;
   margin-left: 10px;
   display: inline-block;
   vertical-align: middle;
 
 }
-#block-system-main-menu > div li{
-  display: inline-block;
-  margin-right: 40px;
-}
-}
+
   /*FOOTER*/
 .region-footer > div:nth-child(1){
 max-height: 278px;
@@ -1069,5 +1061,28 @@ max-height: 278px;
 
 #calendar {
   margin-bottom: 20px;
-  margin-bottom: 20px;
+}
+
+#block-system-main-menu .block-content li {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#block-system-main-menu .block-content li:first-child {
+  margin-left: 0;
+}
+
+#block-system-main-menu .block-content li:last-child {
+  margin-right: 0;
+}
+
+#block-system-main-menu .block-content a {
+  text-transform: uppercase;
+  color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#block-system-main-menu .block-content a:hover {
+  text-decoration: none;
 }
