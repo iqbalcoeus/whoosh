@@ -46,6 +46,10 @@
   padding-top: 0;
   background: transparent;
 }
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
 
 .field-name-field-c-base-city .field-name-field-model-base-city label {
   display: none;
@@ -1067,6 +1071,7 @@ max-height: 278px;
   display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
+  vertical-align: top;
 }
 
 #block-system-main-menu .block-content li:first-child {
@@ -1081,8 +1086,97 @@ max-height: 278px;
   text-transform: uppercase;
   color: #000;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 #block-system-main-menu .block-content a:hover {
   text-decoration: none;
+}
+
+#Footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 30px 0;
+}
+
+#Footer .block a {
+  color: #fff;
+}
+
+#block-block-9,
+#block-block-10,
+#block-block-11 {
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+  width: 282px;
+  padding: 0 30px;
+}
+
+#block-block-9 h5,
+#block-block-10 h5,
+#block-block-11 h5 {
+  border-bottom: 0;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 22px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+  margin-top: 0;
+}
+
+#block-block-10 {
+  border-left: 1px solid #4d4d4d;
+  border-right: 1px solid #4d4d4d;
+}
+
+#block-webform-client-block-215 {
+  width: 195px;
+  display: inline-block;
+}
+
+#block-webform-client-block-215 .form-group,
+#block-webform-client-block-215 .form-actions { 
+  display: inline-block;
+  vertical-align: top;
+  height: 25px;
+}
+
+#block-webform-client-block-215 .form-group {
+  width: 165px;
+  margin-bottom: 0;
+}
+
+#block-webform-client-block-215 .form-group input {
+  height: 25px;
+}
+
+#block-webform-client-block-215 .form-actions {
+  width: 24px;
+  margin-left: 2px;
+}
+
+#block-webform-client-block-215 .form-actions .form-submit {
+  text-indent: -1000em;
+  background: #fff;
+  height: 25px;
+  padding: 0;
+  width: 100%;
+}
+
+#block-block-9 a.facebook {
+  background: url('images/social-icons.png') -70px -30px no-repeat;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-indent: -1000em;
+}
+
+#block-block-9 a.instagram {
+  background: url('images/social-icons.png') 0 -30px no-repeat;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-indent: -1000em;
 }
