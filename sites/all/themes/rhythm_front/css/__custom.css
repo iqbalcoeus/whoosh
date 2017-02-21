@@ -217,11 +217,7 @@ li.en:after {
   font-size: 14px;
 }
 
-ul.default-menu li{
-  padding-right: 12px;
-  display: inline;}
-
-ul.language-switcher-locale-url, ul.default-menu {
+ul.language-switcher-locale-url {
   margin-right: 5px; /* Отступ слева */
   padding-left: 0;
   vertical-align: middle;
@@ -230,7 +226,7 @@ ul.language-switcher-locale-url, ul.default-menu {
 .block-locale,.block-menu{
   display: inline-block;
   vertical-align: middle;
-  margin-top: 0px;
+  margin-top: 0;
   font-family: Helvetica, Arial, sans-serif;
 }
 .block .block-system .block-menu {
@@ -277,9 +273,6 @@ ul.language-switcher-locale-url, ul.default-menu {
 .region-top ul{
   padding-top: 20px;
 }
-.main-nav {
-  font-family: Helvetica, Arial, sans-serif;
-}
 .main-nav.transparent .inner-nav ul > li > a{
   color:black;
 }
@@ -292,30 +285,6 @@ li.en > a:hover{
 .small-height .inner-nav ul li a{
   line-height: 15px !important;
 }
-/* sprites  header */
-.default-menu{
-  margin-top: -24px;
-  margin-left: 8px;
-  font-size: 0;
-}
-.default-menu > li:nth-child(1) > a:nth-child(1){
-  background:url("images/social-icons.png");
-  content: '';
-  display: inline-block; /*  Рисунок как блочный элемент */
-  width: 10px; /* Ширина рисунка */
-  height: 18px; /*  Высота рисунка */
-  background-position: 0px 0px;
-  padding-top: 3px;
-}
-.default-menu > li:nth-child(2) > a:nth-child(1){
-  background:url("images/social-icons.png");
-  content: "\2603";
-  display: inline-block;
-  width: 19px;
-  height: 19px;
-  background-position: -25px -1px;
-  padding-top: 4px;
-}
 
 #block-system-main-menu{
   padding: 40px;
@@ -324,11 +293,6 @@ li.en > a:hover{
   display: inline-block;
   vertical-align: middle;
 
-}
-
-  /*FOOTER*/
-.region-footer > div:nth-child(1){
-max-height: 278px;
 }
 
 @media screen and (min-width: 768px) {
@@ -1124,6 +1088,7 @@ max-height: 278px;
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 #block-block-10 {
@@ -1159,10 +1124,14 @@ max-height: 278px;
 
 #block-webform-client-block-215 .form-actions .form-submit {
   text-indent: -1000em;
-  background: #fff;
   height: 25px;
   padding: 0;
   width: 100%;
+  background: #fff url('images/submit.png') center center no-repeat;
+}
+
+#block-block-9 {
+  text-align: center;
 }
 
 #block-block-9 a.facebook {
@@ -1171,6 +1140,8 @@ max-height: 278px;
   width: 50px;
   height: 50px;
   text-indent: -1000em;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #block-block-9 a.instagram {
@@ -1179,4 +1150,6 @@ max-height: 278px;
   width: 50px;
   height: 50px;
   text-indent: -1000em;
+  margin-left: 5px;
+  margin-right: 5px;
 }
