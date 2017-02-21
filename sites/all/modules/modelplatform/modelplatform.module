@@ -91,7 +91,10 @@ function modelplatform_block_info() {
     'info' => t('Front page - Fourth block'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
-
+  $blocks['modelplatform_newsletter'] = array(
+    'info' => t('Footer - Newsletter'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 
@@ -111,6 +114,14 @@ function modelplatform_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = '<iframe width="100%" height="315" src="' . variable_get('modelplatform_video_url', 'https://www.youtube.com/watch?v=f12EzqA6p6U')
         . '" frameborder="0" allowfullscreen></iframe>';
+      break;
+
+    case 'modelplatform_newsletter':
+      $_block = module_invoke('webform', 'block_view', 'client-block-215');
+
+      $block['subject'] = t('Newsletter');
+      $block['content'] = '<p>' . t('Sign up for our Newsletter to stay updated on our newest offers') . '</p>';
+      $block['content'] .= render($_block['content']);
       break;
 
     default:
