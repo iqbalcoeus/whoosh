@@ -1115,6 +1115,9 @@ li.en > a:hover{
 
 #block-webform-client-block-215 .form-group input {
   height: 25px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 11px;
 }
 
 #block-webform-client-block-215 .form-actions {
