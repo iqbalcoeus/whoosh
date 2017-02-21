@@ -12,6 +12,7 @@ regions[sidebar]            = Sidebar
 regions[content_full]       = Content Full Width
 regions[bottom]             = Content Bottom
 regions[footer]             = Footer
+regions[footer_bottom]      = Footer Bottom
 
 stylesheets[all][] = css/__custom.css
 
