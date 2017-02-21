@@ -87,6 +87,10 @@ function modelplatform_block_info() {
     'info' => t('Model platform B2B Link'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['modelplatform_video'] = array(
+    'info' => t('Model platform B2B Link'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
 
   return $blocks;
 }
@@ -101,6 +105,11 @@ function modelplatform_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = '<a href="' . variable_get('modelplatform_b2b', '#')
         . '" class="b2b-link">B2B Site</a>';
+      break;
+
+    case 'modelplatform_video':
+      $block['subject'] = '';
+      $block['content'] = '<iframe width="100%" height="315" src="http://www.youtube.com/embed/f12EzqA6p6U" frameborder="0" allowfullscreen></iframe>';
       break;
 
     default:
