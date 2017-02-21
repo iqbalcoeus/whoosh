@@ -1061,7 +1061,7 @@ li.en > a:hover{
   background: #000;
   color: #fff;
   text-align: center;
-  padding: 30px 0;
+  padding: 30px 0 0 0;
 }
 
 #Footer .block a {
@@ -1185,12 +1185,7 @@ li.en > a:hover{
 #block-menu-menu-project-rules .default-menu {
   padding-left: 0;
   margin: 0;
-}
-
-@media screen and (min-width: 1024px) {
-  #block-menu-menu-project-rules .default-menu {
-    padding-left: 10em;
-  }
+  line-height: 47px;
 }
 
 #block-menu-menu-project-rules .default-menu li {
@@ -1217,10 +1212,6 @@ li.en > a:hover{
   color: #888;
 }
 
-#block-modelplatform-modelplatform-b2b {
-  margin-right: 48px;
-}
-
 #block-modelplatform-modelplatform-b2b .block-content a {
   display: inline-block;
   border: 1px solid #c9c9c9;
@@ -1232,12 +1223,50 @@ li.en > a:hover{
   line-height: 1;
 }
 
+#block-modelplatform-modelplatform-b2b .block-content a:hover {
+  text-decoration: none;
+}
+
 #block-modelplatform-modelplatform-b2b .block-content a span {
   text-transform: uppercase;
   font-weight: 600;
 }
 
+#footer_bottom {
+  margin-top: 4em;
+}
+
 #footer_bottom .region-footer-bottom > div {
   display: inline-block;
   vertical-align: top;
+}
+
+.region-footer,
+.region-footer-bottom {
+  max-width: 1290px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#block-block-12 .block-content {
+  font-size: 22px;
+}
+
+#footer_bottom #block-block-12 {
+  width: 15%;
+  text-align: left;
+}
+
+#block-menu-menu-project-rules {
+  text-align: center;
+  width: 60%;
+}
+
+#block-modelplatform-modelplatform-b2b {
+  text-align: right;
+  width: 15%;
+}
+
+#Footer p {
+  margin: 0 0 1em 0;
 }
