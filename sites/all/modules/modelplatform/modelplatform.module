@@ -88,7 +88,7 @@ function modelplatform_block_info() {
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['modelplatform_video'] = array(
-    'info' => t('Model platform B2B Link'),
+    'info' => t('Front page - Fourth block'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
 
