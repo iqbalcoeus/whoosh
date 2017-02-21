@@ -1270,3 +1270,30 @@ li.en > a:hover{
 #Footer p {
   margin: 0 0 1em 0;
 }
+
+#block-block-10 .megaonline-item {
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+#block-block-10 .megaonline-item a {
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+#block-block-10 .megaonline-item a:hover {
+  text-decoration: none;
+}
+
+#block-block-10 .megaonline-item label {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+#block-block-11 .block-content {
+  font-size: 12px;
+  text-align: center;
+}
