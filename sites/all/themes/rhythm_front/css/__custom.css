@@ -1295,7 +1295,21 @@ li.en > a:hover{
 }
 
 a.link-to-top {
-  background: red;
+  background: url('images/to-top.png') no-repeat;
+  width: 38px;
+  height: 38px;
+  display: inline-block;
+  position: static;
+}
+
+.local-scroll {
+  position: absolute;
+  height: 38px;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  right:0;
+  bottom: 5em;
 }
 
 a.link-to-top .fa {
