@@ -104,12 +104,13 @@ function modelplatform_block_view($delta = '') {
     case 'modelplatform_b2b':
       $block['subject'] = '';
       $block['content'] = '<a href="' . variable_get('modelplatform_b2b', '#')
-        . '" class="b2b-link">B2B Site</a>';
+        . '" class="b2b-link"><span>B2B<span> Site</a>';
       break;
 
     case 'modelplatform_video':
       $block['subject'] = '';
-      $block['content'] = '<iframe width="100%" height="315" src="http://www.youtube.com/embed/f12EzqA6p6U" frameborder="0" allowfullscreen></iframe>';
+      $block['content'] = '<iframe width="100%" height="315" src="' . variable_get('modelplatform_video_url', 'https://www.youtube.com/watch?v=f12EzqA6p6U')
+        . '" frameborder="0" allowfullscreen></iframe>';
       break;
 
     default:
