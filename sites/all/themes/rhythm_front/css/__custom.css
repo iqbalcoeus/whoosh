@@ -1234,11 +1234,7 @@ li.en > a:hover{
 }
 
 #footer_bottom {
-  margin-top: 5em;
-}
-
-.region-footer-bottom {
-  padding-top: 20px;
+  margin-top: 6.2em;
 }
 
 #footer_bottom .region-footer-bottom > div {
@@ -1319,7 +1315,7 @@ a.link-to-top {
   text-align: center;
   left: 0;
   right:0;
-  bottom: 6.2em;
+  bottom: 6.7em;
 }
 
 a.link-to-top .fa {
