@@ -104,7 +104,7 @@ function modelplatform_block_view($delta = '') {
     case 'modelplatform_b2b':
       $block['subject'] = '';
       $block['content'] = '<a href="' . variable_get('modelplatform_b2b', '#')
-        . '" class="b2b-link"><span>B2B<span> Site</a>';
+        . '" class="b2b-link"><span>B2B</span> Site</a>';
       break;
 
     case 'modelplatform_video':
