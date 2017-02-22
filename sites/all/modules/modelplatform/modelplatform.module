@@ -112,7 +112,7 @@ function modelplatform_block_view($delta = '') {
 
     case 'modelplatform_video':
       $block['subject'] = '';
-      $block['content'] = '<iframe width="100%" height="315" src="' . variable_get('modelplatform_video_url', 'https://www.youtube.com/watch?v=f12EzqA6p6U')
+      $block['content'] = '<iframe width="100%" height="315" src="' . variable_get('modelplatform_video_url', 'http://www.youtube.com/embed/f12EzqA6p6U')
         . '" frameborder="0" allowfullscreen></iframe>';
       break;
 
@@ -152,7 +152,7 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
 
         $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
         $form['field_small_business']['#access'] = $is_model;
-        $form['picture']['#access'] = !$is_model;
+        $form['picture']['#access'] = !$is_model || ($user->uid == 1);
       }
       break;
 
