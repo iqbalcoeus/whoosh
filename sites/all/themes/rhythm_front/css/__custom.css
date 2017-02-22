@@ -199,10 +199,6 @@ a.tabledrag-handle .handle {
   margin-bottom: 15px;
 }
 
-.local-scroll {
-  display: none;
-}
-
 .logo-img{
   padding:15px 0px 10px 70px;
   float: left;
@@ -1070,7 +1066,7 @@ li.en > a:hover{
 
 #block-block-9,
 #block-block-10,
-#block-block-11 {
+#block-modelplatform-modelplatform-newsletter {
   display: inline-block;
   vertical-align: top;
   text-align: left;
@@ -1078,9 +1074,14 @@ li.en > a:hover{
   padding: 0 30px;
 }
 
+#block-block-9,
+#block-modelplatform-modelplatform-newsletter {
+  margin-top: 55px;
+}
+
 #block-block-9 h5,
 #block-block-10 h5,
-#block-block-11 h5 {
+#block-modelplatform-modelplatform-newsletter h5 {
   border-bottom: 0;
   color: #fff;
   text-transform: uppercase;
@@ -1096,36 +1097,36 @@ li.en > a:hover{
   border-right: 1px solid #4d4d4d;
 }
 
-#block-webform-client-block-215 {
+#webform-client-form-215 {
   width: 195px;
   display: inline-block;
 }
 
-#block-webform-client-block-215 .form-group,
-#block-webform-client-block-215 .form-actions { 
+#webform-client-form-215 .form-group,
+#webform-client-form-215 .form-actions {
   display: inline-block;
   vertical-align: top;
   height: 25px;
 }
 
-#block-webform-client-block-215 .form-group {
+#webform-client-form-215 .form-group {
   width: 165px;
   margin-bottom: 0;
 }
 
-#block-webform-client-block-215 .form-group input {
+#webform-client-form-215 .form-group input {
   height: 25px;
   text-transform: uppercase;
   text-align: center;
   font-size: 11px;
 }
 
-#block-webform-client-block-215 .form-actions {
+#webform-client-form-215 .form-actions {
   width: 24px;
   margin-left: 2px;
 }
 
-#block-webform-client-block-215 .form-actions .form-submit {
+#webform-client-form-215 .form-actions .form-submit {
   text-indent: -1000em;
   height: 25px;
   padding: 0;
@@ -1233,12 +1234,13 @@ li.en > a:hover{
 }
 
 #footer_bottom {
-  margin-top: 4em;
+  margin-top: 6.2em;
 }
 
 #footer_bottom .region-footer-bottom > div {
   display: inline-block;
   vertical-align: top;
+  line-height: 47px;
 }
 
 .region-footer,
@@ -1293,7 +1295,29 @@ li.en > a:hover{
   margin-bottom: 0;
 }
 
-#block-block-11 .block-content {
+#block-modelplatform-modelplatform-newsletter .block-content {
   font-size: 12px;
   text-align: center;
+}
+
+a.link-to-top {
+  background: url('images/to-top.png') no-repeat;
+  width: 38px;
+  height: 38px;
+  display: inline-block;
+  position: static;
+}
+
+.local-scroll {
+  position: absolute;
+  height: 38px;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  right:0;
+  bottom: 6.7em;
+}
+
+a.link-to-top .fa {
+  display: none;
 }
