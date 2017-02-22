@@ -371,6 +371,11 @@ function modelplatform_node_view_alter(&$build) {
     unset($build['links']['node']['#links']['node-readmore']);
     unset($build['links']['comment']);
   }
+  elseif ($build['#entity_type'] == 'node'
+    && $build['#bundle'] == 'news') {
+    $build['field_news_image']['#access'] = TRUE;
+    $build['field_news_video']['#access'] = TRUE;
+  }
 }
 
 /**
