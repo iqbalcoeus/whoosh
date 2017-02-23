@@ -1374,6 +1374,14 @@ a.link-to-top .fa {
   align-items: center;
   justify-content: center;
 }
+#block-block-14 h5 {
+  margin-top: 30px;
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  color: #000;
+}
 #block-block-14 .block-content {
   display: flex;
   flex-flow: row wrap;
