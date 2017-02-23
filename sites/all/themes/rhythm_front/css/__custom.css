@@ -1449,3 +1449,232 @@ a.link-to-top .fa {
 .view-news.view-display-id-block .view-content .views-row:last-child {
   margin-right:0;
 }
+
+/* PINK SLIDERS */
+.view-front-page-third .view-content {
+  position: relative;
+}
+.view-front-page-third .views-slideshow-controls-top a {
+  position: absolute;
+  display: block;
+  top: 50%;
+  margin-top: -50px;
+  height: 100px;
+  width: 50px;
+  background-image: url("images/arrows.png");
+  z-index: 20;
+  font-size: 0;
+}
+.view-front-page-third .views-slideshow-controls-top {
+  display: block;
+  height: 0;
+}
+.view-front-page-third .views-slideshow-controls-top a[rel="next"] {
+  right: 0;
+  background-position: 50px 0;
+}
+.view-front-page-third .views-slideshow-controls-top a[rel="prev"] {
+  left: 0;
+  background-position: 0 0;
+}
+
+.view-front-page-third .views-slideshow-cycle-main-frame-row {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+.view-front-page-third .views-slideshow-cycle-main-frame-row img {
+  width: 100%;
+}
+.view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  width: 20%;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body ol {
+  padding: 0;
+}
+.view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+  margin-bottom: 20px;
+}
+
+/* HARDCODE to fix font sizes */
+@media (max-width: 320px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 6px;
+    left: 5%;
+    width: 35%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 6px;
+    right: 5%;
+    width: 35%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 321px) and (max-width: 599px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 6px;
+    left: 5%;
+    width: 35%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 6px;
+    right: 5%;
+    width: 35%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 600px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 12px;
+    left: 5%;
+    width: 35%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 12px;
+    right: 5%;
+    width: 35%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 12px;
+  }
+}
+@media (min-width: 700px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 13px;
+    left: 10%;
+    width: 30%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 13px;
+    right: 10%;
+    width: 30%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 13px;
+  }
+}
+@media (min-width: 800px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 14px;
+    left: 10%;
+    width: 30%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 14px;
+    right: 10%;
+    width: 30%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 14px;
+  }
+}
+@media (min-width: 900px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 15px;
+    left: 15%;
+    width: 25%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 15px;
+    right: 15%;
+    width: 25%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 15px;
+  }
+}
+@media (min-width: 1000px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 16px;
+    left: 15%;
+    width: 25%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 16px;
+    right: 15%;
+    width: 25%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 16px;
+  }
+}
+@media (min-width: 1100px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 17px;
+    left: 20%;
+    width: 20%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 17px;
+    right: 20%;
+    width: 20%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 17px;
+  }
+}
+@media (min-width: 1200px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 18px;
+    left: 20%;
+    width: 20%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 18px;
+    right: 20%;
+    width: 20%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 18px;
+  }
+}
+@media (min-width: 1300px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 19px;
+    left: 20%;
+    width: 20%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 19px;
+    right: 20%;
+    width: 20%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 19px;
+  }
+}
+@media (min-width: 1400px) {
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body {
+    font-size: 20px;
+    left: 20%;
+    width: 20%;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body.help-slide-219 {
+    font-size: 20px;
+    right: 20%;
+    width: 20%;
+    left: auto;
+  }
+  .view-front-page-third .views-slideshow-cycle-main-frame-row .views-field-body li {
+    margin-bottom: 20px;
+  }
+}
