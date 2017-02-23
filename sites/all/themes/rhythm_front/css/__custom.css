@@ -1697,6 +1697,7 @@ a.link-to-top .fa {
   margin: 0;
   opacity: 1;
   top: 0;
+  text-shadow: none;
 }
 
 .flexslider:hover .flex-direction-nav .flex-prev {
@@ -1751,6 +1752,10 @@ ul.flex-direction-nav {
   color: #fff;
 }
 
+#block-views-front-page-models-1-block-1 .views-field-nothing {
+  margin-top: 15px;
+}
+
 #block-views-front-page-models-1-block-1 .views-field-nothing a {
   color: #fff;
   font-size: 16px;
@@ -1769,10 +1774,6 @@ ul.flex-direction-nav {
   font-weight: 600;
 }
 
-#block-views-front-page-models-1-block-1 .views-field-picture {
-  margin-bottom: 15px;
-}
-
 #block-views-front-page-models-1-block-1 .flexslider {
   background: none;
 }
@@ -1789,4 +1790,35 @@ ul.flex-direction-nav {
   color: #fff;
   text-decoration: none;
   border: 1px solid #fff;
+}
+
+#block-views-front-page-models-1-block-1 ul.flex-direction-nav {
+  top: 28%;
+}
+
+#block-views-front-page-models-1-block-1 .flexslider li:hover {
+  position: relative;
+}
+
+#block-views-front-page-models-1-block-1 .flexslider li:hover .views-field-nothing {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  margin-top: 0;
+}
+
+#block-views-front-page-models-1-block-1 .flexslider li:hover .views-field-nothing a {
+  color: #000;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding-top: 47%;
 }
