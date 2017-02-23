@@ -50,7 +50,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-body.front .form-type-item {
+body.front #block-system-main {
   display: none;
 }
 .field-name-field-c-base-city .field-name-field-model-base-city label {
