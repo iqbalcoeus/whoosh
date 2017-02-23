@@ -1822,3 +1822,18 @@ ul.flex-direction-nav {
   bottom: 0;
   padding-top: 47%;
 }
+
+.views-field-field-news-image .video {
+  position: relative;
+}
+.views-field-field-news-image .video a:after {
+  position: absolute;
+  content: ' ';
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/play.png');
+  background-position: center;
+  background-repeat: no-repeat ;
+}
