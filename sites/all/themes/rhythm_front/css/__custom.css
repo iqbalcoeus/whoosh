@@ -1714,7 +1714,25 @@ a.link-to-top .fa {
 .view-id-front_page_third .views-field-body {
   position: absolute;
   top: 30%;
-  left: 14px;
+  left: 0;
+  padding-left: 14%;
+  width: 100%;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.view-id-front_page_third .views-field-body p {
+  margin: 0;
+}
+
+.view-id-front_page_third .views-field-body .field-content {
+  display: inline-block;
+  text-align: left;
+}
+
+.view-id-front_page_third  .views-field-body.help-slide-219 {
+  padding-right: 14%;
+  text-align: right;
 }
 
 ul.flex-direction-nav {
