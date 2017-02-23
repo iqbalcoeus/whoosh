@@ -1678,3 +1678,52 @@ a.link-to-top .fa {
     margin-bottom: 20px;
   }
 }
+
+.flex-prev {
+  background: url(images/arrows.png) left top no-repeat;
+  left: 0 !important;
+}
+
+.flex-next {
+  background: url(images/arrows.png) -51px top no-repeat;
+  right: 0 !important;
+}
+
+.flex-direction-nav a {
+  color: transparent;
+  display: block !important;
+  height: 94px;
+  width: 49px;
+  margin: 0;
+  opacity: 1;
+  top: 0;
+}
+
+.flexslider:hover .flex-direction-nav .flex-prev {
+  opacity: 1;
+}
+
+.flex-direction-nav a:before {
+  display: none;
+}
+
+.view-id-front_page_third li {
+  position: relative;
+}
+
+.view-id-front_page_third .views-field-body {
+  position: absolute;
+  top: 30%;
+  left: 14px;
+}
+
+ul.flex-direction-nav {
+  position: absolute;
+  top: 43%;
+  width: 100%;
+}
+
+.flexslider {
+  margin: 0;
+  border: 0;
+}
