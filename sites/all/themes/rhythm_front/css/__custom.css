@@ -50,7 +50,9 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-
+body.front .form-type-item {
+  display: none;
+}
 .field-name-field-c-base-city .field-name-field-model-base-city label {
   display: none;
 }
@@ -1758,6 +1760,7 @@ ul.flex-direction-nav {
 #block-views-front-page-models-1-block-1 {
   background: #2a2a2a;
   color: #fff;
+  padding-top: 20px;
 }
 
 #block-views-front-page-models-1-block-1 .views-field-nothing {
