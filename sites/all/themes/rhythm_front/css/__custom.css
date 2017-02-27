@@ -1357,6 +1357,13 @@ a.link-to-top .fa {
   margin: 20px;
   min-width: 320px;
 }
+
+@media screen and (max-width: 767px) {
+  .view-front-page-models-1.view-display-id-block .views-row {
+    width: 100%;
+  }
+}
+
 .view-front-page-models-1.view-display-id-block .views-row img {
   width: 100%;
 }
