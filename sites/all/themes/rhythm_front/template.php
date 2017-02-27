@@ -92,3 +92,51 @@ function rhythm_front_fivestar_formatter_default($variables) {
     ? theme('fivestar_static_element', array('description' => $element['#description'], 'star_display' => $star_display))
     : '';
 }
+
+/**
+ * Theme function to render an email component.
+ */
+function rhythm_front_webform_email($variables) {
+  global $language ;
+  $element = $variables['element'];
+
+  // @TODO Should be fixed in the feature.
+  $lang_name = $language->language;
+  t($element['#attributes']['placeholder']);
+  $title = $element['#attributes']['placeholder'];
+  $query = db_select('locales_source', 'ls');
+  $query->condition('ls.source', $title);
+  $query->innerJoin('locales_target', 'lt', 'lt.lid = ls.lid');
+  $query->condition('lt.language', $lang_name);
+  $query->fields('lt', array('translation'));
+
+  $new_title = $query->execute()->fetchfield();
+  if (!$new_title) {
+    $query = db_select('locales_target', 'lt');
+    $query->condition('lt.translation', $title);
+    $query->condition('lt.language', $lang_name, '!=');
+    $query->innerJoin('locales_source', 'ls', 'lt.lid = ls.lid');
+    $query->fields('ls', array('source'));
+
+    $new_title = $query->execute()->fetchfield();
+  }
+  if ($new_title) {
+    $element['#attributes']['placeholder'] = $new_title;
+  }
+
+  // This IF statement is mostly in place to allow our tests to set type="text"
+  // because SimpleTest does not support type="email".
+  if (!isset($element['#attributes']['type'])) {
+    $element['#attributes']['type'] = 'email';
+  }
+
+  // Convert properties to attributes on the element if set.
+  foreach (array('id', 'name', 'value', 'size') as $property) {
+    if (isset($element['#' . $property]) && $element['#' . $property] !== '') {
+      $element['#attributes'][$property] = $element['#' . $property];
+    }
+  }
+  _form_set_class($element, array('form-text', 'form-email'));
+
+  return '<input' . drupal_attributes($element['#attributes']) . ' />';
+}
