@@ -1704,8 +1704,8 @@ ul.flex-direction-nav {
   background-size: 100%;
   display: block;
   text-indent: -1000em;
-  width: 20%;
-  height: 201px;
+  width: 11%;
+  height: 23%;
   position: absolute;
   top: 0;
   right: 5%;
@@ -1747,15 +1747,7 @@ ul.flex-direction-nav {
   display: inline-block;
   vertical-align: top;
   margin: 3%;
-}
-
-.view-front-page-third .views-field-body.help-slide-217 .role-model a,
-.view-front-page-third .views-field-body.help-slide-217 .role-customer a {
-  text-indent: -1000em;
-  display: block;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
+  width: 25%;
 }
 
 .view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child,
