@@ -1700,10 +1700,12 @@ ul.flex-direction-nav {
 
 .view-front-page-third .views-field-body.help-slide-217 .login-free {
   background: url('images/login-free.png') no-repeat;
+  -webkit-background-size:100%;
+  background-size: 100%;
   display: block;
   text-indent: -1000em;
-  width: 201px;
-  height: 172px;
+  width: 20%;
+  height: 100%;
   position: absolute;
   top: 0;
   right: 5%;
@@ -1713,6 +1715,80 @@ ul.flex-direction-nav {
   opacity: 0;
 }
 
+.view-front-page-third .views-field-body.help-slide-217 .role-choose {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -3%;
+  margin-left: -3%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model,
+.view-front-page-third .views-field-body.help-slide-217 .role-customer {
+  display: inline-block;
+  vertical-align: top;
+  margin: 3%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model a,
+.view-front-page-third .views-field-body.help-slide-217 .role-customer a {
+  text-indent: -1000em;
+  display: block;
+  -webkit-background-size:100%;
+  background-size: 100%;
+  width: 393px;
+  height: 153px;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 0;*/
+  /*left: 0;*/
+  /*bottom: 0;*/
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model a {
+  background: url('images/model.png') no-repeat;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-customer a {
+  background: url('images/client.png') no-repeat;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child,
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:last-child {
+  text-indent: -1000em;
+  width: 122px;
+  height: 37px;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  display: inline-block;
+  color: transparent;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child {
+  background: url('images/buttons-black.png') 0 0 no-repeat;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:last-child {
+  background: url('images/buttons-black.png') -136px 0 no-repeat;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-conteiner {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+}
 
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
