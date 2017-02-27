@@ -102,6 +102,7 @@ function rhythm_front_webform_email($variables) {
 
   // @TODO Should be fixed in the feature.
   $lang_name = $language->language;
+  t($element['#attributes']['placeholder']);
   $title = $element['#attributes']['placeholder'];
   $query = db_select('locales_source', 'ls');
   $query->condition('ls.source', $title);
