@@ -1687,14 +1687,155 @@ ul.flex-direction-nav {
 .view-front-page-third .views-field-body.help-slide-217 .field-content {
   width: 100%;
   text-align: center;
+  font-size: 16px;
 }
 .view-front-page-third .views-field-body.help-slide-217 .how-it-works {
   font-size: 24px;
+  font-weight: 600;
 }
+
+.view-front-page-third .views-field-body.help-slide-217 h3 {
+  margin-bottom: 0;
+}
+
 .view-front-page-third .views-field-body.help-slide-217 .login-free {
-
+  background: url('images/login-free.png') no-repeat;
+  -webkit-background-size:100%;
+  background-size: 100%;
+  display: block;
+  text-indent: -1000em;
+  width: 20%;
+  height: 201px;
+  position: absolute;
+  top: 0;
+  right: 5%;
+  z-index: 1;
 }
 
+.view-front-page-third .views-field-field-background-image.help-slide-217 {
+  opacity: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .view-front-page-third .views-field-field-background-image.help-slide-217 {
+    min-height: 300px;
+  }
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-choose {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -3%;
+  margin-left: -3%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model,
+.view-front-page-third .views-field-body.help-slide-217 .role-customer {
+  display: inline-block;
+  vertical-align: top;
+  margin: 3%;
+  width: 35%;
+  height: 166px;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model a,
+.view-front-page-third .views-field-body.help-slide-217 .role-customer a {
+  text-indent: -1000em;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-model a {
+  background: url('images/model.png') no-repeat;
+  -webkit-background-size:100%;
+  background-size: 100%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .role-customer a {
+  background: url('images/client.png') no-repeat;
+  -webkit-background-size:100%;
+  background-size: 100%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child,
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:last-child {
+  text-indent: -1000em;
+  width: 46%;
+  height: 37px;
+  display: inline-block;
+  color: transparent;
+  vertical-align: top;
+  margin: 0 1%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child {
+  background: url('images/buttons-black1.png') no-repeat;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-items a:last-child {
+  background: url('images/buttons-black2.png') no-repeat;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .download-conteiner {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+}
+
+@media screen and (max-width: 767px) {
+  .logo-img {
+    padding: 20px 0 0 0;
+  }
+  #block-system-main-menu {
+    padding: 20px 0;
+    float: none;
+    text-align: center;
+  }
+  #block-system-main-menu .block-content li {
+    margin: 0 5px;
+  }
+  .view-front-page-models-1.view-display-id-block .view-header .header-title {
+    font-size: 45px;
+  }
+  #footer_bottom #block-block-12 {
+    width: 100%;
+    text-align: center;
+  }
+  #block-menu-menu-project-rules {
+    width: 100%;
+  }
+  #block-menu-menu-project-rules .default-menu li {
+    display: block;
+    margin: 0;
+  }
+  #block-modelplatform-modelplatform-b2b {
+    width: 100%;
+    text-align: center;
+  }
+  .local-scroll {
+    text-align: right;
+    padding-right: 3%;
+  }
+}
 
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
@@ -1876,3 +2017,4 @@ ul.flex-direction-nav {
   }
 }
 /* HARDCODE END */
+
