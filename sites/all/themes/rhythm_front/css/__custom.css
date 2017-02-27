@@ -265,7 +265,7 @@ ul.language-switcher-locale-url {
 }
 
 .contextual-links-region{
-  padding-top: 10px;
+  padding-top: 0;
 }
 
 .region-top ul{
@@ -1682,7 +1682,7 @@ ul.flex-direction-nav {
   height: 100%;
   font-size: 20px;
   left: 0;
-  top: 5%;
+  top: 0;
 }
 .view-front-page-third .views-field-body.help-slide-217 .field-content {
   width: 100%;
@@ -1695,6 +1695,7 @@ ul.flex-direction-nav {
 }
 
 .view-front-page-third .views-field-body.help-slide-217 h3 {
+  margin-top: 50px;
   margin-bottom: 0;
 }
 
