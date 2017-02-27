@@ -1829,6 +1829,10 @@ ul.flex-direction-nav {
     padding-right: 3%;
   }
 }
+#block-views-front-page-third-block-2,
+#block-views-front-page-third-block-1 {
+  display: none;
+}
 
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
