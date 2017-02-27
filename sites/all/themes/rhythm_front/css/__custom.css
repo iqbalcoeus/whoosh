@@ -1687,12 +1687,30 @@ ul.flex-direction-nav {
 .view-front-page-third .views-field-body.help-slide-217 .field-content {
   width: 100%;
   text-align: center;
+  font-size: 16px;
 }
 .view-front-page-third .views-field-body.help-slide-217 .how-it-works {
   font-size: 24px;
+  font-weight: 600;
 }
-.view-front-page-third .views-field-body.help-slide-217 .login-free {
 
+.view-front-page-third .views-field-body.help-slide-217 h3 {
+  margin-bottom: 0;
+}
+
+.view-front-page-third .views-field-body.help-slide-217 .login-free {
+  background: url('images/login-free.png') no-repeat;
+  display: block;
+  text-indent: -1000em;
+  width: 201px;
+  height: 172px;
+  position: absolute;
+  top: 0;
+  right: 5%;
+}
+
+.view-front-page-third .views-field-field-background-image.help-slide-217 {
+  opacity: 0;
 }
 
 
@@ -1876,3 +1894,4 @@ ul.flex-direction-nav {
   }
 }
 /* HARDCODE END */
+
