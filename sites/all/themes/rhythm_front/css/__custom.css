@@ -1801,6 +1801,42 @@ ul.flex-direction-nav {
   right: 5%;
 }
 
+@media screen and (max-width: 767px) {
+  .logo-img {
+    padding: 20px 0 0 0;
+  }
+  #block-system-main-menu {
+    padding: 20px 0;
+    float: none;
+    text-align: center;
+  }
+  #block-system-main-menu .block-content li {
+    margin: 0 5px;
+  }
+  .view-front-page-models-1.view-display-id-block .view-header .header-title {
+    font-size: 45px;
+  }
+  #footer_bottom #block-block-12 {
+    width: 100%;
+    text-align: center;
+  }
+  #block-menu-menu-project-rules {
+    width: 100%;
+  }
+  #block-menu-menu-project-rules .default-menu li {
+    display: block;
+    margin: 0;
+  }
+  #block-modelplatform-modelplatform-b2b {
+    width: 100%;
+    text-align: center;
+  }
+  .local-scroll {
+    text-align: right;
+    padding-right: 3%;
+  }
+}
+
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
   .view-front-page-third  .views-field-body {
