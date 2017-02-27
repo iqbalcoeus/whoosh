@@ -202,7 +202,7 @@ a.tabledrag-handle .handle {
 }
 
 .logo-img{
-  padding:15px 0px 10px 70px;
+  padding: 0 0 0 70px;
   float: left;
   display: inline;
   position: relative;
@@ -243,7 +243,7 @@ ul.language-switcher-locale-url {
   vertical-align: middle;
 
 }
-.region .region-top{
+.region .region-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -268,9 +268,6 @@ ul.language-switcher-locale-url {
   padding-top: 0;
 }
 
-.region-top ul{
-  padding-top: 20px;
-}
 .main-nav.transparent .inner-nav ul > li > a{
   color:black;
 }
@@ -285,7 +282,7 @@ li.en > a:hover{
 }
 
 #block-system-main-menu{
-  padding: 40px;
+  padding: 30px 40px;
   float:right;
   margin-left: 10px;
   display: inline-block;
@@ -1787,14 +1784,24 @@ ul.flex-direction-nav {
   right: 5%;
 }
 
+.region-top ul {
+  margin: 0;
+}
+
+.region-top {
+  padding-top: 20px;
+}
+
 @media screen and (max-width: 767px) {
   .logo-img {
-    padding: 20px 0 0 0;
+    padding: 0;
   }
   #block-system-main-menu {
     padding: 20px 0;
     float: none;
     text-align: center;
+    display: block;
+    margin: 0;
   }
   #block-system-main-menu .block-content li {
     margin: 0 5px;
