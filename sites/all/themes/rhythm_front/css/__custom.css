@@ -1714,7 +1714,12 @@ ul.flex-direction-nav {
 
 .view-front-page-third .views-field-field-background-image.help-slide-217 {
   opacity: 0;
-  min-height: 300px;
+}
+
+@media screen and (max-width: 767px) {
+  .view-front-page-third .views-field-field-background-image.help-slide-217 {
+    min-height: 300px;
+  }
 }
 
 .view-front-page-third .views-field-body.help-slide-217 .role-choose {
