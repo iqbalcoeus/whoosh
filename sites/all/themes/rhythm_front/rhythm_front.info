@@ -16,6 +16,8 @@ regions[footer_bottom]      = Footer Bottom
 
 stylesheets[all][] = css/__custom.css
 
+scripts[] = js/script.js
+
 features[] = name
 features[] = logo
 features[] = slogan

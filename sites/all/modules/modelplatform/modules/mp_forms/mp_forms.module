@@ -32,7 +32,7 @@ function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
  * Implements hook_module_implements_alter().
  */
 function mp_forms_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
+  if ($hook == 'form_alter' && isset($implementations['mp_forms'])) {
     $group = $implementations['mp_forms'];
     unset($implementations['mp_forms']);
     $implementations['mp_forms'] = $group;
