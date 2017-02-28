@@ -1242,11 +1242,18 @@ li.en > a:hover{
   line-height: 47px;
 }
 
-.region-footer,
-.region-footer-bottom {
+.region-footer {
   max-width: 1290px;
   width: 100%;
   margin: 0 auto;
+}
+
+.region-footer-bottom {
+  margin: 20px auto 0 auto;
+  border-top: 1px solid #4d4d4d;
+  padding-top: 15px;
+  max-width: 1290px;
+  width: 100%;
 }
 
 #block-block-12 .block-content {
@@ -1314,7 +1321,7 @@ a.link-to-top {
   text-align: center;
   left: 0;
   right:0;
-  bottom: 6.7em;
+  bottom: 8.5em;
 }
 
 a.link-to-top .fa {
