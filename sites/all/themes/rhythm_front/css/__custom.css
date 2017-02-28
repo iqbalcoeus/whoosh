@@ -1832,6 +1832,23 @@ ul.flex-direction-nav {
 #block-views-front-page-third-block-2,
 #block-views-front-page-third-block-1 {
   display: none;
+  position: relative;
+}
+
+#block-views-front-page-third-block-1 a.register-link,
+#block-views-front-page-third-block-2 a.register-link {
+  position: absolute;
+  right: 2.6%;
+  bottom: 5.16%;
+  padding: 0.5% 2%;
+  background-color: #000;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 4px;
+  text-align: center;
 }
 
 /* HARDCODE to fix font sizes */

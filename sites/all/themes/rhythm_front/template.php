@@ -5,6 +5,22 @@
  * Rhythm - subtheme.
  */
 
+function rhythm_preprocess_page(&$vars) {
+  global $language;
+  if ($vars['front_page']) {
+    drupal_add_js(array(
+      'modelplatform_theme' => array(
+        'register_title' => array(
+          'und' => 'To <br> register',
+          'EN' => 'To <br> register',
+          'DE' => 'Gleich <br> registrieren',
+        ),
+        'lang' => $language->language,
+      )
+    ), 'setting');
+  }
+}
+
 /**
  * Overrides theme_menu_local_tasks().
  */
