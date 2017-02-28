@@ -241,8 +241,38 @@ ul.language-switcher-locale-url {
   font-size: 14px;
   display: inline-block;
   vertical-align: middle;
-
 }
+
+#Header.sticky {
+  -webkit-box-shadow: 6px 10px 62px -21px rgba(221, 221, 221, 0.8);
+  -moz-box-shadow: 6px 10px 62px -21px rgba(221, 221, 221, 0.8);
+  box-shadow: 6px 10px 62px -21px rgba(221, 221, 221, 0.8);
+}
+
+#Header {
+  transition: 0.8s ease;
+  width: 100%;
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  padding-bottom: 18px;
+  background: #fff;
+}
+
+#Header:before {
+  content: '';
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  height: 100%;
+  width: 100vw;
+  z-index: -1;
+  background: #fff;
+}
+
 .region .region-top {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -256,12 +286,30 @@ ul.language-switcher-locale-url {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 1290px;
 }
-#Header {
+
+#Header .region-top {
   max-width: 1290px;
-  padding-bottom: 25px;
-  margin: auto;
+  margin: 0 auto;
+}
+
+.container-fluid > #Content {
+  padding-top: 14em;
+}
+
+#Header {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .container-fluid > #Content {
+    padding-top: 9em;
+  }
+  #Header {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .contextual-links-region{

@@ -28,4 +28,14 @@
     });
 
   });
+
+  $(window).on('scroll', function() {
+    if ($('#Header').offset().top > 100) {
+      $('#Header').addClass('sticky');
+    }
+    else {
+      $('#Header').removeClass('sticky');
+    }
+  });
+
 })(jQuery);
