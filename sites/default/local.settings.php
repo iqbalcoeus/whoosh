@@ -7,10 +7,14 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 
 $databases['default']['default'] = array(
   'driver' => 'mysql',
-  'database' => 'model2',
+  'database' => 'model',
   'username' => 'root',
-  'password' => 'cImp8yoga',
+  'password' => 'root',
   'host' => 'localhost',
   'prefix' => '',
 );
-$update_free_access = FALSE;
+$update_free_access = TRUE;
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
