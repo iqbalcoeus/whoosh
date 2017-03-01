@@ -1466,24 +1466,29 @@ a.link-to-top .fa {
   font-size: 14px;
 }
 
-#block-block-13 {
+#block-block-13,
+.front-page-sixth-block {
   width: 100%;
 }
-#block-block-13 .block-content {
+#block-block-13 .block-content,
+.front-page-sixth-block .block-content {
   width: 100%;
   position: relative;
 }
-#block-block-13 .block-content img {
+#block-block-13 .block-content img,
+.front-page-sixth-block .block-content img {
   width: 100%;
 }
-#block-block-13 .image-login {
+#block-block-13 .image-login,
+.front-page-sixth-block .image-login {
   position: absolute;
   display: block;
   width: 18%;
   top: 0;
   right: 3%;
 }
-#block-block-13 .login-free {
+#block-block-13 .login-free,
+.front-page-sixth-block .login-free {
   background: url('images/login-free.png') no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;

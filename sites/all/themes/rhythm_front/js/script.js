@@ -26,7 +26,7 @@
 
       return false;
     });
-    $('#block-block-13 .block-content').append('<a href="/user" class="login-free"></a>');
+    $('.front-page-sixth-block .block-content').append('<a href="/user" class="login-free"></a>');
   });
 
   $(window).scroll(function(){
