@@ -267,14 +267,14 @@ ul.language-switcher-locale-url {
   transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
 }
 
-#Header .region-top.sticky {
-  /*background: rgba(0, 0, 0, 0.9);*/
-}
+/*#Header .region-top.sticky {*/
+  /*!*background: rgba(0, 0, 0, 0.9);*!*/
+/*}*/
 
-#Header .region-top.sticky .language-switcher-locale-url a,
-#Header .region-top.sticky #block-system-main-menu .block-content a {
-  color: #fff;
-}
+/*#Header .region-top.sticky .language-switcher-locale-url a,*/
+/*#Header .region-top.sticky #block-system-main-menu .block-content a {*/
+  /*color: #fff;*/
+/*}*/
 
 .region .region-top {
   display: -webkit-box;
@@ -1229,13 +1229,13 @@ li.en > a:hover{
   text-indent: -1000em;
 }
 
-#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:first-child a {
-  background: url('images/social-icons-white.png') 0 0 no-repeat;
-}
+/*#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:first-child a {*/
+  /*background: url('images/social-icons-white.png') 0 0 no-repeat;*/
+/*}*/
 
-#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:last-child a {
-  background: url('images/social-icons-white.png') -25px 0 no-repeat;
-}
+/*#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:last-child a {*/
+  /*background: url('images/social-icons-white.png') -25px 0 no-repeat;*/
+/*}*/
 
 #block-menu-menu-project-rules .default-menu {
   padding-left: 0;
