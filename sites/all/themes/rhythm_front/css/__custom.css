@@ -255,10 +255,10 @@ ul.language-switcher-locale-url {
 
 #Header .region-top {
   transition: 0.8s ease;
-  max-width: 1290px;
+  /*max-width: 1290px;*/
   left: 0;
   right: 0;
-  margin: auto;
+  /*margin: auto;*/
   z-index: 9;
   position: fixed;
   top: 0;
