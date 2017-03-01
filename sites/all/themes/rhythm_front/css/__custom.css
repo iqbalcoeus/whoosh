@@ -259,7 +259,7 @@ ul.language-switcher-locale-url {
   position: fixed;
   top: 0;
   padding-bottom: 18px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
   -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
   -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
   -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
