@@ -5,8 +5,13 @@
  * Rhythm - subtheme.
  */
 
+/**
+ * Implements hook_preprocess_page().
+ */
 function rhythm_preprocess_page(&$vars) {
   global $language;
+
+  // @TODO Should be fixed in the feature.
   if ($vars['front_page']) {
     drupal_add_js(array(
       'modelplatform_theme' => array(
@@ -44,7 +49,7 @@ function rhythm_front_menu_local_tasks(array $variables) {
 }
 
 /**
- *  Implements theme_textfield().
+ *  Overrides theme_textfield().
  */
 function rhythm_front_textfield($variables) {
   $element = $variables['element'];
