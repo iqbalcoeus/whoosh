@@ -29,12 +29,12 @@
     $('#block-block-13 .block-content').append('<a href="/user" class="login-free"></a>');
   });
 
-  $(window).on('scroll', function() {
-    if ($('#Header').offset().top > 100) {
-      $('#Header').addClass('sticky');
+  $(window).scroll(function(){
+    if ($(window).scrollTop() > 10) {
+      $("#Header .region-top").addClass("sticky");
     }
     else {
-      $('#Header').removeClass('sticky');
+      $("#Header .region-top").removeClass("sticky");
     }
   });
 

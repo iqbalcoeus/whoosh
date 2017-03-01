@@ -235,7 +235,6 @@ ul.language-switcher-locale-url {
 }
 .block-delta-blocks{
   max-width: 1290px;
-  background: #fff;
   font-family: Helvetica, Arial, sans-serif;
   color:#000;
   font-size: 14px;
@@ -250,20 +249,31 @@ ul.language-switcher-locale-url {
 }
 
 #Header {
-  min-height: 100px;
+  min-height: 130px;
 }
 
 #Header .region-top {
-  transition: 0.8s ease;
-  /*max-width: 1290px;*/
   left: 0;
   right: 0;
-  /*margin: auto;*/
-  z-index: 9;
+  z-index: 99;
   position: fixed;
   top: 0;
   padding-bottom: 18px;
   background: #fff;
+  -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
+
+#Header .region-top.sticky {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+#Header .region-top.sticky .language-switcher-locale-url a,
+#Header .region-top.sticky #block-system-main-menu .block-content a {
+  color: #fff;
 }
 
 .region .region-top {
@@ -1217,6 +1227,14 @@ li.en > a:hover{
   width: 20px;
   height: 20px;
   text-indent: -1000em;
+}
+
+#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:first-child a {
+  background: url('images/social-icons-white.png') 0 0 no-repeat;
+}
+
+#Header .region-top.sticky #block-menu-menu-header-social-links .default-menu li:last-child a {
+  background: url('images/social-icons-white.png') -25px 0 no-repeat;
 }
 
 #block-menu-menu-project-rules .default-menu {
