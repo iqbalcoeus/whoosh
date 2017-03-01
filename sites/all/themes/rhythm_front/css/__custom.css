@@ -283,7 +283,7 @@ ul.language-switcher-locale-url {
 
 
 .container-fluid > #Content {
-  padding-top: 14em;
+  /*padding-top: 14em;*/
 }
 
 #Header {
@@ -293,7 +293,7 @@ ul.language-switcher-locale-url {
 
 @media screen and (min-width: 768px) {
   .container-fluid > #Content {
-    padding-top: 9em;
+    /*padding-top: 9em;*/
   }
   #Header {
     padding-left: 0;
@@ -1469,6 +1469,7 @@ a.link-to-top .fa {
 .view-news.view-display-id-block {
   width: 600px;
   margin: auto;
+  margin-bottom: 8em;
 }
 .view-news.view-display-id-block .view-header,
 .view-news.view-display-id-block .view-header p {
