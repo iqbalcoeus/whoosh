@@ -27,7 +27,7 @@ function modelplatform_menu() {
     'access arguments' => array('update', 1),
     'type' => MENU_NORMAL_ITEM,
   );
-  $items['modelplatform/params'] = array(
+  $items['admin/modelplatform/params'] = array(
     'title' => t('Model platform parametrs'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('modelplatform_params_form'),
