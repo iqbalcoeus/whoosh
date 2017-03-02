@@ -2218,5 +2218,5 @@ ul.flex-direction-nav {
   display: none;
 }
 .front-page-video-block.playing:hover #pause-button {
-  display: block;
+  /*display: block;*/
 }
