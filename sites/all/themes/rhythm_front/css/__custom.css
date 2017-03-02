@@ -250,6 +250,7 @@ ul.language-switcher-locale-url {
 
 #Header {
   min-height: 130px;
+  background-color: #fff;
 }
 
 #Header .region-top {
@@ -1437,6 +1438,25 @@ a.link-to-top .fa {
   align-items: center;
   justify-content: center;
 }
+.front #content .block {
+  background-color: #fff;
+}
+/* FRONT PAGE VIDEO START */
+#front_page_video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+.front-page-video-block {
+  z-index: -2;
+}
+/* FRONT PAGE VIDEO END */
+#block-block-14 {
+  padding-top: 15px;
+  background-color: #fff;
+}
 #block-block-14 h5 {
   margin-top: 30px;
   font-size: 24px;
@@ -1495,7 +1515,7 @@ a.link-to-top .fa {
   display: block;
   text-indent: -1000em;
   width: 11%;
-  height: 32%;
+  height: 28%;
   position: absolute;
   top: 0;
   right: 5%;
@@ -1867,6 +1887,13 @@ ul.flex-direction-nav {
 
 .region-top {
   padding-top: 20px;
+}
+/* Hide tabs */
+.front .container {
+  display: none;
+}
+.view-front-page-models-1.view-display-id-block {
+  background-color: #fff;
 }
 
 @media screen and (max-width: 767px) {
