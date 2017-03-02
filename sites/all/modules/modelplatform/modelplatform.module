@@ -50,7 +50,7 @@ function modelplatform_params_form($form, &$form_state) {
   $form['modelplatform_video_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Front page Video URL'),
-    '#default_value' => variable_get('modelplatform_video_url', 'http://www.youtube.com/embed/f12EzqA6p6U'),
+    '#default_value' => variable_get('modelplatform_video_url', 'http://www.youtube.com/embed/W0-LGL2AizU'),
   );
   $form['#validate'] = array(
     'modelplatform_params_form_validate',
@@ -76,7 +76,9 @@ function modelplatform_params_form_validate($form, &$form_state) {
     $url = 'https://www.youtube.com/oembed?url=' . $form_state['values']['modelplatform_video_url']. '&format=json';
     $json = file_get_contents($url);
     if (!$json) {
-      form_set_error('modelplatform_video_url', t('Youtube video data is corrupted.'));
+      if (!$video_id = youtube_get_video_id($form_state['values']['modelplatform_video_url'])) {
+        form_set_error('modelplatform_video_url', t('Youtube video data is corrupted.'));
+      }
     }
   }
 }
@@ -102,6 +104,8 @@ function modelplatform_params_form_submit($form, &$form_state) {
         variable_set('modelplatform_video_height', $obj->height);
       }
     }
+    $video_id = youtube_get_video_id($form_state['values']['modelplatform_video_url']);
+    variable_set('modelplatform_video_id', $video_id);
     variable_set('modelplatform_video_url', $form_state['values']['modelplatform_video_url']);
   }
 }
@@ -146,17 +150,18 @@ function modelplatform_block_view($delta = '') {
           array(
             'data' => array(
               'modelplatform' => array(
-                'video_width' => variable_get('modelplatform_video_width', 480),
-                'video_height' => variable_get('modelplatform_video_height', 270),
+                'videoWidth' => variable_get('modelplatform_video_width', 480),
+                'videoHeight' => variable_get('modelplatform_video_height', 270),
+                'videoID' => variable_get('modelplatform_video_id', 'W0-LGL2AizU'),
               ),
             ),
             'type' => 'setting',
           ),
         ),
       );
-      $block['content']['#markup'] = '<div id="front_page_video"><iframe width="100%" height="100%" src="'
-        . variable_get('modelplatform_video_url', 'http://www.youtube.com/embed/f12EzqA6p6U')
-        . '?controls=0&disablekb=0&loop=1&showinfo=0&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe></div>';
+      $video_div = '<div id="ytplayer"></div>';
+      $block['content']['#markup'] = '<div id="front_page_video">' . $video_div
+        . '</div>';
       break;
 
     case 'modelplatform_newsletter':

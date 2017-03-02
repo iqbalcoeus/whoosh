@@ -2,3 +2,5 @@ name = Model Platform
 description = "Model Platform Module."
 core = 7.x
 package = Model Platform
+
+dependencies[] = youtube

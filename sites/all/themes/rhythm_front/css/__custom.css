@@ -249,8 +249,10 @@ ul.language-switcher-locale-url {
 }
 
 #Header {
+  position: relative;
   min-height: 130px;
   background-color: #fff;
+  z-index: 3;
 }
 
 #Header .region-top {
@@ -1101,10 +1103,12 @@ li.en > a:hover{
 }
 
 #Footer {
+  position: relative;
   background: #000;
   color: #fff;
   text-align: center;
   padding: 30px 0 0 0;
+  z-index: 2;
 }
 
 #Footer .block a {
@@ -1439,6 +1443,9 @@ a.link-to-top .fa {
   justify-content: center;
 }
 .front #content .block {
+  z-index: 2;
+}
+#block-views-news-block {
   background-color: #fff;
 }
 /* FRONT PAGE VIDEO START */
@@ -1447,10 +1454,11 @@ a.link-to-top .fa {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 .front-page-video-block {
-  z-index: -2;
+  position: relative;
+  z-index: 1!important;
 }
 /* FRONT PAGE VIDEO END */
 #block-block-14 {
@@ -2185,3 +2193,30 @@ ul.flex-direction-nav {
 }
 /* HARDCODE END */
 
+#play-button,
+#pause-button {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-size: 100% 100%;
+  background-image: url('images/play.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  z-index: 2;
+}
+
+#play-button {
+  display: block;
+}
+.front-page-video-block.playing #play-button {
+  display: none;
+}
+.front-page-video-block.playing:hover #pause-button {
+  display: block;
+}
