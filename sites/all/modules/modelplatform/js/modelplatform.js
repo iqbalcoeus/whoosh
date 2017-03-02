@@ -56,6 +56,7 @@ function onYouTubePlayerAPIReady() {
         disablekb: 0,
         showinfo: 0,
         autoplay: 1,
+        playlist: Drupal.settings.modelplatform.videoID,
         loop: 1,
       },
       events: {

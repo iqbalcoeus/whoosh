@@ -2193,10 +2193,9 @@ ul.flex-direction-nav {
 }
 /* HARDCODE END */
 
-#play-button,
-#pause-button {
+#play-button {
   cursor: pointer;
-  display: none;
+  display: block;
   position: absolute;
   width: 100px;
   height: 100px;
@@ -2211,12 +2210,6 @@ ul.flex-direction-nav {
   z-index: 2;
 }
 
-#play-button {
-  display: block;
-}
 .front-page-video-block.playing #play-button {
   display: none;
-}
-.front-page-video-block.playing:hover #pause-button {
-  /*display: block;*/
 }
