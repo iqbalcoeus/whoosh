@@ -50,9 +50,11 @@ function modelplatform_params_form($form, &$form_state) {
   $form['modelplatform_video_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Front page Video URL'),
-    '#default_value' => variable_get('modelplatform_video_url', 'https://www.youtube.com/watch?v=f12EzqA6p6U'),
+    '#default_value' => variable_get('modelplatform_video_url', 'http://www.youtube.com/embed/f12EzqA6p6U'),
   );
-
+  $form['#validate'] = array(
+    'modelplatform_params_form_validate',
+  );
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
@@ -65,6 +67,21 @@ function modelplatform_params_form($form, &$form_state) {
 }
 
 /**
+ * Validate action.
+ *
+ * @see modelplatform_params_form()
+ */
+function modelplatform_params_form_validate($form, &$form_state) {
+  if (isset($form_state['values']['modelplatform_video_url'])) {
+    $url = 'https://www.youtube.com/oembed?url=' . $form_state['values']['modelplatform_video_url']. '&format=json';
+    $json = file_get_contents($url);
+    if (!$json) {
+      form_set_error('modelplatform_video_url', t('Youtube video data is corrupted.'));
+    }
+  }
+}
+
+/**
  * Submit action.
  *
  * @see modelplatform_params_form()
@@ -74,7 +91,7 @@ function modelplatform_params_form_submit($form, &$form_state) {
     variable_set('modelplatform_b2b', $form_state['values']['modelplatform_b2b']);
   }
   if (isset($form_state['values']['modelplatform_video_url'])) {
-    $url = 'https://www.youtube.com/oembed?url=' . 'https://www.youtube.com/watch?v=-WvyM7c9yb8' . '&format=json';
+    $url = 'https://www.youtube.com/oembed?url=' . $form_state['values']['modelplatform_video_url'] . '&format=json';
     $json = file_get_contents($url);
     if ($json) {
       $obj = json_decode($json);
