@@ -1443,6 +1443,7 @@ a.link-to-top .fa {
   justify-content: center;
 }
 .front #content .block {
+  position: relative;
   z-index: 2;
 }
 #block-views-news-block {
