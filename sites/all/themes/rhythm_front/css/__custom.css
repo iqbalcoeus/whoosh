@@ -255,20 +255,23 @@ ul.language-switcher-locale-url {
   z-index: 3;
 }
 
-#Header .region-top {
-  left: 0;
-  right: 0;
-  z-index: 99;
-  position: fixed;
-  top: 0;
-  padding-bottom: 18px;
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
-  -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
-  -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
-  -ms-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
-  transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+@media screen and (min-width: 768px) {
+  #Header .region-top {
+    left: 0;
+    right: 0;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    padding-bottom: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    -ms-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  }
 }
+
 
 /*#Header .region-top.sticky {*/
   /*!*background: rgba(0, 0, 0, 0.9);*!*/
