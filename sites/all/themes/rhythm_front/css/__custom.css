@@ -1955,7 +1955,7 @@ ul.flex-direction-nav {
 #block-views-front-page-third-block-2 a.register-link {
   position: absolute;
   right: 2.6%;
-  bottom: 5.16%;
+  bottom: 5%;
   padding: 0.5% 2%;
   background-color: #000;
   color: #fff;
@@ -1965,6 +1965,13 @@ ul.flex-direction-nav {
   z-index: 100;
   border-radius: 4px;
   text-align: center;
+}
+
+@media screen and (max-width: 667px) {
+  #block-views-front-page-third-block-1 a.register-link,
+  #block-views-front-page-third-block-2 a.register-link {
+    right: 18%;
+  }
 }
 
 #Footer .clearfix:before,
@@ -2004,16 +2011,16 @@ ul.flex-direction-nav {
     font-size: 20px;
   }
 }
-@media (min-width: 321px) and (max-width: 599px) {
+@media (min-width: 320px) and (max-width: 599px) {
   .view-front-page-third  .views-field-body {
     font-size: 6px;
     top: 20%;
-    left: 5%;
+    left: 13%;
     width: 35%;
   }
   .view-front-page-third  .views-field-body.help-slide-219 {
     font-size: 6px;
-    right: 5%;
+    right: 13%;
     width: 35%;
     left: auto;
   }
