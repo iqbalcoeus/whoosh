@@ -2321,5 +2321,8 @@ div.sf-accordion-toggle.sf-style-white a {
     -webkit-transition: 0.5s ease-out;
     transition: 0.5s ease-out;
   }
+  #Header {
+    margin-bottom: 30px;
+  }
 }
 
