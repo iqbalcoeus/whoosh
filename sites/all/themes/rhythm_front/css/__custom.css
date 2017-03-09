@@ -1950,7 +1950,6 @@ ul.flex-direction-nav {
 .logo-img img {
   width: 80px;
   height: auto;
-  image-rendering: -webkit-optimize-contrast;
 }
 
 @media screen and (max-width: 767px) {
