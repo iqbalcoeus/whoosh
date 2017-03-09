@@ -1947,6 +1947,12 @@ ul.flex-direction-nav {
   background-color: #fff;
 }
 
+.logo-img img {
+  width: 80px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
 @media screen and (max-width: 767px) {
   .logo-img {
     padding: 0;
