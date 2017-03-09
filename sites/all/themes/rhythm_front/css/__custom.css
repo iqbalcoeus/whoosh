@@ -1495,7 +1495,7 @@ a.link-to-top .fa {
 /* FRONT PAGE VIDEO START */
 #front_page_video {
   position: fixed;
-  top: 0;
+  top: 118px;
   left: 0;
   width: 100%;
   z-index: 1;
