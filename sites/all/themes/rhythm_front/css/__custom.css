@@ -1892,15 +1892,14 @@ ul.flex-direction-nav {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  margin-right: -3%;
-  margin-left: -3%;
+  margin: 3% -3%;
 }
 
 .view-front-page-third .views-field-body.help-slide-217 .role-model,
 .view-front-page-third .views-field-body.help-slide-217 .role-customer {
   display: inline-block;
   vertical-align: top;
-  margin: 3%;
+  margin: 0 3%;
   width: 25%;
 }
 
