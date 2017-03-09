@@ -1331,6 +1331,10 @@ li.en > a:hover{
   line-height: 47px;
 }
 
+#footer_bottom {
+  background: #191919;
+}
+
 .region-footer {
   max-width: 1290px;
   width: 100%;
