@@ -2028,7 +2028,6 @@ ul.flex-direction-nav {
   -moz-transition:all 0.5s;
   overflow: hidden;
   border: 1px solid #b9baba;
-  padding-top: 2.4em;
 }
 
 .view-front-page-third .views-field-body.help-slide-217 .role-model a:hover,
@@ -2056,7 +2055,6 @@ ul.flex-direction-nav {
   -moz-transition:all 0.5s;
   overflow: hidden;
   border: 1px solid #b9baba;
-  padding-top: 2.4em;
 }
 
 .view-front-page-third .views-field-body.help-slide-217 .download-items a:first-child,
@@ -2485,29 +2483,6 @@ ul.flex-direction-nav {
   -o-transform: rotate(-180deg);
 }
 
-/* HARDCODE END */
-
-#play-button {
-  cursor: pointer;
-  display: block;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  top: 50%;
-  left: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
-  background-size: 100% 100%;
-  background-image: url('images/play.png');
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  z-index: 2;
-}
-
-.front-page-video-block.playing #play-button {
-  display: none;
-}
-
 a#superfish-1-toggle:before {
   content: '\f0c9';
   font-family: "fontello";
@@ -2586,4 +2561,55 @@ div.sf-accordion-toggle.sf-style-white a {
   #Header {
     margin-bottom: 0;
   }
+
+  .view-front-page-third .views-field-body.help-slide-217 .how-it-works {
+    font-size: 17px;
+  }
+  .view-front-page-third .views-field-body.help-slide-217 p {
+    font-size: 14px;
+  }
+  .view-front-page-third .views-field-body.help-slide-217 .download-conteiner {
+    font-size: 10px;
+  }
+  .view-front-page-third .views-field-body.help-slide-217 .role-customer a,
+  .view-front-page-third .views-field-body.help-slide-217 .role-model a {
+    height: 6em;
+    -webkit-background-size: 7em;
+    background-size: 7em;
+    font-size: 9px;
+  }
 }
+
+@media screen and (min-width: 767px) and (max-width: 960px) {
+  .view-front-page-third .views-field-body.help-slide-217 .role-customer a,
+  .view-front-page-third .views-field-body.help-slide-217 .role-model a {
+    height: 4em;
+    -webkit-background-size: 5em;
+    background-size: 5em;
+  }
+}
+
+
+/* HARDCODE END */
+
+#play-button {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-size: 100% 100%;
+  background-image: url('images/play.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  z-index: 2;
+}
+
+.front-page-video-block.playing #play-button {
+  display: none;
+}
+
