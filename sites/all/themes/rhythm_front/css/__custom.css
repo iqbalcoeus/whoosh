@@ -1154,8 +1154,16 @@ li.en > a:hover{
   display: inline-block;
   vertical-align: top;
   text-align: left;
-  width: 282px;
+  width: 246px;
   padding: 0 30px;
+}
+
+@media screen and (min-width: 1024px) {
+  #block-block-9,
+  #block-block-10,
+  #block-modelplatform-modelplatform-newsletter {
+    width: 282px;
+  }
 }
 
 #block-block-9,
@@ -1348,6 +1356,18 @@ li.en > a:hover{
   margin: 0 auto;
 }
 
+@media screen and (min-width: 768px) {
+  .region-footer {
+    margin: 0 auto 65px auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .region-footer {
+    margin: 0 auto 45px auto;
+  }
+}
+
 .region-footer-bottom {
   margin: 0 auto;
   max-width: 1290px;
@@ -1410,16 +1430,26 @@ a.link-to-top {
   height: 38px;
   display: inline-block;
   position: static;
+
 }
 
 .local-scroll {
   position: absolute;
   height: 38px;
-  width: 100%;
+  width: auto;
   text-align: center;
-  left: 0;
-  right:0;
+  right: 0;
   bottom: 4.5em;
+  z-index: 1000;
+}
+
+@media screen and (min-width: 768px) {
+  .local-scroll {
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 6.5em;
+  }
 }
 
 a.link-to-top .fa {
