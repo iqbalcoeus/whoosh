@@ -1430,7 +1430,6 @@ a.link-to-top {
   height: 38px;
   display: inline-block;
   position: static;
-
 }
 
 .local-scroll {
@@ -2370,3 +2369,23 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 }
 
+#block-views-front-page-models-1-block .view-footer {
+  margin-top: -20px;
+  background: #000;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+#block-views-front-page-models-1-block a.link-to-bottom {
+  background: url('images/to-top.png') no-repeat;
+  width: 38px;
+  height: 38px;
+  display: inline-block;
+  text-indent: -1000em;
+  color: transparent;
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+}

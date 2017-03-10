@@ -20,6 +20,7 @@ stylesheets[all][] = css/__custom.css
 
 
 scripts[] = js/script.js
+scripts[] = js/SmoothScroll.js
 
 features[] = name
 features[] = logo
