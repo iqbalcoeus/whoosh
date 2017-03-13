@@ -1,11 +1,13 @@
 (function ($) {
 
+  var scrollFlag = true;
+
   function resizeAction() {
     var w = Drupal.settings.modelplatform.videoWidth;
     var h = Drupal.settings.modelplatform.videoHeight;
     var el = $('#front_page_video');
     var elHeader = $('#Header .region-top');
-    var hrth = elHeader.height() + parseInt(elHeader.css('padding-top')) + parseInt(elHeader.css('padding-bottom'));
+    var hrth = elHeader.height();
     var elBlock = $('.front-page-video-block');
     el.css('top', hrth + 'px');
     var wh = $(window).height() - hrth;
@@ -33,6 +35,15 @@
     Drupal.youtube_player = null || Drupal.youtube_player;
   });
   $(window).resize(resizeAction);
+
+  $(window).scroll(function(){
+    if (scrollFlag) {
+      if ($(window).scrollTop() > 10) {
+        resizeAction();
+        scrollFlag = false;
+      }
+    }
+  });
 
 })(jQuery);
 
