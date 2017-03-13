@@ -1851,11 +1851,18 @@ ul.flex-direction-nav {
 #block-views-front-page-models-1-block-2 .widget-title,
 #block-views-front-page-models-1-block-1 .widget-title {
   border-bottom: 0;
-  margin-top: 15px;
+  margin-top: 0;
+  padding-top: 45px;
   text-align: center;
   color: #fff;
   font-size: 24px;
   font-weight: 600;
+}
+
+
+#block-views-front-page-models-1-block-2,
+#block-views-front-page-models-1-block-1 {
+  background: #2a2a2a;
 }
 
 .view-front-page-models-1 .flexslider {
@@ -2478,6 +2485,8 @@ ul.flex-direction-nav {
   display: inline-block;
   text-indent: -1000em;
   color: transparent;
+  outline: 0;
+  border: 0;
   -webkit-transform: rotate(-180deg);
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
