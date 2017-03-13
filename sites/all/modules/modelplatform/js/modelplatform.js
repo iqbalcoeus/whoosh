@@ -4,7 +4,8 @@
     var w = Drupal.settings.modelplatform.videoWidth;
     var h = Drupal.settings.modelplatform.videoHeight;
     var el = $('#front_page_video');
-    var hrth = $('#Header .region-top').height();
+    var elHeader = $('#Header .region-top');
+    var hrth = elHeader.height() + parseInt(elHeader.css('padding-top')) + parseInt(elHeader.css('padding-bottom'));
     var elBlock = $('.front-page-video-block');
     el.css('top', hrth + 'px');
     var wh = $(window).height() - hrth;
