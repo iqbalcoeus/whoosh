@@ -1848,7 +1848,8 @@ ul.flex-direction-nav {
   text-align: center;
 }
 
-.view-front-page-models-1 .widget-title {
+#block-views-front-page-models-1-block-2 .widget-title,
+#block-views-front-page-models-1-block-1 .widget-title {
   border-bottom: 0;
   margin-top: 15px;
   text-align: center;
