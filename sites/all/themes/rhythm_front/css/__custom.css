@@ -1829,17 +1829,17 @@ ul.flex-direction-nav {
   border: 0;
 }
 
-#block-views-front-page-models-1-block-1 {
+.view-front-page-models-1 {
   background: #2a2a2a;
   color: #fff;
   padding-top: 20px;
 }
 
-#block-views-front-page-models-1-block-1 .views-field-nothing {
+.view-front-page-models-1 .views-field-nothing {
   margin-top: 15px;
 }
 
-#block-views-front-page-models-1-block-1 .views-field-nothing a {
+.view-front-page-models-1 .views-field-nothing a {
   color: #fff;
   font-size: 16px;
   text-decoration: none;
@@ -1848,7 +1848,7 @@ ul.flex-direction-nav {
   text-align: center;
 }
 
-#block-views-front-page-models-1-block-1 .widget-title {
+.view-front-page-models-1 .widget-title {
   border-bottom: 0;
   margin-top: 15px;
   text-align: center;
@@ -1857,16 +1857,16 @@ ul.flex-direction-nav {
   font-weight: 600;
 }
 
-#block-views-front-page-models-1-block-1 .flexslider {
+.view-front-page-models-1 .flexslider {
   background: none;
 }
 
-#block-views-front-page-models-1-block-1 .view-footer {
+.view-front-page-models-1 .view-footer {
   text-align: center;
   margin-top: 20px;
 }
 
-#block-views-front-page-models-1-block-1 .view-footer a {
+.view-front-page-models-1 .view-footer a {
   display: inline-block;
   padding: 8px 20px;
   text-transform: uppercase;
@@ -1875,15 +1875,15 @@ ul.flex-direction-nav {
   border: 1px solid #fff;
 }
 
-#block-views-front-page-models-1-block-1 ul.flex-direction-nav {
+.view-front-page-models-1 ul.flex-direction-nav {
   top: 28%;
 }
 
-#block-views-front-page-models-1-block-1 .flexslider li:hover {
+.view-front-page-models-1 .flexslider li:hover {
   position: relative;
 }
 
-#block-views-front-page-models-1-block-1 .flexslider li:hover .views-field-nothing {
+.view-front-page-models-1 .flexslider li:hover .views-field-nothing {
   position: absolute;
   top: 0;
   right: 0;
@@ -1895,7 +1895,7 @@ ul.flex-direction-nav {
   margin-top: 0;
 }
 
-#block-views-front-page-models-1-block-1 .flexslider li:hover .views-field-nothing a {
+.view-front-page-models-1 .flexslider li:hover .views-field-nothing a {
   color: #000;
   display: block;
   position: absolute;
