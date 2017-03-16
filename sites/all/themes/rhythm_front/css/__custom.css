@@ -1189,6 +1189,7 @@ li.en > a:hover {
 #block-system-main-menu .block-content a:hover,
 #block-superfish-1 .block-content a:hover {
   text-decoration: none;
+  color: #777;
 }
 
 #Footer {
@@ -1583,7 +1584,9 @@ a.link-to-top .fa {
   position: relative;
   z-index: 2;
 }
-
+.not-front #content{
+  padding-top: 20px;
+}
 #block-views-news-block {
   background-color: #fff;
 }
@@ -2655,4 +2658,15 @@ div.sf-accordion-toggle.sf-style-white a {
 
 .ytp-thumbnail-overlay-image{
   z-index: 999!important;
+}
+.not-front .page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.not-front .nd-region:last-child {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
