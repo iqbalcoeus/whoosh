@@ -232,7 +232,6 @@ a.tabledrag-handle .handle {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  clear: both;
 }
 
 .tpl-minimal-tabs li:first-child {
@@ -2612,7 +2611,53 @@ ul.flex-direction-nav {
   .view-news.view-display-id-block .view-header p {
     padding: 0 5px;
   }
+  .view-models .views-exposed-form .views-exposed-widget > label {
+    display: block;
+    text-align: center;
+    margin: 0;
+  }
+  .view-models .views-row {
+    margin: 10px auto;
+  }
+  .not-front #footer_bottom {
+    margin-top: 0;
+  }
+  .not-front #Footer {
+    padding: 0;
+  }
+  .not-front .page {
+    padding-bottom: 24em;
+  }
+  .views-exposed-form .views-exposed-widget {
+    padding: 0.5em 0.7em 0 0;
+  }
+  .tpl-minimal-tabs {
+    margin-left: -20px;
+    margin-right: -20px;
+    width: auto;
+  }
 }
+
+@media screen and (max-width: 567px) {
+  .tpl-minimal-tabs li {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .tpl-minimal-tabs li > a {
+    display: inline-block;
+  }
+}
+
+@media screen and (min-width: 568px) {
+  .tpl-minimal-tabs li {
+    display: inline-block;
+    width: auto;
+    clear: none;
+    text-align: center;
+  }
+}
+
 
 #block-views-front-page-models-1-block a.link-to-bottom {
   background: url('images/to-top.png') no-repeat;
