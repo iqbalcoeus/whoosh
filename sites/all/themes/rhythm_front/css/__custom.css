@@ -2631,7 +2631,7 @@ div.sf-accordion-toggle.sf-style-white a {
 
 #play-button {
   cursor: pointer;
-  display: block;
+  display: none;
   position: absolute;
   width: 100px;
   height: 100px;
@@ -2650,3 +2650,6 @@ div.sf-accordion-toggle.sf-style-white a {
   display: none;
 }
 
+.ytp-thumbnail-overlay-image{
+  z-index: 999!important;
+}
