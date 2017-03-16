@@ -1555,8 +1555,14 @@ a.link-to-top .fa {
 @media screen and (max-width: 767px) {
   .view-front-page-models-1.view-display-id-block .views-row {
     width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .front .view-front-page-models-1 {
+    padding-top: 0;
   }
 }
+
 
 .view-front-page-models-1.view-display-id-block .views-row img {
   width: 100%;
@@ -2244,6 +2250,49 @@ ul.flex-direction-nav {
   margin-top: -2%;
 }
 
+#play-button {
+  cursor: pointer;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-size: 100% 100%;
+  background-image: url('images/play.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  z-index: 2;
+}
+
+@media screen and (max-width: 1024px) {
+  #play-button {
+    display: none;
+  }
+}
+
+.not-front .page {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 27em;
+}
+
+.not-front .nd-region.footer {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inline-block;
+}
+
+@media screen and (min-width: 768px) {
+  .not-front .local-scroll {
+    bottom: 5.8em;
+  }
+}
+
+
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
   .view-front-page-third .views-field-body {
@@ -2508,6 +2557,12 @@ ul.flex-direction-nav {
   text-align: center;
 }
 
+@media screen and (max-width: 767px) {
+  #block-views-front-page-models-1-block .view-footer {
+    margin-top: -5px;
+  }
+}
+
 #block-views-front-page-models-1-block a.link-to-bottom {
   background: url('images/to-top.png') no-repeat;
   width: 38px;
@@ -2631,52 +2686,3 @@ div.sf-accordion-toggle.sf-style-white a {
 
 
 /* HARDCODE END */
-
-#play-button {
-  cursor: pointer;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  top: 50%;
-  left: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
-  background-size: 100% 100%;
-  background-image: url('images/play.png');
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  z-index: 2;
-}
-
-@media screen and (max-width: 767px) {
-  #play-button {
-    display: none;
-  }
-}
-.front-page-video-block.playing #play-button {
-  display: none;
-}
-
-.ytp-thumbnail-overlay-image{
-  z-index: 999!important;
-}
-
-.not-front .page {
-  position: relative;
-  min-height: 100vh;
-  padding-bottom: 27em;
-}
-
-.not-front .nd-region.footer {
-  position: absolute !important;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: inline-block;
-}
-
-@media screen and (min-width: 768px) {
-  .not-front .local-scroll {
-    bottom: 5.8em;
-  }
-}
