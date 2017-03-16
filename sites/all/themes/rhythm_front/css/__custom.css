@@ -2647,6 +2647,7 @@ div.sf-accordion-toggle.sf-style-white a {
   background-position: 0 0;
   z-index: 2;
 }
+
 @media screen and (max-width: 767px) {
   #play-button {
     display: none;
@@ -2659,14 +2660,23 @@ div.sf-accordion-toggle.sf-style-white a {
 .ytp-thumbnail-overlay-image{
   z-index: 999!important;
 }
+
 .not-front .page {
   position: relative;
   min-height: 100vh;
+  padding-bottom: 27em;
 }
 
-.not-front .nd-region:last-child {
-  position: absolute;
+.not-front .nd-region.footer {
+  position: absolute !important;
   bottom: 0;
   left: 0;
   right: 0;
+  display: inline-block;
+}
+
+@media screen and (min-width: 768px) {
+  .not-front .local-scroll {
+    bottom: 5.8em;
+  }
 }
