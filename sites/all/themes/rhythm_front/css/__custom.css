@@ -5,6 +5,30 @@
   margin: 10px;
 }
 
+@font-face {
+  font-family: 'open_sansregular';
+  src: url('../font/opensans-regular-webfont.eot');
+  src: url('../font/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/opensans-regular-webfont.woff2') format('woff2'),
+  url('../font/opensans-regular-webfont.woff') format('woff'),
+  url('../font/opensans-regular-webfont.svg#open_sansregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'dosisregular';
+  src: url('../font/dosis-regular-webfont.eot');
+  src: url('../font/dosis-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/dosis-regular-webfont.woff2') format('woff2'),
+  url('../font/dosis-regular-webfont.woff') format('woff'),
+  url('../font/dosis-regular-webfont.svg#dosisregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 .field-name-field-c-base-city tr > td:nth-child(2),
 .field-name-field-previous-jobs tr > td:nth-child(2),
 .field-name-field-c-base-city .ajax-new-content,
@@ -52,8 +76,8 @@
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
+  font-family: 'open_sansregular';
 }
 
 body.front #block-system-main {
@@ -236,7 +260,6 @@ ul.language-switcher-locale-url {
   display: inline-block;
   vertical-align: middle;
   margin-top: 0;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .block .block-system .block-menu {
@@ -248,7 +271,6 @@ ul.language-switcher-locale-url {
 
 .block-delta-blocks {
   max-width: 1290px;
-  font-family: Helvetica, Arial, sans-serif;
   color: #000;
   font-size: 14px;
   display: inline-block;
@@ -1150,7 +1172,6 @@ li.en > a:hover {
 #block-superfish-1 .block-content a {
   text-transform: uppercase;
   color: #000;
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -1202,7 +1223,6 @@ li.en > a:hover {
   color: #fff;
   text-transform: uppercase;
   font-size: 22px;
-  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   margin-top: 0;
   margin-bottom: 10px;
@@ -1858,7 +1878,6 @@ ul.flex-direction-nav {
   font-size: 24px;
   font-weight: 600;
 }
-
 
 #block-views-front-page-models-1-block-2,
 #block-views-front-page-models-1-block-1 {
