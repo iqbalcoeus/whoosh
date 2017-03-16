@@ -200,7 +200,7 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
 
         $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
         $form['field_small_business']['#access'] = $is_model;
-        $form['picture']['#access'] = !$is_model || ($user->uid == 1);
+        $form['picture']['#access'] = !$is_model || ($access);
       }
       break;
 
