@@ -29,6 +29,17 @@
 
 }
 
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6,
+.header-title,
+ul#superfish-1 a {
+  font-family: 'dosisregular';
+}
+
 .field-name-field-c-base-city tr > td:nth-child(2),
 .field-name-field-previous-jobs tr > td:nth-child(2),
 .field-name-field-c-base-city .ajax-new-content,
