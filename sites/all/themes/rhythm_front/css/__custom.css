@@ -2631,7 +2631,6 @@ div.sf-accordion-toggle.sf-style-white a {
 
 #play-button {
   cursor: pointer;
-  display: none;
   position: absolute;
   width: 100px;
   height: 100px;
@@ -2645,7 +2644,10 @@ div.sf-accordion-toggle.sf-style-white a {
   background-position: 0 0;
   z-index: 2;
 }
-
+@media screen and (max-width: 767px) {
+  #play-button{
+    display: none;
+  }
 .front-page-video-block.playing #play-button {
   display: none;
 }
