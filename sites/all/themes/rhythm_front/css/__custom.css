@@ -2645,9 +2645,10 @@ div.sf-accordion-toggle.sf-style-white a {
   z-index: 2;
 }
 @media screen and (max-width: 767px) {
-  #play-button{
+  #play-button {
     display: none;
   }
+}
 .front-page-video-block.playing #play-button {
   display: none;
 }
