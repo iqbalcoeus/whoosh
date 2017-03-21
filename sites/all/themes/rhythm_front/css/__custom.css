@@ -1530,10 +1530,6 @@ a.link-to-top .fa {
   font-family: 'open_sansregular';
 }
 
-.view-front-page-models-1.view-display-id-block .view-header .header-title b {
-  font-family: 'open_sansregular';
-}
-
 .view-front-page-models-1.view-display-id-block .view-header a {
   padding: 18px 24px;
   font-size: 16px;
@@ -1709,6 +1705,7 @@ a.link-to-top .fa {
   }
   .view-news.view-display-id-block .view-header {
     margin-bottom: 45px;
+    padding: 0 10px;
   }
 }
 
