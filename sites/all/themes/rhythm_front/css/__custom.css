@@ -1713,6 +1713,7 @@ a.link-to-top .fa {
 
 .view-news.view-display-id-block .view-header {
   margin-bottom: 84px;
+  padding: 0 15px;
 }
 
 @media screen and (max-width: 767px) {
@@ -1721,7 +1722,6 @@ a.link-to-top .fa {
   }
   .view-news.view-display-id-block .view-header {
     margin-bottom: 45px;
-    padding: 0 10px;
   }
 }
 
@@ -1762,7 +1762,16 @@ a.link-to-top .fa {
   transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
 }
 
-.view-news .view-header a:hover,
+@media screen and (max-width: 480px) {
+  .view-news.view-display-id-block .view-header span,
+  .view-news.view-display-id-block .view-header a {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+}
+
+.view-news.view-display-id-block .view-header a:hover,
 .view-news .views-field-title a:hover {
   color: #000;
 }
@@ -1800,6 +1809,15 @@ a.link-to-top .fa {
   -o-transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);
   -ms-transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);
   transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);
+}
+
+.view-news .views-field-name:after {
+  display: inline-block;
+  content: '|';
+  color: #aaa;
+  width: 5px;
+  height: 10px;
+  margin-left: 5px;
 }
 
 .view-news .views-field-name a,
@@ -2298,13 +2316,19 @@ ul.flex-direction-nav {
 }
 
 .logo-img img {
-  width: 65px;
+  width: 115px;
   height: auto;
 }
 
 @media screen and (min-width: 768px) {
   .logo-img img {
-    width: 80px;
+    width: 200px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .logo-img img {
+    width: 300px;
   }
 }
 
@@ -2833,6 +2857,13 @@ a#superfish-1-toggle {
   float: right;
 }
 
+@media screen and (min-width: 768px) {
+  #Header .region-top .block-delta-blocks {
+    height: 90px;
+    line-height: 90px;
+  }
+}
+
 div.sf-accordion-toggle.sf-style-white a.sf-expanded,
 .sf-menu.sf-style-white.sf-accordion li.sf-expanded,
 div.sf-accordion-toggle.sf-style-white a {
@@ -2843,11 +2874,12 @@ div.sf-accordion-toggle.sf-style-white a {
 
 @media screen and (max-width: 767px) {
   #block-superfish-1 {
-    margin-top: -56px;
+    margin-top: -29px;
     width: 100%;
     z-index: 1;
     outline: 0;
     padding: 0;
+    line-height: 1.2;
   }
   #block-delta-blocks-logo,
   #block-locale-language,
