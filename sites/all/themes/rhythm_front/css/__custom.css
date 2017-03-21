@@ -1706,7 +1706,8 @@ a.link-to-top .fa {
 }
 
 .view-news.view-display-id-block {
-  max-width: 100%;
+  max-width: 970px;
+  width: 100%;
   margin: 140px auto;
 }
 
@@ -1761,14 +1762,14 @@ a.link-to-top .fa {
   transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
 }
 
-.view-news.view-display-id-block .view-header a:hover,
-.view-news.view-display-id-block .views-field-title a {
+.view-news .view-header a:hover,
+.view-news .views-field-title a:hover {
   color: #000;
 }
 
-.view-news.view-display-id-block .views-field-title a,
-.view-news.view-display-id-block .views-field-title a:focus,
-.view-news.view-display-id-block .views-field-title a:visited {
+.view-news .views-field-title a,
+.view-news .views-field-title a:focus,
+.view-news .views-field-title a:visited {
   color: #777;
   text-decoration: none;
   font-family: 'dosisregular';
@@ -1779,15 +1780,15 @@ a.link-to-top .fa {
   transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);
 }
 
-.view-news.view-display-id-block .views-field-title {
+.view-news .views-field-title {
   margin-bottom: 6px;
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
 
-.view-news.view-display-id-block .views-field-name,
-.view-news.view-display-id-block .views-field-created {
+.view-news .views-field-name,
+.view-news .views-field-created {
   display: inline-block;
   margin-bottom: 15px;
   font-size: 11px;
@@ -1801,12 +1802,12 @@ a.link-to-top .fa {
   transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);
 }
 
-.view-news.view-display-id-block .views-field-name a,
-.view-news.view-display-id-block .views-field-created span {
+.view-news .views-field-name a,
+.view-news .views-field-created span {
   font-family: 'dosisregular';
 }
 
-.view-news.view-display-id-block .views-field-field-news-image a {
+.view-news .views-field-field-news-image a {
   -webkit-transition: all 0.2s cubic-bezier(0.300, 0.100, 0.580, 1.000);
   -moz-transition: all 0.2s cubic-bezier(0.300, 0.100, 0.580, 1.000);
   -o-transition: all 0.2s cubic-bezier(0.300, 0.100, 0.580, 1.000);
@@ -1814,20 +1815,20 @@ a.link-to-top .fa {
   transition: all 0.2s cubic-bezier(0.300, 0.100, 0.580, 1.000);
 }
 
-.view-news.view-display-id-block .views-field-field-news-image {
+.view-news .views-field-field-news-image {
   margin-bottom: 20px;
 }
 
-.view-news.view-display-id-block .views-field-field-news-image a:hover {
+.view-news .views-field-field-news-image a:hover {
   opacity: 0.85;
 }
 
-.view-news.view-display-id-block .views-field-name a {
+.view-news .views-field-name a {
   text-decoration: none;
   color: #aaa;
 }
 
-.view-news.view-display-id-block .views-field-body {
+.view-news .views-field-body {
   margin-bottom: 22px;
   color: #777;
   font-size: 15px;
@@ -1835,9 +1836,9 @@ a.link-to-top .fa {
   line-height: 1.75;
 }
 
-.view-news.view-display-id-block .views-field-view-node a,
-.view-news.view-display-id-block .views-field-view-node a:focus,
-.view-news.view-display-id-block .views-field-view-node a:visited {
+.view-news .views-field-view-node a,
+.view-news .views-field-view-node a:focus,
+.view-news .views-field-view-node a:visited {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
@@ -1855,17 +1856,17 @@ a.link-to-top .fa {
   letter-spacing: 2px;
 }
 
-.view-news.view-display-id-block .views-field-view-node a:hover {
+.view-news .views-field-view-node a:hover {
   text-decoration: underline;
   color: #888;
 }
 
-.view-news.view-display-id-block .views-row {
+.view-news .views-row {
   width: 293px;
   margin: 15px;
 }
 
-.view-news.view-display-id-block .view-content {
+.view-news .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
