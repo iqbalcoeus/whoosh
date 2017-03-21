@@ -35,7 +35,6 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6,
-.header-title,
 ul#superfish-1 a {
   font-family: 'dosisregular';
 }
@@ -1528,6 +1527,11 @@ a.link-to-top .fa {
   font-size: 70px;
   margin-bottom: 30px;
   color: #000;
+  font-family: 'open_sansregular';
+}
+
+.view-front-page-models-1.view-display-id-block .view-header .header-title b {
+  font-family: 'open_sansregular';
 }
 
 .view-front-page-models-1.view-display-id-block .view-header a {
