@@ -1696,8 +1696,11 @@ a.link-to-top .fa {
 .view-news.view-display-id-block {
   width: 600px;
   max-width: 100%;
-  margin: auto;
-  margin-bottom: 8em;
+  margin: 140px auto;
+}
+
+.view-news.view-display-id-block .view-header {
+  margin-bottom: 84px;
 }
 
 .view-news.view-display-id-block .view-header,
@@ -1706,6 +1709,7 @@ a.link-to-top .fa {
   text-transform: uppercase;
   overflow: hidden;
   margin: 0;
+  font-family: 'dosisregular';
 }
 
 .view-news.view-display-id-block .view-header span {
