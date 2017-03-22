@@ -2947,6 +2947,18 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 }
 
+@media screen and (min-width: 768px) {
+  #block-locale-language {
+    margin-top: 5px;
+  }
+  #block-menu-menu-header-social-links {
+    margin-top: 5px;
+  }
+  .sf-menu.sf-style-white a {
+    padding: 8px 0;
+  }
+}
+
 @media screen and (min-width: 767px) and (max-width: 960px) {
   .view-front-page-third .views-field-body.help-slide-217 .role-customer a,
   .view-front-page-third .views-field-body.help-slide-217 .role-model a {
