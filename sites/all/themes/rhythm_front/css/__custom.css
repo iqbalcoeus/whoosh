@@ -2313,19 +2313,19 @@ ul.flex-direction-nav {
 }
 
 .logo-img img {
-  width: 115px;
-  height: auto;
+  max-width: 100%;
+  max-height: 90px;
 }
 
 @media screen and (min-width: 768px) {
   .logo-img img {
-    width: 200px;
+    /*width: 200px;*/
   }
 }
 
 @media screen and (min-width: 1024px) {
   .logo-img img {
-    width: 300px;
+    /*width: 300px;*/
   }
 }
 
@@ -2856,7 +2856,7 @@ a#superfish-1-toggle {
 
 @media screen and (min-width: 768px) {
   #Header .region-top .block-delta-blocks {
-    height: 90px;
+    min-height: 90px;
     line-height: 90px;
   }
 }
