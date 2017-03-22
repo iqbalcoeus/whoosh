@@ -1447,6 +1447,7 @@ li.en > a:hover {
 #footer_bottom #block-block-12 {
   width: 15%;
   text-align: left;
+  font-family: Helvetica, Sans-Serif;
 }
 
 #block-menu-menu-project-rules {
@@ -1539,11 +1540,7 @@ a.link-to-top .fa {
   font-size: 70px;
   margin-bottom: 30px;
   color: #000;
-  font-family: 'open_sansregular';
-}
-
-.view-front-page-models-1.view-display-id-block .view-header .header-title b {
-  font-family: 'open_sansbold';
+  font-family: Helvetica, Sans-Serif;
 }
 
 .view-front-page-models-1.view-display-id-block .view-header a {
