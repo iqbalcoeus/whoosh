@@ -2313,8 +2313,7 @@ ul.flex-direction-nav {
 }
 
 .logo-img img {
-  max-width: 200px;
-  width: 100%;
+  max-width: 100%;
   max-height: 90px;
 }
 
@@ -2335,11 +2334,11 @@ ul.flex-direction-nav {
     padding: 0;
   }
 
-  .logo-img img {
-    max-width: 115px;
-    width: 100%;
-    max-height: 90px;
-  }
+  /*.logo-img img {*/
+    /*max-width: 115px;*/
+    /*width: 100%;*/
+    /*max-height: 90px;*/
+  /*}*/
 
   #block-system-main-menu {
     padding: 20px 0;
