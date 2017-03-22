@@ -2335,6 +2335,12 @@ ul.flex-direction-nav {
     padding: 0;
   }
 
+  .logo-img img {
+    max-width: 115px;
+    width: 100%;
+    max-height: 90px;
+  }
+
   #block-system-main-menu {
     padding: 20px 0;
     float: none;
