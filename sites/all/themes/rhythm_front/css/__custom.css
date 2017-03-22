@@ -2878,11 +2878,11 @@ div.sf-accordion-toggle.sf-style-white a {
 @media screen and (max-width: 767px) {
   #block-superfish-1 {
     /*margin-top: -29px;*/
-    width: 100%;
     z-index: 9999;
     outline: 0;
-    top: 30%;
+    top: 25%;
     right: 10px;
+    left: 0;
     padding: 0;
     position: absolute;
     line-height: 1.2;
@@ -2900,7 +2900,7 @@ div.sf-accordion-toggle.sf-style-white a {
     padding: 8px 10px;
   }
   #Header .region-top.sticky {
-    padding: 5px 10px;
+    padding: 0 10px 8px 0;
   }
   #block-superfish-1 .block-content li {
     margin-left: 0;
