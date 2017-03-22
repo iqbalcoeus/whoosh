@@ -2884,8 +2884,11 @@ div.sf-accordion-toggle.sf-style-white a {
     z-index: 9;
     position: relative;
   }
+  .region-top > div {
+    margin-top: 8px;
+  }
   #Header .region-top {
-    padding: 15px 10px;
+    padding: 8px 10px;
   }
   #Header .region-top.sticky {
     padding: 5px 10px;
