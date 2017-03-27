@@ -210,3 +210,12 @@ function mp_booking_bat_api_events_index_calendar_alter(&$events, $context) {
     }
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function mp_booking_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
