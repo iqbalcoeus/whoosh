@@ -431,16 +431,15 @@ function modelplatform_node_view_alter(&$build) {
  */
 function modelplatform_profile2_update($profile) {
   if ($profile->type === 'model_basic_informaiton') {
-    if ($tid = _modelplatform_get_model_age_category($profile)) {
-      db_update('field_revision_field_age_category')
-        ->fields(array(
-          'field_age_category_tid' => $tid,
-        ))
-        ->condition('entity_id', $profile->pid)
-        ->condition('entity_type', 'profile2')
-        ->condition('bundle', 'model_basic_informaiton')
-        ->condition('revision_id', $profile->vid)
-        ->execute();
+    $tid = _modelplatform_get_model_age_category($profile);
+
+    if ($old_tid = isset($profile->field_age_category[LANGUAGE_NONE][0]['tid'])) {
+      $old_tid = $profile->field_age_category[LANGUAGE_NONE][0]['tid'];
+    }
+
+    if ($old_tid != $tid) {
+      $profile->field_age_category[LANGUAGE_NONE][0]['tid'] = $tid;
+      profile2_save($profile);
     }
   }
 }
