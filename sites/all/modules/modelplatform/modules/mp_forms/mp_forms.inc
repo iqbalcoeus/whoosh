@@ -122,6 +122,9 @@ function _mp_forms_model_private_data_form_submit($form, $form_state) {
             $profile['model_private_data']->{$field_name}[LANGUAGE_NONE][0] = (array) $file;
           }
         }
+        elseif ($field_name === 'field_c_base_city') {
+          $profile['model_private_data']->{$field_name} = $value;
+        }
       }
       profile2_save($profile['model_private_data']);
     }
