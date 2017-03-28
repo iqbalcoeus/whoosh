@@ -30,11 +30,17 @@
 
   });
 
-  $('.view-models .view-content').justifiedGallery({
-    rowHeight : 250,
-    lastRow : 'nojustify',
-    margins : 0
-  });
+
+  Drupal.behaviors.modelsGallery = {
+    attach: function (context, settings) {
+      $('.view-models .view-content').justifiedGallery({
+        rowHeight : 250,
+        lastRow : 'nojustify',
+        margins : 0
+      });
+    }
+  };
+
 
   $(window).scroll(function(){
     if ($(window).scrollTop() > 10) {
