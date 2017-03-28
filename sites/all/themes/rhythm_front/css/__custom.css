@@ -2485,6 +2485,11 @@ ul.flex-direction-nav {
   box-shadow: none;
 }
 
+.profile .user-picture {
+  max-width: 100px;
+  height: auto;
+}
+
 
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
