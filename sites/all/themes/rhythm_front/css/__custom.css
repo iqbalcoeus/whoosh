@@ -2469,6 +2469,21 @@ ul.flex-direction-nav {
   }
 }
 
+.ctools-auto-submit-full-form .form-control {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.ctools-auto-submit-full-form label {
+  margin-left: 0 !important;
+}
+
+.ctools-auto-submit-full-form .round.form-checkboxes {
+  border: 0;
+  box-shadow: none;
+}
+
 
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
