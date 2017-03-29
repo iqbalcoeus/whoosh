@@ -500,19 +500,12 @@ li.en > a:hover {
   width: 100%;
 }
 
-/*.view-models .views-row {*/
-  /*width: 150px;*/
-  /*margin: 10px;*/
-  /*text-align: center;*/
-/*}*/
-
-/*.view-models .views-row .views-field-picture {*/
-  /*margin-bottom: 10px;*/
-/*}*/
-
-/*.view-models .views-row .views-field-picture img {*/
-  /*border-radius: 3px;*/
-/*}*/
+.view-models .views-exposed-widgets .views-widget-filter-model_status,
+.view-models .views-exposed-widgets .views-widget-filter-field_base_city_checked_value,
+.view-models .views-exposed-widgets .form-item-edit-field-lingerie-value-0,
+.view-models .views-exposed-widgets .form-item-edit-field-teeth-gap-value-0 {
+  display: none;
+}
 
 .page-customer-dashboard #block-system-user-menu h5,
 .page-customer-dashboard #block-locale-language h5 {
