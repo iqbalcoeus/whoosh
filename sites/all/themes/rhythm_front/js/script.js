@@ -34,10 +34,10 @@
     //   margins : 0
     // });
 
-    $('.view-models .view-content').masonry({
-      // itemSelector: '.views-row',
-       columnWidth: 283
-    });
+    // $('.view-models .view-content').masonry({
+    //   // itemSelector: '.views-row',
+    //    columnWidth: 283
+    // });
 
   });
 
