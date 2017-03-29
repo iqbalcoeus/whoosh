@@ -35,7 +35,7 @@
     // });
 
     $('.view-models .view-content').masonry({
-      // itemSelector: '.views-row',
+       itemSelector: '.views-row',
        columnWidth: 283
     });
 
