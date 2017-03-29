@@ -525,16 +525,40 @@ li.en > a:hover {
   width: 100%;
 }
 
-.view-models .views-row .views-field-field-casting-mark {
+.view-models .views-row .views-field-ops {
   position: absolute;
   z-index: 9;
   display: inline-block;
   top: 5px;
   right: 5px;
+  width: 21px;
+  height: 21px;
+  overflow: hidden;
 }
 
-.view-models .likebtn-button .lb-like-icon:before {
+.view-models .views-row .views-field-ops .flag-wrapper {
+  display: block;
+}
+
+.view-models .views-row .views-field-ops .flag-wrapper a.flag {
+  display: block;
+  color: transparent;
+  width: 21px;
+  height: 21px;
+}
+
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.flagged:before {
+  content: '\e801';
+}
+
+.view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflagged:before {
   content: '\e800';
+}
+
+.view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflagged:before,
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.flagged:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -542,10 +566,9 @@ li.en > a:hover {
   display: inline-block;
   color: #fc1c5b;
   font-size: 21px;
-}
-
-.view-models .likebtn-button.lb-voted .lb-like-icon:before {
-  content: '\e801';
+  line-height: 21px;
+  width: 21px;
+  height: 21px;
 }
 
 .page-customer-dashboard #block-system-user-menu h5,
