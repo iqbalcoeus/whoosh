@@ -500,6 +500,13 @@ li.en > a:hover {
   width: 100%;
 }
 
+/*@media (min-width: 1200px) {*/
+  /*.page-models .container {*/
+    /*width: 1200px;*/
+  /*}*/
+/*}*/
+
+
 .view-models .views-exposed-widgets .views-widget-filter-model_status,
 .view-models .views-exposed-widgets .views-widget-filter-field_base_city_checked_value,
 .view-models .views-exposed-widgets .form-item-edit-field-lingerie-value-0,
@@ -519,6 +526,7 @@ li.en > a:hover {
   position: relative;
   max-width: 283px;
   width: 100%;
+  margin: 0;
 }
 
 .view-models .views-row img {
@@ -2558,6 +2566,7 @@ ul.flex-direction-nav {
 .page-user .user-picture {
   max-width: 100px;
   height: auto;
+  float: none;
 }
 
 
