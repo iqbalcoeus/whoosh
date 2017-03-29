@@ -34,6 +34,12 @@
     //   margins : 0
     // });
 
+    $('.view-models .view-content').masonry({
+      // options...
+      itemSelector: '.views-row',
+      columnWidth: 200
+    });
+
   });
 
 

@@ -19,6 +19,7 @@ stylesheets[all][] = css/justifiedGallery.min.css
 stylesheets[all][] = css/__custom.css
 
 scripts[] = js/jquery.justifiedGallery.min.js
+scripts[] = js/masonry.pkgd.min.js
 scripts[] = js/script.js
 scripts[] = js/SmoothScroll.js
 
