@@ -503,7 +503,8 @@ li.en > a:hover {
 .view-models .views-exposed-widgets .views-widget-filter-model_status,
 .view-models .views-exposed-widgets .views-widget-filter-field_base_city_checked_value,
 .view-models .views-exposed-widgets .form-item-edit-field-lingerie-value-0,
-.view-models .views-exposed-widgets .form-item-edit-field-teeth-gap-value-0 {
+.view-models .views-exposed-widgets .form-item-edit-field-teeth-gap-value-0,
+.view-models .views-exposed-widgets .form-item-field-lingerie-daily-rate-value {
   display: none;
 }
 
