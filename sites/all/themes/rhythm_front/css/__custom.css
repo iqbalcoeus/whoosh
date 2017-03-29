@@ -517,6 +517,12 @@ li.en > a:hover {
 
 .view-models .views-row {
   position: relative;
+  max-width: 283px;
+  width: 100%;
+}
+
+.view-models .views-row img {
+  width: 100%;
 }
 
 .view-models .views-row .views-field-field-casting-mark {
