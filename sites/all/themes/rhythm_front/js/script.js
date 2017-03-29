@@ -30,7 +30,8 @@
 
     var $grid = $('.view-models .view-content').masonry({
       itemSelector: '.views-row',
-      columnWidth: 283
+      //columnWidth: 283,
+      fitWidth: true
     });
     // layout Masonry after each image loads
     $grid.imagesLoaded().progress( function() {

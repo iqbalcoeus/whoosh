@@ -524,8 +524,7 @@ li.en > a:hover {
 
 .view-models .views-row {
   position: relative;
-  width: 283px;
-  margin: 0;
+  width: 12.5%;
 }
 
 .view-models .views-row img {
@@ -534,7 +533,7 @@ li.en > a:hover {
 
 .view-models .views-row .views-field-ops {
   position: absolute;
-  z-index: 9;
+  z-index: 1;
   display: inline-block;
   top: 5px;
   right: 5px;
