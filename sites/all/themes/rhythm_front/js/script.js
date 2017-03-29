@@ -28,23 +28,6 @@
     });
     $('.front-page-sixth-block .block-content').append('<a href="/user" class="login-free"></a>');
 
-    // $('.view-models .view-content').justifiedGallery({
-    //   rowHeight : 250,
-    //   lastRow : 'nojustify',
-    //   margins : 0
-    // });
-
-
-//     // init Masonry
-//     var $grid = $('.grid').masonry({
-//       // options...
-//     });
-// // layout Masonry after each image loads
-//     $grid.imagesLoaded().progress( function() {
-//       $grid.masonry('layout');
-//     });
-
-
     var $grid = $('.view-models .view-content').masonry({
       itemSelector: '.views-row',
       columnWidth: 283
@@ -53,13 +36,7 @@
     $grid.imagesLoaded().progress( function() {
       $grid.masonry('layout');
     });
-
-
   });
-
-
-
-
 
   $(window).scroll(function(){
     if ($(window).scrollTop() > 10) {

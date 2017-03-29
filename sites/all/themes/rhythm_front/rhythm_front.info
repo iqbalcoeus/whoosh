@@ -15,10 +15,8 @@ regions[footer]             = Footer
 regions[footer_bottom]      = Footer Bottom
 
 stylesheets[all][] = css/fontello.css
-stylesheets[all][] = css/justifiedGallery.min.css
 stylesheets[all][] = css/__custom.css
 
-scripts[] = js/jquery.justifiedGallery.min.js
 scripts[] = js/imagesloaded.pkgd.min.js
 scripts[] = js/masonry.pkgd.min.js
 scripts[] = js/script.js
