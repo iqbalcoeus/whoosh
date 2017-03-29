@@ -472,32 +472,40 @@ li.en > a:hover {
 }
 
 .view-models .view-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  /*display: -webkit-box;*/
+  /*display: -ms-flexbox;*/
+  /*display: flex;*/
+  /*-ms-flex-wrap: wrap;*/
+  /*flex-wrap: wrap;*/
+  /*-webkit-box-align: stretch;*/
+  /*-ms-flex-align: stretch;*/
+  /*align-items: stretch;*/
+  /*-webkit-box-orient: horizontal;*/
+  /*-webkit-box-direction: normal;*/
+  /*-ms-flex-direction: row;*/
+  /*flex-direction: row;*/
+  margin-top: 50px;
 }
 
-.view-models .views-row {
-  width: 150px;
-  margin: 10px;
-  text-align: center;
+.view-models.view-display-id-page .views-field-name,
+.view-models.view-display-id-page .views-field-field-age-category {
+  display: none;
 }
 
-.view-models .views-row .views-field-picture {
-  margin-bottom: 10px;
+.view-models.view-display-id-page {
+  margin: 0 -20px;
 }
 
-.view-models .views-row .views-field-picture img {
-  border-radius: 3px;
+.page-models .container {
+  width: 100%;
+}
+
+.view-models .views-exposed-widgets .views-widget-filter-model_status,
+.view-models .views-exposed-widgets .views-widget-filter-field_base_city_checked_value,
+.view-models .views-exposed-widgets .form-item-edit-field-lingerie-value-0,
+.view-models .views-exposed-widgets .form-item-edit-field-teeth-gap-value-0,
+.view-models .views-exposed-widgets .form-item-field-lingerie-daily-rate-value {
+  display: none;
 }
 
 .page-customer-dashboard #block-system-user-menu h5,
@@ -2467,6 +2475,26 @@ ul.flex-direction-nav {
   .not-front .local-scroll {
     bottom: 5.8em;
   }
+}
+
+.ctools-auto-submit-full-form .form-control {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.ctools-auto-submit-full-form label {
+  margin-left: 0 !important;
+}
+
+.ctools-auto-submit-full-form .round.form-checkboxes {
+  border: 0;
+  box-shadow: none;
+}
+
+.page-user .user-picture {
+  max-width: 100px;
+  height: auto;
 }
 
 
