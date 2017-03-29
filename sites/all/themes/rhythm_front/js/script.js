@@ -44,10 +44,16 @@
 //       $grid.masonry('layout');
 //     });
 
-    $('.view-models .view-content').masonry({
+
+    var $grid = $('.view-models .view-content').masonry({
       itemSelector: '.views-row',
       columnWidth: 283
     });
+    // layout Masonry after each image loads
+    $grid.imagesLoaded().progress( function() {
+      $grid.masonry('layout');
+    });
+
 
   });
 
