@@ -28,11 +28,11 @@
     });
     $('.front-page-sixth-block .block-content').append('<a href="/user" class="login-free"></a>');
 
-    $('.view-models .view-content').justifiedGallery({
-      rowHeight : 250,
-      lastRow : 'nojustify',
-      margins : 0
-    });
+    // $('.view-models .view-content').justifiedGallery({
+    //   rowHeight : 250,
+    //   lastRow : 'nojustify',
+    //   margins : 0
+    // });
 
   });
 

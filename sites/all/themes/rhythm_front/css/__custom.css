@@ -508,6 +508,42 @@ li.en > a:hover {
   display: none;
 }
 
+.lb-style-heartcross .lb-voted .lb-like-icon,
+.lb-style-heartcross .lb-voted .lb-a:hover .lb-like-icon,
+.lb-style-heartcross .lb-like-icon,
+.view-models .likebtn-icon.lb-like-icon {
+  background-image: none !important;
+}
+
+.view-models .views-row {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+.view-models .views-row .views-field-field-casting-mark {
+  position: absolute;
+  z-index: 9;
+  display: inline-block;
+  top: 5px;
+  right: 5px;
+}
+
+.view-models .likebtn-button .lb-like-icon:before {
+  content: '\e800';
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  color: #fc1c5b;
+  font-size: 21px;
+}
+
+.view-models .likebtn-button.lb-voted .lb-like-icon:before {
+  content: '\e801';
+}
+
 .page-customer-dashboard #block-system-user-menu h5,
 .page-customer-dashboard #block-locale-language h5 {
   display: none;
@@ -2887,6 +2923,8 @@ a#superfish-1-toggle:before {
 a#superfish-1-toggle {
   float: right;
 }
+
+
 
 @media screen and (min-width: 768px) {
   #Header .region-top .block-delta-blocks {
