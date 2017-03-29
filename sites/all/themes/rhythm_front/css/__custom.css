@@ -516,8 +516,6 @@ li.en > a:hover {
 }
 
 .view-models .views-row {
-  display: inline-block;
-  vertical-align: top;
   position: relative;
 }
 
