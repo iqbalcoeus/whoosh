@@ -34,12 +34,25 @@
     //   margins : 0
     // });
 
+
+//     // init Masonry
+//     var $grid = $('.grid').masonry({
+//       // options...
+//     });
+// // layout Masonry after each image loads
+//     $grid.imagesLoaded().progress( function() {
+//       $grid.masonry('layout');
+//     });
+
+    $('.view-models .view-content').masonry({
+      itemSelector: '.views-row',
+      columnWidth: 283
+    });
+
   });
 
-  $('.view-models .view-content').masonry({
-    itemSelector: '.views-row',
-    columnWidth: 283
-  });
+
+
 
 
   $(window).scroll(function(){
