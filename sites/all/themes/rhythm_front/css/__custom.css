@@ -1177,8 +1177,7 @@ li.en > a:hover {
 }
 
 .customer-menu .block-content ul.default-menu {
-  line-height: 230px;
-  margin: 0;
+  margin: 108px 0 0 0;
 }
 
 .customer-menu .block-content a {
