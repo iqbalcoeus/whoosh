@@ -496,16 +496,9 @@ li.en > a:hover {
   margin: 0 -20px;
 }
 
-.page-models .container {
+.container {
   width: 100%;
 }
-
-/*@media (min-width: 1200px) {*/
-  /*.page-models .container {*/
-    /*width: 1200px;*/
-  /*}*/
-/*}*/
-
 
 .view-models .views-exposed-widgets .views-widget-filter-model_status,
 .view-models .views-exposed-widgets .views-widget-filter-field_base_city_checked_value,
