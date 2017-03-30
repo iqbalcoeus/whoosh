@@ -1016,6 +1016,16 @@ li.en > a:hover {
   outline-style: auto;
 }
 
+.view-models .form-item-field-model-gender-tid .bef-select-as-checkboxes {
+  width: 100%;
+  padding: 0;
+}
+
+.view-models .form-item-field-model-gender-tid .bef-select-as-checkboxes .form-item {
+  display: inline-block;
+  margin-right: 5px;
+}
+
 .view-models .view-filters .form-item-daily-rate-min,
 .view-models .view-filters .form-item-daily-rate-max {
   display: inline-block;
