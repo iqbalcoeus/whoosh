@@ -517,7 +517,37 @@ li.en > a:hover {
 
 .view-models .views-row {
   position: relative;
-  width: 12.5%;
+  width: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  .view-models .views-row {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .view-models .views-row {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .view-models .views-row {
+    width: 33%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .view-models .views-row {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .view-models .views-row {
+    width: 12.5%;
+  }
 }
 
 .view-models .views-row img {
@@ -781,6 +811,50 @@ li.en > a:hover {
 .view-models .view-filters {
   float: none;
   clear: both;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.view-models .view-header {
+  padding: 0 15px 0 70px;
+  float: none;
+}
+
+@media screen and (max-width: 767px) {
+  .view-models .view-header {
+    padding: 0;
+  }
+}
+
+.view-models .views-exposed-widget.views-widget-filter-field_full_name_value {
+  display: none;
+}
+
+.view-models .view-filters.active,
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid.active .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid.active .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid.active .views-widget {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.5s ease;
+  height: auto;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid .views-widget {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid {
+  transition: all 1s ease;
 }
 
 .view-models .models_search_wrapper input {
@@ -798,6 +872,15 @@ li.en > a:hover {
 .view-models .models_search_wrapper input[type="button"] {
   background: none;
   border: 1px solid #e3dfe0;
+}
+
+.view-models .models_search_wrapper input[type="button"]:hover,
+.view-models .models_search_wrapper input[type="button"]:active,
+.view-models .models_search_wrapper input[type="button"]:focus {
+  outline-color: rgba(252, 28, 91, 1);
+  outline-width: 2px;
+  outline-offset: -3px;
+  outline-style: auto;
 }
 
 .view-models .view-filters .form-item-daily-rate-min,
