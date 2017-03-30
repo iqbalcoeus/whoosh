@@ -553,18 +553,18 @@ li.en > a:hover {
   height: 21px;
 }
 
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.flagged:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
   content: '\e801';
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflagged:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before {
   content: '\e800';
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflagged:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.flagged:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
