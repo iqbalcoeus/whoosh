@@ -811,11 +811,48 @@ li.en > a:hover {
   font-size: 12px;
   font-family: 'open_sansregular';
   color: #000;
+  text-decoration: none;
 }
 
 .view-models .view-filters .collapsible legend {
   border-top: 1px solid #e3dfe0;
-  padding-top: 5px;
+}
+
+.view-models .view-filters .collapsible legend span {
+  margin-top: 5px;
+}
+
+.view-models .view-filters .collapse-processed a:after,
+.view-models .view-filters .collapse-processed.collapsed a:after {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 21px;
+  line-height: 0;
+  vertical-align: middle;
+  margin-left: 3px;
+}
+
+.view-models .view-filters .collapse-processed.collapsed a:after {
+  content: '\e802';
+  color: #e3dfe0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.view-models .view-filters .collapse-processed a:after {
+  content: '\e802';
+  color: #fc1c5b;
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .view-models .views-exposed-form label {
@@ -832,8 +869,45 @@ li.en > a:hover {
   height: 0;
   transition: visibility 0s, opacity 0.5s linear;
   width: 250px;
+}
+
+.view-models .view-filters form {
+  position: relative;
   border: 1px solid #e3dfe0;
   padding: 15px 10px;
+  background: #fff;
+}
+
+.view-models .view-filters form:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  line-height: 0;
+  vertical-align: middle;
+  margin-left: 3px;
+  content: '\e802';
+  color: #fff;
+  position: absolute;
+  z-index: 2;
+  top: -5px;
+  left: 17px;
+  font-size: 22px;
+}
+
+.view-models .view-filters form:after {
+  content: '';
+  display: block;
+  top: -9px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 18px;
+  z-index: 1;
+  border-style: solid;
+  border-width: 0 8px 9px 8px;
+  border-color: transparent transparent #e3dfe0 transparent;
 }
 
 .view-models .view-header {
@@ -843,7 +917,7 @@ li.en > a:hover {
 
 @media screen and (max-width: 767px) {
   .view-models .view-header {
-    padding: 0;
+    padding: 0 10px;
   }
 }
 
@@ -859,6 +933,22 @@ li.en > a:hover {
   opacity: 1;
   transition: all 0.5s ease;
   height: auto;
+}
+
+.view-models .view-filters.active {
+  position: absolute;
+  left: 50px;
+  margin-top: -30px;
+  z-index: 9;
+}
+
+@media screen and (max-width: 767px) {
+  .view-models .view-filters.active {
+    position: absolute;
+    left: -10px;
+    margin-top: -30px;
+    z-index: 9;
+  }
 }
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid .views-widget,
