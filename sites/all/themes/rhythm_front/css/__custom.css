@@ -780,6 +780,24 @@ li.en > a:hover {
 
 .view-models .view-filters {
   float: none;
+  clear: both;
+}
+
+.view-models .models_search_wrapper input {
+  border: 1px solid #e3dfe0;
+  color: #909090;
+  font-size: 11px;
+  text-transform: uppercase;
+  line-height: 30px;
+  height: 30px;
+  padding: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.view-models .models_search_wrapper input[type="button"] {
+  background: none;
+  border: 1px solid #e3dfe0;
 }
 
 .view-models .view-filters .form-item-daily-rate-min,
