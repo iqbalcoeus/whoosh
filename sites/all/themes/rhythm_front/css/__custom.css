@@ -1148,6 +1148,53 @@ li.en > a:hover {
   margin-bottom: 20px;
 }
 
+.customer-menu {
+  background: #f2f2f2;
+  display: block;
+  margin: 0 -15px 70px -15px;
+  text-align: right;
+  min-height: 235px;
+}
+
+.customer-menu .block-content li {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.customer-menu .block-content li:after {
+  content: '/';
+  display: inline-block;
+  color: #000;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.customer-menu .block-content li:last-child:after {
+  display: none;
+}
+
+.customer-menu .block-content ul.default-menu {
+  line-height: 230px;
+  margin: 0;
+}
+
+.customer-menu .block-content a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  line-height: 1;
+  font-family: 'dosisregular';
+}
+
+.customer-menu .block-content a:hover,
+.customer-menu .block-content a.active {
+  color: #777;
+}
+
 .field-name-field-newsletter label {
   max-width: 90%;
 }
@@ -1585,7 +1632,9 @@ li.en > a:hover {
 }
 
 #block-system-main-menu .block-content a:hover,
-#block-superfish-1 .block-content a:hover {
+#block-superfish-1 .block-content a:hover,
+#block-system-main-menu .block-content a:active,
+#block-superfish-1 .block-content a.active {
   text-decoration: none;
   color: #777;
 }
