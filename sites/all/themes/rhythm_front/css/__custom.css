@@ -803,9 +803,25 @@ li.en > a:hover {
   float: none;
 }
 
-.view-models .view-filters form {
-  width: 300px;
-  margin: 0 auto;
+.view-models .view-filters .collapsible legend,
+.view-models .view-filters .collapsible legend a,
+.view-models .view-filters .collapsible legend a:active,
+.view-models .view-filters .collapsible legend a:focus {
+  border-bottom: 0;
+  font-size: 12px;
+  font-family: 'open_sansregular';
+  color: #000;
+}
+
+.view-models .view-filters .collapsible legend {
+  border-top: 1px solid #e3dfe0;
+  padding-top: 5px;
+}
+
+.view-models .views-exposed-form label {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'open_sansregular';
 }
 
 .view-models .view-filters {
@@ -815,6 +831,9 @@ li.en > a:hover {
   opacity: 0;
   height: 0;
   transition: visibility 0s, opacity 0.5s linear;
+  width: 250px;
+  border: 1px solid #e3dfe0;
+  padding: 15px 10px;
 }
 
 .view-models .view-header {
@@ -887,6 +906,7 @@ li.en > a:hover {
 
 .view-models .models_search_wrapper input[type="textfield"] {
   color: #000;
+  width: 225px;
 }
 
 .view-models .models_search_wrapper input[type="button"] {
@@ -894,6 +914,7 @@ li.en > a:hover {
   border: 1px solid #e3dfe0;
   font-family: 'open_sansregular';
   color: #909090;
+  margin-right: 3px;
 }
 
 .view-models .models_search_wrapper input:hover,
@@ -938,14 +959,23 @@ li.en > a:hover {
 
 .view-models .views-widget {
   display: block;
-  margin-left: -10px;
-  margin-right: -10px;
+}
+
+.view-models .views-exposed-widget > div,
+.view-models .views-exposed-widget > div label,
+.view-models .views-exposed-widget > div input {
+  font-family: 'open_sansregular';
+  color: #000;
+  font-size: 12px;
 }
 
 .view-models .views-exposed-widget label {
-  font-weight: 600;
   margin-left: -10px;
   margin-bottom: 0;
+}
+
+.view-models .views-exposed-widget .form-item {
+  margin-bottom: 0 !important;
 }
 
 .view-models .views-reset-button {

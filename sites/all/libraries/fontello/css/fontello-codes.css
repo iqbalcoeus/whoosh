@@ -1,4 +1,6 @@
 
 .icon-heart-empty:before { content: '\e800'; } /* '' */
 .icon-heart:before { content: '\e801'; } /* '' */
+.icon-up-dir:before { content: '\e802'; } /* '' */
+.icon-search:before { content: '\e803'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
