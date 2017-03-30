@@ -816,10 +816,28 @@ li.en > a:hover {
 
 .view-models .view-filters .collapsible legend {
   border-top: 1px solid #e3dfe0;
+  margin-bottom: 5px;
 }
 
 .view-models .view-filters .collapsible legend span {
   margin-top: 5px;
+}
+
+.view-models .view-filters .form-item-field-lingerie-value > div,
+.view-models .view-filters .form-item-field-teeth-gap-value > div {
+  padding: 0;
+}
+
+.view-models .view-filters .form-item-field-lingerie-value,
+.view-models .view-filters .form-item-field-teeth-gap-value {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_gender_tid {
+  padding: 0;
 }
 
 .view-models .view-filters .collapse-processed a:after,
@@ -964,6 +982,53 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid,
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid {
   transition: all 1s ease;
+  position: relative;
+  padding: 0 0 0 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid:before,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid:before,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before,
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid:after,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid:after,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 0;
+  content: '\e802';
+  color: #e3dfe0;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid:before,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid:before,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  position: absolute;
+  left: 0;
+  top: 9px;
+}
+
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid:after,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid:after,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after {
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  position: absolute;
+  left: 0;
+  top: 16px;
 }
 
 .view-models .models_search_wrapper input {
