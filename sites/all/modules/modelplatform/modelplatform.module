@@ -196,6 +196,7 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
         $form['field_front_page_logo']['#access'] = $access;
         $form['field_front_page_text']['#access'] = $access;
         $form['field_front_page_slider']['#access'] = $access;
+        $form['field_full_name']['#access'] = $access;
         $form['field_rating']['#access'] = FALSE;
 
         $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
@@ -442,4 +443,11 @@ function modelplatform_profile2_update($profile) {
       profile2_save($profile);
     }
   }
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function modelplatform_user_update(&$edit, $account, $category) {
+  modelplatform_create_full_name($account);
 }

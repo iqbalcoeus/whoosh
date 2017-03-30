@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Model platform - installation.
+ */
+
+/**
+ * Implements hook_update_N()
+ */
+function modelplatform_update_7201() {
+  $users_query = db_select('users', 'u');
+  $users_query->condition('u.uid', 1, '>');
+  $users_query->fields('u', array('uid'));
+  $users_query->orderBy('u.uid');
+  $uids = $users_query->execute()->fetchCol();
+
+  foreach ($uids as $uid) {
+    $account = user_load($uid);
+    modelplatform_create_full_name($account);
+  }
+}

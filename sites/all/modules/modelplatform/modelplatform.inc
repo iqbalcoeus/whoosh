@@ -171,3 +171,31 @@ function modelplatform_job_clone_callback($node) {
     drupal_goto('node/' . $job->nid . '/edit');
   }
 }
+
+/**
+ * Create full name.
+ */
+function modelplatform_create_full_name($account) {
+  $old_full_name = $first_name = $last_name = '';
+
+  $old_full_name_field = field_get_items('user', $account, 'field_full_name');
+  if (isset($old_full_name_field[0]['value'])) {
+    $old_full_name = $old_full_name_field[0]['value'];
+  }
+
+  $first_name_field = field_get_items('user', $account, 'field_first_name');
+  if (isset($first_name_field[0]['value'])) {
+    $first_name = $first_name_field[0]['value'];
+  }
+
+  $last_name_field = field_get_items('user', $account, 'field_last_name');
+  if (isset($last_name_field[0]['value'])) {
+    $last_name = $last_name_field[0]['value'];
+  }
+
+  $full_name = $first_name . ' ' . $last_name;
+  if ($full_name != $old_full_name) {
+    $account->field_full_name[LANGUAGE_NONE][0]['value'] = $full_name;
+    user_save($account);
+  }
+}
