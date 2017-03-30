@@ -1010,7 +1010,7 @@ li.en > a:hover {
 .view-models .models_search_wrapper input:hover,
 .view-models .models_search_wrapper input:active,
 .view-models .models_search_wrapper input:focus {
-  outline-color: rgba(252, 28, 91, 1);
+  outline-color: #fc1c5b;
   outline-width: 2px;
   outline-offset: -3px;
   outline-style: auto;
