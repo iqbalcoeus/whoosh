@@ -311,6 +311,14 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
         drupal_add_library('system', 'ui.slider');
 
         drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_search.js', 'file');
+        $info = $form['#info'];
+        $form['#info'] = array(
+          'basics_title' => array(
+            'value' => '<div class="basics-title">' . t('Basics') . '</div>',
+            'label' => t('Basics'),
+          )
+        );
+        $form['#info'] += $info;
       }
       break;
 
