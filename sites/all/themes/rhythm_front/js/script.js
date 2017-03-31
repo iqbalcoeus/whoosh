@@ -32,9 +32,11 @@
     $('#models_search_filter').click(function(){
       var $filters = $('.view-models .view-filters');
       if ($filters.hasClass('active')) {
+        $(this).removeClass('active');
         $filters.removeClass('active');
       }
       else {
+        $(this).addClass('active');
         $filters.addClass('active');
       }
     });
