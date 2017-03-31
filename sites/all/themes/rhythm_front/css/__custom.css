@@ -1292,14 +1292,14 @@ li.en > a:hover {
 .page-castinglist #block-delta-blocks-page-title {
   display: block;
   width: 100%;
-  font-size: 42px;
-  font-family: 'open_sansregular';
-  text-transform: uppercase;
 }
 
 .page-models #block-delta-blocks-page-title h1,
 .page-castinglist #block-delta-blocks-page-title h1 {
   margin: 70px 0 25px 70px;
+  font-size: 42px;
+  font-family: 'open_sansregular';
+  text-transform: uppercase;
 }
 
 .page-models .page,
@@ -1312,6 +1312,7 @@ li.en > a:hover {
   .page-castinglist #block-delta-blocks-page-title h1 {
     margin: 50px 0 25px 10px;
     text-align: center;
+    font-size: 35px;
   }
   .page-models #block-block-16,
   .page-castinglist #block-block-16 {
