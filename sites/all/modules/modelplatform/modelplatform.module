@@ -306,9 +306,6 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
 
     case 'views_exposed_form':
       if (in_array($form['#id'], array('views-exposed-form-models-page', 'views-exposed-form-models-page-1')) ) {
-        drupal_add_library('system', 'ui.widget');
-        drupal_add_library('system', 'ui.slider');
-
         drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_search.js', 'file');
         $info = $form['#info'];
         $form['#info'] = array(
