@@ -981,9 +981,22 @@ li.en > a:hover {
   }
 }
 
-
-.view-models .view-filters .container-inline-date {
+.view-models .view-filters .container-inline-date,
+.view-models .view-filters .form-item-field-height-value label {
   display: none;
+}
+
+.view-models .view-filters .form-item-field-height-value {
+  margin-top: 15px;
+}
+
+.view-models .view-filters .form-item-field-height-value input {
+  text-align: center;
+  border: 0;
+}
+
+.view-models .view-filters  .form-item-field-daily-rate-value-1 input {
+  width: 90px;
 }
 
 .view-models .view-filters  .ctools-auto-submit-click.form-submit {
