@@ -1146,6 +1146,11 @@ li.en > a:hover {
   color: #666;
 }
 
+.view-models .models_search_wrapper #close_filter:hover,
+.view-models .models_search_wrapper #loupe:hover {
+  cursor: pointer;
+}
+
 .view-models .models_search_wrapper input::-webkit-input-placeholder {
   color: #909090;
 }
