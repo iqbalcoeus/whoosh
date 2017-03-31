@@ -565,6 +565,10 @@ li.en > a:hover {
   overflow: hidden;
 }
 
+.view-models .ctools-auto-submit-full-form .views-submit-button {
+  display: block !important;
+}
+
 .view-models .views-row .views-field-ops .flag-wrapper {
   display: block;
 }
