@@ -845,8 +845,8 @@ li.en > a:hover {
   padding: 0;
 }
 
-.view-models .view-filters .collapse-processed a:after,
-.view-models .view-filters .collapse-processed.collapsed a:after {
+.view-models .view-filters .collapse-processed a.fieldset-title:after,
+.view-models .view-filters .collapse-processed.collapsed a.fieldset-title:after {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -858,7 +858,7 @@ li.en > a:hover {
   margin-left: 3px;
 }
 
-.view-models .view-filters .collapse-processed.collapsed a:after {
+.view-models .view-filters .collapse-processed.collapsed a.fieldset-title:after {
   content: '\e802';
   color: #e3dfe0;
   -webkit-transform: rotate(0deg);
@@ -868,7 +868,7 @@ li.en > a:hover {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
-.view-models .view-filters .collapse-processed a:after {
+.view-models .view-filters .collapse-processed a.fieldset-title:after {
   content: '\e802';
   color: #fc1c5b;
   -webkit-transform: rotate(-180deg);
