@@ -185,7 +185,6 @@ function modelplatform_block_view($delta = '') {
 function modelplatform_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
-  $form_id = $form_id;
   switch($form_id) {
     case 'user_profile_form':
       if (isset($form['field_model_is_active'])) {
