@@ -550,6 +550,10 @@ li.en > a:hover {
   }
 }
 
+.view-models .views-row:hover .views-field-ops {
+  opacity: 0.6;
+}
+
 .view-models .views-row img {
   width: 100%;
 }
@@ -1101,6 +1105,47 @@ li.en > a:hover {
   font-family: 'open_sansregular';
 }
 
+.view-models .models_search_wrapper {
+  position: relative;
+}
+.view-models .models_search_wrapper #loupe {
+  position: absolute;
+  top: 3px;
+  left: 72px;
+}
+
+.view-models .models_search_wrapper #loupe:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 0;
+  vertical-align: middle;
+  content: '\e803';
+  color: #e3dfe0;
+}
+
+.view-models .models_search_wrapper #close_filter {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+}
+
+.view-models .models_search_wrapper #close_filter:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 0;
+  vertical-align: middle;
+  content: '\e804';
+  color: #666;
+}
+
 .view-models .models_search_wrapper input::-webkit-input-placeholder {
   color: #909090;
 }
@@ -1120,6 +1165,7 @@ li.en > a:hover {
 .view-models .models_search_wrapper input[type="textfield"] {
   color: #000;
   width: 225px;
+  padding-left: 30px;
 }
 
 .view-models .models_search_wrapper input[type="button"] {
