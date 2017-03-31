@@ -981,18 +981,33 @@ li.en > a:hover {
   }
 }
 
-.view-models .view-filters .container-inline-date,
-.view-models .view-filters .form-item-field-height-value label {
+.view-models .view-filters .container-inline-date {
   display: none;
 }
 
 .view-models .view-filters .form-item-field-height-value {
   margin-top: 15px;
+  position: relative;
+}
+
+.view-models .view-filters .form-item-field-height-value label {
+  position: absolute;
+  right: 0;
+  top: -4px;
 }
 
 .view-models .view-filters .form-item-field-height-value input {
+  display: none;
+}
+
+.view-models .view-filters  #height_slider_value {
   text-align: center;
-  border: 0;
+  width: 180px;
+  margin-top: 5px;
+}
+
+.view-models .view-filters #romira-fixed-price-slider {
+  width: 180px;
 }
 
 .view-models .view-filters  .form-item-field-daily-rate-value-1 input {
@@ -1006,6 +1021,7 @@ li.en > a:hover {
   color: #fc1c5b;
   font-size: 10px;
   padding: 5px 8px;
+  float: right;
 }
 
 
