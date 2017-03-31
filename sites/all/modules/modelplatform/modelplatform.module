@@ -185,6 +185,7 @@ function modelplatform_block_view($delta = '') {
 function modelplatform_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
+  $form_id = $form_id;
   switch($form_id) {
     case 'user_profile_form':
       if (isset($form['field_model_is_active'])) {
@@ -302,6 +303,15 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       );
 
       $form['autoassignrole_user']['#weight'] = -100;
+      break;
+
+    case 'views_exposed_form':
+      if (in_array($form['#id'], array('views-exposed-form-models-page', 'views-exposed-form-models-page-1')) ) {
+        drupal_add_library('system', 'ui.widget');
+        drupal_add_library('system', 'ui.slider');
+
+        drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_search.js', 'file');
+      }
       break;
 
     default:
