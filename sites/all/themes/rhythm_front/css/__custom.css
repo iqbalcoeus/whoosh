@@ -981,6 +981,21 @@ li.en > a:hover {
   }
 }
 
+
+.view-models .view-filters .container-inline-date {
+  display: none;
+}
+
+.view-models .view-filters  .ctools-auto-submit-click.form-submit {
+  background: none;
+  border: 1px solid #fc1c5b;
+  font-family: 'open_sansregular';
+  color: #fc1c5b;
+  font-size: 10px;
+  padding: 5px 8px;
+}
+
+
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid .views-widget,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid .views-widget,
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid .views-widget {
