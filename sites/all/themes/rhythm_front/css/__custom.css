@@ -959,6 +959,12 @@ li.en > a:hover {
   height: auto;
 }
 
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid label:hover,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid label:hover,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid label:hover {
+  cursor: pointer;
+}
+
 .view-models .view-filters.active {
   position: absolute;
   left: 50px;
@@ -1076,6 +1082,10 @@ li.en > a:hover {
   font-family: 'open_sansregular';
   color: #909090;
   margin-right: 3px;
+}
+
+.view-models .models_search_wrapper input[type="button"]:hover {
+  cursor: pointer;
 }
 
 .view-models .models_search_wrapper input:hover,
