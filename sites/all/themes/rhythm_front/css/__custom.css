@@ -992,7 +992,7 @@ li.en > a:hover {
 
 .view-models .view-filters .form-item-field-height-value label {
   position: absolute;
-  right: 0;
+  right: -17px;
   top: -4px;
 }
 
