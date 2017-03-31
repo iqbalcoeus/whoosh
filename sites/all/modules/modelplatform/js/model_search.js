@@ -28,8 +28,9 @@
 
   function prepareModelSearch() {
     // Filter button action.
-    $('#models_search_filter').click(function(){
-      var $filters = $('.view-models .view-filters');
+    var $filters = $('.view-models .view-filters');
+    var filter_button = $('#models_search_filter');
+    filter_button.click(function(){
       if ($filters.hasClass('active')) {
         $(this).removeClass('active');
         $filters.removeClass('active');
@@ -62,6 +63,14 @@
       }
     });
 
+    $('#loupe').click(function(){
+      $('.view-models form').submit();
+    });
+    $('#close_filter').click(function(){
+      $searchField.val('');
+      filter_button.removeClass('active');
+      $filters.removeClass('active');
+    });
     //
     $('.form-item-field-daily-rate-value-1 input').attr('placeholder', '');
     $('.form-item-field-lingerie-daily-rate-value input').attr('placeholder', '');
