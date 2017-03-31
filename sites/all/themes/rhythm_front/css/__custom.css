@@ -1251,6 +1251,11 @@ li.en > a:hover {
   margin: 70px 0 25px 70px;
 }
 
+.page-models .page,
+.page-castinglist  .page {
+  padding-bottom: 35em;
+}
+
 @media screen and (max-width: 767px) {
   .page-models #block-delta-blocks-page-title h1,
   .page-castinglist #block-delta-blocks-page-title h1 {
@@ -1269,6 +1274,10 @@ li.en > a:hover {
     margin-top: 15px;
     text-align: center;
     display: block;
+  }
+  .page-models .page,
+  .page-castinglist  .page {
+    padding-bottom: 24em;
   }
 }
 
