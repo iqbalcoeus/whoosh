@@ -1144,6 +1144,10 @@ li.en > a:hover {
   outline-style: auto;
 }
 
+.view-models #models_search_filter.active {
+  color: #fc1c5b;
+}
+
 .view-models .form-item-field-model-gender-tid .bef-select-as-checkboxes {
   width: 100%;
   padding: 0;
