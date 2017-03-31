@@ -812,6 +812,7 @@ li.en > a:hover {
   font-family: 'open_sansregular';
   color: #000;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .view-models .view-filters .collapsible legend {
