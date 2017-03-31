@@ -1011,7 +1011,9 @@ li.en > a:hover {
 }
 
 .view-models .view-filters  .form-item-field-daily-rate-value-1 input {
-  width: 90px;
+  width: 60px;
+  padding: 0 8px;
+  height: 30px;
 }
 
 .view-models .view-filters  .ctools-auto-submit-click.form-submit {
