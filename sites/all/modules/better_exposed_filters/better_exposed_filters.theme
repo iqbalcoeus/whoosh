@@ -650,8 +650,9 @@ function bef_checkbox($element, $value, $label, $selected) {
   );
 
   // Prevent the select-all-none class from cascading to all checkboxes.
+  $key = array_search('bef-select-all-none', $element['#attributes']['class']);
   if (!empty($element['#attributes']['class'])
-      && FALSE !== ($key = array_search('bef-select-all-none', $element['#attributes']['class']))) {
+      && FALSE !== $key && $key !== NULL) {
     unset($element['#attributes']['class'][$key]);
   }
 
