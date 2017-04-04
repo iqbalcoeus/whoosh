@@ -199,3 +199,34 @@ function modelplatform_create_full_name($account) {
     user_save($account);
   }
 }
+
+/**
+ * Additional submit action for views exposed form.
+ *
+ * @see modelplatform_form_alter()
+ */
+function modelplatform_views_exposed_form_submit($form, &$form_state) {
+  if (in_array($form['#id'], array('views-exposed-form-models-page', 'views-exposed-form-models-page-1')) ) {
+    $mine_search = drupal_get_query_parameters();
+    if (count($mine_search)) {
+      $_SESSION['mine_search'] = $mine_search;
+    }
+  }
+}
+
+/**
+ * Creates get_string.
+ */
+function modelplatform_mine_search_url($mine_search) {
+  $get_string = '';
+
+  if (is_array($mine_search)) {
+    $get = array();
+    foreach ($mine_search as $key => $value) {
+      $get[] = $key . '=' . (string) $value;
+    }
+    $get_string = implode('&', $get);
+  }
+
+  return $get_string;
+}

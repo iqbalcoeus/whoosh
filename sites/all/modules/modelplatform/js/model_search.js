@@ -27,6 +27,8 @@
   };
 
   function prepareModelSearch() {
+    $('#mine_search').attr('href', '/' + Drupal.settings.modelplatform.pathname + '?' + Drupal.settings.modelplatform.search);
+
     // Filter button action.
     var $filters = $('.view-models .view-filters');
     var filter_button = $('#models_search_filter');
@@ -63,6 +65,7 @@
       }
     });
 
+    // Search icons parts.
     $('#loupe').click(function(){
       $('.view-models form').submit();
     });
@@ -71,7 +74,8 @@
       filter_button.removeClass('active');
       $filters.removeClass('active');
     });
-    //
+
+    // Daily rate part.
     $('.form-item-field-daily-rate-value-1 input').attr('placeholder', '');
     $('.form-item-field-lingerie-daily-rate-value input').attr('placeholder', '');
     if ($('#edit-field-lingerie-value-1:checked').length) {
@@ -89,6 +93,7 @@
       }
     });
 
+    // Masonry part.
     var $grid = $('.view-models .view-content').masonry({
       itemSelector: '.views-row',
       //columnWidth: 283,
