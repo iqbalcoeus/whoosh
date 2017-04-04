@@ -1028,8 +1028,8 @@ li.en > a:hover {
   font-size: 10px;
   padding: 5px 8px;
   float: right;
+  line-height: normal;
 }
-
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid .views-widget,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid .views-widget,
@@ -1176,6 +1176,7 @@ li.en > a:hover {
   width: 225px;
   line-height: 1;
   padding-left: 30px;
+  outline: 0;
 }
 
 .view-models .models_search_wrapper input[type="button"] {
@@ -1185,6 +1186,7 @@ li.en > a:hover {
   color: #909090;
   margin-right: 3px;
   line-height: 1;
+  outline: 0;
 }
 
 .view-models .models_search_wrapper input[type="button"]:hover {
@@ -1195,10 +1197,12 @@ li.en > a:hover {
 .view-models .models_search_wrapper input:active,
 .view-models .models_search_wrapper input:focus,
 .view-models #models_search_filter.active {
-  outline-color: #fc1c5b;
-  outline-width: 2px;
-  outline-offset: -3px;
-  outline-style: auto;
+  /*outline-color: #fc1c5b;*/
+  /*outline-width: 2px;*/
+  /*outline-offset: -3px;*/
+  /*outline-style: auto;*/
+  border-color: #fc1c5b;
+  outline: 0;
 }
 
 .view-models #models_search_filter.active {
