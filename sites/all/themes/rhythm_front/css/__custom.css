@@ -890,8 +890,8 @@ li.en > a:hover {
 }
 
 .view-models .view-filters {
-  float: none;
-  clear: both;
+  /*float: none;*/
+  /*clear: both;*/
   visibility: hidden;
   opacity: 0;
   height: 0;
