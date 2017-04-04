@@ -223,7 +223,14 @@ function modelplatform_mine_search_url($mine_search) {
   if (is_array($mine_search)) {
     $get = array();
     foreach ($mine_search as $key => $value) {
-      $get[] = $key . '=' . (string) $value;
+      if (is_array($value)) {
+        foreach ($value as $_key => $_value) {
+          $get[] = $key . '[' . $_key . ']=' . $_value;
+        }
+      }
+      else {
+        $get[] = $key . '=' . $value;
+      }
     }
     $get_string = implode('&', $get);
   }
