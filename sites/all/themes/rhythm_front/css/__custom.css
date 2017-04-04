@@ -895,7 +895,6 @@ li.en > a:hover {
   visibility: hidden;
   opacity: 0;
   height: 0;
-  transition: visibility 0s, opacity 0.5s linear;
   width: 250px;
 }
 
@@ -1037,7 +1036,6 @@ li.en > a:hover {
   visibility: hidden;
   opacity: 0;
   height: 0;
-  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid,
