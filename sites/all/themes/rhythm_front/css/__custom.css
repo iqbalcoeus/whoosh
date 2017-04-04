@@ -1158,7 +1158,6 @@ li.en > a:hover {
 
 .view-models .models_search_wrapper input::-moz-placeholder {
   color: #909090;
-  line-height: normal;
 }
 
 .view-models .models_search_wrapper input:-ms-input-placeholder {
@@ -1168,7 +1167,6 @@ li.en > a:hover {
 
 .view-models .models_search_wrapper input:-moz-placeholder {
   color: #909090;
-  line-height: normal;
 }
 
 .view-models .models_search_wrapper input[type="textfield"] {
