@@ -569,7 +569,7 @@ li.en > a:hover {
   overflow: hidden;
 }
 
-.view-models .ctools-auto-submit-full-form .views-submit-button {
+.view-models .view-models form .views-submit-button {
   display: block !important;
 }
 
@@ -1020,7 +1020,7 @@ li.en > a:hover {
   height: 25px;
 }
 
-.view-models .view-filters  .ctools-auto-submit-click.form-submit {
+.view-models .view-filters .form-submit {
   background: none;
   border: 1px solid #fc1c5b;
   font-family: 'open_sansregular';
@@ -2230,8 +2230,9 @@ a.link-to-top .fa {
   position: relative;
   z-index: 2;
 }
-.not-front #content{
+.not-front #content {
   padding-top: 20px;
+  min-height: 230px;
 }
 #block-views-news-block {
   background-color: #fff;
@@ -3097,17 +3098,17 @@ ul.flex-direction-nav {
   }
 }
 
-.ctools-auto-submit-full-form .form-control {
+.view-models form .form-control {
   display: inline-block;
   width: auto;
   height: auto;
 }
 
-.ctools-auto-submit-full-form label {
+.view-models form label {
   margin-left: 0 !important;
 }
 
-.ctools-auto-submit-full-form .round.form-checkboxes {
+.view-models form .round.form-checkboxes {
   border: 0;
   box-shadow: none;
 }
