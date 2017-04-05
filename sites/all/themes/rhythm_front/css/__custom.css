@@ -952,19 +952,12 @@ li.en > a:hover {
   display: none;
 }
 
-.view-models .view-filters.active,
-.view-models .view-filters .views-widget-filter-field_model_base_city_tid.active .views-widget,
-.view-models .view-filters .views-widget-filter-field_model_eye_color_tid.active .views-widget,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid.active .views-widget {
-  visibility: visible;
-  opacity: 1;
-  transition: all 0.5s ease;
-  height: auto;
-}
-
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid label:hover,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid label:hover,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid label:hover {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid label:hover,
+.view-models .view-filters .form-item-field-model-experience-tid label:hover,
+.view-models .view-filters .form-item-field-model-sports-tid label:hover,
+.view-models .view-filters .form-item-field-model-driving-license-tid label:hover {
   cursor: pointer;
 }
 
@@ -1031,17 +1024,42 @@ li.en > a:hover {
   line-height: normal;
 }
 
+.view-models .view-filters .form-item-field-model-experience-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-sports-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes {
+  display: block;
+}
+
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid .views-widget,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid .views-widget,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid .views-widget {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid .views-widget,
+.view-models .view-filters .form-item-field-model-experience-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-sports-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes {
   visibility: hidden;
   opacity: 0;
   height: 0;
 }
 
+.view-models .view-filters.active,
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid.active .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid.active .views-widget,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid.active .views-widget,
+.view-models .view-filters .form-item-field-model-experience-tid.active .form-checkboxes,
+.view-models .view-filters .form-item-field-model-sports-tid.active .form-checkboxes,
+.view-models .view-filters .form-item-field-model-driving-license-tid.active .form-checkboxes {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.5s ease;
+  height: auto;
+}
+
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid,
+.view-models .view-filters .form-item-field-model-experience-tid,
+.view-models .view-filters .form-item-field-model-sports-tid,
+.view-models .view-filters .form-item-field-model-driving-license-tid {
   transition: all 1s ease;
   position: relative;
   padding: 0 0 0 10px;
@@ -1054,7 +1072,13 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before,
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid:after,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid:after,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after,
+.view-models .view-filters .form-item-field-model-experience-tid:after,
+.view-models .view-filters .form-item-field-model-experience-tid:before,
+.view-models .view-filters .form-item-field-model-sports-tid:after,
+.view-models .view-filters .form-item-field-model-sports-tid:before,
+.view-models .view-filters .form-item-field-model-driving-license-tid:after,
+.view-models .view-filters .form-item-field-model-driving-license-tid:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -1068,7 +1092,10 @@ li.en > a:hover {
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid:before,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid:before,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before,
+.view-models .view-filters .form-item-field-model-experience-tid:before,
+.view-models .view-filters .form-item-field-model-sports-tid:before,
+.view-models .view-filters .form-item-field-model-driving-license-tid:before {
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
@@ -1081,7 +1108,10 @@ li.en > a:hover {
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid:after,
 .view-models .view-filters .views-widget-filter-field_model_eye_color_tid:after,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after {
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after,
+.view-models .view-filters .form-item-field-model-experience-tid:after,
+.view-models .view-filters .form-item-field-model-sports-tid:after,
+.view-models .view-filters .form-item-field-model-driving-license-tid:after {
   -webkit-transform: rotate(-180deg);
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
@@ -2257,7 +2287,7 @@ a.link-to-top .fa {
 }
 
 .view-models.view-display-id-page .view-content {
-  min-height: 1500px;
+  min-height: 1100px;
 }
 
 #block-views-news-block {
