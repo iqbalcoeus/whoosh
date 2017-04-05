@@ -1168,7 +1168,7 @@ li.en > a:hover {
 }
 
 .view-models  .form-control.form-checkboxes {
-  padding: 0 5px;
+  padding: 0;
 }
 
 .view-models .models_search_wrapper {
@@ -2314,7 +2314,7 @@ a.link-to-top .fa {
 }
 
 .view-models.view-display-id-page .view-content {
-  min-height: 1100px;
+  min-height: 900px;
 }
 
 #block-views-news-block {
