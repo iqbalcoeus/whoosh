@@ -161,3 +161,25 @@ function rhythm_front_webform_email($variables) {
 
   return '<input' . drupal_attributes($element['#attributes']) . ' />';
 }
+
+function rhythm_front_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'views_exposed_form' && $form_state['view']->name == 'models') {
+    drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_search.js', 'file');
+    drupal_add_js(array(
+      'modelplatform' => array(
+        'pathname' => 'mine_search',
+        'search' => modelplatform_mine_search_url($_SESSION['mine_search']),
+      ),
+    ), 'setting');
+
+    $info = $form['#info'];
+    $form['#info'] = array(
+      'basics_title' => array(
+        'value' => '<div class="basics-title">' . t('Basics') . '</div>',
+        'label' => t('Basics'),
+      )
+    );
+    $form['#info'] += $info;
+    array_unshift($form['#submit'], 'modelplatform_views_exposed_form_submit');
+  }
+}
