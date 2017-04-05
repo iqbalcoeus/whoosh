@@ -952,15 +952,6 @@ li.en > a:hover {
   display: none;
 }
 
-.view-models .view-filters .views-widget-filter-field_model_base_city_tid label:hover,
-.view-models .view-filters .views-widget-filter-field_model_eye_color_tid label:hover,
-.view-models .view-filters .views-widget-filter-field_model_hair_color_tid label:hover,
-.view-models .view-filters .form-item-field-model-experience-tid label:hover,
-.view-models .view-filters .form-item-field-model-sports-tid label:hover,
-.view-models .view-filters .form-item-field-model-driving-license-tid label:hover {
-  cursor: pointer;
-}
-
 .view-models .view-filters.active {
   position: absolute;
   left: 50px;
@@ -1024,9 +1015,24 @@ li.en > a:hover {
   line-height: normal;
 }
 
+.view-models .view-filters .views-widget-filter-field_model_base_city_tid label:hover,
+.view-models .view-filters .views-widget-filter-field_model_eye_color_tid label:hover,
+.view-models .view-filters .views-widget-filter-field_model_hair_color_tid label:hover,
+.view-models .view-filters .form-item-field-model-experience-tid label:hover,
+.view-models .view-filters .form-item-field-model-sports-tid label:hover,
+.view-models .view-filters .form-item-field-model-driving-license-tid label:hover,
+.view-models .view-filters .form-item-field-age-category-tid label:hover,
+.view-models .view-filters .form-item-field-model-ethnicity-tid label:hover,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid label:hover {
+  cursor: pointer;
+}
+
 .view-models .view-filters .form-item-field-model-experience-tid .form-checkboxes,
 .view-models .view-filters .form-item-field-model-sports-tid .form-checkboxes,
-.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes {
+.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-age-category-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-ethnicity-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid .form-checkboxes {
   display: block;
 }
 
@@ -1035,7 +1041,10 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid .views-widget,
 .view-models .view-filters .form-item-field-model-experience-tid .form-checkboxes,
 .view-models .view-filters .form-item-field-model-sports-tid .form-checkboxes,
-.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes {
+.view-models .view-filters .form-item-field-model-driving-license-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-age-category-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-ethnicity-tid .form-checkboxes,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid .form-checkboxes {
   visibility: hidden;
   opacity: 0;
   height: 0;
@@ -1047,7 +1056,10 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid.active .views-widget,
 .view-models .view-filters .form-item-field-model-experience-tid.active .form-checkboxes,
 .view-models .view-filters .form-item-field-model-sports-tid.active .form-checkboxes,
-.view-models .view-filters .form-item-field-model-driving-license-tid.active .form-checkboxes {
+.view-models .view-filters .form-item-field-model-driving-license-tid.active .form-checkboxes,
+.view-models .view-filters .form-item-field-age-category-tid.active .form-checkboxes,
+.view-models .view-filters .form-item-field-model-ethnicity-tid.active .form-checkboxes,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid.active .form-checkboxes {
   visibility: visible;
   opacity: 1;
   transition: all 0.5s ease;
@@ -1059,7 +1071,10 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid,
 .view-models .view-filters .form-item-field-model-experience-tid,
 .view-models .view-filters .form-item-field-model-sports-tid,
-.view-models .view-filters .form-item-field-model-driving-license-tid {
+.view-models .view-filters .form-item-field-model-driving-license-tid,
+.view-models .view-filters .form-item-field-age-category-tid,
+.view-models .view-filters .form-item-field-model-ethnicity-tid,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid {
   transition: all 1s ease;
   position: relative;
   padding: 0 0 0 10px;
@@ -1078,7 +1093,13 @@ li.en > a:hover {
 .view-models .view-filters .form-item-field-model-sports-tid:after,
 .view-models .view-filters .form-item-field-model-sports-tid:before,
 .view-models .view-filters .form-item-field-model-driving-license-tid:after,
-.view-models .view-filters .form-item-field-model-driving-license-tid:before {
+.view-models .view-filters .form-item-field-model-driving-license-tid:before,
+.view-models .view-filters .form-item-field-age-category-tid:after,
+.view-models .view-filters .form-item-field-age-category-tid:before,
+.view-models .view-filters .form-item-field-model-ethnicity-tid:before,
+.view-models .view-filters .form-item-field-model-ethnicity-tid:after,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid:after,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -1095,7 +1116,10 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid:before,
 .view-models .view-filters .form-item-field-model-experience-tid:before,
 .view-models .view-filters .form-item-field-model-sports-tid:before,
-.view-models .view-filters .form-item-field-model-driving-license-tid:before {
+.view-models .view-filters .form-item-field-model-driving-license-tid:before,
+.view-models .view-filters .form-item-field-age-category-tid:before,
+.view-models .view-filters .form-item-field-model-ethnicity-tid:before,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid:before {
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
@@ -1111,7 +1135,10 @@ li.en > a:hover {
 .view-models .view-filters .views-widget-filter-field_model_hair_color_tid:after,
 .view-models .view-filters .form-item-field-model-experience-tid:after,
 .view-models .view-filters .form-item-field-model-sports-tid:after,
-.view-models .view-filters .form-item-field-model-driving-license-tid:after {
+.view-models .view-filters .form-item-field-model-driving-license-tid:after,
+.view-models .view-filters .form-item-field-age-category-tid:after,
+.view-models .view-filters .form-item-field-model-ethnicity-tid:after,
+.view-models .view-filters .form-item-field-model-instagram-followers-tid:after {
   -webkit-transform: rotate(-180deg);
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
