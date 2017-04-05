@@ -973,6 +973,7 @@ li.en > a:hover {
   left: 50px;
   margin-top: -30px;
   z-index: 2;
+  width: 287px;
 }
 
 @media screen and (max-width: 767px) {
@@ -995,8 +996,8 @@ li.en > a:hover {
 
 .view-models .view-filters .form-item-field-height-value label {
   position: absolute;
-  right: -15px;
-  top: -4px;
+  right: -11px;
+  top: -2px;
 }
 
 .view-models .view-filters .form-item-field-height-value input {
@@ -1005,12 +1006,12 @@ li.en > a:hover {
 
 .view-models .view-filters  #height_slider_value {
   text-align: center;
-  width: 180px;
+  width: 215px;
   margin-top: 5px;
 }
 
 .view-models .view-filters #romira-fixed-price-slider {
-  width: 180px;
+  width: 215px;
 }
 
 .view-models .view-filters  .form-item-field-daily-rate-value-1 input {
@@ -1075,7 +1076,7 @@ li.en > a:hover {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   position: absolute;
   left: 0;
-  top: 9px;
+  top: 3px;
 }
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid:after,
@@ -1088,7 +1089,13 @@ li.en > a:hover {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   position: absolute;
   left: 0;
-  top: 16px;
+  top: 11px;
+}
+
+.view-models .form-item-field-beautiful-feet-value-1 .form-item-edit-field-beautiful-feet-value-1-0,
+.view-models .form-item-field-beautiful-hands-value-1 .form-item-edit-field-beautiful-hands-value-1-0,
+.view-models .form-item-field-freckles-value .form-item-edit-field-freckles-value-0 {
+  display: none;
 }
 
 .view-models .models_search_wrapper input {
@@ -1101,6 +1108,10 @@ li.en > a:hover {
   display: inline-block;
   vertical-align: top;
   font-family: 'open_sansregular';
+}
+
+.view-models  .form-control.form-checkboxes {
+  padding: 0 5px;
 }
 
 .view-models .models_search_wrapper {
@@ -1261,10 +1272,22 @@ li.en > a:hover {
 .view-models .views-exposed-widget label {
   margin-left: -10px;
   margin-bottom: 0;
+  vertical-align: top;
+  line-height: 1;
 }
 
 .view-models .views-exposed-widget .form-item {
   margin-bottom: 0 !important;
+}
+
+.view-models .form-checkboxes .form-control {
+  margin: 0;
+  vertical-align: top;
+  line-height: 1;
+}
+
+.view-models .form-item {
+  vertical-align: top;
 }
 
 .view-models .views-reset-button {
@@ -2232,6 +2255,11 @@ a.link-to-top .fa {
   padding-top: 20px;
   min-height: 230px;
 }
+
+.view-models.view-display-id-page .view-content {
+  min-height: 1500px;
+}
+
 #block-views-news-block {
   background-color: #fff;
 }
