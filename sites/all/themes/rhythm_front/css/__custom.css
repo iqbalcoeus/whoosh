@@ -855,8 +855,8 @@ li.en > a:hover {
   margin-bottom: 5px;
 }
 
-.view-models .view-filters .has-ui-slider {
-  margin: 10px 0 0 10px;
+.view-models .views-exposed-widget .form-item.has-ui-slider {
+  margin: 20px 0 20px 10px !important;
   width: 170px;
 }
 
@@ -1044,6 +1044,7 @@ li.en > a:hover {
   padding: 5px 8px;
   float: right;
   line-height: normal;
+  margin-top: 0;
 }
 
 .view-models .view-filters .views-widget-filter-field_model_base_city_tid label:hover,
@@ -2349,7 +2350,7 @@ a.link-to-top .fa {
 }
 
 .view-models.view-display-id-page .view-content {
-  min-height: 900px;
+  min-height: 760px;
 }
 
 #block-views-news-block {
