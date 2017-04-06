@@ -121,7 +121,7 @@
         });
       }
     });
-    $('.ui-slider-handle').draggable();
+    $('.ui-slider-handle').draggable;
   };
 
   function setFullNameField() {
@@ -144,7 +144,7 @@
 
   Drupal.ModelsSearch.setContentHeight = function() {
     var _filter = $('.view-models .view-filters');
-    var _height = filter.height();
+    var _height = _filter.height();
     var _viewsContent = $('.view-models .view-content');
     if (_filter.hasClass('active')) {
       _viewsContent.css('min-height', parseInt(_height) + 'px');

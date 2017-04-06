@@ -164,6 +164,7 @@ function rhythm_front_webform_email($variables) {
 
 function rhythm_front_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'views_exposed_form' && $form_state['view']->name == 'models') {
+    drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/jquery.ui.touch-punch.min.js', 'file');
     drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_search.js', 'file');
     drupal_add_js(array(
       'modelplatform' => array(
