@@ -86,31 +86,39 @@
     });
   };
 
-  function heightSlider() {
-    if (Drupal.settings.better_exposed_filters.slider_options.field_height_value) {
-      var heightSettings = Drupal.settings.better_exposed_filters.slider_options.field_height_value;
-      var heightValue = $('.form-item-field-height-value');
+  Drupal.ModelsSearch.availableSliders = function() {
+    $.each(Drupal.settings.better_exposed_filters.slider_options, function(_name, _option) {
+      var className = _name.split('_').join('-');
+      var wrapper = $('.form-item-' + className);
+      var sliderWrapperID = 'mp-' + className;
+      var suffix = '';
+      var divideNum = 1;
 
-      heightValue.append('<div id="height_slider_value"></div>');
+      if (_name == 'field_height_value') {
+        suffix = ' M';
+        divideNum = 100;
+      }
+      wrapper.addClass('has-ui-slider');
+      wrapper.append('<div id="' + _name + '" class="mp-slider-value"></div>');
 
-      if (heightValue.length) {
-        heightValue.once('add-slider', function () {
-          $("#edit-field-height-value").val(parseInt(heightSettings.min));
-          $("#height_slider_value").html((parseInt(heightSettings.min) / 100) + ' M');
-          heightValue.prepend('<div id="romira-fixed-price-slider"></div>');
-          $("#romira-fixed-price-slider").slider({
-            min: parseInt(heightSettings.min),
-            max: parseInt(heightSettings.max),
-            step: heightSettings.step,
+      if (wrapper.length) {
+        wrapper.once('add-slider', function () {
+          $("#edit-" + className).val(parseInt(_option.min));
+          $("#" + _name).html((parseInt(_option.min) / divideNum) + suffix);
+          wrapper.prepend('<div id="' + sliderWrapperID + '" class="mp-slider-wrapper"></div>');
+          $("#" + sliderWrapperID).slider({
+            min: parseInt(_option.min),
+            max: parseInt(_option.max),
+            step: _option.step,
             slide: function(event, ui) {
-              $("#edit-field-height-value").val(ui.value);
-              $("#height_slider_value").html((ui.value / 100) + ' M');
+              $("#edit-" + className).val(ui.value);
+              $("#" + _name).html((ui.value / divideNum) + suffix);
             }
           });
         });
       }
-    }
-  };
+    });
+  }
 
   function setFullNameField() {
     $('.form-control[name="field_full_name_value"]').val($(this).val());
@@ -127,14 +135,13 @@
     Drupal.ModelsSearch.initSearchField(context);
     Drupal.ModelsSearch.initSearchIcons(context);
     Drupal.ModelsSearch.initDailyRatePart(context);
+    Drupal.ModelsSearch.availableSliders();
   };
 
   Drupal.behaviors.modelplatform = {
     attach: function (context, settings) {
       // prepareMineSearch();
       Drupal.ModelsSearch.init(context);
-
-      heightSlider();
 
       // Masonry part.
       var $grid = $('.view-models .view-content').masonry({
