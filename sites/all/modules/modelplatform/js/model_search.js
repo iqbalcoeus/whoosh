@@ -18,6 +18,7 @@
           $(this).addClass('active');
           $filters.addClass('active');
         }
+        Drupal.ModelsSearch.setContentHeight();
       });
     });
   };
@@ -46,23 +47,25 @@
       var $parent = $(this).parent();
 
       if ($parent.hasClass('active')) {
-        $parent.removeClass('active')
+        $parent.removeClass('active');
       }
       else {
         $parent.addClass('active');
       }
+      Drupal.ModelsSearch.setContentHeight();
     });
   };
 
   Drupal.ModelsSearch.initSearchIcons = function(context) {
     // Search icons parts.
-    $(context).find('#loupe').click(function(){
+    $(context).find('#loupe').click(function() {
       $(context).find('.view-models form').submit();
     });
-    $(context).find('#close_filter').click(function(){
+    $(context).find('#close_filter').click(function() {
       $(context).find('#models_search_by_name').val('');
       $(context).find('#models_search_filter').removeClass('active');
       $(context).find('.view-models .view-filters').removeClass('active');
+      Drupal.ModelsSearch.setContentHeight();
     });
   };
 
@@ -118,15 +121,15 @@
         });
       }
     });
-  }
+  };
 
   function setFullNameField() {
     $('.form-control[name="field_full_name_value"]').val($(this).val());
     $('.view-models form').submit();
   };
 
-  Drupal.ModelsSearch.prepareMineSearch = function() {
-    $('#mine_search').attr('href', '/' + Drupal.settings.modelplatform.pathname + '?' + Drupal.settings.modelplatform.search);
+  Drupal.ModelsSearch.prepareMineSearch = function(_settings) {
+    $('#mine_search').attr('href', '/' + _settings.modelplatform.pathname + '?' + _settings.modelplatform.search);
   };
 
   Drupal.ModelsSearch.init = function(context){
@@ -138,10 +141,24 @@
     Drupal.ModelsSearch.availableSliders();
   };
 
+  Drupal.ModelsSearch.setContentHeight = function() {
+    var filter = $('.view-models .view-filters');
+    var _height = filter.height();
+    var viewsContent = $('.view-models .view-content');
+    if (filter.hasClass('active')) {
+      viewsContent.css('min-height', parseInt(_height) + 'px');
+    }
+    else {
+      viewsContent.css('min-height', '0px');
+    }
+  };
+
   Drupal.behaviors.modelplatform = {
     attach: function (context, settings) {
       // prepareMineSearch();
       Drupal.ModelsSearch.init(context);
+      Drupal.ModelsSearch.prepareMineSearch(settings);
+      Drupal.ModelsSearch.setContentHeight();
 
       // Masonry part.
       var $grid = $('.view-models .view-content').masonry({
