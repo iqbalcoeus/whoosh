@@ -418,11 +418,6 @@ li.en > a:hover {
     margin-left: 33.33333%;
   }
 
-  #block-locale-language,
-  #block-system-user-menu,
-  #block-system-main-menu {
-  }
-
   #block-system-main-menu .block-content h5,
   #block-system-user-menu .block-content h5,
   #block-locale-language .block-content h5 {
@@ -663,28 +658,12 @@ li.en > a:hover {
     margin-right: 2%;
   }
 
-  .page-customer-dashboard #block-system-user-menu,
-  .page-customer-dashboard #block-locale-language {
-    display: inline-block;
-    vertical-align: top;
-  }
-
   .page-customer-dashboard #block-menu-menu-customer-menu ul.default-menu a {
     max-width: 100%;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .page-customer-dashboard #block-system-main-menu,
-  .page-customer-dashboard #block-system-user-menu,
-  .page-customer-dashboard #block-locale-language {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .page-customer-dashboard #block-system-main-menu {
-    padding-right: 0;
-  }
 
   .page-customer-dashboard #block-system-user-menu h5,
   .page-customer-dashboard #block-locale-language h5 {
