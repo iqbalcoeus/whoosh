@@ -3203,6 +3203,11 @@ ul.flex-direction-nav {
   padding-bottom: 27em;
 }
 
+.not-front.page-models .page,
+.not-front.page-castinglist .page {
+  padding-bottom: 3em;
+}
+
 .not-front .nd-region.footer {
   position: absolute !important;
   bottom: 0;
