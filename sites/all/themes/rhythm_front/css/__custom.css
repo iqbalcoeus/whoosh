@@ -1314,6 +1314,10 @@ li.en > a:hover {
   display: none;
 }
 
+.ctools-auto-submit-full-form .views-submit-button {
+  display: block;
+}
+
 .view-models .views-widget {
   display: block;
 }
