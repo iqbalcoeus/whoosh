@@ -449,6 +449,7 @@ li.en > a:hover {
 }
 
 .form input[type="text"],
+.form input[type="textfield"],
 .form input[type="email"],
 .form input[type="number"],
 .form input[type="url"],
@@ -459,6 +460,9 @@ li.en > a:hover {
 .form input[type="color"],
 .form select {
   width: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .view-models .view-content {
