@@ -19,6 +19,7 @@ stylesheets[all][] = css/__custom.css
 
 scripts[] = js/imagesloaded.pkgd.min.js
 scripts[] = js/masonry.pkgd.min.js
+scripts[] = js/jquery.ui.touch-punch.min.js
 scripts[] = js/script.js
 scripts[] = js/SmoothScroll.js
 
