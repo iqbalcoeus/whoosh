@@ -216,11 +216,6 @@ a.tabledrag-handle .handle {
   margin-right: 1px;
 }
 
-#block-system-user-menu .block-content ul,
-#block-locale-language .block-content ul {
-
-}
-
 #block-system-main-menu h5,
 #block-system-user-menu h5,
 #block-locale-language h5 {
@@ -669,14 +664,6 @@ li.en > a:hover {
   .page-customer-dashboard #block-locale-language h5 {
     display: block;
     color: transparent;
-  }
-
-  .page-customer-dashboard #block-system-user-menu,
-  .page-customer-dashboard #block-locale-language {
-    padding-right: 0;
-    padding-left: 0;
-    margin-left: -3px;
-    margin-right: -3px;
   }
 }
 
