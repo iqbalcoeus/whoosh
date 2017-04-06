@@ -1318,7 +1318,7 @@ li.en > a:hover {
 
 .view-models .views-widget {
   display: block;
-}g
+}
 
 .view-models .views-exposed-widget > div,
 .view-models .views-exposed-widget > div label,
@@ -1426,6 +1426,35 @@ li.en > a:hover {
   text-align: right;
   vertical-align: middle;
   float: right;
+}
+
+.fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active,
+.fc button:focus {
+  z-index: 1;
+}
+
+.fc-toolbar button {
+  margin-top: 10px !important;
+}
+
+@media screen and (max-width: 767px) {
+  .customer-menu ul.default-menu {
+    padding: 0;
+  }
+  .page-customer-dashboard #block-menu-menu-customer-menu ul.default-menu a {
+    max-width: 100%;
+  }
+  .fc-toolbar .fc-center {
+    padding: 20px 0 10px 0;
+    display: block;
+    width: 100%;
+    clear: both;
+    text-align: center;
+  }
+  .fc-toolbar .fc-center h2 {
+    display: block;
+    float: none;
+  }
 }
 
 .customer-menu .block-content li {
