@@ -1355,6 +1355,10 @@ select {
   vertical-align: top;
 }
 
+.view-models .view-empty {
+  padding: 0 20px;
+}
+
 .view-models .views-reset-button {
   text-align: center;
   margin-bottom: 20px;
