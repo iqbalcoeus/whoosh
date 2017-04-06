@@ -119,6 +119,7 @@
             slide: function(event, ui) {
               $("#edit-" + className).val(ui.value);
               $("#" + _name).html((ui.value / divideNum) + suffix);
+              setTimeout(setFullNameField, 500);
             }
           });
         });
