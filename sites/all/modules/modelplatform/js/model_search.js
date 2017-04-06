@@ -152,8 +152,11 @@
     if (_filter.hasClass('active') && _height >= 830) {
       _viewsContent.css('min-height', parseInt(_height) + 'px');
     }
-    else {
+    else if (_filter.hasClass('active')) {
       _viewsContent.css('min-height', '760px');
+    }
+    else {
+      _viewsContent.css('min-height', '0px');
     }
   };
 
