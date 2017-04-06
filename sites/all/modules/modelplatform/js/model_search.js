@@ -2,6 +2,7 @@
 
   Drupal.ModelsSearch = {
     currentTimeoutID: 0,
+    fullName: '',
   };
 
   Drupal.ModelsSearch.initFilterButton = function(context) {
@@ -37,6 +38,7 @@
       if (Drupal.ModelsSearch.currentTimeoutID) {
         clearTimeout(Drupal.ModelsSearch.currentTimeoutID);
       }
+      Drupal.ModelsSearch.fullName = $(this).val();
       Drupal.ModelsSearch.currentTimeoutID = setTimeout(setFullNameField, 500);
     });
   };
@@ -115,7 +117,7 @@
           $("#" + sliderWrapperID).slider({
             min: parseInt(_option.min),
             max: parseInt(_option.max),
-            step: _option.step,
+            step: parseInt(_option.step),
             slide: function(event, ui) {
               $("#edit-" + className).val(ui.value);
               $("#" + _name).html((ui.value / divideNum) + suffix);
@@ -129,7 +131,7 @@
   };
 
   function setFullNameField() {
-    $('.form-control[name="field_full_name_value"]').val($(this).val());
+    $('.form-control[name="field_full_name_value"]').val(Drupal.ModelsSearch.fullName);
     $('.view-models form').submit();
   };
 
