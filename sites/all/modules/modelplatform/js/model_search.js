@@ -89,7 +89,7 @@
     });
   };
 
-  Drupal.ModelsSearch.availableSliders = function() {
+  Drupal.ModelsSearch.availableSliders = function(context) {
     $.each(Drupal.settings.better_exposed_filters.slider_options, function(_name, _option) {
       var className = _name.split('_').join('-');
       var wrapper = $('.form-item-' + className);
@@ -121,6 +121,7 @@
         });
       }
     });
+    $('.ui-slider-handle').draggable();
   };
 
   function setFullNameField() {
@@ -142,14 +143,14 @@
   };
 
   Drupal.ModelsSearch.setContentHeight = function() {
-    var filter = $('.view-models .view-filters');
+    var _filter = $('.view-models .view-filters');
     var _height = filter.height();
-    var viewsContent = $('.view-models .view-content');
-    if (filter.hasClass('active')) {
-      viewsContent.css('min-height', parseInt(_height) + 'px');
+    var _viewsContent = $('.view-models .view-content');
+    if (_filter.hasClass('active')) {
+      _viewsContent.css('min-height', parseInt(_height) + 'px');
     }
     else {
-      viewsContent.css('min-height', '0px');
+      _viewsContent.css('min-height', '0px');
     }
   };
 
