@@ -448,17 +448,22 @@ li.en > a:hover {
   border-radius: 2px;
 }
 
-.form input[type="text"],
-.form input[type="email"],
-.form input[type="number"],
-.form input[type="url"],
-.form input[type="search"],
-.form input[type="tel"],
-.form input[type="password"],
-.form input[type="date"],
-.form input[type="color"],
-.form select {
+input[type="text"],
+input[type="textfield"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+input[type="color"],
+select {
   width: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none !important;
 }
 
 .view-models .view-content {
