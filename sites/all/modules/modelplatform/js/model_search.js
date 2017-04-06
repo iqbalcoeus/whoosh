@@ -54,10 +54,8 @@
       }
       Drupal.ModelsSearch.setContentHeight();
     });
-    $(context).find('#edit-secondary a').once(function() {
-      $(this).click(function() {
-        Drupal.ModelsSearch.setContentHeight();
-      });
+    $(context).find('.bef-secondary-options').click(function(e){
+      console.log(e.target);
     });
   };
 
@@ -151,11 +149,11 @@
     var _filter = $('.view-models .view-filters');
     var _height = _filter.height();
     var _viewsContent = $('.view-models .view-content');
-    if (_filter.hasClass('active')) {
+    if (_filter.hasClass('active') && _height >= 830) {
       _viewsContent.css('min-height', parseInt(_height) + 'px');
     }
     else {
-      _viewsContent.css('min-height', '0px');
+      _viewsContent.css('min-height', '760px');
     }
   };
 

@@ -2351,7 +2351,7 @@ a.link-to-top .fa {
 }
 
 .view-models.view-display-id-page .view-content {
-  /*min-height: 760px;*/
+  min-height: 760px;
 }
 
 #block-views-news-block {
