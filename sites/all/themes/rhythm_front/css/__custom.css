@@ -2350,7 +2350,8 @@ a.link-to-top .fa {
   min-height: 230px;
 }
 
-.view-models.view-display-id-page .view-content {
+.view-models .view-content,
+.view-models .view-empty {
   min-height: 760px;
 }
 

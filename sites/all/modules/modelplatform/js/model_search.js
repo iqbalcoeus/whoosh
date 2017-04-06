@@ -149,14 +149,18 @@
     var _filter = $('.view-models .view-filters');
     var _height = _filter.height();
     var _viewsContent = $('.view-models .view-content');
+    var _viewsEmpty = $('.view-models  .view-empty');
     if (_filter.hasClass('active') && _height >= 830) {
       _viewsContent.css('min-height', parseInt(_height) + 'px');
+      _viewsEmpty.css('min-height', parseInt(_height) + 'px');
     }
     else if (_filter.hasClass('active')) {
       _viewsContent.css('min-height', '760px');
+      _viewsEmpty.css('min-height', '760px');
     }
     else {
       _viewsContent.css('min-height', '0px');
+      _viewsEmpty.css('min-height', '0px');
     }
   };
 
