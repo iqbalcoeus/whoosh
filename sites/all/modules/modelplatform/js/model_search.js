@@ -43,7 +43,7 @@
 
   Drupal.ModelsSearch.initColapsedItems = function(context) {
     // collapsed.
-    $(context).find('.view-filters label').on('click', function(){
+    $(context).find('.view-filters label').on('click', function() {
       var $parent = $(this).parent();
 
       if ($parent.hasClass('active')) {
@@ -53,6 +53,11 @@
         $parent.addClass('active');
       }
       Drupal.ModelsSearch.setContentHeight();
+    });
+    $(context).find('#edit-secondary a').once(function() {
+      $(this).click(function() {
+        Drupal.ModelsSearch.setContentHeight();
+      });
     });
   };
 
