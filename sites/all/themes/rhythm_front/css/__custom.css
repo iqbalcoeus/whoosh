@@ -838,11 +838,38 @@ li.en > a:hover {
 }
 
 .view-models .view-filters .form-item-field-lingerie-value,
-.view-models .view-filters .form-item-field-teeth-gap-value {
+.view-models .view-filters .form-item-field-teeth-gap-value,
+.view-models .view-filters .form-item-field-beautiful-feet-value-1,
+.view-models .view-filters .form-item-field-beautiful-hands-value-1 {
   display: inline-block;
   vertical-align: top;
-  margin-right: 5px;
-  margin-top: 5px;
+  padding-right: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  width: 130px;
+}
+
+.view-models .view-filters .form-item-field-freckles-value {
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+.view-models .view-filters .has-ui-slider {
+  margin: 10px 0 0 10px;
+  width: 170px;
+}
+
+.view-models .view-filters .has-ui-slider input {
+  display: none;
+}
+
+.view-models .view-filters .mp-slider-value {
+  text-align: center;
+}
+
+.view-models .views-exposed-form .views-exposed-widget {
+  padding: 0;
 }
 
 .view-models .view-filters .views-widget-filter-field_model_gender_tid {
@@ -890,8 +917,6 @@ li.en > a:hover {
 }
 
 .view-models .view-filters {
-  /*float: none;*/
-  /*clear: both;*/
   visibility: hidden;
   opacity: 0;
   height: 0;
@@ -975,20 +1000,25 @@ li.en > a:hover {
 
 .view-models .view-filters .form-item-field-height-value {
   margin-top: 15px;
-  position: relative;
 }
 
-.view-models .view-filters .form-item-field-height-value label {
+.view-models .view-filters .has-ui-slider label {
   position: absolute;
-  right: -11px;
-  top: -2px;
+  left: 185px;
+  display: inline-block;
+  width: 75px;
+  top: -1px;
 }
 
 .view-models .view-filters .form-item-field-height-value input {
   display: none;
 }
 
-.view-models .view-filters  #height_slider_value {
+.view-models .view-filters .form-item {
+  position: relative;
+}
+
+.view-models .view-filters #height_slider_value {
   text-align: center;
   width: 215px;
   margin-top: 5px;
@@ -1002,6 +1032,7 @@ li.en > a:hover {
   width: 60px;
   padding: 0 8px;
   height: 25px;
+  margin-bottom: 10px;
 }
 
 .view-models .view-filters .form-submit {
@@ -1320,7 +1351,7 @@ li.en > a:hover {
 
 .view-models .views-widget {
   display: block;
-}
+}g
 
 .view-models .views-exposed-widget > div,
 .view-models .views-exposed-widget > div label,
@@ -1338,7 +1369,7 @@ li.en > a:hover {
 }
 
 .view-models .views-exposed-widget .form-item {
-  margin-bottom: 0 !important;
+  margin-bottom: 5px !important;
 }
 
 .view-models .form-checkboxes .form-control {
