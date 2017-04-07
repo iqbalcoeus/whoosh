@@ -35,6 +35,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Beautiful feet',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -73,6 +74,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Beautiful hands',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -110,6 +112,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Freckles',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -147,6 +150,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Lingerie',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -186,6 +190,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Lingerie daily rate',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 500,
       'prefix' => '',
@@ -222,13 +227,14 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Driving license',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
       'settings' => array(),
-      'type' => 'options_select',
+      'type' => 'options_buttons',
       'weight' => 11,
     ),
   );
@@ -254,6 +260,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Experience',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -286,13 +293,14 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Sports',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
       'settings' => array(),
-      'type' => 'options_select',
+      'type' => 'options_buttons',
       'weight' => 10,
     ),
   );
@@ -321,6 +329,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'label' => 'Teeth gap',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

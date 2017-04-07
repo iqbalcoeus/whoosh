@@ -24,8 +24,8 @@ function profile2_model_basic_information_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_chest',
-      1 => 'field_waist',
-      2 => 'field_hip',
+      1 => 'field_hip',
+      2 => 'field_waist',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,9 +53,9 @@ function profile2_model_basic_information_field_group_info() {
     'label' => 'Size',
     'weight' => '5',
     'children' => array(
-      0 => 'field_verification_status',
-      1 => 'field_model_size',
-      2 => 'field_shoe_size',
+      0 => 'field_model_size',
+      1 => 'field_shoe_size',
+      2 => 'field_verification_status',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

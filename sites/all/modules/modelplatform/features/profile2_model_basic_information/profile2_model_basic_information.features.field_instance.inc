@@ -31,6 +31,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Age category',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -75,6 +76,7 @@ function profile2_model_basic_information_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -119,6 +121,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Chest',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => 115,
       'min' => 75,
       'prefix' => '',
@@ -140,7 +143,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'bundle' => 'model_basic_informaiton',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Can\'t be less then 500',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -160,6 +163,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Daily rate',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 500,
       'prefix' => '',
@@ -200,6 +204,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Height',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => 189,
       'min' => 168,
       'prefix' => '',
@@ -240,6 +245,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Hip',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => 100,
       'min' => 85,
       'prefix' => '',
@@ -276,6 +282,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Ethnicity',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -308,6 +315,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Eye color',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -340,6 +348,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Gender',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -372,6 +381,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Hair color',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -404,6 +414,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Instagram followers',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -441,6 +452,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Size',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 0,
       'prefix' => '',
@@ -482,6 +494,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Shoe size',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 0,
       'prefix' => '',
@@ -522,6 +535,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Measurements verification status',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -558,6 +572,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Waist',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => 85,
       'min' => 58,
       'prefix' => '',
@@ -602,6 +617,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Age to',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 0,
       'prefix' => '',
@@ -642,6 +658,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'label' => 'Age from',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => 0,
       'prefix' => '',
@@ -663,6 +680,7 @@ function profile2_model_basic_information_field_default_field_instances() {
   t('Age from');
   t('Age to');
   t('Birthday');
+  t('Can\'t be less then 500');
   t('Chest');
   t('Daily rate');
   t('Ethnicity');

@@ -26,6 +26,9 @@ function profile_2_model_galleries_and_videos_field_default_field_bases() {
     'module' => 'image',
     'settings' => array(
       'default_image' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'profile2_private' => 0,
       'uri_scheme' => 'public',
     ),
@@ -44,6 +47,7 @@ function profile_2_model_galleries_and_videos_field_default_field_bases() {
     'locked' => 0,
     'module' => 'video_embed_field',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,

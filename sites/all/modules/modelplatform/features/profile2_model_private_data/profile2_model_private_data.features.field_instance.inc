@@ -103,7 +103,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_account_holder',
     'label' => 'Account holder',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,

@@ -34,6 +34,7 @@ function profile_2_model_galleries_and_videos_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -84,6 +85,7 @@ function profile_2_model_galleries_and_videos_field_default_field_instances() {
       ),
       'description_field' => 0,
       'description_length' => 128,
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

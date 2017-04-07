@@ -31,6 +31,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -49,6 +50,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
@@ -68,6 +70,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'settings' => array(
       'cache_count' => 4,
       'cache_enabled' => 0,
+      'entity_translation_sync' => FALSE,
       'granularity' => array(
         'day' => 'day',
         'hour' => 0,
@@ -96,6 +99,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -113,6 +117,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -130,6 +135,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -147,6 +153,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -164,6 +171,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
@@ -191,6 +199,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -219,6 +228,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -247,6 +257,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -275,6 +286,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -303,6 +315,7 @@ function profile2_model_basic_information_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'profile2_private' => 0,
     ),
@@ -322,6 +335,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'module' => 'number',
     'settings' => array(
       'decimal_separator' => '.',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -340,6 +354,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'module' => 'number',
     'settings' => array(
       'decimal_separator' => '.',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -366,6 +381,7 @@ function profile2_model_basic_information_field_default_field_bases() {
         1 => 'verified',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
@@ -383,6 +399,7 @@ function profile2_model_basic_information_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
     'translatable' => 0,
