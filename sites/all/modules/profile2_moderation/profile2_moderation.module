@@ -67,7 +67,16 @@ function profile2_moderation_profile2_update($profile) {
 
     $profile->original->skip_moderation_update_hook = TRUE;
     entity_revision_set_default('profile2', $profile->original);
-    entity_save('profile2', $profile->original);
+//    if (!isset($profile->original->entityType) && isset($profile->entityType)) {
+//      $profile->original->bundle = $profile->entityType;
+//    }
+//    if (!isset($profile->original->type) && isset($profile->type)) {
+//      $profile->original->type = $profile->type;
+//    }
+    if (isset($profile->original->entityType)) {
+      entity_save('profile2', $profile->original);
+    }
+
   }
 }
 
