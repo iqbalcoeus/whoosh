@@ -2972,6 +2972,49 @@ ul.links li.de {
   opacity: 0;
 }
 
+.page-blog #content_top {
+  display: block;
+  padding: 70px 0;
+  background: url('images/section-bg-2.jpg') left top no-repeat;
+}
+
+.page-blog #block-delta-blocks-page-title h1 {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  font-size: 30px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  line-height: 1.8;
+  opacity: .9;
+}
+
+.page-blog #block-delta-blocks-page-title {
+  display: block;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .page-blog #block-delta-blocks-page-title {
+    max-width: 750px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .page-blog #block-delta-blocks-page-title {
+    max-width: 970px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .page-blog #block-delta-blocks-page-title {
+    max-width: 1170px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .view-front-page-third .views-field-field-background-image.help-slide-217 {
     min-height: 300px;
