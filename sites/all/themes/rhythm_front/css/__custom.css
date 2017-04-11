@@ -2987,7 +2987,9 @@ ul.links li.de {
 .page-blog #content_top {
   display: block;
   padding: 70px 0;
+  width: 100%;
   background: url('images/section-bg-2.jpg') left top no-repeat;
+  background-size: cover;
 }
 
 .page-blog #block-delta-blocks-page-title h1 {
