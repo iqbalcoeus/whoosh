@@ -11,15 +11,14 @@
 function rhythm_front_preprocess_page(&$vars) {
   global $language;
 
-  if ($image = variable_get('modelplatform_body_image_404_url', '')) {
-    drupal_add_js(array(
-      'rhythm_front' => array(
-        'body_images' => array(
-          'p404' => $image,
-        ),
+  $image = variable_get('modelplatform_body_image_404_url', '');
+  drupal_add_js(array(
+    'rhythm_front' => array(
+      'body_images' => array(
+        'p404' => $image,
       ),
-    ), 'setting');
-  }
+    ),
+  ), 'setting');
 
   // @TODO Should be fixed in the feature.
   if ($vars['front_page']) {
