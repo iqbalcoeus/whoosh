@@ -2853,6 +2853,18 @@ ul.flex-direction-nav {
   background: #2a2a2a;
 }
 
+#block-block-17,
+#block-block-18,
+.page-node-236 #block-system-main {
+  max-width: 616px;
+  margin: 0 auto;
+}
+
+ul.links li.en,
+ul.links li.de {
+  display: none;
+}
+
 .view-front-page-models-1 .flexslider {
   background: none;
 }
