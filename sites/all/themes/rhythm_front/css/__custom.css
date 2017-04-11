@@ -3021,6 +3021,11 @@ ul.links li.de {
   }
 }
 
+.view-news-images.view-display-id-block_news_images {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
 .view-front-page-third .views-field-body.help-slide-217 .role-choose {
   display: -webkit-box;
   display: -ms-flexbox;
