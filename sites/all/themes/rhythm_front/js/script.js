@@ -3,7 +3,13 @@
  */
 
 (function ($) {
+
   $(document).ready(function() {
+
+    if ($('body').hasClass('page-page-404')) {
+      $('body').css('background-image', 'url(' + Drupal.settings.rhythm_front.body_images.p404 + ')');
+    }
+
     var title = Drupal.settings.modelplatform_theme.register_title.und;
     if (Drupal.settings.modelplatform_theme.lang == 'de') {
       title = Drupal.settings.modelplatform_theme.register_title.DE;

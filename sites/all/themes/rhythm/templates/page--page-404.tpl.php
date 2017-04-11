@@ -64,6 +64,7 @@
  * @see template_process()
  */
 ?>
+<?php print render($page['top']); ?>
 <div class="js-height-full">
     <div class="home-content container">
         <div class="home-text">
