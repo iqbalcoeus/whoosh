@@ -94,24 +94,3 @@
     <!-- End Hero Content -->
     
 </div>
-
-<nav class="main-nav dark stick-fixed js-transparent small-height">
-    <div class="full-wrapper relative clearfix">
-        <div class="nav-logo-wrap local-scroll">
-            <a href="<?php print url('<front>'); ?>" class="logo small-height">
-                <img src="<?php print theme_get_setting('logo'); ?>" alt="">
-            </a>
-        </div>
-        <div class="mobile-nav small-height" style="height: 75px; line-height: 75px; width: 75px;">
-            <i class="fa fa-bars"></i>
-        </div>
-        <div class="inner-nav desktop-nav">
-            <ul class="clearlist scroll-nav local-scroll">
-              <li class="active"><a href="mailto:<?php print variable_get('site_mail'); ?>" style="height: 75px; line-height: 75px;"><i class="fa fa-envelope"></i> <?php print variable_get('site_mail'); ?></a></li>
-              <?php if(theme_get_setting('phone')): ?>
-                <li><a href="#" style="height: 75px; line-height: 75px;"><i class="fa fa-phone"></i> <?php print theme_get_setting('phone'); ?></a></li>                
-              <?php endif; ?>
-            </ul>
-        </div>
-    </div>
-</nav>
