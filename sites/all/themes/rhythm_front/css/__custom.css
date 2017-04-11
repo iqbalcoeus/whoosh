@@ -2670,23 +2670,17 @@ a.link-to-top .fa {
 }
 
 .not-front .js-height-full {
-  height: auto !important;
+  margin-top: -12vh;
   width: 100%;
-  min-height: 400px;
+  position: relative;
 }
 
 .not-front .js-height-full .home-content {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  height: 100%;
-}
-
-@media screen and (max-width: 767px) {
-  .not-front .js-height-full .home-content {
-    top: 45%;
-  }
+  top: 0;
+  bottom: 0;
 }
 
 .not-front .home-text .hs-wrap {
