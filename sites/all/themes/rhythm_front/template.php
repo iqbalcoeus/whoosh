@@ -36,6 +36,23 @@ function rhythm_front_preprocess_page(&$vars) {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function rhythm_front_node_view($node, $view_mode, $langcode) {
+  if ($view_mode === 'full') {
+    switch ($node->type) {
+      case 'news':
+        $node_type_name = node_type_get_name($node->type);
+        drupal_set_title($node_type_name);
+        break;
+
+      default:
+        // Do nothing.
+    }
+  }
+}
+
+/**
  * Overrides theme_menu_local_tasks().
  */
 function rhythm_front_menu_local_tasks(array $variables) {
