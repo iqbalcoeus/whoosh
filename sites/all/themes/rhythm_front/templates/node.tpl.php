@@ -106,8 +106,16 @@
     ?>
   </div>
 
+
   <?php print render($content['links']); ?>
-  <?php print render($content['comments']); ?>
-  <?php print render($content['flippy_pager']); ?>
+  <?php if (isset($content['comments'])): ?>
+    <div id="modelplatform_comments" class="modelplatform-comments">
+      <?php print render($content['comments']); ?>
+    </div>
+  <?php endif; ?>
+  <?php if (isset($content['flippy_pager'])): ?>
+    <?php print render($content['flippy_pager']); ?>
+  <?php endif; ?>
+
 
 </div>
