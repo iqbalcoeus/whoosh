@@ -474,3 +474,20 @@ function modelplatform_profile2_update($profile) {
 function modelplatform_user_update(&$edit, $account, $category) {
   modelplatform_create_full_name($account);
 }
+
+/**
+ * Implements hook_node_view().
+ */
+function modelplatform_node_view($node, $view_mode, $langcode) {
+  if ($view_mode === 'full') {
+    switch ($node->type) {
+      case 'news':
+        $node_type_name = node_type_get_name($node);
+        drupal_set_title($node_type_name);
+        break;
+
+      default:
+        // Do nothing.
+    }
+  }
+}
