@@ -42,7 +42,7 @@ function rhythm_front_node_view($node, $view_mode, $langcode) {
   if ($view_mode === 'full') {
     switch ($node->type) {
       case 'news':
-        $node_type_name = node_type_get_name($node->type);
+        $node_type_name = node_type_get_name($node);
         drupal_set_title($node_type_name);
         break;
 
