@@ -2736,9 +2736,6 @@ a.link-to-top .fa {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   margin: 0 -15px;
 }
 
@@ -3122,6 +3119,11 @@ ul.links.inline {
 .view-news-images.view-id-news_images {
   max-width: 940px;
   margin: 0 auto 44px auto;
+}
+
+.view-id-news.view-display-id-page_1 {
+  max-width: 970px;
+  margin: 0 auto;
 }
 
 .view-news-images.view-id-news_images.view-display-id-block_news_last_part {
