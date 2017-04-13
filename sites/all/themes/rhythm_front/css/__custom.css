@@ -1408,9 +1408,13 @@ html.js input.throbbing {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
-  display: block;
-  padding: 24% 10px 0 10px;
+  padding: 0 10px;
   text-align: center;
+  line-height: 1.1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-models .views-exposed-widget > div,
