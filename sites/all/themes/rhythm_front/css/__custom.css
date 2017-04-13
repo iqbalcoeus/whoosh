@@ -1476,11 +1476,12 @@ html.js input.throbbing {
 
 .view-news .view-filters .views-exposed-form {
   position: relative;
+  padding: 0 15px;
 }
 
 .view-news .view-filters .views-submit-button {
   position: absolute;
-  right: 0;
+  right: 15px;
   top: 0;
   z-index: 9;
 }
@@ -2863,7 +2864,6 @@ a.link-to-top .fa {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  margin: 0 -15px;
 }
 
 .not-front .home-text .local-scroll {
