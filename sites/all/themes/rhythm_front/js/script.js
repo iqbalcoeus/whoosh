@@ -18,6 +18,13 @@
         scrollTop: hashElement.offset().top - 120
       }, 500);
     }
+    $('a').click(function(){
+      if (this.hash !== "") {
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top - 120
+        }, 500);
+      }
+    });
 
     var title = Drupal.settings.modelplatform_theme.register_title.und;
     if (Drupal.settings.modelplatform_theme.lang == 'de') {
