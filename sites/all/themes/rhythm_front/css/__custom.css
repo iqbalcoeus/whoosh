@@ -1459,6 +1459,68 @@ html.js input.throbbing {
   margin-bottom: 70px;
 }
 
+.view-news .view-filters {
+  float: none;
+  margin-top: 0;
+}
+
+.view-news .view-filters .views-widget-filter-keys,
+.view-news .view-filters .views-widget-filter-keys input {
+  width: 100%;
+}
+
+.view-news .view-filters {
+  width: 100%;
+  display: inline-block;
+}
+
+.view-news .view-filters .views-exposed-form {
+  position: relative;
+}
+
+.view-news .view-filters .views-submit-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
+
+.view-news .view-filters .views-submit-button:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+  content: '\e803';
+  color: #999;
+  position: absolute;
+  right: 15px;
+  top: 7px;
+  z-index: -1;
+}
+
+.view-news .view-filters .views-exposed-widgets > div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.view-news .views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 0;
+  background: none;
+  text-indent: -1000em;
+}
+
+.view-news .view-filters label {
+  display: none;
+}
+
+.view-news .views-exposed-form .views-exposed-widget {
+  float: none;
+  padding: 0;
+}
+
 .not-front.page-models .region-content-top,
 .not-front.page-castinglist .region-content-top {
   background: #f2f2f2;
