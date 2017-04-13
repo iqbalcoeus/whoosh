@@ -830,6 +830,34 @@ html.js input.throbbing {
   text-transform: uppercase;
 }
 
+.view-models #model_availbale_dates .description {
+  display: none;
+}
+
+.view-models #model_availbale_dates .form-group {
+  display: inline-block;
+  vertical-align: top;
+  width: 118px;
+  margin: 0 5px;
+}
+
+.view-models #model_availbale_dates .form-group .form-item {
+  width: 100% !important;
+}
+
+.view-models #model_availbale_dates .container-inline-date .date-padding {
+  float: none;
+}
+
+.view-models #model_availbale_dates {
+  margin: 0 4px;
+}
+
+.view-models #model_availbale_date label {
+  display: block;
+  margin-bottom: 5px;
+}
+
 .view-models .view-filters .collapsible legend {
   border-top: 1px solid #e3dfe0;
   margin-bottom: 5px;
