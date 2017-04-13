@@ -10,6 +10,22 @@
       $('body').css('background-image', 'url(' + Drupal.settings.rhythm_front.body_images.p404 + ')');
     }
 
+    $('#edit-blog-search').attr('placeholder', Drupal.t('Search'));
+
+    var hashElement = $(window.location.hash.replace('#_', '#'));
+    if (hashElement.length) {
+      $('html,body').animate({
+        scrollTop: hashElement.offset().top - 120
+      }, 500);
+    }
+    $('a').click(function(){
+      if (this.hash !== "") {
+        $('html,body').animate({
+          scrollTop: $(this.hash.replace('#_', '#')).offset().top - 120
+        }, 500);
+      }
+    });
+
     var title = Drupal.settings.modelplatform_theme.register_title.und;
     if (Drupal.settings.modelplatform_theme.lang == 'de') {
       title = Drupal.settings.modelplatform_theme.register_title.DE;
