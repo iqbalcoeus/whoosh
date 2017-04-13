@@ -526,6 +526,26 @@ select {
   background-image: none !important;
 }
 
+.view-models .form-item-field-model-base-city-tid .rhythm-input input {
+  width: 100% !important;
+  padding-left: 18px !important;
+}
+
+.view-models .form-item-field-model-base-city-tid .rhythm-input {
+  display: inline-block !important;
+}
+
+.view-models .form-item-field-model-base-city-tid .input-group-addon {
+  display: none;
+}
+
+html.js input.throbbing {
+  background-repeat: no-repeat !important;
+  background-position: left center !important;
+  background-image: url(images/spin.gif) !important;
+  margin-right: 3px;
+}
+
 .view-models .views-row {
   position: relative;
   width: 100%;
@@ -2716,9 +2736,6 @@ a.link-to-top .fa {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   margin: 0 -15px;
 }
 
@@ -3102,6 +3119,11 @@ ul.links.inline {
 .view-news-images.view-id-news_images {
   max-width: 940px;
   margin: 0 auto 44px auto;
+}
+
+.view-news.view-id-news {
+  max-width: 970px;
+  margin: 0 auto;
 }
 
 .view-news-images.view-id-news_images.view-display-id-block_news_last_part {
