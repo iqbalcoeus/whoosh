@@ -2448,6 +2448,17 @@ a.link-to-top .fa {
 
 #block-views-news-block {
   background-color: #fff;
+  padding: 110px 0;
+}
+
+#block-views-news-block .view-news .view-content {
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  #block-views-news-block {
+    padding: 50px 0;
+  }
 }
 
 /* FRONT PAGE VIDEO START */
