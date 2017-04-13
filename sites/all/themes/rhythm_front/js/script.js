@@ -21,7 +21,7 @@
     $('a').click(function(){
       if (this.hash !== "") {
         $('html,body').animate({
-          scrollTop: $(this.hash).offset().top - 120
+          scrollTop: $(this.hash.replace('#_', '#')).offset().top - 120
         }, 500);
       }
     });
