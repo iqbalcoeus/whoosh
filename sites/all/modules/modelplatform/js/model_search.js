@@ -30,17 +30,30 @@
     $searchField.val($(context).find('.form-control[name="field_full_name_value"]').val());
     $searchField.keypress(function(e) {
       if (e.which == 13) {
-        $(context).find('.form-control[name="field_full_name_value"]').val($(this).val());
-        $(context).find('.view-models form').submit();
+        Drupal.ModelsSearch.setFullName($(this).val());
+        Drupal.ModelsSearch.submitAction();
       }
     });
     $searchField.change(function() {
-      if (Drupal.ModelsSearch.currentTimeoutID) {
-        clearTimeout(Drupal.ModelsSearch.currentTimeoutID);
-      }
-      Drupal.ModelsSearch.fullName = $(this).val();
-      Drupal.ModelsSearch.currentTimeoutID = setTimeout(setFullNameField, 500);
+      Drupal.ModelsSearch.setFullName($(this).val());
+      Drupal.ModelsSearch.startsubmitTimer();
     });
+  };
+
+  Drupal.ModelsSearch.startsubmitTimer = function() {
+    if (Drupal.ModelsSearch.currentTimeoutID) {
+      clearTimeout(Drupal.ModelsSearch.currentTimeoutID);
+    }
+    Drupal.ModelsSearch.currentTimeoutID = setTimeout(Drupal.ModelsSearch.submitAction, 500);
+  };
+
+  Drupal.ModelsSearch.setFullName = function(_fullName) {
+    Drupal.ModelsSearch.fullName = _fullName;
+    $('.form-control[name="field_full_name_value"]').val(_fullName);
+  };
+
+  Drupal.ModelsSearch.submitAction = function() {
+    $('.view-models form').submit();
   };
 
   Drupal.ModelsSearch.initColapsedItems = function(context) {
@@ -101,38 +114,40 @@
       var sliderWrapperID = 'mp-' + className;
       var suffix = '';
       var divideNum = 1;
+      var defaultValue = parseInt(_option.max);
+      var enteredValue = $("#edit-" + className).val();
 
       if (_name == 'field_height_value') {
         suffix = ' M';
         divideNum = 100;
+        defaultValue = parseInt(_option.min);
       }
       wrapper.addClass('has-ui-slider');
       wrapper.append('<div id="' + _name + '" class="mp-slider-value"></div>');
 
       if (wrapper.length) {
+        if (enteredValue) {
+          defaultValue = enteredValue;
+        }
         wrapper.once('add-slider', function () {
-          $("#edit-" + className).val(parseInt(_option.min));
-          $("#" + _name).html((parseInt(_option.min) / divideNum) + suffix);
+          $("#edit-" + className).val(defaultValue);
+          $("#" + _name).html((defaultValue / divideNum) + suffix);
           wrapper.prepend('<div id="' + sliderWrapperID + '" class="mp-slider-wrapper"></div>');
           $("#" + sliderWrapperID).slider({
             min: parseInt(_option.min),
             max: parseInt(_option.max),
             step: parseInt(_option.step),
+            value: parseInt(defaultValue),
             slide: function(event, ui) {
               $("#edit-" + className).val(ui.value);
               $("#" + _name).html((ui.value / divideNum) + suffix);
-              setTimeout(setFullNameField, 500);
+              Drupal.ModelsSearch.startsubmitTimer();
             }
           });
         });
       }
     });
     $('.ui-slider-handle').draggable;
-  };
-
-  function setFullNameField() {
-    $('.form-control[name="field_full_name_value"]').val(Drupal.ModelsSearch.fullName);
-    $('.view-models form').submit();
   };
 
   Drupal.ModelsSearch.prepareMineSearch = function(_settings) {
@@ -146,6 +161,7 @@
     Drupal.ModelsSearch.initSearchIcons(context);
     Drupal.ModelsSearch.initDailyRatePart(context);
     Drupal.ModelsSearch.availableSliders();
+    Drupal.ModelsSearch.moveDateDiv();
   };
 
   Drupal.ModelsSearch.setContentHeight = function() {
@@ -165,6 +181,10 @@
       _viewsContent.css('min-height', '0px');
       _viewsEmpty.css('min-height', '0px');
     }
+  };
+
+  Drupal.ModelsSearch.moveDateDiv = function() {
+    $('#model_availbale_dates').appendTo('#edit-secondary .bef-secondary-options');
   };
 
   Drupal.behaviors.modelplatform = {

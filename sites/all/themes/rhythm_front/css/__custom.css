@@ -981,7 +981,7 @@ select {
   }
 }
 
-.view-models .view-filters .container-inline-date {
+.view-models .view-filters .date-padding label {
   display: none;
 }
 

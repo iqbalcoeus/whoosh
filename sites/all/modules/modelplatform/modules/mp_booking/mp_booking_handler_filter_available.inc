@@ -41,6 +41,7 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
     );
     $format = 'Y-m-d';
     $form['start_date'] = array(
+      '#prefix' => '<div id="model_availbale_dates">',
       '#type' => 'date_popup',
       '#title' => t('Start date'),
       '#date_format' => $format,
@@ -53,6 +54,7 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
       '#date_format' => $format,
       '#default_value' => isset($this->view->exposed_raw_input['end_date'])
         ? $this->view->exposed_raw_input['end_date'] : NULL,
+      '#suffix' => '</div>',
     );
     if (!empty($this->options['exposed'])) {
       $identifier = $this->options['expose']['identifier'];
