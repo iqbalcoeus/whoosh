@@ -3088,6 +3088,10 @@ ul.links.inline {
   padding: 0;
 }
 
+ul.flippy li {
+  padding: 10px 0;
+}
+
 .flippy li.prev {
   float: left;
 }
