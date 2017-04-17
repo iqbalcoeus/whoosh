@@ -118,7 +118,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_chest',
-    'label' => 'Chest',
+    'label' => 'Bust',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -242,7 +242,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_hip',
-    'label' => 'Hip',
+    'label' => 'Hips',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -680,15 +680,15 @@ function profile2_model_basic_information_field_default_field_instances() {
   t('Age from');
   t('Age to');
   t('Birthday');
+  t('Bust');
   t('Can\'t be less then 500');
-  t('Chest');
   t('Daily rate');
   t('Ethnicity');
   t('Eye color');
   t('Gender');
   t('Hair color');
   t('Height');
-  t('Hip');
+  t('Hips');
   t('Instagram followers');
   t('Measurements verification status');
   t('Shoe size');
