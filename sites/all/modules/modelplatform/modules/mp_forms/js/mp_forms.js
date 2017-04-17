@@ -21,8 +21,12 @@
             var inchValueDiv = $('#' + slider.name + '_inch_value');
             var cmValueDiv = $('#' + slider.name + '_cm_value');
 
-            inchValueDiv.html(Math.round(_value.val() / 2.54) + ' Inch');
-            cmValueDiv.html(_value.val() + ' cm');
+            if (Drupal.settings.modelplatform_theme.lang === 'en') {
+              inchValueDiv.html(Math.round(_value.val() / 2.54) + ' Inch');
+            }
+            else {
+              cmValueDiv.html(_value.val() + ' cm');
+            }
 
             wrapper.slider({
               range: false,
@@ -31,8 +35,12 @@
               value: parseInt(_value.val()),
               slide: function (event, ui) {
                 _value.val(ui.value);
-                inchValueDiv.html(Math.round(ui.value / 2.54) + ' Inch');
-                cmValueDiv.html(ui.value + ' cm');
+                if (Drupal.settings.modelplatform_theme.lang === 'en') {
+                  inchValueDiv.html(Math.round(ui.value / 2.54) + ' Inch');
+                }
+                else {
+                  cmValueDiv.html(ui.value + ' cm');
+                }
               }
             });
           });
