@@ -177,11 +177,16 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
       . ' .rhythm-input';
     $sliders[$field_name] = array(
       'selector' => $selector,
+      'name' => $field_name,
       'min' => $field_settings['min'],
       'max' => $field_settings['max'],
     );
   }
-  drupal_add_js(array('mp_forms' => array('sliders' => $sliders)), 'setting');
+  drupal_add_js(array(
+    'mp_forms' => array(
+      'sliders' => $sliders
+    ),
+  ), 'setting');
 
   $form[$profile_id]['field_verification_status']['#disabled'] = TRUE;
   $form[$profile_id]['field_age_category']['#access'] = FALSE;

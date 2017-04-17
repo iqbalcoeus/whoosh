@@ -13,13 +13,26 @@
           $.each(_sliders, function (i, slider) {
             var _value = $(slider.selector + " input");
             var wrapper = $(slider.selector);
+
+            wrapper.addClass('has-ui-slider');
+            wrapper.append('<div id="' + slider.name + '_cm_value" class="mp-slider-value cm-value"></div>');
+            wrapper.append('<div id="' + slider.name + '_inch_value" class="mp-slider-value inch-value"></div>');
+
+            var inchValueDiv = $('#' + slider.name + '_inch_value');
+            var cmValueDiv = $('#' + slider.name + '_cm_value');
+
+            inchValueDiv.html(Math.round(_value.val() / 2.54) + ' Inch');
+            cmValueDiv.html(_value.val() + ' cm');
+
             wrapper.slider({
               range: false,
               min: parseInt(slider.min),
               max: parseInt(slider.max),
-              value: _value.val(),
+              value: parseInt(_value.val()),
               slide: function (event, ui) {
                 _value.val(ui.value);
+                inchValueDiv.html(Math.round(ui.value / 2.54) + ' Inch');
+                cmValueDiv.html(ui.value + ' cm');
               }
             });
           });
@@ -44,13 +57,10 @@
         $('.xing_apply_btn a').addClass('customer');
       }
     });
-    console.log($('input[name="user_roles"]:checked').val());
     if ($('input[name="user_roles"]:checked').val() == Drupal.settings.mp_forms.customer) {
-      console.log('if');
       $('#edit-user-roles-' + Drupal.settings.mp_forms.customer).click();
     }
     else {
-      console.log('else');
       $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
     }
   });

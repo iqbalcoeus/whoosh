@@ -107,6 +107,14 @@
     });
   };
 
+  Drupal.ModelsSearch.displayBEFValues = function(_name, _value, _divideNum, _suffix, _round) {
+    var value = _value / _divideNum;
+    if (_round) {
+      value = Math.round(value);
+    }
+    $("#" + _name).html(value + _suffix);
+  };
+
   Drupal.ModelsSearch.availableSliders = function(context) {
     $.each(Drupal.settings.better_exposed_filters.slider_options, function(_name, _option) {
       var className = _name.split('_').join('-');
@@ -116,12 +124,32 @@
       var divideNum = 1;
       var defaultValue = parseInt(_option.max);
       var enteredValue = $("#edit-" + className).val();
+      var round = true;
 
       if (_name == 'field_height_value') {
         suffix = ' M';
         divideNum = 100;
+        round = false;
         defaultValue = parseInt(_option.min);
       }
+
+      switch (_name) {
+        case 'field_chest_value':
+        case 'field_waist_value':
+        case 'field_hip_value':
+          if (Drupal.settings.modelplatform_theme.lang === 'en') {
+            divideNum = 2.54;
+            suffix = ' Inch';
+          }
+          else {
+            suffix = ' cm';
+          }
+          break;
+
+        default:
+          // Nothing to do.
+      }
+
       wrapper.addClass('has-ui-slider');
       wrapper.append('<div id="' + _name + '" class="mp-slider-value"></div>');
 
@@ -131,7 +159,7 @@
         }
         wrapper.once('add-slider', function () {
           $("#edit-" + className).val(defaultValue);
-          $("#" + _name).html((defaultValue / divideNum) + suffix);
+          Drupal.ModelsSearch.displayBEFValues(_name, defaultValue, divideNum, suffix, round);
           wrapper.prepend('<div id="' + sliderWrapperID + '" class="mp-slider-wrapper"></div>');
           $("#" + sliderWrapperID).slider({
             min: parseInt(_option.min),
@@ -140,7 +168,7 @@
             value: parseInt(defaultValue),
             slide: function(event, ui) {
               $("#edit-" + className).val(ui.value);
-              $("#" + _name).html((ui.value / divideNum) + suffix);
+              Drupal.ModelsSearch.displayBEFValues(_name, ui.value, divideNum, suffix, round);
               Drupal.ModelsSearch.startsubmitTimer();
             }
           });
