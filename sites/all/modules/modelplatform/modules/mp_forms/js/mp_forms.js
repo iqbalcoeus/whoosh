@@ -13,20 +13,29 @@
           $.each(_sliders, function (i, slider) {
             var _value = $(slider.selector + " input");
             var wrapper = $(slider.selector);
+            var suffix = ' cm';
+            var divideNum = 1;
+            var divideNum2 = 1;
+            var value = _value.val();
 
             wrapper.addClass('has-ui-slider');
-            wrapper.append('<div id="' + slider.name + '_cm_value" class="mp-slider-value cm-value"></div>');
-            wrapper.append('<div id="' + slider.name + '_inch_value" class="mp-slider-value inch-value"></div>');
+            wrapper.append('<div id="' + slider.name + '_value" class="mp-slider-value"></div>');
 
-            var inchValueDiv = $('#' + slider.name + '_inch_value');
-            var cmValueDiv = $('#' + slider.name + '_cm_value');
+            var valueDiv = $('#' + slider.name + '_value');
 
             if (Drupal.settings.modelplatform_theme.lang === 'en') {
-              inchValueDiv.html(Math.round(_value.val() / 2.54) + ' Inch');
+              suffix = ' Inch';
+              divideNum = 2.54;
+              divideNum2 = 1;
             }
-            else {
-              cmValueDiv.html(_value.val() + ' cm');
+
+            if (slider.name == 'field_height') {
+              suffix = ' M';
+              divideNum = 100;
+              divideNum2 = 100;
             }
+
+            valueDiv.html(Math.round(_value.val() * divideNum2 / divideNum) / divideNum2 + suffix);
 
             wrapper.slider({
               range: false,
@@ -35,12 +44,7 @@
               value: parseInt(_value.val()),
               slide: function (event, ui) {
                 _value.val(ui.value);
-                if (Drupal.settings.modelplatform_theme.lang === 'en') {
-                  inchValueDiv.html(Math.round(ui.value / 2.54) + ' Inch');
-                }
-                else {
-                  cmValueDiv.html(ui.value + ' cm');
-                }
+                valueDiv.html(Math.round(ui.value * divideNum2 / divideNum) / divideNum2 + suffix);
               }
             });
           });
