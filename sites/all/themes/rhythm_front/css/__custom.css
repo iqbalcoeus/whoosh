@@ -3644,6 +3644,27 @@ ul.flippy li {
   float: none;
 }
 
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-height input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-chest input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-waist input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-hip input {
+  display: none;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-height .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-chest .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-waist .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-hip .mp-slider-value {
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main fieldset.field-group-fieldset legend {
+  padding-top: 20px;
+}
+
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
   .view-front-page-third .views-field-body {
