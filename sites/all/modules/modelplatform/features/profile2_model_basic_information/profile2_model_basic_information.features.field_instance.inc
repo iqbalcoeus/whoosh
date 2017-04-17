@@ -101,7 +101,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'bundle' => 'model_basic_informaiton',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Please insert data in Inches',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -225,7 +225,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'bundle' => 'model_basic_informaiton',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Please insert data in Inches',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -552,7 +552,7 @@ function profile2_model_basic_information_field_default_field_instances() {
     'bundle' => 'model_basic_informaiton',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Please insert data in Inches',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -691,6 +691,7 @@ function profile2_model_basic_information_field_default_field_instances() {
   t('Hips');
   t('Instagram followers');
   t('Measurements verification status');
+  t('Please insert data in Inches');
   t('Shoe size');
   t('Size');
   t('Waist');
