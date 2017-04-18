@@ -328,9 +328,15 @@ ul.language-switcher-locale-url {
 
 #Header {
   position: relative;
-  min-height: 119px;
+  min-height: 129px;
   background-color: #fff;
   z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+  #Header {
+    min-height: 119px;
+  }
 }
 
 #Header .region-top {
@@ -1492,7 +1498,7 @@ html.js input.throbbing {
   position: absolute;
   right: 15px;
   top: 0;
-  z-index: 9;
+  z-index: 1;
 }
 
 .view-news .view-filters .views-submit-button:before {
@@ -1505,9 +1511,9 @@ html.js input.throbbing {
   vertical-align: middle;
   content: '\e803';
   color: #999;
-  position: absolute;
-  right: 15px;
-  top: 7px;
+  position: relative;
+  right: -22px;
+  top: 0;
   z-index: -1;
 }
 
@@ -4134,7 +4140,7 @@ div.sf-accordion-toggle.sf-style-white a {
     /*margin-top: -29px;*/
     z-index: 9999;
     outline: 0;
-    top: 25%;
+    top: 31%;
     right: 10px;
     left: 0;
     padding: 0;
@@ -4154,11 +4160,16 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 
   .region-top {
-    padding: 5px 10px 13px 10px;
+    padding: 7px 10px 13px 10px;
   }
 
   #Header .region-top.sticky {
     padding: 0 10px 8px 10px;
+    z-index: 99;
+  }
+
+  #Header .region-top {
+    padding-bottom: 0;
   }
 
   #block-superfish-1 .block-content li {
