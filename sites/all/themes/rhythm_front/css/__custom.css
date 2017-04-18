@@ -1537,35 +1537,46 @@ html.js input.throbbing {
   padding: 0;
 }
 
+.not-front.page-models h1,
+.not-front.page-castinglist h1,
+.not-front.page-mine-search h1 {
+  margin-bottom: 10px !important;
+}
+
 .not-front.page-models .region-content-top,
-.not-front.page-castinglist .region-content-top {
+.not-front.page-castinglist .region-content-top,
+.not-front.page-mine-search .region-content-top {
   background: #f2f2f2;
   display: block;
   margin: 0 -15px 0 -15px;
-  min-height: 235px;
+  min-height: 250px;
 }
 
 .page-models #block-block-16,
-.page-castinglist #block-block-16 {
+.page-castinglist #block-block-16,
+.page-mine-search #block-block-16 {
   display: inline-block;
   vertical-align: middle;
   margin-left: 73px;
 }
 
 .page-models #block-block-16 p,
-.page-castinglist #block-block-16 p {
+.page-castinglist #block-block-16 p,
+.page-mine-search #block-block-16 p {
   margin-bottom: 0;
   font-size: 14px;
   text-transform: uppercase;
 }
 
 .page-models #block-delta-blocks-page-title,
-.page-castinglist #block-delta-blocks-page-title {
+.page-castinglist #block-delta-blocks-page-title,
+.page-mine-search #block-delta-blocks-page-title {
   display: block;
   width: 100%;
 }
 
 .not-front.page-models #block-delta-blocks-page-title h1,
+.not-front.page-castinglist #block-delta-blocks-page-title h1.
 .not-front.page-castinglist #block-delta-blocks-page-title h1 {
   margin: 70px 0 25px 70px;
   font-size: 42px;
@@ -1620,7 +1631,8 @@ html.js input.throbbing {
 
 @media screen and (max-width: 767px) {
   .not-front.page-models #block-delta-blocks-page-title h1,
-  .not-front.page-castinglist #block-delta-blocks-page-title h1 {
+  .not-front.page-castinglist #block-delta-blocks-page-title h1,
+  .page-mine-search #block-delta-blocks-page-title h1 {
     margin: 50px 0 25px 10px;
     text-align: center;
     font-size: 35px;
@@ -1634,14 +1646,16 @@ html.js input.throbbing {
   }
 
   .page-models #block-block-16,
-  .page-castinglist #block-block-16 {
+  .page-castinglist #block-block-16,
+  .page-mine-search #block-block-16 {
     margin-left: 10px;
     display: block;
     text-align: center;
   }
 
   .page-models .customer-menu,
-  .page-castinglist .customer-menu {
+  .page-castinglist .customer-menu,
+  .page-mine-search .customer-menu {
     float: none;
     margin-top: 15px;
     text-align: center;
@@ -1649,7 +1663,8 @@ html.js input.throbbing {
   }
 
   .page-models .page,
-  .page-castinglist .page {
+  .page-castinglist .page,
+  .page-mine-search .page {
     padding-bottom: 24em;
   }
 }
@@ -1728,7 +1743,7 @@ html.js input.throbbing {
 
 .customer-menu .block-content a:hover,
 .customer-menu .block-content a.active {
-  color: #777;
+  color: #fc1c5b;
 }
 
 .field-name-field-newsletter label {
