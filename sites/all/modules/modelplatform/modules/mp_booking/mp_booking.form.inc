@@ -11,6 +11,22 @@
 function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $customer_uid = 0) {
   global $user;
 
+  $model_account = user_load($model_uid);
+  $field_full_name = field_get_items('user', $model_account, 'field_full_name');
+  if (isset($field_full_name[0]['value'])) {
+    $full_name = $field_full_name[0]['value'];
+    $title_params = array(
+      '@model_name' => $full_name,
+    );
+  }
+  else {
+    $title_params = array(
+      '@model_name' => $model_account->name,
+    );
+  }
+  $title = t('Book of @model_name', $title_params);
+  drupal_set_title($title);
+
   if (!is_numeric($customer_uid) || !$customer_uid) {
     $customer_uid = $user->uid;
   }
