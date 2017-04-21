@@ -100,10 +100,12 @@ function modelplatform_job_node_form_submit($form, &$form_state) {
     $query['field_daily_rate_value_1'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
   }
   if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'])) {
-    $query['start_date']['date'] = $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'];
+    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value']);
+    $query['start_date']['date'] = $date_part[0];
   }
   if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'])) {
-    $query['end_date']['date'] = $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'];
+    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2']);
+    $query['end_date']['date'] = $date_part[0];
   }
 
   $form_state['redirect'] = array(
