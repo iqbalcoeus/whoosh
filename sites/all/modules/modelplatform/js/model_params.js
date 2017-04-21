@@ -13,7 +13,7 @@
         var suffix = '';
         if (Drupal.settings.modelplatform_theme.lang === 'en') {
           divideNum = 2.54;
-          suffix = '"';
+          suffix = '';
         }
         var value = parseInt(item.html());
         value = Math.round(value / divideNum);
