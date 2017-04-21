@@ -94,6 +94,15 @@ ul#superfish-1 a {
 .page-user-edit-model-basic-informaiton .field-name-field-waist,
 .page-user-edit-model-basic-informaiton .field-name-field-hip {
   margin: 10px 0 20px 0;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .ui-slider {
+  width: 200px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main select {
   width: 200px;
 }
 
@@ -319,9 +328,15 @@ ul.language-switcher-locale-url {
 
 #Header {
   position: relative;
-  min-height: 119px;
+  min-height: 129px;
   background-color: #fff;
   z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+  #Header {
+    min-height: 119px;
+  }
 }
 
 #Header .region-top {
@@ -1483,7 +1498,7 @@ html.js input.throbbing {
   position: absolute;
   right: 15px;
   top: 0;
-  z-index: 9;
+  z-index: 1;
 }
 
 .view-news .view-filters .views-submit-button:before {
@@ -1496,9 +1511,9 @@ html.js input.throbbing {
   vertical-align: middle;
   content: '\e803';
   color: #999;
-  position: absolute;
-  right: 15px;
-  top: 7px;
+  position: relative;
+  right: -22px;
+  top: 0;
   z-index: -1;
 }
 
@@ -1522,35 +1537,46 @@ html.js input.throbbing {
   padding: 0;
 }
 
+.not-front.page-models h1,
+.not-front.page-castinglist h1,
+.not-front.page-mine-search h1 {
+  margin-bottom: 10px !important;
+}
+
 .not-front.page-models .region-content-top,
-.not-front.page-castinglist .region-content-top {
+.not-front.page-castinglist .region-content-top,
+.not-front.page-mine-search .region-content-top {
   background: #f2f2f2;
   display: block;
   margin: 0 -15px 0 -15px;
-  min-height: 235px;
+  min-height: 250px;
 }
 
 .page-models #block-block-16,
-.page-castinglist #block-block-16 {
+.page-castinglist #block-block-16,
+.page-mine-search #block-block-16 {
   display: inline-block;
   vertical-align: middle;
   margin-left: 73px;
 }
 
 .page-models #block-block-16 p,
-.page-castinglist #block-block-16 p {
+.page-castinglist #block-block-16 p,
+.page-mine-search #block-block-16 p {
   margin-bottom: 0;
   font-size: 14px;
   text-transform: uppercase;
 }
 
 .page-models #block-delta-blocks-page-title,
-.page-castinglist #block-delta-blocks-page-title {
+.page-castinglist #block-delta-blocks-page-title,
+.page-mine-search #block-delta-blocks-page-title {
   display: block;
   width: 100%;
 }
 
 .not-front.page-models #block-delta-blocks-page-title h1,
+.not-front.page-castinglist #block-delta-blocks-page-title h1.
 .not-front.page-castinglist #block-delta-blocks-page-title h1 {
   margin: 70px 0 25px 70px;
   font-size: 42px;
@@ -1605,7 +1631,8 @@ html.js input.throbbing {
 
 @media screen and (max-width: 767px) {
   .not-front.page-models #block-delta-blocks-page-title h1,
-  .not-front.page-castinglist #block-delta-blocks-page-title h1 {
+  .not-front.page-castinglist #block-delta-blocks-page-title h1,
+  .page-mine-search #block-delta-blocks-page-title h1 {
     margin: 50px 0 25px 10px;
     text-align: center;
     font-size: 35px;
@@ -1619,14 +1646,16 @@ html.js input.throbbing {
   }
 
   .page-models #block-block-16,
-  .page-castinglist #block-block-16 {
+  .page-castinglist #block-block-16,
+  .page-mine-search #block-block-16 {
     margin-left: 10px;
     display: block;
     text-align: center;
   }
 
   .page-models .customer-menu,
-  .page-castinglist .customer-menu {
+  .page-castinglist .customer-menu,
+  .page-mine-search .customer-menu {
     float: none;
     margin-top: 15px;
     text-align: center;
@@ -1634,7 +1663,8 @@ html.js input.throbbing {
   }
 
   .page-models .page,
-  .page-castinglist .page {
+  .page-castinglist .page,
+  .page-mine-search .page {
     padding-bottom: 24em;
   }
 }
@@ -1713,7 +1743,7 @@ html.js input.throbbing {
 
 .customer-menu .block-content a:hover,
 .customer-menu .block-content a.active {
-  color: #777;
+  color: #fc1c5b;
 }
 
 .field-name-field-newsletter label {
@@ -3644,6 +3674,61 @@ ul.flippy li {
   float: none;
 }
 
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-height input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-chest input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-waist input,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-hip input {
+  display: none;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-height .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-chest .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-waist .mp-slider-value,
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-hip .mp-slider-value {
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main fieldset.field-group-fieldset legend {
+  padding-top: 20px;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main label {
+  width: 100%;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .form-type-radios label {
+  width: auto;
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .form-item .description {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+  color: #777;
+  border: 1px solid #eee;
+  padding: 5px 10px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  max-width: 200px;
+}
+
+@media screen and (max-width: 568px) {
+  .page-user-edit-model-basic-informaiton #block-system-main .form-item .description {
+    margin-top: 35px;
+    display: block;
+  }
+}
+
+.page-user-edit-model-basic-informaiton #block-system-main .field-name-field-daily-rate .rhythm-input,
+.page-user-edit-model-basic-informaiton #block-system-main .form-type-date-popup .rhythm-input {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* HARDCODE to fix font sizes */
 @media (max-width: 320px) {
   .view-front-page-third .views-field-body {
@@ -4070,7 +4155,7 @@ div.sf-accordion-toggle.sf-style-white a {
     /*margin-top: -29px;*/
     z-index: 9999;
     outline: 0;
-    top: 25%;
+    top: 31%;
     right: 10px;
     left: 0;
     padding: 0;
@@ -4090,11 +4175,16 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 
   .region-top {
-    padding: 5px 10px 13px 10px;
+    padding: 7px 10px 13px 10px;
   }
 
   #Header .region-top.sticky {
     padding: 0 10px 8px 10px;
+    z-index: 99;
+  }
+
+  #Header .region-top {
+    padding-bottom: 0;
   }
 
   #block-superfish-1 .block-content li {
