@@ -69,9 +69,6 @@
       }
       Drupal.ModelsSearch.setContentHeight();
     });
-    $(context).find('.bef-secondary-options').click(function(e){
-      console.log(e.target);
-    });
   };
 
   Drupal.ModelsSearch.initSearchIcons = function(context) {

@@ -95,12 +95,17 @@ function _modelplatform_get_model_age_category($profile) {
  */
 function modelplatform_job_node_form_submit($form, &$form_state) {
   $query = array();
-  if (isset($form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'])) {
-    $query['daily_rate[min]'] = $form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'];
-  }
+
   if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
-    $query['daily_rate[max]'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
+    $query['field_daily_rate_value_1'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
   }
+  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'])) {
+    $query['start_date']['date'] = $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'];
+  }
+  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'])) {
+    $query['end_date']['date'] = $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'];
+  }
+
   $form_state['redirect'] = array(
     'models',
     array(

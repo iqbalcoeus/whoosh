@@ -123,7 +123,7 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
         // User
         $not_uids_query->innerJoin('field_data_field_bat_unit', 'fbu', 'fbu.field_bat_unit_target_id = ebu.event_bat_unit_reference_target_id');
         $not_uids_query->addField('fbu', 'entity_id', 'uid');
-        $not_uids_query->groupBy('fbu.uid');
+        $not_uids_query->groupBy('fbu.entity_id');
 
         $not_uids = $not_uids_query->execute()->fetchCol(0);
 
