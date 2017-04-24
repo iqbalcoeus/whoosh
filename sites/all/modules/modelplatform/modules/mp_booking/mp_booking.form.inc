@@ -31,65 +31,45 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
     $customer_uid = $user->uid;
   }
 
-  $customer_job_nids = _mp_booking_get_customer_jobs($customer_uid);
+  $customer_jobs = _mp_booking_get_customer_jobs($customer_uid, array('nid', 'title'));
+  $defult_job_nid = NULL;
+  $count_jobs = count($customer_jobs);
+  if ($count_jobs) {
+    if ($count_jobs == 1) {
+      $nids = array_keys($customer_jobs);
+      $defult_job_nid = $nids[0];
+    }
 
-  $form['job_invitation_title'] = array(
-    '#type' => 'markup',
-    '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">'. t('Jobs') . '</h5>',
-  );
-  $form['model_uid'] = array(
-    '#type' => 'value',
-    '#value' => $model_uid,
-  );
-
-  $form['jobs'] = array(
-    '#type' => 'container',
-    '#tree' => TRUE,
-  );
-
-  module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
-  $auction = mp_auction_create(array('type' => 'auction'));
-
-  foreach ($customer_job_nids as $delta => $nid) {
-    $job = node_load($nid);
-    $job_wrapper = entity_metadata_wrapper('node', $job);
-    $job_teaser = node_view($job, 'teaser');
-
-    $form['jobs'][$delta] = array(
-      '#type' => 'container',
-      '#tree' => TRUE,
-    );
-
-    $form['jobs'][$delta]['job_nid'] = array(
+    $form['model_uid'] = array(
       '#type' => 'value',
-      '#value' => $nid,
-    );
-    $form['jobs'][$delta]['job_preview'] = array(
-      '#type' => 'markup',
-      '#markup' => drupal_render($job_teaser),
-      '#weight' => 0,
+      '#value' => $model_uid,
     );
 
-//    $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $job_wrapper->field_job_daily_rate_from->value() * 100;
-    $form_auction = mp_auction_edit_form($form, $form_state, $auction);
-    $form['jobs'][$delta]['job_cost'] = $form_auction['field_auction_cost_propose'];
-    $form['jobs'][$delta]['job_cost']['#weight'] = 2;
+    $form['jobs'] = array(
+      '#type' => 'select',
+      '#options' => $customer_jobs,
+      '#default_value' => $defult_job_nid,
+    );
 
-    $form['jobs'][$delta]['job_invite'] = array(
+    $form['job_invite'] = array(
       '#type' => 'submit',
-      '#value' => t('Send propose'),
-      '#name' => "job_invite_$delta",
+      '#value' => t('Option Please'),
+      '#name' => "job_invite",
       '#submit' => array(
         'mp_booking_job_model_invite_form_submit',
       ),
       '#validate' => array(
         'mp_booking_job_model_invite_form_validate',
       ),
-      '#weight' => 4,
+    );
+    $form['#validate'] = 'mp_booking_job_model_invite_form_validate';
+  }
+  else {
+    $form['info'] = array(
+      '#type' => 'markup',
+      '#markup' => t('You have no active Jobs'),
     );
   }
-
-  $form['#validate'] = 'mp_booking_job_model_invite_form_validate';
 
   return $form;
 }
@@ -100,27 +80,39 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
  * @see mp_booking_job_model_invite_form()
  */
 function mp_booking_job_model_invite_form_validate($form, &$form_state) {
-  if (!isset($form_state['triggering_element']['#parents'][1])) {
-    form_set_error(NULL, t('Submit Indentifier is miss.'));
+  $values = $form_state['values'];
+
+  $job_nid = $values['jobs'];
+  $job = node_load($job_nid);
+
+  $start_date = $end_date = NULL;
+
+  // Job dates check.
+  if (!isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+    form_set_error('jobs', t('Job start date is empty'));
   }
   else {
-    $delta = $form_state['triggering_element']['#parents'][1];
+    $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+  }
+  if (!isset($job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+    form_set_error('jobs', t('Job end date is empty'));
+  }
+  else {
+    $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+  }
 
-    // Node check.
-    if (!isset($form_state['values']['jobs'][$delta]['job_nid'])) {
-      form_set_error(NULL, t('Job Indentifier is miss.'));
-    }
-    elseif (intval($form_state['values']['jobs'][$delta]['job_nid']) <= 0) {
-      form_set_error(NULL, t('Job Indentifier is undefined.'));
-    }
+  // Model availability check.
+  if ($start_date && $end_date) {
+    // Get model unit.
+    $model_account = user_load($values['model_uid']);
+    $unit = _mp_booking_get_unit('user', $model_account);
 
-    // Daily rate propose.
-    $min_dily_rate = variable_get('mp_model_min_daily_rate', 500);
-    if (!isset($form_state['values']['jobs'][$delta]['job_cost'][LANGUAGE_NONE][0]['amount'])) {
-      form_set_error('jobs][' . $delta, t('Daily rate propose can not be empty.'));
-    }
-    elseif (intval($form_state['values']['jobs'][$delta]['job_cost'][LANGUAGE_NONE][0]['amount']) < $min_dily_rate) {
-      form_set_error('jobs][' . $delta, t('Daily rate propose can not be less then @daily_rate', array('@daily_rate' => $min_dily_rate)));
+    // Get unit events.
+    $events = _mp_booking_get_unit_events($unit, $start_date, $end_date, 1, FALSE);
+
+    // Check events.
+    if (count($events)) {
+      form_set_error('jobs', t('Model is already busy on this dates.'));
     }
   }
 }
@@ -133,38 +125,17 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
 function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   global $user;
 
-  $delta = $form_state['triggering_element']['#parents'][1];
   $values = $form_state['values'];
 
-  $job_nid = $values['jobs'][$delta]['job_nid'];
+  $job_nid = $values['jobs'];
   $job = node_load($job_nid);
 
-  // Job dates check.
-  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
-    $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
-  }
-  else {
-    return;
-  }
-  if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
-    $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
-  }
-  else {
-    return;
-  }
+  $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+  $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
 
   // Get model unit.
   $model_account = user_load($values['model_uid']);
   $unit = _mp_booking_get_unit('user', $model_account);
-
-  // Get unit events.
-  $events = _mp_booking_get_unit_events($unit, $start_date, $end_date, 1, FALSE);
-
-  // Check events.
-  if (count($events)) {
-    drupal_set_message(t('Model is already busy on this dates.'));
-    return;
-  }
 
   // Create event.
   $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $job_nid, $start_date, $end_date);
@@ -176,13 +147,14 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->name = 'Auction uid - ' . $user->uid;
   $auction->uid = $user->uid;
   $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-  $auction->field_auction_cost_propose = $form_state['values']['jobs'][$delta]['job_cost'];
+//  $auction->field_auction_cost_propose = $form_state['values']['jobs'][$delta]['job_cost'];
   mp_auction_save($auction);
-  drupal_set_message(t('Auction was created'));
+
+  drupal_set_message(t('Model was optioned'));
 
   // Redirect to the auction page.
-  $link = 'job/model/' . $event->event_id . '/auction';
-  $form_state['redirect'] = $link;
+//  $link = 'job/model/' . $event->event_id . '/auction';
+//  $form_state['redirect'] = $link;
 }
 
 /**

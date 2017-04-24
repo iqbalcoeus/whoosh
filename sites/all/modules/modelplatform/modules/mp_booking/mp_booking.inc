@@ -55,15 +55,15 @@ function _mp_booking_set_unit($entity_type, $entity, $unit) {
 /**
  * Get customer Jobs.
  */
-function _mp_booking_get_customer_jobs($customer_uid) {
-  $nids = db_select('node', 'n')
+function _mp_booking_get_customer_jobs($customer_uid, $_fields = array('nid')) {
+  $result = db_select('node', 'n')
     ->condition('type', 'job')
     ->condition('uid', $customer_uid)
-    ->fields('n', array('nid'))
+    ->fields('n', $_fields)
     ->execute()
-    ->fetchCol(0);
+    ->fetchAllKeyed();
 
-  return $nids;
+  return $result;
 }
 
 /**
