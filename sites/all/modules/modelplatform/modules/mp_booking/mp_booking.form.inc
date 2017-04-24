@@ -40,29 +40,72 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $defult_job_nid = $nids[0];
     }
 
-    $form['model_uid'] = array(
-      '#type' => 'value',
-      '#value' => $model_uid,
-    );
+    $auctioned_job = _mp_booking_get_job_auction($model_uid, $customer_uid);
+    if ($auctioned_job) {
 
-    $form['jobs'] = array(
-      '#type' => 'select',
-      '#options' => $customer_jobs,
-      '#default_value' => $defult_job_nid,
-    );
+      $field_status = field_get_items('node', $auctioned_job, 'field_auction_status');
+      $status = t('Empty status');
+      if (isset($field_status[0]['value'])) {
+        $status = $field_status[0]['value'];
+      }
 
-    $form['job_invite'] = array(
-      '#type' => 'submit',
-      '#value' => t('Option Please'),
-      '#name' => "job_invite",
-      '#submit' => array(
-        'mp_booking_job_model_invite_form_submit',
-      ),
-      '#validate' => array(
-        'mp_booking_job_model_invite_form_validate',
-      ),
-    );
-    $form['#validate'] = 'mp_booking_job_model_invite_form_validate';
+      $start_date = $end_date = NULL;
+      // Job dates.
+      if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+        $start_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+      }
+      if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+        $end_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+      }
+
+      $model_auctions = _mp_booking_get_model_auctions($model_uid, $start_date, $end_date);
+      $cnt = array_search($auctioned_job->nid, $model_auctions);
+
+      $form['job_status'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="job-status">',
+        '#markup' =>  $status,
+        '#suffix' => '</div>',
+      );
+
+      $form['job_number'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="job-number">',
+        '#markup' =>  $cnt + 1,
+        '#suffix' => '</div>',
+      );
+
+    }
+    else {
+      // Get model unit.
+      $model_account = user_load($model_uid);
+      $unit = _mp_booking_get_unit('user', $model_account);
+      $form_state['#unit'] = $unit;
+
+      $form['model_uid'] = array(
+        '#type' => 'value',
+        '#value' => $model_uid,
+      );
+
+      $form['jobs'] = array(
+        '#type' => 'select',
+        '#options' => $customer_jobs,
+        '#default_value' => $defult_job_nid,
+      );
+
+      $form['job_invite'] = array(
+        '#type' => 'submit',
+        '#value' => t('Option Please'),
+        '#name' => "job_invite",
+        '#submit' => array(
+          'mp_booking_job_model_invite_form_submit',
+        ),
+        '#validate' => array(
+          'mp_booking_job_model_invite_form_validate',
+        ),
+      );
+      $form['#validate'] = 'mp_booking_job_model_invite_form_validate';
+    }
   }
   else {
     $form['info'] = array(
@@ -103,12 +146,8 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
 
   // Model availability check.
   if ($start_date && $end_date) {
-    // Get model unit.
-    $model_account = user_load($values['model_uid']);
-    $unit = _mp_booking_get_unit('user', $model_account);
-
     // Get unit events.
-    $events = _mp_booking_get_unit_events($unit, $start_date, $end_date, 1, FALSE);
+    $events = _mp_booking_get_unit_events($form_state['#unit'], $start_date, $end_date, 1, FALSE);
 
     // Check events.
     if (count($events)) {
