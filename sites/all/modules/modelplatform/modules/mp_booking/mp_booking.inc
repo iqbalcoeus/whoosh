@@ -76,7 +76,7 @@ function _mp_booking_get_job_auction($model_uid, $customer_uid) {
   $event_query->innerJoin('field_data_field_auction_event', 'fae',
     'fae.entity_id = a.mp_auction_id && fae.entity_type = \'mp_auction\'');
   $event_query->innerJoin('bat_events', 'be',
-    'be.event_id = fae.fae.field_auction_event_target_id');
+    'be.event_id = fae.field_auction_event_target_id');
   $event_query->innerJoin('field_data_field_job', 'fj', 'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
   $event_query->innerJoin('node', 'n', 'n.nid = fj.field_job_target_id');
   $event_query->condition('n.uid', $customer_uid);
@@ -105,7 +105,7 @@ function _mp_booking_get_model_auctions($model_uid, $start_date, $end_date) {
   $event_query->innerJoin('field_data_field_auction_event', 'fae',
     'fae.entity_id = a.mp_auction_id && fae.entity_type = \'mp_auction\'');
   $event_query->innerJoin('bat_events', 'be',
-    'be.event_id = fae.fae.field_auction_event_target_id');
+    'be.event_id = fae.field_auction_event_target_id');
 
   // Job.
   $event_query->innerJoin('field_data_field_job', 'fj',
