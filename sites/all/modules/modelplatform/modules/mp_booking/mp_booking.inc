@@ -74,7 +74,7 @@ function _mp_booking_get_job_auction($model_uid, $customer_uid) {
 
   // BAT Event.
   $event_query->innerJoin('field_data_field_auction_event', 'fae',
-    'fae.entity_id = a.mp_auction_id && fae.entity_type = \'mp_auction\'');
+    'fae.entity_id = a.mp_auction_id AND fae.entity_type = \'mp_auction\'');
   $event_query->innerJoin('bat_events', 'be',
     'be.event_id = fae.field_auction_event_target_id');
   $event_query->innerJoin('field_data_field_job', 'fj', 'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
@@ -83,7 +83,7 @@ function _mp_booking_get_job_auction($model_uid, $customer_uid) {
 
   // BAT Unit.
   $event_query->innerJoin('field_data_event_bat_unit_reference', 'febu',
-    'febu.entity_id = fae.field_auction_event_target_id AND febu.entity_type = \'bat_unit\'');
+    'febu.entity_id = be.event_id AND febu.entity_type = \'bat_event\'');
   $event_query->innerJoin('field_data_field_bat_unit', 'fbu',
     'fbu.field_bat_unit_target_id = febu.event_bat_unit_reference_target_id AND fbu.entity_type = \'user\'');
   $event_query->condition('fbu.entity_id', $model_uid);
@@ -103,13 +103,14 @@ function _mp_booking_get_model_auctions($model_uid, $start_date, $end_date) {
 
   // BAT Event.
   $event_query->innerJoin('field_data_field_auction_event', 'fae',
-    'fae.entity_id = a.mp_auction_id && fae.entity_type = \'mp_auction\'');
+    'fae.entity_id = a.mp_auction_id AND fae.entity_type = \'mp_auction\'');
   $event_query->innerJoin('bat_events', 'be',
     'be.event_id = fae.field_auction_event_target_id');
 
   // Job.
   $event_query->innerJoin('field_data_field_job', 'fj',
     'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
+  $event_query->innerJoin('node', 'n', 'n.nid = fj.field_job_target_id');
 
   $or = db_or();
 
@@ -139,7 +140,7 @@ function _mp_booking_get_model_auctions($model_uid, $start_date, $end_date) {
 
   // BAT Unit.
   $event_query->innerJoin('field_data_event_bat_unit_reference', 'febu',
-    'febu.entity_id = fae.field_auction_event_target_id AND febu.entity_type = \'bat_unit\'');
+    'febu.entity_id = fae.field_auction_event_target_id AND febu.entity_type = \'bat_event\'');
 
   $event_query->innerJoin('field_data_field_bat_unit', 'fbu',
     'fbu.field_bat_unit_target_id = febu.event_bat_unit_reference_target_id AND fbu.entity_type = \'user\'');
