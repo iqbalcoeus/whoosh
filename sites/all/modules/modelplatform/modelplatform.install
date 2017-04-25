@@ -21,6 +21,9 @@ function modelplatform_update_7201() {
   }
 }
 
+/**
+ * Prepare new field for image.
+ */
 function modelplatform_update_7202() {
   $field = array(
     'field_name' => 'field_gallery_image',

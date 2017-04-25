@@ -57,12 +57,25 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $auction_id = $model_auctions[$auctioned_job->nid];
       $auction = mp_auction_load($auction_id);
       $status = t('Empty status');
+      $decision = '';
       if ($auction) {
         $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
         if (isset($field_status[0]['value'])) {
           $status = $field_status[0]['value'];
         }
+        $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
+        if (isset($field_decision[0]['value'])) {
+          $decision = $field_decision[0]['value'];
+        }
       }
+
+
+
+
+      $form['auction_id'] = array(
+        '#type' => 'value',
+        '#value' => $auction_id,
+      );
 
       $form['job_status'] = array(
         '#type' => 'markup',
@@ -74,10 +87,36 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' =>  $idx ? $idx + 1 : '<b>' . $idx + 1 . '</b>',
+        '#markup' =>  $idx > 0 ? $idx + 1 : '<b>' . $idx + 1 . '</b>',
         '#suffix' => '</div>',
       );
 
+      $form['actions'] = array(
+        '#type' => 'container',
+        '#tree' => TRUE,
+      );
+      $form['actions']['confirm'] = array(
+        '#type' => 'submit',
+        '#value' => t('Confirm'),
+        '#name' => 'job_confirm',
+        '#submit' => array(
+          'mp_booking_job_model_invite_form_confirm_submit',
+        ),
+      );
+      $form['actions']['cancel'] = array(
+        '#type' => 'submit',
+        '#value' => t('Cancel'),
+        '#name' => 'job_cancel',
+        '#submit' => array(
+          'mp_booking_job_model_invite_form_cancel_submit',
+        ),
+      );
+      $form['actions']['decision'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="auction-decision">',
+        '#markup' => $decision,
+        '#suffix' => '</div>',
+      );
     }
     else {
       // Get model unit.
@@ -197,6 +236,30 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   // Redirect to the auction page.
 //  $link = 'job/model/' . $event->event_id . '/auction';
 //  $form_state['redirect'] = $link;
+}
+
+/**
+ * Form submit.
+ *
+ * @see mp_booking_job_model_invite_form()
+ */
+function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
+  $mp_auction_id = $form_state['values']['auction_id'];
+  $auction = mp_auction_load($mp_auction_id);
+  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
+  mp_auction_save($auction);
+}
+
+/**
+ * Form submit.
+ *
+ * @see mp_booking_job_model_invite_form()
+ */
+function mp_booking_job_model_invite_form_cancel_submit($form, $form_state) {
+  $mp_auction_id = $form_state['values']['auction_id'];
+  $auction = mp_auction_load($mp_auction_id);
+  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Decline';
+  mp_auction_save($auction);
 }
 
 /**
