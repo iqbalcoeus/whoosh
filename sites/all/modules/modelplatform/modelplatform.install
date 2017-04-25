@@ -21,10 +21,25 @@ function modelplatform_update_7201() {
   }
 }
 
+function modelplatform_update_7202() {
+  $field = array(
+    'field_name' => 'field_gallery_image',
+    'type' => 'image',
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => $field['field_name'],
+    'entity_type' => 'node',
+    'bundle' => 'node_gallery_item',
+  );
+  field_create_instance($instance);
+}
+
 /**
  * Gallery media changed to simple image field.
  */
-function modelplatform_update_7202() {
+function modelplatform_update_7203() {
   $q = db_select('node', 'n');
   $q->condition('n.type', 'node_gallery_item');
   $q->fields('n', array('nid'));
@@ -42,7 +57,7 @@ function modelplatform_update_7202() {
 /**
  * Remove old instance.
  */
-function modelplatform_update_7203() {
+function modelplatform_update_7204() {
   $instance = field_info_instance('node', 'node_gallery_media', 'node_gallery_item');
   field_delete_instance($instance, FALSE);
 }
