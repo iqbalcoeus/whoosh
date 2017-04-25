@@ -85,9 +85,18 @@ function mp_galleries_node_presave($node) {
             ))
             ->execute();
 
-          if (isset($node->node_gallery_media[LANGUAGE_NONE][0]['fid'])) {
-            $account = user_load($node->uid);
-            $picture = file_load($node->node_gallery_media[LANGUAGE_NONE][0]['fid']);
+          $field_gallery_image = field_get_items('node', $node, 'field_gallery_image');
+          if (isset($field_gallery_image[0]['fid'])) {
+            $uid = $node->uid;
+            $gallery_ref = field_get_items('node', $node, 'node_gallery_ref_1');
+            if (isset($gallery_ref[0]['target_id'])) {
+              $gallery_nid = $gallery_ref[0]['target_id'];
+              if ($gallery = node_load($gallery_nid)) {
+                $uid = $gallery->uid;
+              }
+            }
+            $account = user_load($uid);
+            $picture = file_load($field_gallery_image[0]['fid']);
             $account->picture = $picture;
             user_save($account);
           }
