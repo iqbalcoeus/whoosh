@@ -8,10 +8,10 @@ $conf['file_temporary_path'] = 'D:\tmp';
 
 $databases['default']['default'] = array(
   'driver' => 'mysql',
-  'database' => 'models',
+  'database' => 'model',
   'username' => 'root',
   'port' => '3306',
-  'password' => '',
+  'password' => 'root',
   'host' => 'localhost',
   'prefix' => '',
 );

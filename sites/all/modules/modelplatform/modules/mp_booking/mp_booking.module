@@ -24,6 +24,11 @@ define('MP_BOOKING_STATE_JOB_CONTRACT', 3);
 define('MP_BOOKING_STATE_JOB_WAS_PROPOSED', 4);
 define('MP_BOOKING_STATE_AUCTION', 5);
 
+define('MP_BOOKING_AUCTION_REQUEST_SENT', 'request sent');
+define('MP_BOOKING_AUCTION_CONFIRMED', 'confirmed');
+define('MP_BOOKING_AUCTION_READ', 'read');
+define('MP_BOOKING_AUCTION_UNREAD', 'unread');
+
 require_once 'mp_booking.inc';
 require_once 'mp_booking.form.inc';
 

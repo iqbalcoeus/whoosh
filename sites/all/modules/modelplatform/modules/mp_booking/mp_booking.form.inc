@@ -186,7 +186,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->name = 'Auction uid - ' . $user->uid;
   $auction->uid = $user->uid;
   $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-//  $auction->field_auction_cost_propose = $form_state['values']['jobs'][$delta]['job_cost'];
+  $auction->field_auction_status[LANGUAGE_NONE][0]['value'] = MP_BOOKING_AUCTION_REQUEST_SENT;
   mp_auction_save($auction);
 
   drupal_set_message(t('Model was optioned'));
