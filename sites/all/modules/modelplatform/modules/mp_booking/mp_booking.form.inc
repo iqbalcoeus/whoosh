@@ -74,7 +74,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' =>  $idx + 1,
+        '#markup' =>  $idx ? $idx + 1 : '<b>' . $idx + 1 . '</b>',
         '#suffix' => '</div>',
       );
 
