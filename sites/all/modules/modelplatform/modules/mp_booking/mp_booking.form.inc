@@ -31,6 +31,11 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
     $customer_uid = $user->uid;
   }
 
+  // Get model unit.
+  $model_account = user_load($model_uid);
+  $unit = _mp_booking_get_unit('user', $model_account);
+  $form_state['#unit'] = $unit;
+
   $customer_jobs = _mp_booking_get_customer_jobs($customer_uid, array('nid', 'title'));
   $defult_job_nid = NULL;
   $count_jobs = count($customer_jobs);
@@ -81,7 +86,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#suffix' => '</div>',
       );
 
-      $values['jobs'] = array(
+      $form['jobs'] = array(
         '#type' => 'value',
         '#value' => $auctioned_job->nid,
       );
@@ -115,17 +120,12 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       );
       $form['actions']['decision'] = array(
         '#type' => 'markup',
-        '#prefix' => '<div class="auction-decision">',
-        '#markup' => $decision,
-        '#suffix' => '</div>',
+        '#prefix' => '<div class="auction-decision"><b>',
+        '#markup' => $decision == 'Accept' ? t('Confirmed') : t('Canceled'),
+        '#suffix' => '</b></div>',
       );
     }
     else {
-      // Get model unit.
-      $model_account = user_load($model_uid);
-      $unit = _mp_booking_get_unit('user', $model_account);
-      $form_state['#unit'] = $unit;
-
       $form['model_uid'] = array(
         '#type' => 'value',
         '#value' => $model_uid,
@@ -174,6 +174,7 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
 
   $start_date = $end_date = NULL;
 
+  dsm($values);
   // Job dates check.
   if (!isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
     form_set_error('jobs', t('Job start date is empty'));
