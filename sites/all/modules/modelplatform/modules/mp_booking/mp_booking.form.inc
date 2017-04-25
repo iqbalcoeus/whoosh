@@ -52,14 +52,16 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       }
 
       $model_auctions = _mp_booking_get_model_auctions($model_uid, $start_date, $end_date);
-      $idx = array_search($auctioned_job->nid, $model_auctions);
-      $auction_id = $model_auctions[$idx];
+      $keys = array_keys($model_auctions);
+      $idx = array_search($auctioned_job->nid, $keys);
+      $auction_id = $model_auctions[$auctioned_job->nid];
       $auction = mp_auction_load($auction_id);
-
-      $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
       $status = t('Empty status');
-      if (isset($field_status[0]['value'])) {
-        $status = $field_status[0]['value'];
+      if ($auction) {
+        $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
+        if (isset($field_status[0]['value'])) {
+          $status = $field_status[0]['value'];
+        }
       }
 
       $form['job_status'] = array(
