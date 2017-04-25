@@ -69,9 +69,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         }
       }
 
-
-
-
       $form['auction_id'] = array(
         '#type' => 'value',
         '#value' => $auction_id,
@@ -82,6 +79,11 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#prefix' => '<div class="job-status">',
         '#markup' =>  $status,
         '#suffix' => '</div>',
+      );
+
+      $values['jobs'] = array(
+        '#type' => 'value',
+        '#value' => $auctioned_job->nid,
       );
 
       $form['job_number'] = array(
