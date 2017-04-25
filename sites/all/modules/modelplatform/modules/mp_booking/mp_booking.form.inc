@@ -42,13 +42,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
 
     $auctioned_job = _mp_booking_get_job_auction($model_uid, $customer_uid);
     if ($auctioned_job) {
-
-      $field_status = field_get_items('node', $auctioned_job, 'field_auction_status');
-      $status = t('Empty status');
-      if (isset($field_status[0]['value'])) {
-        $status = $field_status[0]['value'];
-      }
-
       $start_date = $end_date = NULL;
       // Job dates.
       if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
@@ -59,7 +52,15 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       }
 
       $model_auctions = _mp_booking_get_model_auctions($model_uid, $start_date, $end_date);
-      $cnt = array_search($auctioned_job->nid, $model_auctions);
+      $idx = array_search($auctioned_job->nid, $model_auctions);
+      $auction_id = $model_auctions[$idx];
+      $auction = mp_auction_load($auction_id);
+
+      $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
+      $status = t('Empty status');
+      if (isset($field_status[0]['value'])) {
+        $status = $field_status[0]['value'];
+      }
 
       $form['job_status'] = array(
         '#type' => 'markup',
@@ -71,7 +72,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' =>  $cnt + 1,
+        '#markup' =>  $idx + 1,
         '#suffix' => '</div>',
       );
 

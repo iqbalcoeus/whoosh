@@ -147,10 +147,11 @@ function _mp_booking_get_model_auctions($model_uid, $start_date, $end_date) {
   $event_query->condition('fbu.entity_id', $model_uid);
 
   $event_query->addField('n', 'nid', 'job_nid');
+  $event_query->addField('a', 'mp_auction_id', 'mp_auction_id');
 
   $event_query->orderBy('a.created', 'ASC');
 
-  $result = $event_query->execute()->fetchCol(0);
+  $result = $event_query->execute()->fetchAllKeyed(0);
 
   return $result;
 }
