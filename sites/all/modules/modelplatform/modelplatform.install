@@ -20,3 +20,29 @@ function modelplatform_update_7201() {
     modelplatform_create_full_name($account);
   }
 }
+
+/**
+ * Gallery media changed to simple image field.
+ */
+function modelplatform_update_7202() {
+  $q = db_select('node', 'n');
+  $q->condition('n.type', 'node_gallery_item');
+  $q->fields('n', array('nid'));
+  $nids = $q->execute()->fetchCol(0);
+
+  $r = array();
+  foreach ($nids as $nid) {
+    $node = node_load($nid);
+    $fid = $node->node_gallery_media[LANGUAGE_NONE][0]['fid'];
+    $node->field_gallery_image[LANGUAGE_NONE][0] = (array)file_load($fid);
+    node_save($node);
+  }
+}
+
+/**
+ * Remove old instance.
+ */
+function modelplatform_update_7203() {
+  $instance = field_info_instance('node', 'node_gallery_media', 'node_gallery_item');
+  field_delete_instance($instance, FALSE);
+}

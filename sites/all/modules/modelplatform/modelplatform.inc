@@ -244,21 +244,3 @@ function modelplatform_mine_search_url($mine_search) {
 
   return $get_string;
 }
-
-/**
- * One time function clone gallery media files to gallery_image field.
- */
-function modelplatform_clone_gallery_media_to_image_field() {
-  $q = db_select('node', 'n');
-  $q->condition('n.type', 'node_gallery_item');
-  $q->fields('n', array('nid'));
-  $nids = $q->execute()->fetchCol(0);
-
-  $r = array();
-  foreach ($nids as $nid) {
-    $node = node_load($nid);
-    $fid = $node->node_gallery_media[LANGUAGE_NONE][0]['fid'];
-    $node->field_gallery_image[LANGUAGE_NONE][0] = (array)file_load($fid);
-    node_save($node);
-  }
-}
