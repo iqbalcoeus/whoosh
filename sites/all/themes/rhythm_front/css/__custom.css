@@ -3350,6 +3350,55 @@ ul.flippy li {
   margin: 0 4px;
 }
 
+.page-node-upload .node-node_gallery_item-form .image-widget-data {
+  width: 100%;
+}
+
+.page-node-upload .node-node_gallery_item-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.page-node-upload .node-node_gallery_item-form .image-widget-data input[type=file],
+.page-node-upload .node-node_gallery_item-form .image-widget-data input[type=submit] {
+  display: inline-block;
+}
+
+.page-node-upload .node-node_gallery_item-form select {
+  max-width: 300px;
+}
+
+.page-user-edit-galleries .node-add-image a {
+  padding: 8px 15px;
+  border-radius: 2px;
+  color: #fff;
+  background: rgba(34, 34, 34, .9);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: none;
+  -webkit-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
+
+.page-user-edit-galleries .node-add-image a:hover {
+  color: rgba(255, 255, 255, .85);
+  background: rgba(0, 0, 0, .7);
+}
+
+.page-user-edit-galleries ul.links.inline li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.page-user-edit-galleries ul.links.inline {
+  display: block;
+  padding-left: 0;
+}
+
 @media screen and (max-width: 767px) {
   .view-front-page-third .views-field-field-background-image.help-slide-217 {
     min-height: 300px;
