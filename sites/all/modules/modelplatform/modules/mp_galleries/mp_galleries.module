@@ -123,3 +123,12 @@ function _mp_galleries_create_revision($node, $from_state, $state) {
 
   return $new_revision;
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function mp_galleries_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id === 'node_gallery_item_node_form') {
+    $form['node_gallery_ref_1']['#access'] = FALSE;
+  }
+}

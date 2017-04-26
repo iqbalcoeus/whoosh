@@ -174,7 +174,6 @@ function mp_booking_job_model_invite_form_validate($form, &$form_state) {
 
   $start_date = $end_date = NULL;
 
-  dsm($values);
   // Job dates check.
   if (!isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
     form_set_error('jobs', t('Job start date is empty'));
