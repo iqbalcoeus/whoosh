@@ -3492,6 +3492,11 @@ a.add-more-images:hover {
   top: 0;
   right: 0;
   color: transparent;
+  display: none;
+}
+
+.block-views.gallery .view-content .views-row:hover .views-field-edit-node a {
+  display: inline-block;
 }
 
 .block-views.gallery .views-field-edit-node a:after {
