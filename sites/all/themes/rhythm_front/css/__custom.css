@@ -3521,6 +3521,10 @@ a.add-more-images:hover {
   display: block;
   position: fixed;
   z-index: 99999;
+  width: 65px;
+  height: 65px;
+  line-height: 65px;
+  color: transparent;
 }
 
 .block-views.gallery #model-gallery-next.active {
@@ -3543,10 +3547,13 @@ a.add-more-images:hover {
 
 .block-views.gallery #model-gallery-next.active:after,
 .block-views.gallery #model-gallery-prev.active:after {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  color: #fff;
+  display: block;
+  width: 65px;
+  height: 65px;
+  font-size: 65px;
+  line-height: 1;
+  margin-top: -40px;
+  color: #000;
   font-family: Fontawesome;
 }
 
