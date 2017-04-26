@@ -3431,6 +3431,14 @@ a.add-more-images:hover {
   width: 100%;
 }
 
+.page-job-model #mp-booking-job-model-invite-form .form-type-select {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 0 !important;
+  max-width: 200px;
+  width: 100%;
+}
+
 .block-views.options-models .views-row {
   width: 100%;
 }
