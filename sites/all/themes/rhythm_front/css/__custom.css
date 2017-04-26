@@ -3410,7 +3410,9 @@ a.add-more-images:hover {
 }
 
 .page-job-model #mp-booking-job-model-invite-form {
-  text-align: center;
+  text-align: left;
+  max-width: 1040px;
+  margin: 0 auto;
 }
 
 .page-job-model #mp-booking-job-model-invite-form .job-status,
