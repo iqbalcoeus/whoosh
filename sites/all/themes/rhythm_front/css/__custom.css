@@ -3511,13 +3511,13 @@ a.add-more-images:hover {
   font-family: Fontawesome;
 }
 
-.block-views.gallery #model-gallery-next,
-.block-views.gallery #model-gallery-prev {
+#model-gallery-next,
+#model-gallery-prev {
   display: none;
 }
 
-.block-views.gallery #model-gallery-next.active,
-.block-views.gallery #model-gallery-prev.active {
+#model-gallery-next.active,
+#model-gallery-prev.active {
   display: block;
   position: fixed;
   z-index: 99999;
@@ -3527,26 +3527,26 @@ a.add-more-images:hover {
   color: transparent;
 }
 
-.block-views.gallery #model-gallery-next.active {
+#model-gallery-next.active {
   right: 10px;
   top: 50%;
 }
 
-.block-views.gallery #model-gallery-prev.active {
+#model-gallery-prev.active {
   left: 10px;
   top: 50%;
 }
 
-.block-views.gallery #model-gallery-next.active:after {
+#model-gallery-next.active:after {
   content: "\f105";
 }
 
-.block-views.gallery #model-gallery-prev.active:after {
+#model-gallery-prev.active:after {
   content: "\f104";
 }
 
-.block-views.gallery #model-gallery-next.active:after,
-.block-views.gallery #model-gallery-prev.active:after {
+#model-gallery-next.active:after,
+#model-gallery-prev.active:after {
   display: block;
   width: 65px;
   height: 65px;
@@ -3555,6 +3555,10 @@ a.add-more-images:hover {
   margin-top: -40px;
   color: #000;
   font-family: Fontawesome;
+}
+
+#cboxCurrent {
+  display: none;
 }
 
 .page-user-edit-galleries ul.links.inline li {
