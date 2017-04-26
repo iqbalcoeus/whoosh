@@ -3368,7 +3368,8 @@ ul.flippy li {
   max-width: 300px;
 }
 
-.page-user-edit-galleries .node-add-image a {
+.page-user-edit-galleries .node-add-image a,
+a.add-more-images {
   padding: 8px 15px;
   border-radius: 2px;
   color: #fff;
@@ -3384,9 +3385,115 @@ ul.flippy li {
   transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
 }
 
-.page-user-edit-galleries .node-add-image a:hover {
+.node-add-image a:hover,
+a.add-more-images:hover {
   color: rgba(255, 255, 255, .85);
   background: rgba(0, 0, 0, .7);
+}
+
+.page-job-model .region-content {
+  text-align: center;
+}
+
+.page-job-model #block-mp-booking-mp-booking-calendar-form {
+  max-width: 530px;
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+}
+
+.page-job-model #block-views-model-job-invite-block {
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px 10px;
+}
+
+.page-job-model #mp-booking-job-model-invite-form {
+  text-align: center;
+}
+
+.page-job-model #mp-booking-job-model-invite-form .job-status,
+.page-job-model #mp-booking-job-model-invite-form .job-number {
+  display: inline-block;
+  margin: 2px;
+  vertical-align: middle;
+}
+
+.page-job-model #mp-booking-job-model-invite-form #edit-actions input,
+.page-job-model #mp-booking-job-model-invite-form .auction-decision {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px 3px;
+}
+
+.page-job-model #mp-booking-job-model-invite-form #edit-actions {
+  width: 100%;
+}
+
+.block-views.options-models .views-row {
+  width: 100%;
+}
+
+.block-views.options-models .view-models .view-content {
+  min-height: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.block-views.options-models .views-row > div {
+  display: inline-block;
+  vertical-align: top;
+  text-transform: uppercase;
+  margin: 5px 8px;
+}
+
+.block-views.options-models .views-row > div span,
+.block-views.options-models .views-row > div div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.block-views.gallery .view-content {
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.block-views.gallery .view-content .views-row {
+  margin: 3px;
+  position: relative;
+}
+
+.block-views.gallery .views-field-edit-node a {
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  right: 0;
+  color: transparent;
+}
+
+.block-views.gallery .views-field-edit-node a:after {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  top: 0;
+  right: 0;
+  color: #000;
+  position: absolute;
+  content: "\f040";
+  font-family: Fontawesome;
 }
 
 .page-user-edit-galleries ul.links.inline li {
