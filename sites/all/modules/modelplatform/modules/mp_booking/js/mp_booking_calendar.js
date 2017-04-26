@@ -70,6 +70,21 @@
         $('input[name="bat_end_date[date]"]').attr('placeholder', 'End date');
         $('input[name="bat_start_date[time]"]').attr('placeholder', '10:00 AM');
         $('input[name="bat_end_date[time]"]').attr('placeholder', '10:00 AM');
+
+        $('#model-gallery-next').click(function() {
+          $('#cboxNext').click();
+        });
+        $('#model-gallery-prev').click(function() {
+          $('#cboxPrevious').click();
+        });
+        $(document).bind('cbox_open', function() {
+          $('#model-gallery-next').addClass('active');
+          $('#model-gallery-prev').addClass('active');
+        });
+        $(document).bind('cbox_closed', function() {
+          $('#model-gallery-next').removeClass('active');
+          $('#model-gallery-prev').removeClass('active');
+        });
       });
     }
   };
