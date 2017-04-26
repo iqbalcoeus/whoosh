@@ -20,14 +20,14 @@
           $('#cboxClose', context).animate({opacity: 1}, {queue: false, duration: "fast"});
           if ($('#cboxTitle:empty', context).length == false) {
             $('#cboxTitle', context).slideDown();
-          }
-        });
+        }
+      });
         $('#cboxOverlay', context).bind('mouseover', function () {
           $('#cboxClose', context).animate({opacity: 0}, {queue: false, duration: "fast"});
           if ($('#cboxTitle:empty', context).length == false) {
             $('#cboxTitle', context).slideUp();
           }
-        });
+      });
       });
       $(context).bind('cbox_closed', function () {
         $('#cboxClose', context).removeClass('cbox-close-plain');

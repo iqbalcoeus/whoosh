@@ -9,30 +9,24 @@
   z-index: 9999;
   overflow: hidden;
 }
-
 #cboxOverlay {
   position: fixed;
   width: 100%;
   height: 100%;
 }
-
 #cboxMiddleLeft, #cboxBottomLeft {
   clear: left;
 }
-
 #cboxContent {
   position: relative;
 }
-
 #cboxLoadedContent {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
-
 #cboxTitle {
   margin: 0;
 }
-
 #cboxLoadingOverlay, #cboxLoadingGraphic {
   position: absolute;
   top: 0;
@@ -40,7 +34,6 @@
   width: 100%;
   height: 100%;
 }
-
 /**
  * These elements are buttons, and may need to have additional
  * styles reset to avoid unwanted base styles.
@@ -54,7 +47,6 @@
   background: none;
   cursor: pointer;
 }
-
 /**
  * Avoid outlines on :active (mouseclick),
  * but preserve outlines on :focus (tabbed navigating)
@@ -62,7 +54,6 @@
 #cboxPrevious:active, #cboxNext:active, #cboxClose:active, #cboxSlideshow:active {
   outline: 0;
 }
-
 .cboxPhoto {
   float: left;
   margin: auto;
@@ -70,14 +61,12 @@
   display: block;
   max-width: none;
 }
-
 .cboxIframe {
   width: 100%;
   height: 100%;
   display: block;
   border: 0;
 }
-
 /* Reset box sizing to content-box if theme is using border-box. */
 #colorbox, #cboxContent, #cboxLoadedContent {
   -moz-box-sizing: content-box;
@@ -107,7 +96,6 @@
   border-bottom-right-radius: 9px;
   outline: 0;
 }
-
 #colorbox, #colorbox div {
   overflow: visible; /* Required by the close button. */
 }
