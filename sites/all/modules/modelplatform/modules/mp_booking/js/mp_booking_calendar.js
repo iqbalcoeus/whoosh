@@ -71,11 +71,14 @@
         $('input[name="bat_start_date[time]"]').attr('placeholder', '10:00 AM');
         $('input[name="bat_end_date[time]"]').attr('placeholder', '10:00 AM');
 
+        $('#model-gallery-next').appendTo('body');
+        $('#model-gallery-prev').appendTo('body');
+
         $('#model-gallery-next').click(function() {
-          $('#cboxNext').click();
+          $.colorbox.next();
         });
         $('#model-gallery-prev').click(function() {
-          $('#cboxPrevious').click();
+          $.colorbox.prev();
         });
         $(document).bind('cbox_open', function() {
           $('#model-gallery-next').addClass('active');
