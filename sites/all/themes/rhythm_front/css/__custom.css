@@ -3529,7 +3529,7 @@ a.add-more-images:hover {
 
 #model-gallery-next.active {
   right: 10px;
-  top: 50%;
+  top: 46%;
 }
 
 #model-gallery-prev.active {
@@ -3553,12 +3553,65 @@ a.add-more-images:hover {
   font-size: 65px;
   line-height: 1;
   margin-top: -40px;
-  color: #000;
+  color: #fff;
+  opacity: 0.4;
   font-family: Fontawesome;
+  cursor: pointer;
 }
 
-#cboxCurrent {
+#model-gallery-next.active:hover:after,
+#model-gallery-prev.active:hover:after {
+  opacity: 0.9;
+}
+
+#cboxContent {
+  background: none;
+}
+
+#cboxLoadedContent {
+  border: 0;
+}
+
+#cboxClose {
+  position: absolute;
+  top: -22px;
+  right: -3px;
+  opacity: 0.7;
   display: none;
+  background: none;
+  width: 21px;
+  height: 21px;
+  color: transparent;
+  text-indent: 0;
+  outline: 0;
+}
+
+#colorbox:hover #cboxClose {
+  display: block;
+}
+
+#cboxClose:after {
+  display: block;
+  width: 21px;
+  height: 21px;
+  font-size: 21px;
+  line-height: 1;
+  color: #fff;
+  font-family: Fontawesome;
+  content: "\f00d";
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#cboxClose:hover {
+  opacity: 0.9;
+}
+
+#cboxPrevious,
+#cboxNext,
+#cboxCurrent {
+  display: none !important;
 }
 
 .page-user-edit-galleries ul.links.inline li {
