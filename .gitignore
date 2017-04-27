@@ -4,6 +4,7 @@
 /files/*
 /cache
 /.idea
+/sites/default/private_files/
 
 /sites/default/local.settings.php
 
