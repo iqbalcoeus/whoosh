@@ -385,3 +385,46 @@ function mp_booking_model_propose($nid) {
 
   drupal_goto('job/model/' . $event->event_id . '/auction');
 }
+
+function mp_booking_job_model_search($nid) {
+  $goto_front = FALSE;
+
+  if ($job = node_load($nid)) {
+    // Job dates check.
+    if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+      $start_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+      $start_date_array = explode(' ', $start_date);
+      $start_date = $start_date_array[0];
+    }
+    else {
+      $goto_front = TRUE;
+    }
+    if (isset($job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+      $end_date = $job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+      $end_date_array = explode(' ', $end_date);
+      $end_date = $end_date_array[0];
+    }
+    else {
+      $goto_front = TRUE;
+    }
+  }
+  else {
+    $goto_front = TRUE;
+  }
+
+  if ($goto_front) {
+    drupal_goto('<front>');
+  }
+  else {
+    $query = array(
+      'start_date' => array(
+        'date' => $start_date,
+      ),
+      'end_date' => array(
+        'date' => $end_date,
+      ),
+      'daily_rate' => $job->field_job_daily_rate_to[LANGUAGE_NONE][0]['value'],
+    );
+    drupal_goto('models', array('query' => $query));
+  }
+}

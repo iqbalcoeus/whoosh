@@ -62,6 +62,14 @@ function mp_booking_menu() {
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
+  $items['job/%/model-search'] = array(
+    'title' => t('Job search redirect page'),
+    'page callback' => 'mp_booking_job_model_search',
+    'page arguments' => array(1),
+    'access callback' => 'user_access',
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
+  );
+
   return $items;
 }
 
