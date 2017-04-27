@@ -10,6 +10,140 @@
 function model_platform_gallery_feature_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'mp_auction-auction-field_auction_cost_propose'.
+  $field_instances['mp_auction-auction-field_auction_cost_propose'] = array(
+    'bundle' => 'auction',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'commerce_price',
+        'settings' => array(
+          'calculation' => FALSE,
+        ),
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'mp_auction',
+    'field_name' => 'field_auction_cost_propose',
+    'label' => 'Cost propose',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_full',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'mp_auction-auction-field_auction_decision'.
+  $field_instances['mp_auction-auction-field_auction_decision'] = array(
+    'bundle' => 'auction',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'mp_auction',
+    'field_name' => 'field_auction_decision',
+    'label' => 'Decision',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'mp_auction-auction-field_auction_event'.
+  $field_instances['mp_auction-auction-field_auction_event'] = array(
+    'bundle' => 'auction',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'mp_auction',
+    'field_name' => 'field_auction_event',
+    'label' => 'Event',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'mp_auction-auction-field_auction_status'.
+  $field_instances['mp_auction-auction-field_auction_status'] = array(
+    'bundle' => 'auction',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'mp_auction',
+    'field_name' => 'field_auction_status',
+    'label' => 'Status',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-node_gallery_item-field_gallery_image'.
   $field_instances['node-node_gallery_item-field_gallery_image'] = array(
     'bundle' => 'node_gallery_item',
@@ -323,10 +457,14 @@ function model_platform_gallery_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Cost propose');
+  t('Decision');
+  t('Event');
   t('Galleries');
   t('Image');
   t('Image category');
   t('Profile image');
+  t('Status');
   t('Verification status');
 
   return $field_instances;

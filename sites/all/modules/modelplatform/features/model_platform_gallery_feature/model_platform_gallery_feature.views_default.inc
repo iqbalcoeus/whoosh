@@ -2532,7 +2532,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['relationship'] = 'profile';
-  $handler->display->display_options['fields']['field_daily_rate']['label'] = 'Daily Rate';
   $handler->display->display_options['fields']['field_daily_rate']['settings'] = array(
     'thousand_separator' => '',
     'prefix_suffix' => 1,
@@ -2929,7 +2928,6 @@ function model_platform_gallery_feature_views_default_views() {
     t('Prepare propose.'),
     t('Block'),
     t('[name]'),
-    t('Daily Rate'),
     t('Shoes'),
     t('Hair'),
     t('Eyes'),
