@@ -35,7 +35,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<a href="node/add/node-gallery-item" class="add-more-images">Add more images</a>
+  $handler->display->display_options['header']['area']['content'] = '<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
@@ -109,6 +109,14 @@ function model_platform_gallery_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<div id="model-gallery-next"></div>
+<div id="model-gallery-prev"></div>';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
@@ -200,12 +208,14 @@ function model_platform_gallery_feature_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('<a href="node/add/node-gallery-item" class="add-more-images">Add more images</a>
+    t('<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>'),
     t('Edit'),
     t('All'),
     t('Block'),
+    t('<div id="model-gallery-next"></div>
+<div id="model-gallery-prev"></div>'),
     t('Model images - Job'),
     t('Model images - Gallery'),
   );
@@ -2513,15 +2523,16 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'users';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['relationship'] = 'profile';
-  $handler->display->display_options['fields']['field_daily_rate']['label'] = '';
-  $handler->display->display_options['fields']['field_daily_rate']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_daily_rate']['label'] = 'Daily Rate';
   $handler->display->display_options['fields']['field_daily_rate']['settings'] = array(
     'thousand_separator' => '',
     'prefix_suffix' => 1,
@@ -2545,7 +2556,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_age_category']['table'] = 'field_data_field_age_category';
   $handler->display->display_options['fields']['field_age_category']['field'] = 'field_age_category';
   $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile';
-  $handler->display->display_options['fields']['field_age_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_age_category']['group_column'] = 'entity_id';
   /* Field: Profile: Height */
   $handler->display->display_options['fields']['field_height']['id'] = 'field_height';
@@ -2919,6 +2929,7 @@ function model_platform_gallery_feature_views_default_views() {
     t('Prepare propose.'),
     t('Block'),
     t('[name]'),
+    t('Daily Rate'),
     t('Shoes'),
     t('Hair'),
     t('Eyes'),

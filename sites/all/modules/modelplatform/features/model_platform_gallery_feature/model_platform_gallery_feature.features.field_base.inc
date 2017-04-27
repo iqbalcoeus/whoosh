@@ -32,8 +32,10 @@ function model_platform_gallery_feature_field_default_field_bases() {
       'profile2_private' => FALSE,
       'uri_scheme' => 'public',
     ),
+    'title' => 'Image',
     'translatable' => 0,
     'type' => 'image',
+    'weight' => -1,
   );
 
   // Exported field_base: 'field_image_category'.
