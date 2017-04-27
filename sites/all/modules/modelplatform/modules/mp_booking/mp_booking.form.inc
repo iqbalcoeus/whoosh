@@ -66,7 +66,9 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       if ($auction) {
         $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
         if (isset($field_status[0]['value'])) {
-          $status = $field_status[0]['value'];
+          $field = field_info_field('field_auction_status');
+          $values = list_allowed_values($field);
+          $status = $values[$field_status[0]['value']];
         }
         $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
         if (isset($field_decision[0]['value'])) {
