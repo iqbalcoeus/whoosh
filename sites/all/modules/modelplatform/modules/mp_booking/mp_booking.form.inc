@@ -120,10 +120,19 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
           'mp_booking_job_model_invite_form_cancel_submit',
         ),
       );
+      if ($decision == 'Accept') {
+        $decision = t('Confirmed');
+      }
+      else if ($decision == 'Decline') {
+        $decision = t('Canceled');
+      }
+      else {
+        $decision = '';
+      }
       $form['actions']['decision'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="auction-decision"><b>',
-        '#markup' => $decision == 'Accept' ? t('Confirmed') : t('Canceled'),
+        '#markup' => $decision,
         '#suffix' => '</b></div>',
       );
     }
