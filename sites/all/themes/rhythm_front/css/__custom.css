@@ -3525,16 +3525,16 @@ a.add-more-images:hover {
   height: 65px;
   line-height: 65px;
   color: transparent;
+  top: 50%;
+  margin-top: -32px;
 }
 
 #model-gallery-next.active {
-  right: 10px;
-  top: 46%;
+  right: -30px;
 }
 
 #model-gallery-prev.active {
   left: 10px;
-  top: 50%;
 }
 
 #model-gallery-next.active:after {

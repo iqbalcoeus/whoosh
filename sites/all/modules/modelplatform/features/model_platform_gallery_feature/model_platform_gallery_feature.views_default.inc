@@ -2425,14 +2425,28 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
+  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
+  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
   $handler->display->display_options['fields']['picture']['field'] = 'picture';
   $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['picture']['alter']['path'] = 'job/model/[uid]/invite';
   $handler->display->display_options['fields']['picture']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['picture']['alter']['preserve_tags'] = '<a> <img>';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -2473,17 +2487,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile';
   $handler->display->display_options['fields']['field_age_category']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_age_category']['element_label_colon'] = FALSE;
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
-  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
-  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -2694,14 +2697,28 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'casting_mark';
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
+  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
+  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
   $handler->display->display_options['fields']['picture']['field'] = 'picture';
   $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['picture']['alter']['path'] = 'job/model/[uid]/invite';
   $handler->display->display_options['fields']['picture']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['picture']['alter']['preserve_tags'] = '<a> <img>';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -2742,17 +2759,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile';
   $handler->display->display_options['fields']['field_age_category']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_age_category']['element_label_colon'] = FALSE;
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
-  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
-  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -2791,14 +2797,29 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
+  $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
+  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
   $handler->display->display_options['fields']['picture']['field'] = 'picture';
   $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['picture']['alter']['path'] = 'job/model/[uid]/invite';
   $handler->display->display_options['fields']['picture']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['picture']['alter']['preserve_tags'] = '<a> <img>';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -2839,17 +2860,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile';
   $handler->display->display_options['fields']['field_age_category']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_age_category']['element_label_colon'] = FALSE;
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['alter']['text'] = 'Prepare propose.';
-  $handler->display->display_options['fields']['uid']['alter']['path'] = 'job/model/[uid]/invite';
-  $handler->display->display_options['fields']['uid']['alter']['target'] = '_blank';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
