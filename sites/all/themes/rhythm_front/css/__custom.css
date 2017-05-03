@@ -4541,3 +4541,6 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 /* HARDCODE END */
+.page-job-model-invite .block-mp-booking {
+  display: none;
+}
