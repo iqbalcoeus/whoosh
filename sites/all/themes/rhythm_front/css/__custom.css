@@ -3403,6 +3403,14 @@ a.add-more-images:hover {
   margin: 10px;
 }
 
+.page-job-model .block.block-system {
+  max-width: 530px;
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+}
+
 .page-job-model #block-views-model-job-invite-block {
   display: inline-block;
   vertical-align: top;
@@ -4541,6 +4549,6 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 /* HARDCODE END */
-.page-job-model-invite .block-mp-booking {
+.page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
 }
