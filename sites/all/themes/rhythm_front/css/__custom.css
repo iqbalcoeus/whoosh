@@ -3768,6 +3768,33 @@ a.add-more-images:hover {
   padding: 0 20px;
 }
 
+.mp-pdf-link {
+  display: inline-block;
+  font-size: 0;
+  float: right;
+}
+
+.mp-pdf-link:after {
+  content: "\f02f";
+  display: inline-block;
+  font-family: FontAwesome;
+  color: #000;
+  font-size: 25px !important;
+}
+
+#node-236 .field-name-body,
+#node-216 .field-name-body {
+  clear: both;
+}
+
+#node-236 .content,
+#node-216 .content {
+  max-width: 616px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
 /* Hide tabs */
 .front .container {
   display: none;
