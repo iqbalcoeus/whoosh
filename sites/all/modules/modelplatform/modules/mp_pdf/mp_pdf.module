@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Model platform - PDF module.
+ */
+
+define('MP_PDF_BLOCK_POLICY', 17);
+define('MP_PDF_BLOCK_TERMS', 18);
+define('MP_PDF_NODE_IMPRINT', 236);
+
+/**
+ * Implements hook_menu().
+ */
+function mp_pdf_menu() {
+  $items = array();
+
+  $items['mp_pdf/terms'] = array(
+    'title' => t('Privace policy and Terms'),
+    'page callback' => 'mp_pdf_policy_terms',
+    'access arguments' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['mp_pdf/imprint'] = array(
+    'title' => t('Imprint'),
+    'page callback' => 'mp_pdf_imprint',
+    'access arguments' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function mp_pdf_policy_terms() {
+  $block = module_invoke('block', 'block_view', MP_PDF_BLOCK_POLICY);
+  $policy = render($block['content']);
+
+  $block = module_invoke('block', 'block_view', MP_PDF_BLOCK_TERMS);
+  $terms = render($block['content']);
+
+  $html = $policy . $terms;
+
+  pdf_using_mpdf_api($html);
+}
+
+function mp_pdf_imprint() {
+  $node = node_load(MP_PDF_NODE_IMPRINT);
+  $node_view = node_view($node, 'full');
+  $imprint = render($node_view);
+
+  pdf_using_mpdf_api($imprint);
+}

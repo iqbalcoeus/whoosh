@@ -1,0 +1,6 @@
+name = Model Platform - PDF
+description = "Model Platform - PDF"
+core = 7.x
+package = Model Platform
+
+dependencies[] = pdf_using_mpdf
