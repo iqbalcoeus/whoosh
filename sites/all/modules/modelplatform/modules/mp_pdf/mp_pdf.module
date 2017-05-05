@@ -18,14 +18,14 @@ function mp_pdf_menu() {
   $items['mp_pdf/terms'] = array(
     'title' => t('Privace policy and Terms'),
     'page callback' => 'mp_pdf_policy_terms',
-    'access arguments' => TRUE,
+    'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
 
   $items['mp_pdf/imprint'] = array(
     'title' => t('Imprint'),
     'page callback' => 'mp_pdf_imprint',
-    'access arguments' => TRUE,
+    'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
 
