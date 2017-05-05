@@ -84,3 +84,45 @@ function mp_registration_xing_connect_register_alter(&$fields, $xing_candidate_i
   $fields['field_first_name'][LANGUAGE_NONE][0]['value'] = $xing_candidate_info['users'][0]['first_name'];
   $fields['field_last_name'][LANGUAGE_NONE][0]['value'] = $xing_candidate_info['users'][0]['last_name'];
 }
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function mp_registration_block_view_alter(&$data, $block) {
+  global $is_https;
+  global $base_url;
+
+  if ($block->delta === 'social_login_widget') {
+    // Read Settings.
+    $settings = social_login_widget_get_settings();
+
+    $css_path = $base_url . '/' . drupal_get_path('module', 'mp_registration') . '/css/mp_social_login.css';
+
+    // Container to add the buttons to.
+    $containerid = 'social_login_providers_' . rand(99999, 9999999);
+    $data['content']['#markup'] = theme('social_login_widget_provider_container_block', array('containerid' => $containerid));
+
+    //Get Javscript Library
+    $js_library = social_login_widget_get_js_library($settings['api_subdomain'], $is_https);
+
+    //Get inline Javascript.
+    $js_inline = social_login_widget_get_js_plugin('social_login', $settings['api_subdomain'], $settings['enabled_providers'], $containerid);
+    $js_inline .= '_oneall.push([\'social_login\', \'set_custom_css_uri\', \'' . $css_path . '\');\n';
+
+    // Build the callback uri.
+    $callback_uri = url('social_login/callback', array('absolute' => TRUE, 'query' => array ('origin' => $base_url)));
+
+    $js_inline = "
+      var _oneall = _oneall || [];
+      _oneall.push(['social_login', 'set_callback_uri', '$callback_uri']);
+      _oneall.push(['social_login', 'set_providers', ['facebook', 'instagram', 'linkedin']]);
+      _oneall.push(['social_login', 'set_custom_css_uri', '$css_path']);
+      _oneall.push(['social_login', 'do_render_ui', '$containerid']);
+    ";
+    // Attached cacheable Javascript
+    $data['content']['#attached']['js'] = array(
+      $js_library => array('type' => 'external'),
+      $js_inline => array('type' => 'inline', 'scope' => 'footer'),
+    );
+  }
+}

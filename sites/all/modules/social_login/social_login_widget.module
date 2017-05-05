@@ -27,7 +27,7 @@ function social_login_widget_get_js_plugin($plugin_type, $subdomain, $providers,
   	} else {
   		$origin = social_login_get_current_url($is_https);
   	}
-  	
+
     // Build the callback uri.
     $callback_uri = url('social_login/callback', array('absolute' => TRUE, 'query' => array ('origin' => $origin)));
 
@@ -44,7 +44,7 @@ function social_login_widget_get_js_plugin($plugin_type, $subdomain, $providers,
         $js[] = "_oneall.push(['". $plugin_type ."', 'set_user_token', '". $user_token ."']);";
       }
     }
-    
+
     $js[] = "_oneall.push(['". $plugin_type ."', 'do_render_ui', '". $containerid ."']);";
     $js[] = "<!-- OneAll.com / Social Login for Drupal -->";
     $js = implode("\n", $js);
