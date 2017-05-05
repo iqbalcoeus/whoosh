@@ -32,6 +32,34 @@ function mp_pdf_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_node_view_alter().
+ */
+function mp_pdf_node_view_alter(&$build) {
+  $node = $build['#node'];
+
+  switch($node->nid) {
+    case 216:
+      $link = 'mp_pdf/terms';
+      break;
+
+    case 236:
+      $link = 'mp_pdf/imprint';
+      break;
+
+    default:
+      $link = '';
+  }
+
+  if ($link) {
+    $build['mp_pdf_link'] = array(
+      '#type' => 'markup',
+      '#markup' => l(t('Print'), $link, array('attributes' => array('class' => array('mp-pdf-link')))),
+      '#weight' => -1,
+    );
+  }
+}
+
 function mp_pdf_policy_terms() {
   $block = module_invoke('block', 'block_view', MP_PDF_BLOCK_POLICY);
   $policy = render($block['content']);
