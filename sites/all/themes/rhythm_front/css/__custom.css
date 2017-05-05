@@ -3762,6 +3762,12 @@ a.add-more-images:hover {
   padding-top: 20px;
 }
 
+.front.block .header-title img {
+  max-width: 360px;
+  width: 100%;
+  padding: 0 20px;
+}
+
 /* Hide tabs */
 .front .container {
   display: none;
