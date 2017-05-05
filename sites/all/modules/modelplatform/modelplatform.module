@@ -8,11 +8,15 @@ define('MODELPLATFORM_MODEL_ROLE_NAME', 'Model');
 // Vocabularies.
 define('MODELPLATFORM_VOCABULARY_AGE_CATEGORY', 'age_category');
 
+define('MODELPLATFORM_JOB_STATUS_CREATED', 95);
+define('MODELPLATFORM_JOB_STATUS_DRAFTED', 104);
+
 /**
  * Implements hook_menu().
  */
 function modelplatform_menu() {
   $items = array();
+
   $items['admin/configure/modelplatform/documents'] = array(
     'title' => t('Modelplatform documents'),
     'page callback' => 'drupal_get_form',
@@ -237,6 +241,20 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     case 'job_node_form':
+      if (isset($form['#node']->nid)
+        && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
+        $field_job_status = field_get_items('node', $form['#node'], 'field_job_status');
+        if (isset($field_job_status[0]['tid']) && $field_job_status[0]['tid'] == MODELPLATFORM_JOB_STATUS_DRAFTED) {
+          $form['actions']['template'] = array(
+            '#type' => 'submit',
+            '#value' => t('Save as Job template'),
+            '#submit' => array(
+              'modelplatform_job_node_form_template',
+            ),
+          );
+        }
+      }
+    case 'job_template_node_form':
       $form['actions']['submit']['#submit'][] = 'modelplatform_job_node_form_submit';
       if (isset($form['#node']->nid)
       && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {

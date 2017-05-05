@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model Platform - Job template feature.
+ */
+
+include_once 'model_platform_job_template.features.inc';

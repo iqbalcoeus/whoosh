@@ -139,9 +139,10 @@ function modelplatform_job_node_form_validate($form, &$form_state) {
  */
 function modelplatform_job_clone($node) {
   $job = $node;
+  $job->type = 'job';
   $job->nid = $job->vid = NULL;
-  $job->field_job_start_date = NULL;
-  $job->field_job_payment_approval = NULL;
+//  $job->field_job_start_date = NULL;
+//  $job->field_job_payment_approval = NULL;
   $job->created = REQUEST_TIME;
   $job->changed = REQUEST_TIME;
   node_save($job);
@@ -155,6 +156,26 @@ function modelplatform_job_clone($node) {
   drupal_set_message($message);
 
   return $job;
+}
+
+/**
+ * Save job as template.
+ *
+ * @see modelplatform_form_alter()
+ */
+function modelplatform_job_node_form_template($form, &$form_state) {
+  $job = $form['#node'];
+  $job->type = 'job_template';
+  $job->created = REQUEST_TIME;
+  $job->changed = REQUEST_TIME;
+  $job->nid = $job->vid = NULL;
+
+  $job_template_wrapper = entity_metadata_wrapper('node', $job);
+  $term = taxonomy_term_load(MODELPLATFORM_JOB_STATUS_CREATED);
+  $job_template_wrapper->field_job_status->set($term);
+  $job_template_wrapper->save();
+
+  drupal_set_message(t('Job template was created.'));
 }
 
 /**
