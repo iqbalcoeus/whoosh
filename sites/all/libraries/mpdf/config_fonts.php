@@ -264,6 +264,18 @@ $this->fontdata = array(
 	),
 */
 
+  'open_sansregular' => array(
+    'R' => 'OpenSans-Regular.ttf',
+  ),
+  'open_sanslight' => array(
+    'R' => 'OpenSans-Light.ttf',
+  ),
+  'open_sansbold' => array(
+    'R' => 'OpenSans-Bold.ttf',
+  ),
+  'dosisregular' => array(
+    'R' => 'Dosis-Regular.ttf',
+  ),
 );
 
 
