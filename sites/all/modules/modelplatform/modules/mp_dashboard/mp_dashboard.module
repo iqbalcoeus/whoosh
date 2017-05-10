@@ -5,7 +5,8 @@
  * Model platform - Dashboard
  */
 
-define('MP_DASHBOARD_CUSTOMER_PERMISSION', 'customer dashboard access');
+define('MP_DASHBOARD_CUSTOMER_ACCESS', 'customer dashboard access');
+define('MP_DASHBOARD_ACCESS', 'modelplatform dashboard access');
 
 /**
  * Implements hook_menu().
@@ -15,11 +16,25 @@ function mp_dashboard_menu() {
 
   $items['customer/dashboard'] = array(
     'title' => 'Dashboard',
+    'page callback' => 'mp_dashboard_customer_page',
+    'access arguments' => array(MP_DASHBOARD_CUSTOMER_PERMISSION),
+  );
+  $items['dashboard'] = array(
+    'title' => 'Dashboard',
     'page callback' => 'mp_dashboard_page',
     'access arguments' => array(MP_DASHBOARD_CUSTOMER_PERMISSION),
   );
 
   return $items;
+}
+
+/**
+ * Dashboard page callback.
+ */
+function mp_dashboard_customer_page() {
+  $output = '';
+
+  return $output;
 }
 
 /**
@@ -39,6 +54,10 @@ function mp_dashboard_permission() {
     MP_DASHBOARD_CUSTOMER_PERMISSION => array(
       'title' => t('Customer dashboard access'),
       'description' => t('Perform customer dashboard access.'),
+    ),
+    MP_DASHBOARD_ACCESS => array(
+      'title' => t('Dashboard access'),
+      'description' => t('Perform dashboard access.'),
     ),
   );
 }
