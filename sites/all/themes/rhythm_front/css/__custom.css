@@ -759,13 +759,15 @@ html.js input.throbbing {
   margin-top: 30px;
 }
 
-#block-views-my-jobs-block h3 {
+#block-views-my-jobs-block h3,
+.view-my-jobs h3 {
   flex: 1 1 100%;
   padding-left: 5px;
   margin-top: 30px;
 }
 
-#block-views-my-jobs-block .views-row {
+#block-views-my-jobs-block .views-row,
+.view-my-jobs .views-row {
   vertical-align: top;
   width: 100%;
   border: 1px solid #ccc;
@@ -780,27 +782,31 @@ html.js input.throbbing {
 }
 
 @media screen and (min-width: 768px) {
-  #block-views-my-jobs-block .views-row {
+  #block-views-my-jobs-block .views-row,
+  .view-my-jobs .views-row {
     width: 300px;
   }
 }
 
 #block-views-my-jobs-block .cd-header,
-#block-views-my-jobs-block .views-field-title {
+#block-views-my-jobs-block .views-field-title,
+.view-my-jobs .cd-header {
   display: inline-block;
   vertical-align: top;
   font-size: 17px;
   font-weight: 600;
 }
 
-#block-views-my-jobs-block .views-field-field-job-start-date {
+#block-views-my-jobs-block .views-field-field-job-start-date,
+.view-my-jobs .views-field-field-job-start-date {
   vertical-align: top;
   font-size: 14px;
   font-weight: 600;
   display: block;
 }
 
-#block-views-my-jobs-block .actions {
+#block-views-my-jobs-block .actions,
+.view-my-jobs .actions {
   display: block;
   min-height: 50px;
   align-self: flex-end;
@@ -812,7 +818,9 @@ html.js input.throbbing {
 #edit-jobs .btn-mod,
 #edit-jobs .btn-mod:focus,
 .like-button a,
-.like-button a:focus {
+.like-button a:focus,
+.view-my-jobs .actions a,
+.view-my-jobs .actions a:focus {
   vertical-align: top;
   margin: 15px 5px 0 0;
   color: #151515;
@@ -837,12 +845,14 @@ html.js input.throbbing {
 
 #block-views-my-jobs-block .actions a:hover,
 #edit-jobs .btn-mod:hover,
+.view-my-jobs .actions a:hover,
 .like-button a:hover {
   background: #151515;
   color: #fff;
 }
 
-#block-views-my-jobs-block .view-content {
+#block-views-my-jobs-block .view-content,
+.view-my-jobs .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
