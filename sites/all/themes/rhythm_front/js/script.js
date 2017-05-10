@@ -4,6 +4,15 @@
 
 (function ($) {
 
+  function moveToHashElement(_hash) {
+    var hashElement = $(_hash.replace('#_', '#'));
+    if (hashElement.length) {
+      $('html,body').animate({
+        scrollTop: hashElement.offset().top - 120
+      }, 500);
+    }
+  };
+
   $(document).ready(function() {
 
     if ($('body').hasClass('page-page-404')) {
@@ -12,18 +21,9 @@
 
     $('#edit-blog-search').attr('placeholder', Drupal.t('Search'));
 
-    var hashElement = $(window.location.hash.replace('#_', '#'));
-    if (hashElement.length) {
-      $('html,body').animate({
-        scrollTop: hashElement.offset().top - 120
-      }, 500);
-    }
+    moveToHashElement(window.location.hash);
     $('a').click(function(){
-      if (this.hash !== "") {
-        $('html,body').animate({
-          scrollTop: $(this.hash.replace('#_', '#')).offset().top - 120
-        }, 500);
-      }
+      moveToHashElement(this.hash);
     });
 
     var title = Drupal.settings.modelplatform_theme.register_title.und;
