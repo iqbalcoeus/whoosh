@@ -49,17 +49,6 @@
       return false;
     });
     $('.front-page-sixth-block .block-content').append('<a href="/user" class="login-free"></a>');
-    // Masonry part.
-    var $grid = $('.view-castinglist .view-content').masonry({
-      itemSelector: '.views-row',
-      //columnWidth: 283,
-      fitWidth: true
-    });
-
-    // layout Masonry after each image loads
-    $grid.imagesLoaded().progress(function () {
-      $grid.masonry('layout');
-    });
   });
 
   $(window).scroll(function(){
@@ -85,5 +74,21 @@
       }
     });
   });
+
+  Drupal.behaviors.rhythm_front = {
+    attach: function (context, settings) {
+      // Masonry part.
+      var $grid = $('.view-castinglist .view-content').masonry({
+        itemSelector: '.views-row',
+        //columnWidth: 283,
+        fitWidth: true
+      });
+
+      // layout Masonry after each image loads
+      $grid.imagesLoaded().progress(function () {
+        $grid.masonry('layout');
+      });
+    }
+  };
 
 })(jQuery);
