@@ -4772,6 +4772,21 @@ div.sf-accordion-toggle.sf-style-white a {
   font-weight: normal;
 }
 
+.page-user-edit .field-type-field-collection td input[type="submit"] {
+  height: 37px !important;
+  align-self: flex-end;
+}
+
+.page-user-edit .field-type-field-collection .draggable a.tabledrag-handle {
+  margin-top: 26px;
+  padding: 0;
+  height: 15px;
+}
+
+.page-user-edit .field-name-field-videos .clearfix {
+  padding-top: 10px;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
