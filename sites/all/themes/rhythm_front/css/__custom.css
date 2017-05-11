@@ -498,18 +498,6 @@ select {
 }
 
 .view-models .view-content {
-  /*display: -webkit-box;*/
-  /*display: -ms-flexbox;*/
-  /*display: flex;*/
-  /*-ms-flex-wrap: wrap;*/
-  /*flex-wrap: wrap;*/
-  /*-webkit-box-align: stretch;*/
-  /*-ms-flex-align: stretch;*/
-  /*align-items: stretch;*/
-  /*-webkit-box-orient: horizontal;*/
-  /*-webkit-box-direction: normal;*/
-  /*-ms-flex-direction: row;*/
-  /*flex-direction: row;*/
   margin-top: 50px;
 }
 
@@ -561,50 +549,59 @@ html.js input.throbbing {
   margin-right: 3px;
 }
 
-.view-models .views-row {
+.view-models .views-row,
+.view-castinglist .views-row {
   position: relative;
   width: 100%;
 }
 
 @media screen and (min-width: 480px) {
-  .view-models .views-row {
+  .view-models .views-row,
+  .view-castinglist .views-row {
     width: 50%;
   }
 }
 
 @media screen and (min-width: 375px) {
-  .view-models .views-row {
+  .view-models .views-row,
+  .view-castinglist .views-row {
     width: 50%;
   }
 }
 
 @media screen and (min-width: 414px) {
-  .view-models .views-row {
+  .view-models .views-row,
+  .view-castinglist .views-row {
     width: 33%;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  .view-models .views-row {
+  .view-models .views-row,
+  .view-castinglist .views-row {
     width: 25%;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .view-models .views-row {
+  .view-models .views-row,
+  .view-castinglist .views-row {
     width: 12.5%;
   }
 }
 
-.view-models .views-row:hover .views-field-ops {
+.view-models .views-row:hover .views-field-ops,
+.view-castinglist .views-row:hover .views-field-flagged {
   opacity: 0.6;
 }
 
-.view-models .views-row img {
+.view-models .views-row img,
+.view-castinglist .views-row img {
   width: 100%;
 }
 
-.view-models .views-row .views-field-ops {
+.view-models .views-row .views-field-ops,
+.view-castinglist .views-field-flagged {
   position: absolute;
   z-index: 1;
   display: inline-block;
@@ -619,18 +616,21 @@ html.js input.throbbing {
   display: block !important;
 }
 
-.view-models .views-row .views-field-ops .flag-wrapper {
+.view-models .views-row .views-field-ops .flag-wrapper,
+.view-castinglist .views-field-flagged .field-content {
   display: block;
 }
 
-.view-models .views-row .views-field-ops .flag-wrapper a.flag {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag,
+.view-castinglist .views-field-flagged .field-content {
   display: block;
   color: transparent;
   width: 21px;
   height: 21px;
 }
 
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
+.view-castinglist .views-field-flagged .field-content:before {
   content: '\e801';
 }
 
@@ -641,7 +641,8 @@ html.js input.throbbing {
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
 .view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
+.view-castinglist .views-field-flagged .field-content:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -2632,7 +2633,8 @@ a.link-to-top .fa {
 }
 
 .view-models .view-content,
-.view-models .view-empty {
+.view-models .view-empty,
+.view-castinglist .view-content {
   min-height: 760px;
 }
 
