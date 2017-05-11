@@ -4727,6 +4727,51 @@ div.sf-accordion-toggle.sf-style-white a {
   display: none;
 }
 
+.page-user-edit #content > .container,
+.page-user-edit .region-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.page-user-edit #block-system-main form input[type="text"],
+.page-user-edit #block-system-main form input[type="date"],
+.page-user-edit #block-system-main form input[type="password"],
+.page-user-edit #block-system-main form select {
+  max-width: 350px;
+  width: 100%;
+}
+
+.page-user-edit #block-system-main form input[type="radio"],
+.page-user-edit #block-system-main form input[type="checkbox"] {
+  max-width: 20px;
+}
+
+.page-user-edit #block-system-main form .image-widget-data {
+  width: 100%;
+  float: none;
+}
+
+.page-user-edit #block-system-main form .image-widget-data input[type="submit"] {
+  padding: 2px 10px;
+}
+
+.page-user-edit #block-system-main form .form-file {
+  display: inline-block;
+}
+
+.page-user-edit div.addressfield-container-inline > div.form-item {
+  float: none;
+}
+
+.page-user-edit .field-name-field-website label {
+  font-weight: bold;
+}
+
+.page-user-edit .field-name-field-website .link-field-subrow label {
+  font-weight: normal;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
