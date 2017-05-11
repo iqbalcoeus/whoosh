@@ -747,6 +747,7 @@ html.js input.throbbing {
   width: 100%;
   text-align: right;
   display: inline-block;
+  font-weight: bold;
 }
 
 .pane-views-customer-information-block-2 .views-row > div {
