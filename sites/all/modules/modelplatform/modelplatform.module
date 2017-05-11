@@ -254,8 +254,9 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
           );
         }
       }
-    case 'job_template_node_form':
       $form['actions']['submit']['#submit'][] = 'modelplatform_job_node_form_submit';
+      $form['#validate'][] = 'modelplatform_job_node_form_validate';
+    case 'job_template_node_form':
       if (isset($form['#node']->nid)
       && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
         $form['actions']['clone'] = array(
@@ -266,7 +267,6 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
           ),
         );
       }
-      $form['#validate'][] = 'modelplatform_job_node_form_validate';
       break;
 
     case 'node_gallery_item_node_form':
