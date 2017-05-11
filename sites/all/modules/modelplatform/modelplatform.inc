@@ -194,7 +194,7 @@ function modelplatform_job_node_form_clone($form, &$form_state) {
  * Callback function.
  */
 function modelplatform_job_clone_callback($node) {
-  if ($node->type === 'job') {
+  if ($node->type === 'job' || $node->type === 'job_template') {
     $job = modelplatform_job_clone($node);
     drupal_goto('node/' . $job->nid . '/edit');
   }
