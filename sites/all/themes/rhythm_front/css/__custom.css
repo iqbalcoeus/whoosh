@@ -4783,6 +4783,14 @@ div.sf-accordion-toggle.sf-style-white a {
   height: 15px;
 }
 
+.quicktabs-tabpage .view-customer-information {
+  width: 100%;
+}
+
+.quicktabs-tabpage .view-customer-information .field-content {
+  display: inline-block;
+}
+
 .page-user-edit .field-name-field-videos .clearfix {
   padding-top: 10px;
 }
