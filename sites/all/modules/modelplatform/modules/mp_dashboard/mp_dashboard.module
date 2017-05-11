@@ -61,3 +61,15 @@ function mp_dashboard_permission() {
     ),
   );
 }
+
+/**
+ * Implements hook_quicktabs_alter().
+ */
+function mp_dashboard_quicktabs_alter(&$quicktabs) {
+  if (isset($quicktabs->tabs)) {
+    $tabs = $quicktabs->tabs;
+    foreach ($tabs as $key => $tab) {
+      $quicktabs->tabs[$key]['title'] = t($tab['title']);
+    }
+  }
+}
