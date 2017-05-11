@@ -11,7 +11,7 @@
         scrollTop: hashElement.offset().top - 120
       }, 500);
     }
-  };
+  }
 
   $(document).ready(function() {
 
@@ -49,6 +49,17 @@
       return false;
     });
     $('.front-page-sixth-block .block-content').append('<a href="/user" class="login-free"></a>');
+    // Masonry part.
+    var $grid = $('.view-castinglist .view-content').masonry({
+      itemSelector: '.views-row',
+      //columnWidth: 283,
+      fitWidth: true
+    });
+
+    // layout Masonry after each image loads
+    $grid.imagesLoaded().progress(function () {
+      $grid.masonry('layout');
+    });
   });
 
   $(window).scroll(function(){
@@ -74,6 +85,5 @@
       }
     });
   });
-
 
 })(jQuery);
