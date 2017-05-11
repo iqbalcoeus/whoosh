@@ -10,6 +10,16 @@
 function model_platform_gallery_feature_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'MP_DASHBOARD_CUSTOMER_PERMISSION'.
+  $permissions['MP_DASHBOARD_CUSTOMER_PERMISSION'] = array(
+    'name' => 'MP_DASHBOARD_CUSTOMER_PERMISSION',
+    'roles' => array(
+      'Customer' => 'Customer',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_dashboard',
+  );
+
   // Exported permission: 'access add type service'.
   $permissions['access add type service'] = array(
     'name' => 'access add type service',
@@ -157,6 +167,24 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'bat_fullcalendar',
   );
 
+  // Exported permission: 'administer mp_auction types'.
+  $permissions['administer mp_auction types'] = array(
+    'name' => 'administer mp_auction types',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
+  );
+
+  // Exported permission: 'administer mp_auctions'.
+  $permissions['administer mp_auctions'] = array(
+    'name' => 'administer mp_auctions',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
+  );
+
   // Exported permission: 'bypass bat_event entities access'.
   $permissions['bypass bat_event entities access'] = array(
     'name' => 'bypass bat_event entities access',
@@ -277,16 +305,6 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'customer dashboard access'.
-  $permissions['customer dashboard access'] = array(
-    'name' => 'customer dashboard access',
-    'roles' => array(
-      'Customer' => 'Customer',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'mp_dashboard',
-  );
-
   // Exported permission: 'delete any bat_event entity'.
   $permissions['delete any bat_event entity'] = array(
     'name' => 'delete any bat_event entity',
@@ -377,6 +395,15 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'bat_unit',
   );
 
+  // Exported permission: 'delete own auction mp_auction'.
+  $permissions['delete own auction mp_auction'] = array(
+    'name' => 'delete own auction mp_auction',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
+  );
+
   // Exported permission: 'delete own bat_event entities'.
   $permissions['delete own bat_event entities'] = array(
     'name' => 'delete own bat_event entities',
@@ -458,6 +485,15 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any auction mp_auction'.
+  $permissions['edit any auction mp_auction'] = array(
+    'name' => 'edit any auction mp_auction',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
+  );
+
   // Exported permission: 'edit any job content'.
   $permissions['edit any job content'] = array(
     'name' => 'edit any job content',
@@ -483,6 +519,15 @@ function model_platform_gallery_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit own auction mp_auction'.
+  $permissions['edit own auction mp_auction'] = array(
+    'name' => 'edit own auction mp_auction',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
   );
 
   // Exported permission: 'edit own job content'.
@@ -524,6 +569,36 @@ function model_platform_gallery_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'mp_booking',
+  );
+
+  // Exported permission: 'modelplatform administer models'.
+  $permissions['modelplatform administer models'] = array(
+    'name' => 'modelplatform administer models',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'modelplatform',
+  );
+
+  // Exported permission: 'modelplatform dashboard access'.
+  $permissions['modelplatform dashboard access'] = array(
+    'name' => 'modelplatform dashboard access',
+    'roles' => array(
+      'Customer' => 'Customer',
+      'Model' => 'Model',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'mp_dashboard',
+  );
+
+  // Exported permission: 'moderate modelplatform documents'.
+  $permissions['moderate modelplatform documents'] = array(
+    'name' => 'moderate modelplatform documents',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'modelplatform',
   );
 
   // Exported permission: 'reject profile revisions'.
@@ -652,6 +727,17 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'bat_unit',
   );
 
+  // Exported permission: 'view any auction mp_auction'.
+  $permissions['view any auction mp_auction'] = array(
+    'name' => 'view any auction mp_auction',
+    'roles' => array(
+      'Customer' => 'Customer',
+      'Model' => 'Model',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
+  );
+
   // Exported permission: 'view any bat_event entity'.
   $permissions['view any bat_event entity'] = array(
     'name' => 'view any bat_event entity',
@@ -742,6 +828,17 @@ function model_platform_gallery_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'bat_event',
+  );
+
+  // Exported permission: 'view own auction mp_auction'.
+  $permissions['view own auction mp_auction'] = array(
+    'name' => 'view own auction mp_auction',
+    'roles' => array(
+      'Customer' => 'Customer',
+      'Model' => 'Model',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_auction',
   );
 
   // Exported permission: 'view own bat_event entities'.

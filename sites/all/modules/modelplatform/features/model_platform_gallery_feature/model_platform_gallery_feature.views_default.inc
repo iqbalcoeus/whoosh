@@ -2410,8 +2410,8 @@ function model_platform_gallery_feature_views_default_views() {
     5 => 0,
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Search models */
+  $handler = $view->new_display('page', 'Search models', 'page');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Models';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
@@ -2508,8 +2508,8 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Models';
   $handler->display->display_options['menu']['name'] = 'main-menu';
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
+  /* Display: Block model params */
+  $handler = $view->new_display('block', 'Block model params', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = '[name]';
   $handler->display->display_options['defaults']['header'] = FALSE;
@@ -2663,8 +2663,8 @@ function model_platform_gallery_feature_views_default_views() {
   );
   $handler->display->display_options['block_description'] = 'Model Job Invite - messuirments';
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  /* Display: Castinglist */
+  $handler = $view->new_display('page', 'Castinglist', 'page_1');
   $handler->display->display_options['defaults']['css_class'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
@@ -2676,19 +2676,38 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: User: Profile */
-  $handler->display->display_options['relationships']['profile']['id'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['table'] = 'users';
-  $handler->display->display_options['relationships']['profile']['field'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
-    'model_basic_informaiton' => 'model_basic_informaiton',
+  /* Relationship: Private Data */
+  $handler->display->display_options['relationships']['profile_3']['id'] = 'profile_3';
+  $handler->display->display_options['relationships']['profile_3']['table'] = 'users';
+  $handler->display->display_options['relationships']['profile_3']['field'] = 'profile';
+  $handler->display->display_options['relationships']['profile_3']['ui_name'] = 'Private Data';
+  $handler->display->display_options['relationships']['profile_3']['label'] = 'Private Data';
+  $handler->display->display_options['relationships']['profile_3']['bundle_types'] = array(
     'model_private_data' => 'model_private_data',
+  );
+  /* Relationship: Basic informaiton */
+  $handler->display->display_options['relationships']['profile_2']['id'] = 'profile_2';
+  $handler->display->display_options['relationships']['profile_2']['table'] = 'users';
+  $handler->display->display_options['relationships']['profile_2']['field'] = 'profile';
+  $handler->display->display_options['relationships']['profile_2']['ui_name'] = 'Basic informaiton';
+  $handler->display->display_options['relationships']['profile_2']['label'] = 'Basic informaiton';
+  $handler->display->display_options['relationships']['profile_2']['bundle_types'] = array(
+    'model_basic_informaiton' => 'model_basic_informaiton',
+  );
+  /* Relationship: Additional informaiton */
+  $handler->display->display_options['relationships']['profile_1']['id'] = 'profile_1';
+  $handler->display->display_options['relationships']['profile_1']['table'] = 'users';
+  $handler->display->display_options['relationships']['profile_1']['field'] = 'profile';
+  $handler->display->display_options['relationships']['profile_1']['ui_name'] = 'Additional informaiton';
+  $handler->display->display_options['relationships']['profile_1']['label'] = 'Additional informaiton';
+  $handler->display->display_options['relationships']['profile_1']['bundle_types'] = array(
+    'model_additional_info' => 'model_additional_info',
   );
   /* Relationship: Profile: Base city (field_c_base_city) */
   $handler->display->display_options['relationships']['field_c_base_city_value']['id'] = 'field_c_base_city_value';
   $handler->display->display_options['relationships']['field_c_base_city_value']['table'] = 'field_data_field_c_base_city';
   $handler->display->display_options['relationships']['field_c_base_city_value']['field'] = 'field_c_base_city_value';
-  $handler->display->display_options['relationships']['field_c_base_city_value']['relationship'] = 'profile';
+  $handler->display->display_options['relationships']['field_c_base_city_value']['relationship'] = 'profile_3';
   $handler->display->display_options['relationships']['field_c_base_city_value']['label'] = 'base_city';
   $handler->display->display_options['relationships']['field_c_base_city_value']['delta'] = '-1';
   /* Relationship: Flags: casting_mark */
@@ -2732,7 +2751,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
-  $handler->display->display_options['fields']['field_daily_rate']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_daily_rate']['relationship'] = 'profile_2';
   $handler->display->display_options['fields']['field_daily_rate']['label'] = '';
   $handler->display->display_options['fields']['field_daily_rate']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_daily_rate']['element_label_colon'] = FALSE;
@@ -2744,7 +2763,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['id'] = 'field_lingerie_daily_rate';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['table'] = 'field_data_field_lingerie_daily_rate';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['field'] = 'field_lingerie_daily_rate';
-  $handler->display->display_options['fields']['field_lingerie_daily_rate']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_lingerie_daily_rate']['relationship'] = 'profile_1';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['label'] = '';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['element_label_colon'] = FALSE;
@@ -2756,7 +2775,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_age_category']['id'] = 'field_age_category';
   $handler->display->display_options['fields']['field_age_category']['table'] = 'field_data_field_age_category';
   $handler->display->display_options['fields']['field_age_category']['field'] = 'field_age_category';
-  $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_age_category']['relationship'] = 'profile_2';
   $handler->display->display_options['fields']['field_age_category']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_age_category']['element_label_colon'] = FALSE;
   /* Field: Flags: Flag link */
@@ -2782,8 +2801,8 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_2');
+  /* Display: My search */
+  $handler = $view->new_display('page', 'My search', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Models';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
@@ -2845,7 +2864,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['id'] = 'field_lingerie_daily_rate';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['table'] = 'field_data_field_lingerie_daily_rate';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['field'] = 'field_lingerie_daily_rate';
-  $handler->display->display_options['fields']['field_lingerie_daily_rate']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_lingerie_daily_rate']['relationship'] = 'profile_2';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['label'] = '';
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_lingerie_daily_rate']['element_label_colon'] = FALSE;
@@ -2936,17 +2955,20 @@ function model_platform_gallery_feature_views_default_views() {
     t('Waist'),
     t('Hips'),
     t('Shoe size'),
-    t('Page'),
+    t('Search models'),
     t('Models'),
     t('Prepare propose.'),
-    t('Block'),
+    t('Block model params'),
     t('[name]'),
     t('Shoes'),
     t('Hair'),
     t('Eyes'),
     t('All'),
     t('Model Job Invite - messuirments'),
-    t('Profile'),
+    t('Private Data'),
+    t('Basic informaiton'),
+    t('Additional informaiton'),
+    t('My search'),
   );
   $export['models'] = $view;
 
