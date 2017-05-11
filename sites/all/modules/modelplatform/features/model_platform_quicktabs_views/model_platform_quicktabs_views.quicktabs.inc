@@ -14,7 +14,7 @@ function model_platform_quicktabs_views_quicktabs_default_quicktabs() {
   $quicktabs->disabled = FALSE; /* Edit this to true to make a default quicktabs disabled initially */
   $quicktabs->api_version = 1;
   $quicktabs->machine_name = 'customer_dashboard';
-  $quicktabs->ajax = 0;
+  $quicktabs->ajax = 1;
   $quicktabs->hide_empty_tabs = FALSE;
   $quicktabs->default_tab = 0;
   $quicktabs->title = 'Customer Dashboard';
