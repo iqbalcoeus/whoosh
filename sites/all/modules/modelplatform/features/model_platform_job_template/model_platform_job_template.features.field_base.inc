@@ -10,6 +10,30 @@
 function model_platform_job_template_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'body'.
+  $field_bases['body'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(
+      0 => 'node',
+    ),
+    'field_name' => 'body',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 1,
+    'type' => 'text_with_summary',
+  );
+
   // Exported field_base: 'field_job_additional_documents'.
   $field_bases['field_job_additional_documents'] = array(
     'active' => 1,
@@ -129,35 +153,6 @@ function model_platform_job_template_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'datetime',
-  );
-
-  // Exported field_base: 'field_job_status'.
-  $field_bases['field_job_status'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_job_status',
-    'indexes' => array(
-      'tid' => array(
-        0 => 'tid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'taxonomy',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => array(
-          'vocabulary' => 'job_status',
-          'parent' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'options_list_callback' => 'i18n_taxonomy_allowed_values',
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'taxonomy_term_reference',
   );
 
   return $field_bases;
