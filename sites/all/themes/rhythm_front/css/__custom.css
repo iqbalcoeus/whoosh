@@ -661,12 +661,18 @@ html.js input.throbbing {
 }
 
 .page-customer-dashboard #block-menu-menu-customer-menu h5,
-.quicktabs-tabpage .pane-menu-menu-customer-menu .pane-title {
-  color: transparent;
+.quicktabs-tabpage .pane-menu-menu-customer-menu .pane-title,
+.quicktabs-tabpage .pane-views-customer-information-block .pane-title,
+.quicktabs-tabpage .pane-menu-menu-customer-profile-menu .pane-title,
+.quicktabs-tabpage .pane-views-my-job-templates-block .pane-title,
+.quicktabs-tabpage .pane-views-my-jobs-block .pane-title,
+.quicktabs-tabpage .pane-views-castinglist-block .pane-title {
+  display: none;
 }
 
 .quicktabs-tabpage h2 {
   margin-bottom: 20px;
+  margin-top: 7px;
   padding-bottom: 5px;
   text-transform: uppercase;
   font-size: 14px;
@@ -676,6 +682,10 @@ html.js input.throbbing {
   display: block;
   font-family: Dosis, arial, sans-serif;
   letter-spacing: 0.2em;
+}
+
+.block-panels-mini .block-content {
+  margin-top: 30px;
 }
 
 .page-customer-dashboard #block-menu-menu-customer-menu ul.default-menu,
@@ -751,6 +761,10 @@ html.js input.throbbing {
   vertical-align: top;
 }
 
+.quicktabs-tabpage .pane-block {
+  margin-bottom: 20px;
+}
+
 @media screen and (min-width: 768px) {
   .page-customer-dashboard #block-views-customer-information-block,
   .page-customer-dashboard #block-menu-menu-customer-menu {
@@ -758,10 +772,15 @@ html.js input.throbbing {
     vertical-align: top;
   }
 
+  .quicktabs-tabpage .pane-block {
+    margin-bottom: 30px;
+  }
+
   .page-customer-dashboard #block-views-customer-information-block,
   .quicktabs-tabpage .pane-views-customer-information-block,
   .quicktabs-tabpage .pane-views-customer-information-block-1 {
     margin-right: 2%;
+    display: inline-block;
   }
 
   .page-customer-dashboard #block-menu-menu-customer-menu ul.default-menu a,
@@ -788,11 +807,16 @@ html.js input.throbbing {
 .view-my-jobs h3 {
   flex: 1 1 100%;
   padding-left: 5px;
-  margin-top: 30px;
+  margin-top: 20px;
+}
+
+.view-my-jobs h3:first-child {
+  margin-top: 0;
 }
 
 #block-views-my-jobs-block .views-row,
-.view-my-jobs .views-row {
+.view-my-jobs .views-row,
+.view-id-my_job_templates .views-row {
   vertical-align: top;
   width: 100%;
   border: 1px solid #ccc;
@@ -808,14 +832,16 @@ html.js input.throbbing {
 
 @media screen and (min-width: 768px) {
   #block-views-my-jobs-block .views-row,
-  .view-my-jobs .views-row {
+  .view-my-jobs .views-row,
+  .view-id-my_job_templates .views-row {
     width: 300px;
   }
 }
 
 #block-views-my-jobs-block .cd-header,
 #block-views-my-jobs-block .views-field-title,
-.view-my-jobs .cd-header {
+.view-my-jobs .cd-header,
+.view-id-my_job_templates .cd-header {
   display: inline-block;
   vertical-align: top;
   font-size: 17px;
@@ -823,7 +849,8 @@ html.js input.throbbing {
 }
 
 #block-views-my-jobs-block .views-field-field-job-start-date,
-.view-my-jobs .views-field-field-job-start-date {
+.view-my-jobs .views-field-field-job-start-date,
+.view-id-my_job_templates .views-field-field-job-start-date {
   vertical-align: top;
   font-size: 14px;
   font-weight: 600;
@@ -831,7 +858,8 @@ html.js input.throbbing {
 }
 
 #block-views-my-jobs-block .actions,
-.view-my-jobs .actions {
+.view-my-jobs .actions,
+.view-id-my_job_templates .actions {
   display: block;
   min-height: 50px;
   align-self: flex-end;
@@ -845,7 +873,9 @@ html.js input.throbbing {
 .like-button a,
 .like-button a:focus,
 .view-my-jobs .actions a,
-.view-my-jobs .actions a:focus {
+.view-my-jobs .actions a:focus,
+.view-id-my_job_templates .actions a,
+.view-id-my_job_templates .actions a:focus {
   vertical-align: top;
   margin: 10px 5px 0 0;
   color: #151515;
@@ -871,13 +901,15 @@ html.js input.throbbing {
 #block-views-my-jobs-block .actions a:hover,
 #edit-jobs .btn-mod:hover,
 .view-my-jobs .actions a:hover,
+.view-id-my_job_templates .actions a:hover,
 .like-button a:hover {
   background: #151515;
   color: #fff;
 }
 
 #block-views-my-jobs-block .view-content,
-.view-my-jobs .view-content {
+.view-my-jobs .view-content,
+.view-id-my_job_templates .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
