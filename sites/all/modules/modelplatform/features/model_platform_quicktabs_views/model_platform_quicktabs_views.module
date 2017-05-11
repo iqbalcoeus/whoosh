@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model platform - quicktabs views feature.
+ */
+
+include_once 'model_platform_quicktabs_views.features.inc';
