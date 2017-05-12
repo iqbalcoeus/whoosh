@@ -2179,17 +2179,6 @@ html.js input.throbbing {
   vertical-align: top;
 }
 
-#block-views-bat-event-part-block .views-field-picture {
-  float: left;
-  margin-right: 20px;
-  margin-left: 0 !important;
-  width: 67px;
-}
-
-#block-views-bat-event-part-block .views-row > div {
-  margin-left: 87px;
-}
-
 #block-views-bat-event-part-block .views-field-field-first-name,
 #block-views-bat-event-part-block .views-field-field-last-name {
   display: inline-block;
@@ -4811,7 +4800,34 @@ div.sf-accordion-toggle.sf-style-white a {
   padding-top: 10px;
 }
 
+.page-job-event-auction #block-mp-booking-mp-booking-calendar-form {
+  display: block;
+}
+
+.block-views.event-part-block .views-label,
+.block-views.event-part-block-1 .views-label {
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100px;
+  width: 100%;
+}
+
+.block-views.event-part-block .field-content,
+.block-views.event-part-block-1 .field-content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.block-views.event-part-block .views-field-field-full-name {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
 }
+
