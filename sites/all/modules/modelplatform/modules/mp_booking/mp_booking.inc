@@ -329,7 +329,7 @@ function _mp_booking_get_calendar_busy_access() {
     && $args[1] === 'event'
     && intval($args[2])
     && $args[3] === 'auction') {
-    $access = TRUE;
+    $access = FALSE;
   }
 
   return $access;
