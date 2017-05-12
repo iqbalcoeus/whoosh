@@ -4764,11 +4764,6 @@ div.sf-accordion-toggle.sf-style-white a {
   text-align: right;
 }
 
-.page-user #block-system-main {
-  max-width: 350px;
-  width: 100%;
-}
-
 .page-user-edit #block-system-main form .image-widget-data input[type="submit"] {
   padding: 2px 10px;
 }
