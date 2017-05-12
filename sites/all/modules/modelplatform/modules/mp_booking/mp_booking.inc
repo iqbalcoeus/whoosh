@@ -290,7 +290,7 @@ function _mp_booking_get_calendar_account() {
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
-    && $args[1] === 'model'
+    && $args[1] === 'event'
     && $args[3] === 'auction') {
     if ($event = bat_event_load(intval($args[2]))) {
       $query = db_select('field_data_event_bat_unit_reference', 'b_unit');
@@ -315,7 +315,10 @@ function _mp_booking_get_calendar_busy_access() {
   $args = arg();
 
   $access = FALSE;
-  if (isset($args[3]) && $args[0] === 'job' && $args[1] === 'model' && intval($args[2]) === intval($user->uid)) {
+  if (isset($args[3])
+    && $args[0] === 'job'
+    && $args[1] === 'model'
+    && intval($args[2]) === intval($user->uid)) {
     $access = TRUE;
   }
   elseif (isset($args[0]) && $args[0] == 'user') {
@@ -323,7 +326,7 @@ function _mp_booking_get_calendar_busy_access() {
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
-    && $args[1] === 'model'
+    && $args[1] === 'event'
     && intval($args[2])
     && $args[3] === 'auction') {
     $access = TRUE;
