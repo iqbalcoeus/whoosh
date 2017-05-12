@@ -290,7 +290,7 @@ function _mp_booking_get_calendar_account() {
   }
   elseif (isset($args[3])
     && $args[0] === 'job'
-    && $args[1] === 'model'
+    && $args[1] === 'event'
     && $args[3] === 'auction') {
     if ($event = bat_event_load(intval($args[2]))) {
       $query = db_select('field_data_event_bat_unit_reference', 'b_unit');
