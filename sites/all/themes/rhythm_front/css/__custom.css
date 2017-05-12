@@ -4716,7 +4716,9 @@ div.sf-accordion-toggle.sf-style-white a {
 .page-user-edit #content > .container,
 .page-user-edit .region-content,
 .page-node-add #content > .container,
-.page-node-add .region-content {
+.page-node-add .region-content,
+.page-node-edit #content > .container,
+.page-node-edit .region-content {
   max-width: 700px;
   margin: 0 auto;
   padding: 0;
@@ -4729,7 +4731,11 @@ div.sf-accordion-toggle.sf-style-white a {
 .page-node-add #block-system-main form input[type="text"],
 .page-node-add #block-system-main form input[type="date"],
 .page-node-add #block-system-main form input[type="password"],
-.page-node-add #block-system-main form select {
+.page-node-add #block-system-main form select,
+.page-node-edit #block-system-main form select,
+.page-node-edit #block-system-main form input[type="text"],
+.page-node-edit #block-system-main form input[type="date"],
+.page-node-edit #block-system-main form input[type="password"] {
   max-width: 350px;
   width: 100%;
 }
@@ -4830,6 +4836,16 @@ div.sf-accordion-toggle.sf-style-white a {
 .form-managed-file .image-widget-data input[type="submit"] {
   display: inline-block;
   vertical-align: top;
+}
+
+.page-node-edit .date-combo .date-padding > .form-item {
+  margin: 10px;
+}
+
+.page-node-edit .date-combo .form-type-date-popup > label {
+  display: block;
+  text-align: left;
+  margin: -20px 20px 0 20px;
 }
 
 /* HARDCODE END */
