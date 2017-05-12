@@ -46,7 +46,7 @@ function mp_booking_menu() {
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
-  $items['job/model/%bat_event/auction'] = array(
+  $items['job/event/%bat_event/auction'] = array(
     'title' => t('Job auction'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mp_booking_job_auction_form', 2),

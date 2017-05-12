@@ -383,7 +383,7 @@ function mp_booking_model_propose($nid) {
   $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $nid, $start_date, $end_date);
   bat_event_save($event);
 
-  drupal_goto('job/model/' . $event->event_id . '/auction');
+  drupal_goto('job/event/' . $event->event_id . '/auction');
 }
 
 function mp_booking_job_model_search($nid) {
