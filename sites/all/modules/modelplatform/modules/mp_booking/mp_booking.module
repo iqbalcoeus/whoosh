@@ -191,11 +191,9 @@ function mp_booking_block_view($delta = '') {
           ),
         );
       }
-
-
       break;
-
   }
+
   return $block;
 }
 
