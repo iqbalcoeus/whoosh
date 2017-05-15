@@ -17,12 +17,12 @@ function mp_dashboard_menu() {
   $items['customer/dashboard'] = array(
     'title' => 'Dashboard',
     'page callback' => 'mp_dashboard_customer_page',
-    'access arguments' => array(MP_DASHBOARD_CUSTOMER_PERMISSION),
+    'access arguments' => array(MP_DASHBOARD_CUSTOMER_ACCESS),
   );
   $items['dashboard'] = array(
     'title' => 'Dashboard',
     'page callback' => 'mp_dashboard_page',
-    'access arguments' => array(MP_DASHBOARD_CUSTOMER_PERMISSION),
+    'access arguments' => array(MP_DASHBOARD_CUSTOMER_ACCESS),
   );
 
   return $items;
@@ -51,7 +51,7 @@ function mp_dashboard_page() {
  */
 function mp_dashboard_permission() {
   return array(
-    MP_DASHBOARD_CUSTOMER_PERMISSION => array(
+    MP_DASHBOARD_CUSTOMER_ACCESS => array(
       'title' => t('Customer dashboard access'),
       'description' => t('Perform customer dashboard access.'),
     ),
