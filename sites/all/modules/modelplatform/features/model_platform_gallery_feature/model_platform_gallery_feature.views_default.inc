@@ -431,56 +431,6 @@ function model_platform_gallery_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'field_base_city_checked_value' => array(
-      'bef_format' => 'default',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
     'field_model_gender_tid' => array(
       'bef_format' => 'bef',
       'more_options' => array(
@@ -533,10 +483,8 @@ function model_platform_gallery_feature_views_default_views() {
       'filter_rewrite_values' => NULL,
     ),
     'field_model_base_city_tid' => array(
-      'bef_format' => 'bef',
+      'bef_format' => 'default',
       'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
         'is_secondary' => 0,
         'any_label' => '',
         'bef_filter_description' => '',
@@ -685,12 +633,12 @@ function model_platform_gallery_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'field_daily_rate_value_1' => array(
+    'field_daily_rate_amount' => array(
       'bef_format' => 'default',
       'slider_options' => array(
-        'bef_slider_min' => '0',
-        'bef_slider_max' => '99999',
-        'bef_slider_step' => '1',
+        'bef_slider_min' => '500',
+        'bef_slider_max' => '5000',
+        'bef_slider_step' => '50',
         'bef_slider_animate' => '',
         'bef_slider_orientation' => 'horizontal',
         'secondary_label' => NULL,
@@ -747,7 +695,7 @@ function model_platform_gallery_feature_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'field_lingerie_daily_rate_value' => array(
+    'field_lingerie_daily_rate_amount' => array(
       'bef_format' => 'default',
       'slider_options' => array(
         'bef_slider_min' => '0',
@@ -1824,7 +1772,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: Profile: field_daily_rate */
+  /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2022,19 +1970,19 @@ function model_platform_gallery_feature_views_default_views() {
   );
   $handler->display->display_options['filters']['field_model_hair_color_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_model_hair_color_tid']['vocabulary'] = 'hair_color';
-  /* Filter criterion: Broken/missing handler */
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['id'] = 'field_daily_rate_value_1';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['table'] = 'field_data_field_daily_rate';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['field'] = 'field_daily_rate_value';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['relationship'] = 'profile';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['operator'] = '<=';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['group'] = 4;
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['expose']['operator_id'] = 'field_daily_rate_value_1_op';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['expose']['label'] = 'Daily rate';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['expose']['operator'] = 'field_daily_rate_value_1_op';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['expose']['identifier'] = 'field_daily_rate_value_1';
-  $handler->display->display_options['filters']['field_daily_rate_value_1']['expose']['remember_roles'] = array(
+  /* Filter criterion: Profile: Daily rate (field_daily_rate:amount) */
+  $handler->display->display_options['filters']['field_daily_rate_amount']['id'] = 'field_daily_rate_amount';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['table'] = 'field_data_field_daily_rate';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['field'] = 'field_daily_rate_amount';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['group'] = 4;
+  $handler->display->display_options['filters']['field_daily_rate_amount']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['operator_id'] = 'field_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['label'] = 'Daily rate';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['operator'] = 'field_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['identifier'] = 'field_daily_rate_value_1';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     6 => 0,
@@ -2042,19 +1990,19 @@ function model_platform_gallery_feature_views_default_views() {
     4 => 0,
     5 => 0,
   );
-  /* Filter criterion: Profile: Lingerie daily rate (field_lingerie_daily_rate) */
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['id'] = 'field_lingerie_daily_rate_value';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['table'] = 'field_data_field_lingerie_daily_rate';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['field'] = 'field_lingerie_daily_rate_value';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['relationship'] = 'profile_2';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['operator'] = '<=';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['group'] = 4;
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['expose']['operator_id'] = 'field_lingerie_daily_rate_value_op';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['expose']['label'] = 'Lingerie daily rate';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['expose']['operator'] = 'field_lingerie_daily_rate_value_op';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['expose']['identifier'] = 'field_lingerie_daily_rate_value';
-  $handler->display->display_options['filters']['field_lingerie_daily_rate_value']['expose']['remember_roles'] = array(
+  /* Filter criterion: Profile: Lingerie daily rate (field_lingerie_daily_rate:amount) */
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['id'] = 'field_lingerie_daily_rate_amount';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['table'] = 'field_data_field_lingerie_daily_rate';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['field'] = 'field_lingerie_daily_rate_amount';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['group'] = 4;
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['operator_id'] = 'field_lingerie_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['label'] = 'Lingerie daily rate';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['operator'] = 'field_lingerie_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['identifier'] = 'field_lingerie_daily_rate_value';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     6 => 0,
@@ -2456,7 +2404,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: field_daily_rate */
+  /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2531,7 +2479,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: field_daily_rate */
+  /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2747,7 +2695,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: field_daily_rate */
+  /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2848,7 +2796,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: field_daily_rate */
+  /* Field: Profile: Daily rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2960,7 +2908,6 @@ function model_platform_gallery_feature_views_default_views() {
     t('Prepare propose.'),
     t('Block model params'),
     t('[name]'),
-    t('field_daily_rate'),
     t('Shoes'),
     t('Hair'),
     t('Eyes'),
