@@ -45,9 +45,15 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $defult_job_nid = $nids[0];
     }
 
-    $auctioned_job = _mp_booking_get_job_auction($model_uid, $customer_uid);
+    $event_data = _mp_booking_get_auction_event_data($model_uid, $customer_uid);
+    $auctioned_job = NULL;
+    if (isset($event_data->job_nid)) {
+      $auctioned_job = node_load($event_data->job_nid);
+    }
+//    $auctioned_job = _mp_booking_get_job_auction($model_uid, $customer_uid);
     if ($auctioned_job) {
       $start_date = $end_date = NULL;
+
       // Job dates.
       if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
         $start_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'];
@@ -55,30 +61,20 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
         $end_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
       }
-
-      $model_auctions = _mp_booking_get_model_auctions($model_uid, $start_date, $end_date);
-      $keys = array_keys($model_auctions);
+      $model_events = _mp_booking_get_model_events($model_uid, $start_date, $end_date);
+      $keys = array_keys($model_events);
       $idx = array_search($auctioned_job->nid, $keys);
-      $auction_id = $model_auctions[$auctioned_job->nid];
-      $auction = mp_auction_load($auction_id);
+      $event_id = $model_events[$auctioned_job->nid];
+      $event = bat_event_load($event_id);
+
       $status = t('Empty status');
       $decision = '';
-      if ($auction) {
-        $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
-        if (isset($field_status[0]['value'])) {
-          $field = field_info_field('field_auction_status');
-          $values = list_allowed_values($field);
-          $status = t($values[$field_status[0]['value']]);
-        }
-        $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
-        if (isset($field_decision[0]['value'])) {
-          $decision = $field_decision[0]['value'];
-        }
-      }
+
+      $auction_data = mp_booking_get_event_last_auction($event_id);
 
       $form['auction_id'] = array(
         '#type' => 'value',
-        '#value' => $auction_id,
+        '#value' => $auction_data->auction_id,
       );
 
       $form['job_status'] = array(
@@ -142,11 +138,19 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#value' => $model_uid,
       );
 
-      $form['jobs'] = array(
-        '#type' => 'select',
-        '#options' => $customer_jobs,
-        '#default_value' => $defult_job_nid,
-      );
+      if ($count_jobs == 1) {
+        $form['jobs'] = array(
+          '#type' => 'value',
+          '#value' => $defult_job_nid,
+        );
+      }
+      else {
+        $form['jobs'] = array(
+          '#type' => 'select',
+          '#options' => $customer_jobs,
+          '#default_value' => $defult_job_nid,
+        );
+      }
 
       $form['job_invite'] = array(
         '#type' => 'submit',
@@ -235,6 +239,8 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $job_nid, $start_date, $end_date);
   bat_event_save($event);
 
+  module_invoke_all('mpb_option_model', $event);
+
   // Create auction.
   module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
   $auction = mp_auction_create(array('type' => 'auction'));
@@ -245,10 +251,6 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   mp_auction_save($auction);
 
   drupal_set_message(t('Model was optioned'));
-
-  // Redirect to the auction page.
-//  $link = 'job/model/' . $event->event_id . '/auction';
-//  $form_state['redirect'] = $link;
 }
 
 /**
@@ -261,6 +263,7 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $auction = mp_auction_load($mp_auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
+  module_invoke_all('mpb_option_model_accept');
 }
 
 /**
@@ -273,6 +276,7 @@ function mp_booking_job_model_invite_form_cancel_submit($form, $form_state) {
   $auction = mp_auction_load($mp_auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Decline';
   mp_auction_save($auction);
+  module_invoke_all('mpb_option_model_decline');
 }
 
 /**
@@ -294,6 +298,13 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
     }
 
     $form['#event'] = $event;
+
+    $model_uid = 0;
+    if (isset($event->event_bat_unit_reference['und'][0]['target_id'])) {
+      $unit = bat_unit_load($event->event_bat_unit_reference['und'][0]['target_id']);
+      $model_uid = $unit->uid;
+    }
+
     $form['job_invitation_title'] = array(
       '#type' => 'markup',
       '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">'. t('New propose') . '</h5>',
@@ -339,6 +350,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
         '#value' => $_auction->mp_auction_id,
       );
 
+      $no_decision = FALSE;
       if ($_auction->field_auction_decision[LANGUAGE_NONE][0]['value']) {
         $form['auctions'][$delta]['decision'] = array(
           '#title' => t('Decision'),
@@ -357,6 +369,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
             '#markup' => t('Have no decision yet.'),
             '#suffix' => '</div>',
           );
+          $no_decision = TRUE;
         }
         else {
           $form['auctions'][$delta]['decision'] = array(
@@ -393,9 +406,10 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
     $form['field_auction_event']['#access'] = FALSE;
     $form['name']['#access'] = FALSE;
     $form['actions']['delete']['#access'] = FALSE;
+    $form['field_auction_status']['#access'] = FALSE;
 
     // Available if user is event owner.
-    if ($event->uid === $user->uid) {
+    if (!$no_decision && $event->uid === $user->uid || $model_uid === $user->uid) {
       if ($delta < 3) {
         $form['actions']['submit']['#value'] = t('Send new propose');
         $form['actions']['submit']['#submit'][] = 'mp_booking_job_auction_form_submit';

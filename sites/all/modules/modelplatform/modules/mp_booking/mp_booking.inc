@@ -66,6 +66,37 @@ function _mp_booking_get_customer_jobs($customer_uid, $_fields = array('nid')) {
   return $result;
 }
 
+function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
+  $result = NULL;
+
+  // BAT Event.
+  $event_query = db_select('bat_events', 'be');
+
+  // Job.
+  $event_query->innerJoin('field_data_field_job', 'fj',
+    'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
+  $event_query->innerJoin('node', 'n',
+    'n.nid = fj.field_job_target_id');
+  $event_query->condition('n.uid', $customer_uid);
+
+  // BAT Unit.
+  $event_query->innerJoin('field_data_event_bat_unit_reference', 'febu',
+    'febu.entity_id = be.event_id AND febu.entity_type = \'bat_event\'');
+  $event_query->innerJoin('field_data_field_bat_unit', 'fbu',
+    'fbu.field_bat_unit_target_id = febu.event_bat_unit_reference_target_id AND fbu.entity_type = \'user\'');
+  $event_query->condition('fbu.entity_id', $model_uid);
+  $event_query->addField('n', 'nid', 'job_nid');
+  $event_query->addField('n', 'title', 'job_title');
+  $event_query->addField('be', 'event_id', 'event_id');
+
+  $query_result = $event_query->execute()->fetch();
+  if (isset($query_result->job_nid)) {
+    $result = $query_result;
+  }
+
+  return $result;
+}
+
 function _mp_booking_get_job_auction($model_uid, $customer_uid) {
   $result = NULL;
 
@@ -94,6 +125,59 @@ function _mp_booking_get_job_auction($model_uid, $customer_uid) {
   if (isset($query_result->job_nid)) {
     $result = node_load($query_result->job_nid);
   }
+
+  return $result;
+}
+
+function _mp_booking_get_model_events($model_uid, $start_date, $end_date) {
+  // BAT Event.
+  $event_query = db_select('bat_events', 'be');
+
+  // Job.
+  $event_query->innerJoin('field_data_field_job', 'fj',
+    'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
+  $event_query->innerJoin('node', 'n', 'n.nid = fj.field_job_target_id');
+
+  $or = db_or();
+
+  if ($start_date) {
+    // Get date values.
+    $c_start_date = db_and();
+    $c_start_date->condition('be.start_date', $start_date, '<=');
+    $c_start_date->condition('be.end_date', $start_date, '>=');
+    $or->condition($c_start_date);
+  }
+
+  if ($end_date) {
+    $c_end_date = db_and();
+    $c_end_date->condition('be.start_date', $end_date, '<=');
+    $c_end_date->condition('be.end_date', $end_date, '>=');
+    $or->condition($c_end_date);
+  }
+
+  if ($start_date && $end_date) {
+    $c_into_date = db_and();
+    $c_into_date->condition('be.start_date', $start_date, '>=');
+    $c_into_date->condition('be.end_date', $end_date, '<=');
+    $or->condition($c_into_date);
+  }
+
+  $event_query->condition($or);
+
+  // BAT Unit.
+  $event_query->innerJoin('field_data_event_bat_unit_reference', 'febu',
+    'febu.entity_id = be.event_id AND febu.entity_type = \'bat_event\'');
+
+  $event_query->innerJoin('field_data_field_bat_unit', 'fbu',
+    'fbu.field_bat_unit_target_id = febu.event_bat_unit_reference_target_id AND fbu.entity_type = \'user\'');
+  $event_query->condition('fbu.entity_id', $model_uid);
+
+  $event_query->addField('n', 'nid', 'job_nid');
+  $event_query->addField('be', 'event_id', 'event_id');
+
+  $event_query->orderBy('be.created', 'ASC');
+
+  $result = $event_query->execute()->fetchAllKeyed(0);
 
   return $result;
 }
@@ -243,6 +327,10 @@ function mp_booking_get_event_auctions($event) {
 }
 
 function _mp_booking_event_create($unit_id, $state_id, $uid, $job_nid = 0, $start_date = NULL, $end_date = NULL) {
+  if (!$job = node_load($job_nid)) {
+    drupal_set_message(t('Job ID was lost on the transaction. Please contact site administrator.'));
+    return;
+  }
   $event_params = array(
     'type' => MP_BOOKING_MODEL_AVAILABILITY,
   );
@@ -250,6 +338,7 @@ function _mp_booking_event_create($unit_id, $state_id, $uid, $job_nid = 0, $star
   $event->field_job[LANGUAGE_NONE][0]['target_id'] = $job_nid;
   $event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id'] = $unit_id;
   $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = $state_id;
+  $event->field_job_cost = $job->field_job_daily_rate_from;
   if ($start_date) {
     $event->start_date = $start_date;
   }
@@ -430,4 +519,18 @@ function mp_booking_job_model_search($nid) {
     );
     drupal_goto('models', array('query' => $query));
   }
+}
+
+function mp_booking_get_event_last_auction($event_id) {
+  $event_query = db_select('mp_auction', 'a');
+
+  // BAT Event.
+  $event_query->innerJoin('field_data_field_auction_event', 'fae',
+    'fae.entity_id = a.mp_auction_id AND fae.entity_type = \'mp_auction\'');
+  $event_query->condition('fae.field_auction_event_target_id', $event_id);
+
+  $event_query->addField('a', 'mp_auction_id', 'auction_id');
+  $event_query->orderBy('a.created', 'desc');
+
+  return $event_query->execute()->fetch();
 }
