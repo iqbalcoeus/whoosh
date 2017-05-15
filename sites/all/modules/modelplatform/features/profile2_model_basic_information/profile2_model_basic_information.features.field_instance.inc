@@ -147,15 +147,12 @@ function profile2_model_basic_information_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 15,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 21,
       ),
     ),
     'entity_type' => 'profile2',
@@ -164,18 +161,16 @@ function profile2_model_basic_information_field_default_field_instances() {
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => 500,
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 12,
+      'active' => 1,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
+      'weight' => 14,
     ),
   );
 

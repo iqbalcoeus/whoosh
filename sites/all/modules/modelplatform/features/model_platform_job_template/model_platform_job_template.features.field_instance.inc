@@ -138,25 +138,18 @@ function model_platform_job_template_field_default_field_instances() {
   // Exported field_instance: 'node-job-field_job_daily_rate_from'.
   $field_instances['node-job-field_job_daily_rate_from'] = array(
     'bundle' => 'job',
-    'default_value' => array(
-      0 => array(
-        'value' => 500,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 1,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 7,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -177,61 +170,45 @@ function model_platform_job_template_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 2,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_from',
-    'label' => 'From',
-    'required' => 0,
+    'label' => 'field_job_daily_rate_from',
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 5,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
+      'weight' => 11,
     ),
   );
 
   // Exported field_instance: 'node-job-field_job_daily_rate_to'.
   $field_instances['node-job-field_job_daily_rate_to'] = array(
     'bundle' => 'job',
-    'default_value' => array(
-      0 => array(
-        'value' => 500,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 2,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 8,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -252,36 +229,27 @@ function model_platform_job_template_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 3,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_to',
-    'label' => 'To',
-    'required' => 0,
+    'label' => 'field_job_daily_rate_to',
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 6,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
+      'weight' => 12,
     ),
   );
 
@@ -617,25 +585,18 @@ function model_platform_job_template_field_default_field_instances() {
   // Exported field_instance: 'node-job_template-field_job_daily_rate_from'.
   $field_instances['node-job_template-field_job_daily_rate_from'] = array(
     'bundle' => 'job_template',
-    'default_value' => array(
-      0 => array(
-        'value' => 500,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 1,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 6,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -656,61 +617,45 @@ function model_platform_job_template_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 2,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_from',
-    'label' => 'From',
-    'required' => 0,
+    'label' => 'field_job_daily_rate_from',
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 5,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
+      'weight' => 41,
     ),
   );
 
   // Exported field_instance: 'node-job_template-field_job_daily_rate_to'.
   $field_instances['node-job_template-field_job_daily_rate_to'] = array(
     'bundle' => 'job_template',
-    'default_value' => array(
-      0 => array(
-        'value' => 500,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 2,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 7,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -731,36 +676,27 @@ function model_platform_job_template_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 3,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_to',
-    'label' => 'To',
-    'required' => 0,
+    'label' => 'field_job_daily_rate_to',
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 6,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
+      'weight' => 42,
     ),
   );
 
@@ -911,11 +847,11 @@ function model_platform_job_template_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Additional documents');
   t('Date');
-  t('From');
   t('Job status');
   t('Payment approval');
   t('Summary of the job');
-  t('To');
+  t('field_job_daily_rate_from');
+  t('field_job_daily_rate_to');
 
   return $field_instances;
 }

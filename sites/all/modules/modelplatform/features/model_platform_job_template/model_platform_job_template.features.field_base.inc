@@ -68,15 +68,21 @@ function model_platform_job_template_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_job_daily_rate_from',
-    'indexes' => array(),
+    'indexes' => array(
+      'currency_price' => array(
+        0 => 'amount',
+        1 => 'currency_code',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'commerce_price',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
     ),
+    'title' => 'Daily rate',
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'commerce_price',
+    'weight' => -1,
   );
 
   // Exported field_base: 'field_job_daily_rate_to'.
@@ -86,15 +92,21 @@ function model_platform_job_template_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_job_daily_rate_to',
-    'indexes' => array(),
+    'indexes' => array(
+      'currency_price' => array(
+        0 => 'amount',
+        1 => 'currency_code',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'commerce_price',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
     ),
+    'title' => 'Daily rate',
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'commerce_price',
+    'weight' => -1,
   );
 
   // Exported field_base: 'field_job_payment_approval'.

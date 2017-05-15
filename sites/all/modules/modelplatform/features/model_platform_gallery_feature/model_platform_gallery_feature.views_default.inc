@@ -1824,7 +1824,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: Profile: Daily rate */
+  /* Field: Profile: field_daily_rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2022,7 +2022,7 @@ function model_platform_gallery_feature_views_default_views() {
   );
   $handler->display->display_options['filters']['field_model_hair_color_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_model_hair_color_tid']['vocabulary'] = 'hair_color';
-  /* Filter criterion: Profile: Daily rate (field_daily_rate) */
+  /* Filter criterion: Broken/missing handler */
   $handler->display->display_options['filters']['field_daily_rate_value_1']['id'] = 'field_daily_rate_value_1';
   $handler->display->display_options['filters']['field_daily_rate_value_1']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['filters']['field_daily_rate_value_1']['field'] = 'field_daily_rate_value';
@@ -2456,7 +2456,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Daily rate */
+  /* Field: Profile: field_daily_rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2531,7 +2531,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Daily rate */
+  /* Field: Profile: field_daily_rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2747,7 +2747,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Daily rate */
+  /* Field: Profile: field_daily_rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2848,7 +2848,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Daily rate */
+  /* Field: Profile: field_daily_rate */
   $handler->display->display_options['fields']['field_daily_rate']['id'] = 'field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['table'] = 'field_data_field_daily_rate';
   $handler->display->display_options['fields']['field_daily_rate']['field'] = 'field_daily_rate';
@@ -2960,6 +2960,7 @@ function model_platform_gallery_feature_views_default_views() {
     t('Prepare propose.'),
     t('Block model params'),
     t('[name]'),
+    t('field_daily_rate'),
     t('Shoes'),
     t('Hair'),
     t('Eyes'),
@@ -3014,7 +3015,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Content: From */
+  /* Field: Content: field_job_daily_rate_from */
   $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['field'] = 'field_job_daily_rate_from';
@@ -3027,7 +3028,7 @@ function model_platform_gallery_feature_views_default_views() {
     'thousand_separator' => '',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: To */
+  /* Field: Content: field_job_daily_rate_to */
   $handler->display->display_options['fields']['field_job_daily_rate_to']['id'] = 'field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['table'] = 'field_data_field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['field'] = 'field_job_daily_rate_to';

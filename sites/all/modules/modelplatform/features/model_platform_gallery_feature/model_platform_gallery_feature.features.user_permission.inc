@@ -10,16 +10,6 @@
 function model_platform_gallery_feature_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'MP_DASHBOARD_CUSTOMER_PERMISSION'.
-  $permissions['MP_DASHBOARD_CUSTOMER_PERMISSION'] = array(
-    'name' => 'MP_DASHBOARD_CUSTOMER_PERMISSION',
-    'roles' => array(
-      'Customer' => 'Customer',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'mp_dashboard',
-  );
-
   // Exported permission: 'access add type service'.
   $permissions['access add type service'] = array(
     'name' => 'access add type service',
@@ -743,6 +733,7 @@ function model_platform_gallery_feature_user_default_permissions() {
     'name' => 'view any bat_event entity',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'bat_event',
   );
@@ -845,8 +836,10 @@ function model_platform_gallery_feature_user_default_permissions() {
   $permissions['view own bat_event entities'] = array(
     'name' => 'view own bat_event entities',
     'roles' => array(
+      'Customer' => 'Customer',
       'Model' => 'Model',
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'bat_event',
   );

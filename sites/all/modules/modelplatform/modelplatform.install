@@ -72,3 +72,215 @@ function modelplatform_update_7204() {
   $instance = field_info_instance('node', 'node_gallery_media', 'node_gallery_item');
   field_delete_instance($instance, FALSE);
 }
+
+/**
+ * Update model daily rate.
+ */
+function modelplatform_update_7205() {
+  // Daily rate.
+  $q = db_select('field_data_field_daily_rate', 'dr');
+  $q->addField('dr','entity_id', 'pid');
+  $q->addField('dr','revision_id', 'rid');
+  $q->addField('dr','field_daily_rate_value', 'cost');
+  $costs_info = $q->execute()->fetchAll();
+
+  // Remove field.
+  $instance = field_info_instance('profile2', 'field_daily_rate', 'model_basic_informaiton');
+  field_delete_instance($instance, TRUE);
+
+  $field = array(
+    'field_name' => 'field_daily_rate',
+    'type' => 'commerce_price',
+    'title' => 'Daily rate',
+    'weight' => -1,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'field_daily_rate',
+    'entity_type' => 'profile2',
+    'bundle' => 'model_basic_informaiton',
+  );
+  field_create_instance($instance);
+
+  foreach ($costs_info as $row) {
+    $q = db_insert('field_data_field_daily_rate')
+      ->fields(array(
+        'entity_type' => 'profile2',
+        'bundle' => 'model_basic_informaiton',
+        'deleted' => 0,
+        'entity_id' => $row->pid,
+        'revision_id' => $row->rid,
+        'language' => LANGUAGE_NONE,
+        'delta' => 0,
+        'field_daily_rate_amount' => $row->cost * 100,
+        'field_daily_rate_currency_code' => 'USD',
+        'field_daily_rate_data' => 'a:1:{s:10:"components";a:0:{}}',
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * Update job daily rate from.
+ */
+function modelplatform_update_7206() {
+  // Daily rate.
+  $q = db_select('field_data_field_job_daily_rate_from', 'dr');
+  $q->addField('dr','entity_id', 'pid');
+  $q->addField('dr','entity_type', 'entity_type');
+  $q->addField('dr','bundle', 'bundle');
+  $q->addField('dr','revision_id', 'rid');
+  $q->addField('dr','field_job_daily_rate_from_value', 'cost');
+  $costs_info = $q->execute()->fetchAll();
+
+  // Remove field.
+  $instance = field_info_instance('node', 'field_job_daily_rate_from', 'job');
+  field_delete_instance($instance, TRUE);
+  $instance = field_info_instance('node', 'field_job_daily_rate_from', 'job_template');
+  field_delete_instance($instance, TRUE);
+
+  $field = array(
+    'field_name' => 'field_job_daily_rate_from',
+    'type' => 'commerce_price',
+    'title' => 'Daily rate',
+    'weight' => -1,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'field_job_daily_rate_from',
+    'entity_type' => 'node',
+    'bundle' => 'job',
+  );
+  field_create_instance($instance);
+  $instance = array(
+    'field_name' => 'field_job_daily_rate_from',
+    'entity_type' => 'node',
+    'bundle' => 'job_template',
+  );
+  field_create_instance($instance);
+
+  foreach ($costs_info as $row) {
+    $q = db_insert('field_data_field_job_daily_rate_from')
+      ->fields(array(
+        'entity_type' => $row->entity_type,
+        'bundle' => $row->bundle,
+        'deleted' => 0,
+        'entity_id' => $row->pid,
+        'revision_id' => $row->rid,
+        'language' => LANGUAGE_NONE,
+        'delta' => 0,
+        'field_job_daily_rate_from_amount' => $row->cost * 100,
+        'field_job_daily_rate_from_currency_code' => 'USD',
+        'field_job_daily_rate_from_data' => 'a:1:{s:10:"components";a:0:{}}',
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * Update job daily rate to.
+ */
+function modelplatform_update_7207() {
+  // Daily rate.
+  $q = db_select('field_data_field_job_daily_rate_to', 'dr');
+  $q->addField('dr','entity_id', 'pid');
+  $q->addField('dr','entity_type', 'entity_type');
+  $q->addField('dr','bundle', 'bundle');
+  $q->addField('dr','revision_id', 'rid');
+  $q->addField('dr','field_job_daily_rate_to_value', 'cost');
+  $costs_info = $q->execute()->fetchAll();
+
+  // Remove field.
+  $instance = field_info_instance('node', 'field_job_daily_rate_to', 'job');
+  field_delete_instance($instance, TRUE);
+  $instance = field_info_instance('node', 'field_job_daily_rate_to', 'job_template');
+  field_delete_instance($instance, TRUE);
+
+  $field = array(
+    'field_name' => 'field_job_daily_rate_to',
+    'type' => 'commerce_price',
+    'title' => 'Daily rate',
+    'weight' => -1,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'field_job_daily_rate_to',
+    'entity_type' => 'node',
+    'bundle' => 'job',
+  );
+  field_create_instance($instance);
+  $instance = array(
+    'field_name' => 'field_job_daily_rate_to',
+    'entity_type' => 'node',
+    'bundle' => 'job_template',
+  );
+  field_create_instance($instance);
+
+  foreach ($costs_info as $row) {
+    $q = db_insert('field_data_field_job_daily_rate_to')
+      ->fields(array(
+        'entity_type' => $row->entity_type,
+        'bundle' => $row->bundle,
+        'deleted' => 0,
+        'entity_id' => $row->pid,
+        'revision_id' => $row->rid,
+        'language' => LANGUAGE_NONE,
+        'delta' => 0,
+        'field_job_daily_rate_to_amount' => $row->cost * 100,
+        'field_job_daily_rate_to_currency_code' => 'USD',
+        'field_job_daily_rate_to_data' => 'a:1:{s:10:"components";a:0:{}}',
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * Update model lingerie daily rate.
+ */
+function modelplatform_update_7208() {
+  // Daily rate.
+  $q = db_select('field_data_field_lingerie_daily_rate', 'dr');
+  $q->addField('dr','entity_id', 'pid');
+  $q->addField('dr','revision_id', 'rid');
+  $q->addField('dr','field_lingerie_daily_rate_value', 'cost');
+  $costs_info = $q->execute()->fetchAll();
+
+  // Remove field.
+  $instance = field_info_instance('profile2', 'field_lingerie_daily_rate', 'model_additional_info');
+  field_delete_instance($instance, TRUE);
+
+  $field = array(
+    'field_name' => 'field_lingerie_daily_rate',
+    'type' => 'commerce_price',
+    'title' => 'Daily rate',
+    'weight' => -1,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'field_lingerie_daily_rate',
+    'entity_type' => 'profile2',
+    'bundle' => 'model_additional_info',
+  );
+  field_create_instance($instance);
+
+  foreach ($costs_info as $row) {
+    $q = db_insert('field_data_field_lingerie_daily_rate')
+      ->fields(array(
+        'entity_type' => 'profile2',
+        'bundle' => 'model_basic_informaiton',
+        'deleted' => 0,
+        'entity_id' => $row->pid,
+        'revision_id' => $row->rid,
+        'language' => LANGUAGE_NONE,
+        'delta' => 0,
+        'field_lingerie_daily_rate_amount' => $row->cost * 100,
+        'field_lingerie_daily_rate_currency_code' => 'USD',
+        'field_lingerie_daily_rate_data' => 'a:1:{s:10:"components";a:0:{}}',
+      ))
+      ->execute();
+  }
+}

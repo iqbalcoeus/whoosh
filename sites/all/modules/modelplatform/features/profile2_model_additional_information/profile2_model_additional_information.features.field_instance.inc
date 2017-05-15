@@ -170,38 +170,33 @@ function profile2_model_additional_information_field_default_field_instances() {
     'bundle' => 'model_additional_info',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Can\'t be less then 500',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
+        'module' => 'commerce_price',
         'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
+          'calculation' => FALSE,
         ),
-        'type' => 'number_integer',
-        'weight' => 1,
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_lingerie_daily_rate',
     'label' => 'Lingerie daily rate',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => 500,
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_simple',
       'weight' => 1,
     ),
   );
@@ -235,7 +230,7 @@ function profile2_model_additional_information_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 11,
+      'weight' => 8,
     ),
   );
 
@@ -268,7 +263,7 @@ function profile2_model_additional_information_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 6,
     ),
   );
 
@@ -301,7 +296,7 @@ function profile2_model_additional_information_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 10,
+      'weight' => 7,
     ),
   );
 
@@ -347,6 +342,7 @@ function profile2_model_additional_information_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Beautiful feet');
   t('Beautiful hands');
+  t('Can\'t be less then 500');
   t('Driving license');
   t('Experience');
   t('Freckles');

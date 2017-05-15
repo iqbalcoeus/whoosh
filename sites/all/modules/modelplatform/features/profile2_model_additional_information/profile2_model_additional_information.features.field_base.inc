@@ -125,15 +125,22 @@ function profile2_model_additional_information_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_lingerie_daily_rate',
-    'indexes' => array(),
+    'indexes' => array(
+      'currency_price' => array(
+        0 => 'amount',
+        1 => 'currency_code',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'commerce_price',
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'profile2_private' => 0,
     ),
+    'title' => 'Daily rate',
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'commerce_price',
+    'weight' => -1,
   );
 
   // Exported field_base: 'field_model_driving_license'.
