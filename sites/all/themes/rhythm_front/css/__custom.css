@@ -4848,6 +4848,10 @@ div.sf-accordion-toggle.sf-style-white a {
   margin: -20px 20px 0 20px;
 }
 
+.krumo-root {
+  text-transform: none;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
