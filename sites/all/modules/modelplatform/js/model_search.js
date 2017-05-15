@@ -86,20 +86,20 @@
 
   Drupal.ModelsSearch.initDailyRatePart = function(context) {
     // Daily rate part.
-    $(context).find('.form-item-field-daily-rate-value-1 input').attr('placeholder', '');
-    $(context).find('.form-item-field-lingerie-daily-rate-value input').attr('placeholder', '');
+    $(context).find('.form-item-field-daily-rate-amount input').attr('placeholder', '');
+    $(context).find('.form-item-field-lingerie-daily-rate-amount input').attr('placeholder', '');
     if ($(context).find('#edit-field-lingerie-value-1:checked').length) {
-      $(context).find('.form-item-field-daily-rate-value-1').hide();
-      $(context).find('.form-item-field-lingerie-daily-rate-value').show();
+      $(context).find('.form-item-field-daily-rate-amount').hide();
+      $(context).find('.form-item-field-lingerie-daily-rate-amount').show();
     }
     $(context).find('.form-item-field-lingerie-value input').change(function(){
       if (this.checked) {
-        $(context).find('.form-item-field-daily-rate-value-1').hide();
-        $(context).find('.form-item-field-lingerie-daily-rate-value').show();
+        $(context).find('.form-item-field-daily-rate-amount').hide();
+        $(context).find('.form-item-field-lingerie-daily-rate-amount').show();
       }
       else {
-        $(context).find('.form-item-field-lingerie-daily-rate-value').hide();
-        $(context).find('.form-item-field-daily-rate-value-1').show();
+        $(context).find('.form-item-field-lingerie-daily-rate-amount').hide();
+        $(context).find('.form-item-field-daily-rate-amount').show();
       }
     });
   };
