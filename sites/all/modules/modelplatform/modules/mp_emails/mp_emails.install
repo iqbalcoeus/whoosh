@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: cimpleo
+ * Date: 15.05.17
+ * Time: 16:46
+ */
+
+/**
+ * Implements hook_install().
+ */
+function mp_emails_install() {
+  variable_set('mp_emails_mail_footer', 'Model Platform Team');
+}
