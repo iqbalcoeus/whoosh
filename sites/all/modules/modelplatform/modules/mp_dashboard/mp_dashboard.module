@@ -8,6 +8,8 @@
 define('MP_DASHBOARD_CUSTOMER_ACCESS', 'customer dashboard access');
 define('MP_DASHBOARD_ACCESS', 'modelplatform dashboard access');
 
+define('MP_DASHBOARD_MODEL_MY_JOBS_ACCESS', 'my jobs page access');
+
 /**
  * Implements hook_menu().
  */
@@ -15,35 +17,29 @@ function mp_dashboard_menu() {
   $items = array();
 
   $items['customer/dashboard'] = array(
-    'title' => 'Dashboard',
-    'page callback' => 'mp_dashboard_customer_page',
+    'title' => t('Dashboard'),
+    'page callback' => 'mp_dashboard_clear_page',
     'access arguments' => array(MP_DASHBOARD_CUSTOMER_ACCESS),
   );
   $items['dashboard'] = array(
-    'title' => 'Dashboard',
-    'page callback' => 'mp_dashboard_page',
+    'title' => t('Dashboard'),
+    'page callback' => 'mp_dashboard_clear_page',
     'access arguments' => array(MP_DASHBOARD_CUSTOMER_ACCESS),
+  );
+  $items['user/%/edit/my_jobs'] = array(
+    'title' => t('My Jobs'),
+    'page callback' => 'mp_dashboard_clear_page',
+    'access arguments' => array(MP_DASHBOARD_MODEL_MY_JOBS_ACCESS),
   );
 
   return $items;
 }
 
 /**
- * Dashboard page callback.
+ * Generate clear page.
  */
-function mp_dashboard_customer_page() {
-  $output = '';
-
-  return $output;
-}
-
-/**
- * Dashboard page callback.
- */
-function mp_dashboard_page() {
-  $output = '';
-
-  return $output;
+function mp_dashboard_clear_page() {
+  return '';
 }
 
 /**
@@ -58,6 +54,10 @@ function mp_dashboard_permission() {
     MP_DASHBOARD_ACCESS => array(
       'title' => t('Dashboard access'),
       'description' => t('Perform dashboard access.'),
+    ),
+    MP_DASHBOARD_MODEL_MY_JOBS_ACCESS => array(
+      'title' => t('My jobs page access'),
+      'description' => t('Perform access to the my jobs page.'),
     ),
   );
 }
