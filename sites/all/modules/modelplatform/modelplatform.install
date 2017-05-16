@@ -114,7 +114,7 @@ function modelplatform_update_7205() {
         'language' => LANGUAGE_NONE,
         'delta' => 0,
         'field_daily_rate_amount' => $row->cost * 100,
-        'field_daily_rate_currency_code' => 'USD',
+        'field_daily_rate_currency_code' => 'EUR',
         'field_daily_rate_data' => 'a:1:{s:10:"components";a:0:{}}',
       ))
       ->execute();
@@ -172,7 +172,7 @@ function modelplatform_update_7206() {
         'language' => LANGUAGE_NONE,
         'delta' => 0,
         'field_job_daily_rate_from_amount' => $row->cost * 100,
-        'field_job_daily_rate_from_currency_code' => 'USD',
+        'field_job_daily_rate_from_currency_code' => 'EUR',
         'field_job_daily_rate_from_data' => 'a:1:{s:10:"components";a:0:{}}',
       ))
       ->execute();
@@ -230,7 +230,7 @@ function modelplatform_update_7207() {
         'language' => LANGUAGE_NONE,
         'delta' => 0,
         'field_job_daily_rate_to_amount' => $row->cost * 100,
-        'field_job_daily_rate_to_currency_code' => 'USD',
+        'field_job_daily_rate_to_currency_code' => 'EUR',
         'field_job_daily_rate_to_data' => 'a:1:{s:10:"components";a:0:{}}',
       ))
       ->execute();
@@ -278,7 +278,7 @@ function modelplatform_update_7208() {
         'language' => LANGUAGE_NONE,
         'delta' => 0,
         'field_lingerie_daily_rate_amount' => $row->cost * 100,
-        'field_lingerie_daily_rate_currency_code' => 'USD',
+        'field_lingerie_daily_rate_currency_code' => 'EUR',
         'field_lingerie_daily_rate_data' => 'a:1:{s:10:"components";a:0:{}}',
       ))
       ->execute();
