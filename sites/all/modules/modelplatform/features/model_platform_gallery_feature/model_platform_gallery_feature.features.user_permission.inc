@@ -295,6 +295,16 @@ function model_platform_gallery_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'customer dashboard access'.
+  $permissions['customer dashboard access'] = array(
+    'name' => 'customer dashboard access',
+    'roles' => array(
+      'Customer' => 'Customer',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_dashboard',
+  );
+
   // Exported permission: 'delete any bat_event entity'.
   $permissions['delete any bat_event entity'] = array(
     'name' => 'delete any bat_event entity',
@@ -589,6 +599,16 @@ function model_platform_gallery_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'modelplatform',
+  );
+
+  // Exported permission: 'my jobs page access'.
+  $permissions['my jobs page access'] = array(
+    'name' => 'my jobs page access',
+    'roles' => array(
+      'Model' => 'Model',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mp_dashboard',
   );
 
   // Exported permission: 'reject profile revisions'.
