@@ -50,7 +50,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
     if (isset($event_data->job_nid)) {
       $auctioned_job = node_load($event_data->job_nid);
     }
-//    $auctioned_job = _mp_booking_get_job_auction($model_uid, $customer_uid);
+
     if ($auctioned_job) {
       $start_date = $end_date = NULL;
 
@@ -67,10 +67,22 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $event_id = $model_events[$auctioned_job->nid];
       $event = bat_event_load($event_id);
 
-      $status = t('Empty status');
+      $status = t($event->field_event_target_status[LANGUAGE_NONE][0]['value']);
       $decision = '';
 
       $auction_data = mp_booking_get_event_last_auction($event_id);
+
+      $auction = mp_auction_load($auction_data->auction_id);
+      $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
+      if (isset($field_status[0]['value'])) {
+        $field = field_info_field('field_auction_status');
+        $values = list_allowed_values($field);
+        $status = $values[$field_status[0]['value']];
+      }
+      $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
+      if (isset($field_decision[0]['value'])) {
+        $decision = $field_decision[0]['value'];
+      }
 
       $form['auction_id'] = array(
         '#type' => 'value',
@@ -244,10 +256,12 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   // Create auction.
   module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
   $auction = mp_auction_create(array('type' => 'auction'));
-  $auction->name = 'Auction uid - ' . $user->uid;
+  $auction->name = 'Auction - ' . $event->event_id . '[0]';
   $auction->uid = $user->uid;
   $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
   $auction->field_auction_status[LANGUAGE_NONE][0]['value'] = MP_BOOKING_AUCTION_REQUEST_SENT;
+  $auction->field_auction_cost_propose = $event->field_job_cost;
+  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $values['model_uid'];
   mp_auction_save($auction);
 
   drupal_set_message(t('Model was optioned'));
@@ -285,145 +299,162 @@ function mp_booking_job_model_invite_form_cancel_submit($form, $form_state) {
 function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
   global $user;
 
-  if (isset($event->event_id) && $event->event_id) {
-    // Create auction form if user is event owner.
-    if ($event->uid === $user->uid) {
-      module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
-      $auction = mp_auction_create(array('type' => 'auction'));
-      $auction->name = 'Auction event id - ' . $event->uid;
-      $auction->uid = $user->uid;
-      $auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-      $auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $form_state['values']['field_auction_cost_propose'];
-      $form = mp_auction_edit_form($form, $form_state, $auction);
+  $create_new_auction = FALSE;
+  $negotiations_count = 0;
+
+  if (isset($form_state['triggering_element'])) {
+    if ($form_state['triggering_element']['#name'] === 'auction_decision_new_propose') {
+      $create_new_auction = TRUE;
     }
+  }
 
-    $form['#event'] = $event;
-
+  if (isset($event->event_id) && $event->event_id) {
+    // Get owner and decision uids.
     $model_uid = 0;
-    if (isset($event->event_bat_unit_reference['und'][0]['target_id'])) {
-      $unit = bat_unit_load($event->event_bat_unit_reference['und'][0]['target_id']);
+    if (isset($event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id'])) {
+      $unit = bat_unit_load($event->event_bat_unit_reference[LANGUAGE_NONE][0]['target_id']);
       $model_uid = $unit->uid;
     }
-
-    $form['job_invitation_title'] = array(
-      '#type' => 'markup',
-      '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">'. t('New propose') . '</h5>',
-    );
-
-    $form['auctions'] = array(
-      '#type' => 'container',
-      '#tree' => TRUE,
-    );
-    $delta = 0;
-
-    $auctions = mp_booking_get_event_auctions($event);
-
-    foreach ($auctions as $_auction) {
-      $form['auctions'][$delta] = array(
-        '#type' => 'container',
-        '#tree' => TRUE,
-      );
-
-      if (isset($_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'])) {
-        $amount = $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'];
-        $currency_code = $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['currency_code'];
-        $form['auctions'][$delta]['cost'] = array(
-          '#title' => t('Cost propose'),
-          '#type' => 'markup',
-          '#prefix' => '<div class="cost-propose">',
-          '#markup' => commerce_currency_format($amount, $currency_code),
-          '#suffix' => '</div>',
-        );
-      }
-      if (isset($_auction->changed)) {
-        $form['auctions'][$delta]['changed'] = array(
-          '#title' => t('Changed'),
-          '#type' => 'markup',
-          '#prefix' => '<div class="date-propose">',
-          '#markup' => date('Y-m-d H:i', $_auction->created),
-          '#suffix' => '</div>',
-        );
-      }
-
-      $form['auctions'][$delta]['auction_id'] = array(
-        '#type' => 'value',
-        '#value' => $_auction->mp_auction_id,
-      );
-
-      $no_decision = FALSE;
-      if ($_auction->field_auction_decision[LANGUAGE_NONE][0]['value']) {
-        $form['auctions'][$delta]['decision'] = array(
-          '#title' => t('Decision'),
-          '#type' => 'markup',
-          '#prefix' => '<div class="decision-propose">',
-          '#markup' => $_auction->field_auction_decision[LANGUAGE_NONE][0]['value'],
-          '#suffix' => '</div>',
-        );
-      }
-      else {
-        if ($_auction->uid === $user->uid) {
-          $form['auctions'][$delta]['decision'] = array(
-            '#title' => t('Decision'),
-            '#type' => 'markup',
-            '#prefix' => '<div class="decision-propose">',
-            '#markup' => t('Have no decision yet.'),
-            '#suffix' => '</div>',
-          );
-          $no_decision = TRUE;
-        }
-        else {
-          $form['auctions'][$delta]['decision'] = array(
-            '#title' => t('Decision'),
-            '#type' => 'container',
-            '#tree' => TRUE,
-            '#prefix' => '<div class="decision-propose">',
-            '#suffix' => '</div>',
-          );
-          $form['auctions'][$delta]['decision']['accept'] = array(
-            '#type' => 'submit',
-            '#value' => t('Accept'),
-            '#name' => 'auction_decision_' . $delta . '_accept',
-            '#submit' => array(
-              'mp_booking_job_auction_form_accept',
-            ),
-          );
-          $form['auctions'][$delta]['decision']['decline'] = array(
-            '#type' => 'submit',
-            '#value' => t('Decline'),
-            '#name' => 'auction_decision_' . $delta . '_decline',
-            '#submit' => array(
-              'mp_booking_job_auction_form_decline',
-            ),
-          );
-        }
-      }
-
-      $delta++;
+    $customer_uid = 0;
+    if (isset($event->field_job[LANGUAGE_NONE][0]['target_id'])) {
+      $job = node_load($event->field_job[LANGUAGE_NONE][0]['target_id']);
+      $customer_uid = $job->uid;
+    }
+    if ($model_uid == $user->uid) {
+      $decision_uid = $customer_uid;
+      $owner_uid = $model_uid;
+    }
+    else {
+      $decision_uid = $model_uid;
+      $owner_uid = $customer_uid;
+      $create_new_auction = FALSE;
     }
 
-    // Hide filled fields.
-    $form['field_auction_decision']['#access'] = FALSE;
-    $form['field_auction_event']['#access'] = FALSE;
-    $form['name']['#access'] = FALSE;
-    $form['actions']['delete']['#access'] = FALSE;
-    $form['field_auction_status']['#access'] = FALSE;
+    // Get events auctions.
+    $auctions = mp_booking_get_event_auctions($event);
+    foreach($auctions as $auction_item) {
+      if ($auction_item->uid === $user->uid) {
+        $negotiations_count++;
 
-    // Available if user is event owner.
-    if (!$no_decision && $event->uid === $user->uid || $model_uid === $user->uid) {
-      if ($delta < 3) {
-        $form['actions']['submit']['#value'] = t('Send new propose');
-        $form['actions']['submit']['#submit'][] = 'mp_booking_job_auction_form_submit';
+      }
+    }
+    $auction = end($auctions);
+
+    $decision_form_show = FALSE;
+    if ($auction->uid != $user->uid) {
+      if (!isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+        || !$auction->field_auction_decision[LANGUAGE_NONE][0]['value']) {
+        $decision_form_show = TRUE;
+      }
+    }
+    else {
+      if (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+        && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline') {
+        $decision_form_show = TRUE;
+      }
+    }
+
+    if ($decision_form_show) {
+      if ($create_new_auction) {
+        $_auction = mp_auction_create(array('type' => 'auction'));
+        $_auction->name = 'Auction - ' . $event->event_id . '[' . count($auctions) . ']';
+        $_auction->uid = $owner_uid;
+        $_auction->field_auction_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
+        $_auction->field_auction_cost_propose[LANGUAGE_NONE][0]['amount'] = $form_state['values']['field_auction_cost_propose'];
+        $_auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $decision_uid;
+        $form = mp_auction_edit_form($form, $form_state, $_auction);
+      }
+      $form['#prefix'] = '<div id="job_auction_form">';
+      $form['#suffix'] = '</div>';
+
+
+      $form['job_invitation_title'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">' . t('New propose') . '</h5>',
+      );
+
+      $form['#event'] = $event;
+
+      $form['_mp_auction_id'] = array(
+        '#type' => 'value',
+        '#value' => $auction->mp_auction_id,
+      );
+      $form['decision'] = array(
+        '#title' => t('Decision'),
+        '#type' => 'container',
+        '#tree' => TRUE,
+        '#prefix' => '<div id="decision-wrapper" class="decision-propose">',
+        '#suffix' => '</div>',
+      );
+      $form['decision']['accept'] = array(
+        '#type' => 'submit',
+        '#value' => t('Accept'),
+        '#name' => 'auction_decision_accept',
+        '#submit' => array(
+          'mp_booking_job_auction_form_accept',
+        ),
+      );
+      if ($owner_uid != $customer_uid
+        && $negotiations_count < 3) {
+        $form['decision']['new_propose'] = array(
+          '#type' => 'button',
+          '#value' => t('Open negotiantions'),
+          '#name' => 'auction_decision_new_propose',
+          '#disabled' => $create_new_auction,
+          '#ajax' => array(
+            'callback' => 'mp_booking_job_auction_form_ajax',
+            'wrapper' => 'job_auction_form',
+            'method' => 'replace',
+            'effect' => 'fade',
+          ),
+        );
       }
       else {
-        $form['field_auction_cost_propose']['#access'] = FALSE;
-        $form['actions']['submit'] = array(
-          '#type' => 'markup',
-          '#markup' => t('Auction limits have been reached.'),
+        $form['decision']['decline'] = array(
+          '#type' => 'submit',
+          '#value' => t('Decline'),
+          '#name' => 'auction_decision_decline',
+          '#submit' => array(
+            'mp_booking_job_auction_form_decline',
+          ),
         );
+      }
+
+      // Hide filled fields.
+      $form['field_auction_decision']['#access'] = FALSE;
+      $form['field_auction_event']['#access'] = FALSE;
+      $form['name']['#access'] = FALSE;
+      $form['actions']['delete']['#access'] = FALSE;
+      $form['field_auction_status']['#access'] = FALSE;
+      $form['field_decision_user']['#access'] = FALSE;
+
+      if ($create_new_auction) {
+        $form['actions']['submit']['#value'] = t('Send new propose');
+        $form['actions']['submit']['#submit'][] = 'mp_booking_job_auction_form_submit';
       }
     }
   }
 
+
+      // Available if user is event owner.
+//    if ($event->uid === $user->uid || $model_uid === $user->uid) {
+//      if ($delta < 3) {
+//
+//      }
+//      else {
+//        $form['field_auction_cost_propose']['#access'] = FALSE;
+//        $form['actions']['submit'] = array(
+//          '#type' => 'markup',
+//          '#markup' => t('Auction limits have been reached.'),
+//        );
+//      }
+//    }
+
+
+  return $form;
+}
+
+function mp_booking_job_auction_form_ajax($form, $form_state) {
   return $form;
 }
 
@@ -433,9 +464,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
  * @see mp_booking_job_auction_form()
  */
 function mp_booking_job_auction_form_accept($form, &$form_state) {
-  $delta = $form_state['triggering_element']['#parents'][1];
-
-  $auction_id = $form_state['values']['auctions'][$delta]['auction_id'];
+  $auction_id = $form_state['values']['_mp_auction_id'];
   $auction = mp_auction_load($auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
@@ -445,6 +474,8 @@ function mp_booking_job_auction_form_accept($form, &$form_state) {
   $event->field_job_cost = $auction->field_auction_cost_propose;
   $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
   bat_event_save($event);
+
+  module_invoke_all('mpb_option_model_accept', $auction);
 }
 
 /**
@@ -453,12 +484,12 @@ function mp_booking_job_auction_form_accept($form, &$form_state) {
  * @see mp_booking_job_auction_form()
  */
 function mp_booking_job_auction_form_decline($form, &$form_state) {
-  $delta = $form_state['triggering_element']['#parents'][1];
-
-  $auction_id = $form_state['values']['auctions'][$delta]['auction_id'];
+  $auction_id = $form_state['values']['_mp_auction_id'];
   $auction = mp_auction_load($auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Decline';
   mp_auction_save($auction);
+
+  module_invoke_all('mpb_option_model_decline', $auction);
 }
 
 /**
@@ -467,6 +498,8 @@ function mp_booking_job_auction_form_decline($form, &$form_state) {
  * @see mp_booking_job_auction_form()
  */
 function mp_booking_job_auction_form_submit($form, &$form_state) {
+  mp_booking_job_auction_form_decline($form, $form_state);
+
   $form_state['redirect'] = NULL;
 }
 

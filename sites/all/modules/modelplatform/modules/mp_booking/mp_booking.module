@@ -32,6 +32,8 @@ define('MP_BOOKING_AUCTION_UNREAD', 'unread');
 require_once 'mp_booking.inc';
 require_once 'mp_booking.form.inc';
 
+module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
+
 /**
  * Implements hook_menu().
  */
@@ -47,7 +49,7 @@ function mp_booking_menu() {
   );
 
   $items['job/event/%bat_event/auction'] = array(
-    'title' => t('Job auction'),
+    'title' => t('Job propose'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mp_booking_job_auction_form', 2),
     'access callback' => 'user_access',

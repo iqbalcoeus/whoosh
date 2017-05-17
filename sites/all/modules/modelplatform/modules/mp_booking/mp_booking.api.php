@@ -15,13 +15,13 @@ function hook_mpb_option_model($event) {
 /**
  * After model was optioned and confirmed.
  */
-function hook_mpb_option_model_accept($event) {
+function hook_mpb_option_model_accept($auction) {
 
 }
 
 /**
  * After model was optioned and confirmed.
  */
-function hook_mpb_option_model_decline($event) {
+function hook_mpb_option_model_decline($auction) {
 
 }
