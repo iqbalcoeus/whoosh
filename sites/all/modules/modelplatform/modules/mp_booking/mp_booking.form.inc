@@ -116,7 +116,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#suffix' => '</div>',
       );
 
-      if ($auction->field_auction_decision == 'Decline') {
+      if ($auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline') {
         $form['actions'] = array(
           '#type' => 'container',
           '#tree' => TRUE,
