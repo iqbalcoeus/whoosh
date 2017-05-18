@@ -97,12 +97,12 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#value' => $event_id,
       );
 
-      $form['job_status'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="job-status">',
-        '#markup' =>  $status,
-        '#suffix' => '</div>',
-      );
+//      $form['job_status'] = array(
+//        '#type' => 'markup',
+//        '#prefix' => '<div class="job-status">',
+//        '#markup' =>  $status,
+//        '#suffix' => '</div>',
+//      );
 
       $form['jobs'] = array(
         '#type' => 'value',
