@@ -4852,6 +4852,146 @@ div.sf-accordion-toggle.sf-style-white a {
   text-transform: none;
 }
 
+@media screen and (min-width: 768px) {
+  .block.event-part-block-1,
+  .block.job-propose {
+    display: inline-block;
+    vertical-align: top;
+    width: 47%;
+  }
+
+  .block.event-part-block-1 {
+    margin-right: 5%;
+  }
+
+  #job_auction_form {
+    display: inline-block;
+    vertical-align: top;
+    width: 47%;
+    margin-left: 52%;
+  }
+}
+
+.block.job-propose .user-picture img {
+  display: inline-block;
+  vertical-align: top;
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+.block.job-propose .user-picture {
+  text-align: center;
+}
+
+.view-job-propose-auctions .views-row {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.view-job-propose-auctions .views-field-created {
+  flex: 1 100%;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.view-job-propose-auctions .views-row .views-field-field-auction-cost-propose {
+  align-self: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.view-job-propose-auctions .user-full-name {
+  font-size: 12px;
+}
+
+.view-job-propose-auctions .auction-decision {
+  color: #fc1c5b;
+  text-align: right;
+}
+
+.view-job-propose-auctions .views-row .views-field-field-auction-cost-propose .field-content {
+  margin-top: -25px;
+}
+
+.view-job-propose-auctions .views-row-odd {
+  background: #fff;
+}
+
+.view-job-propose-auctions .views-row-even {
+  background: #f1f1f1;
+}
+
+#job_auction_form .form-wrapper {
+  text-align: right;
+}
+
+#job_auction_form .description {
+  display: block;
+}
+
+#job_auction_form .field-type-commerce-price label {
+  display: none;
+}
+
+#job_auction_form .field-type-commerce-price .rhythm-input,
+#job_auction_form .field-type-commerce-price .field-suffix {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#job_auction_form .field-type-commerce-price .rhythm-input input {
+  padding: 8px 13px;
+  width: 112px;
+}
+
+#job_auction_form .field-type-commerce-price,
+#job_auction_form .form-actions {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#job_auction_form {
+  text-align: right;
+}
+
+.block-system .decision-propose .form-submit,
+#job_auction_form .form-wrapper .form-submit {
+  margin: 5px 0 5px 10px;
+}
+
+.block-system .decision-propose .form-wrapper {
+  text-align: right;
+}
+
+@media screen and (max-width: 480px) {
+  .block.job-propose .user-picture img {
+    width: 80px;
+    height: 80px;
+    -webkit-border-radius: 80px;
+    -moz-border-radius: 80px;
+    border-radius: 80px;
+  }
+
+  .view-job-propose-auctions .views-row .views-field-field-auction-cost-propose {
+    font-size: 14px;
+  }
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
