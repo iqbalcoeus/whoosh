@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Profile 2 - Model My Jobs feature.
+ */
+
+include_once 'profile_2_model_my_jobs.features.inc';
