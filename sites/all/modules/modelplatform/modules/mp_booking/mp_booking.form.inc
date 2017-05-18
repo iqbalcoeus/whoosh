@@ -92,6 +92,10 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#type' => 'value',
         '#value' => $auction_data->auction_id,
       );
+      $form['event_id'] = array(
+        '#type' => 'value',
+        '#value' => $event_id,
+      );
 
       $form['job_status'] = array(
         '#type' => 'markup',
@@ -282,6 +286,11 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
   module_invoke_all('mpb_option_model_accept');
+
+  $event = bat_event_load($form_state['values']['event_id']);
+  $event->field_job_cost = $auction->field_auction_cost_propose;
+  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
+  bat_event_save($event);
 }
 
 /**
