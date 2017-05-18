@@ -4979,6 +4979,80 @@ div.sf-accordion-toggle.sf-style-white a {
   text-align: right;
 }
 
+.view-model-job-proposes .views-row {
+  vertical-align: top;
+  width: 100%;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  margin: 5px 0;
+  padding: 15px 20px 25px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-model-job-proposes .views-row .views-field-title a {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.view-model-job-proposes .views-row .views-field-title {
+  margin-bottom: 15px;
+}
+
+.view-model-job-proposes .views-row .views-field-field-job-cost .field-content {
+  color: #fc1c5b;
+  font-size: 15px;
+}
+
+.view-model-job-proposes .views-row > .views-field .views-label,
+.view-model-job-proposes .views-row > .views-field .field-content {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.view-model-job-proposes .views-row .views-field.views-field-body {
+  display: block;
+  margin: 15px 0 10px 0;
+}
+
+.view-model-job-proposes .views-row .views-field.views-field-body .field-content {
+  font-weight: 400;
+}
+
+.view-model-job-proposes .views-row .views-field-nothing a,
+.view-model-job-proposes .views-row .views-field-nothing a:focus {
+  vertical-align: top;
+  margin: 10px 5px 0 0;
+  color: #151515;
+  border: 2px solid #151515;
+  background: transparent;
+  padding: 8px 15px;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  box-shadow: none;
+  display: inline-block;
+  -webkit-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.2s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
+
+.view-model-job-proposes .views-row .views-field-nothing a:hover {
+  background: #151515;
+  color: #fff;
+}
+
 @media screen and (max-width: 480px) {
   .block.job-propose .user-picture img {
     width: 80px;
