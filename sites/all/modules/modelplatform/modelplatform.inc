@@ -265,3 +265,11 @@ function modelplatform_mine_search_url($mine_search) {
 
   return $get_string;
 }
+
+function _modelplatform_user_is_model($user) {
+  return isset($user->roles[MODELPLATFORM_ROLE_MODEL]);
+}
+
+function _modelplatform_user_is_customer($user) {
+  return isset($user->roles[MODELPLATFORM_ROLE_CUSTOMER]);
+}

@@ -11,6 +11,9 @@ define('MODELPLATFORM_VOCABULARY_AGE_CATEGORY', 'age_category');
 define('MODELPLATFORM_JOB_STATUS_CREATED', 95);
 define('MODELPLATFORM_JOB_STATUS_DRAFTED', 104);
 
+define('MODELPLATFORM_ROLE_MODEL', 5);
+define('MODELPLATFORM_ROLE_CUSTOMER', 4);
+
 /**
  * Implements hook_menu().
  */
