@@ -89,7 +89,7 @@ function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
   $event_query->addField('n', 'nid', 'job_nid');
   $event_query->addField('n', 'title', 'job_title');
   $event_query->addField('be', 'event_id', 'event_id');
-dpq($event_query);
+
   $query_result = $event_query->execute()->fetch();
   if (isset($query_result->job_nid)) {
     $result = $query_result;
