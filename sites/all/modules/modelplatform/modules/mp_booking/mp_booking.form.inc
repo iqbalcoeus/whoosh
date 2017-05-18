@@ -116,7 +116,8 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#suffix' => '</div>',
       );
 
-      if ($auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid) {
+      if ((!isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value']) && $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid)
+      || (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value']) && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Accept' && $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] != $user->uid)) {
         $form['actions'] = array(
           '#type' => 'container',
           '#tree' => TRUE,
