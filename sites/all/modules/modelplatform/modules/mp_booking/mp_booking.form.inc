@@ -356,8 +356,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
     }
     $auction = end($auctions);
 
-    if ($auction->field_auction_status[LANGUAGE_NONE][0]['value'] != 'read'
-    && $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid) {
+    if ((!isset($auction->field_auction_status[LANGUAGE_NONE][0]['value']) || $auction->field_auction_status[LANGUAGE_NONE][0]['value'] != 'read')) {
       $auction->field_auction_status[LANGUAGE_NONE][0]['value'] == 'read';
       mp_auction_save($auction);
     }
