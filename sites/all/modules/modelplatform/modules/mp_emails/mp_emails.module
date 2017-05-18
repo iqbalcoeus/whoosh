@@ -46,21 +46,130 @@ function mp_emails_mpb_option_model($event) {
     $language = language_default();
     $send = TRUE;
     $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
-    if ($result['result'] == TRUE) {
-      drupal_set_message(t('Your message has been sent.'));
-    }
-    else {
-      drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
-    }
   }
+}
+
+/**
+ * Implements hook_mpb_option_model_accept().
+ */
+function mp_emails_mpb_option_model_accept($auction) {
+  global $base_url;
+
+  $auction_wrapper = entity_metadata_wrapper('mp_auction', $auction);
+  $decision_user = $auction_wrapper->field_decision_user->value();
+  $event = $auction_wrapper->field_auction_event->value();
+
+  $decision_user_wrapper = entity_metadata_wrapper('user', $decision_user);
+  $decision_user_full_name = $decision_user_wrapper->field_full_name->value();
+  $decision_user_mail = $decision_user_wrapper->mail->value();
+
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $job = $event_wrapper->field_job->value();
+  $unit = $event_wrapper->event_bat_unit_reference->value();
+
+  if (_modelplatform_user_is_model($decision_user)) {
+    $url = $base_url . '/job/event/' . $event->event_id . '/auction';
+  }
+  else {
+    $url = $base_url . '/job/model/' . $unit->uid . '/invite';
+  }
+
+  $module = 'mp_emails';
+  $key = 'mp_emeils_job_propose';
+
+  $to = $decision_user_mail;
+  $from = variable_get('site_mail', 'admin@example.com');
+
+  $message = t('
+      Dear, @full_name.
+      
+      Job was accepted. 
+      @url
+      
+      @email_footer',
+    array(
+      '@full_name' => $decision_user_full_name,
+      '@url' => $url,
+      '@email_footer' => variable_get('mp_emails_mail_footer', 'Model Platform Team'),
+    )
+  );
+
+  $params = array(
+    'subject' => 'New job propose - ' . $job->title,
+    'message' => $message,
+  );
+
+  $language = language_default();
+  $send = TRUE;
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+}
+
+/**
+ * Implements hook_mpb_option_model_decline().
+ */
+function mp_emails_mpb_option_model_decline($auction) {
+  global $base_url;
+
+  $auction_wrapper = entity_metadata_wrapper('mp_auction', $auction);
+  $decision_user = $auction_wrapper->field_decision_user->value();
+  $event = $auction_wrapper->field_auction_event->value();
+
+  $decision_user_wrapper = entity_metadata_wrapper('user', $decision_user);
+  $decision_user_full_name = $decision_user_wrapper->field_full_name->value();
+  $decision_user_mail = $decision_user_wrapper->mail->value();
+
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $job = $event_wrapper->field_job->value();
+  $unit = $event_wrapper->event_bat_unit_reference->value();
+
+  if (_modelplatform_user_is_model($decision_user)) {
+    $url = $base_url . '/job/event/' . $event->event_id . '/auction';
+  }
+  else {
+    $url = $base_url . '/job/model/' . $unit->uid . '/invite';
+  }
+
+  $module = 'mp_emails';
+  $key = 'mp_emeils_job_propose';
+
+  $to = $decision_user_mail;
+  $from = variable_get('site_mail', 'admin@example.com');
+
+  $message = t('
+      Dear, @full_name.
+      
+      New cost propose. 
+      @url
+      
+      @email_footer',
+    array(
+      '@full_name' => $decision_user_full_name,
+      '@url' => $url,
+      '@email_footer' => variable_get('mp_emails_mail_footer', 'Model Platform Team'),
+    )
+  );
+
+  $params = array(
+    'subject' => 'New job propose - ' . $job->title,
+    'message' => $message,
+  );
+
+  $language = language_default();
+  $send = TRUE;
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
 }
 
 /**
  * Implements hook_mail().
  */
 function mp_emails_mail($key, &$message, $params) {
-  if ($key === 'mp_emeils_job_propose') {
-    $message['subject'] = $params['subject'];
-    $message['body'][] = $params['message'];
+  switch($key) {
+    case 'mp_emeils_job_propose':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+      break;
+
+    default:
+      // Nothing to do.
   }
 }
