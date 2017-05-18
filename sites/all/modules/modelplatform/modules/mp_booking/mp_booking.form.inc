@@ -84,6 +84,10 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $decision = $field_decision[0]['value'];
       }
 
+      $form['auction_form'] = array(
+        '#type' => 'markup',
+        '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
+      );
       $form['auction_id'] = array(
         '#type' => 'value',
         '#value' => $auction_data->auction_id,
