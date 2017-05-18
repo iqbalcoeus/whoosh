@@ -26,11 +26,6 @@ function mp_dashboard_menu() {
     'page callback' => 'mp_dashboard_clear_page',
     'access arguments' => array(MP_DASHBOARD_CUSTOMER_ACCESS),
   );
-  $items['user/%/edit/my_jobs'] = array(
-    'title' => t('My Jobs'),
-    'page callback' => 'mp_dashboard_clear_page',
-    'access arguments' => array(MP_DASHBOARD_MODEL_MY_JOBS_ACCESS),
-  );
 
   return $items;
 }
