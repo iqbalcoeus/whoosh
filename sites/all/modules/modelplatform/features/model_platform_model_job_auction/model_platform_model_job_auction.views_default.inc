@@ -81,6 +81,7 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['picture']['exclude'] = TRUE;
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
+  $handler->display->display_options['fields']['picture']['image_style'] = '512_512';
   /* Field: User: Full name */
   $handler->display->display_options['fields']['field_full_name']['id'] = 'field_full_name';
   $handler->display->display_options['fields']['field_full_name']['table'] = 'field_data_field_full_name';
@@ -139,6 +140,7 @@ function model_platform_model_job_auction_views_default_views() {
 <div class="auction-decision">[field_auction_decision]</div>';
   $handler->display->display_options['fields']['picture_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture_1']['link_photo_to_profile'] = FALSE;
+  $handler->display->display_options['fields']['picture_1']['image_style'] = '512_512';
   /* Contextual filter: Events: Events ID */
   $handler->display->display_options['arguments']['event_id']['id'] = 'event_id';
   $handler->display->display_options['arguments']['event_id']['table'] = 'bat_events';
