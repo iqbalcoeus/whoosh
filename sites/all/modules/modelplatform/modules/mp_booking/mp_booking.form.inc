@@ -116,26 +116,28 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#suffix' => '</div>',
       );
 
-      $form['actions'] = array(
-        '#type' => 'container',
-        '#tree' => TRUE,
-      );
-      $form['actions']['confirm'] = array(
-        '#type' => 'submit',
-        '#value' => t('Confirm'),
-        '#name' => 'job_confirm',
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_confirm_submit',
-        ),
-      );
-      $form['actions']['cancel'] = array(
-        '#type' => 'submit',
-        '#value' => t('Cancel'),
-        '#name' => 'job_cancel',
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_cancel_submit',
-        ),
-      );
+      if ($auction->field_auction_decision == 'Decline') {
+        $form['actions'] = array(
+          '#type' => 'container',
+          '#tree' => TRUE,
+        );
+        $form['actions']['confirm'] = array(
+          '#type' => 'submit',
+          '#value' => t('Confirm'),
+          '#name' => 'job_confirm',
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_confirm_submit',
+          ),
+        );
+        $form['actions']['cancel'] = array(
+          '#type' => 'submit',
+          '#value' => t('Cancel'),
+          '#name' => 'job_cancel',
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_cancel_submit',
+          ),
+        );
+      }
       if ($decision == 'Accept') {
         $decision = t('Confirmed');
       }
