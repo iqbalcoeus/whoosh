@@ -71,6 +71,7 @@ function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
 
   // BAT Event.
   $event_query = db_select('bat_events', 'be');
+  $event_query->condition('be.start_date', date('YYYY-m-d H:i:s', REQUEST_TIME), '>');
 
   // Job.
   $event_query->innerJoin('field_data_field_job', 'fj',
