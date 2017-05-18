@@ -54,6 +54,8 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'mp_auction';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'bat';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'bat_daily';
   /* Field: MP Auction: Mp auction ID */
@@ -84,10 +86,11 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['field_full_name']['table'] = 'field_data_field_full_name';
   $handler->display->display_options['fields']['field_full_name']['field'] = 'field_full_name';
   $handler->display->display_options['fields']['field_full_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_full_name']['label'] = 'Propose User';
+  $handler->display->display_options['fields']['field_full_name']['label'] = '';
   $handler->display->display_options['fields']['field_full_name']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_full_name']['alter']['text'] = '<div class="user-picture">[picture]</div>
 <div class="user-full-name">[field_full_name]</div>';
+  $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
   /* Field: MP Auction: Status */
   $handler->display->display_options['fields']['field_auction_status']['id'] = 'field_auction_status';
   $handler->display->display_options['fields']['field_auction_status']['table'] = 'field_data_field_auction_status';
@@ -97,6 +100,8 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['field_auction_cost_propose']['id'] = 'field_auction_cost_propose';
   $handler->display->display_options['fields']['field_auction_cost_propose']['table'] = 'field_data_field_auction_cost_propose';
   $handler->display->display_options['fields']['field_auction_cost_propose']['field'] = 'field_auction_cost_propose';
+  $handler->display->display_options['fields']['field_auction_cost_propose']['label'] = '';
+  $handler->display->display_options['fields']['field_auction_cost_propose']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_auction_cost_propose']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['field_auction_cost_propose']['settings'] = array(
     'calculation' => FALSE,
@@ -127,11 +132,12 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['picture_1']['table'] = 'users';
   $handler->display->display_options['fields']['picture_1']['field'] = 'picture';
   $handler->display->display_options['fields']['picture_1']['relationship'] = 'field_decision_user_target_id';
-  $handler->display->display_options['fields']['picture_1']['label'] = 'Decision';
+  $handler->display->display_options['fields']['picture_1']['label'] = '';
   $handler->display->display_options['fields']['picture_1']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['picture_1']['alter']['text'] = '<div class="user-picture">[picture_1]</div>
 <div class="user-full-name">[field_full_name_1]</div>
 <div class="auction-decision">[field_auction_decision]</div>';
+  $handler->display->display_options['fields']['picture_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture_1']['link_photo_to_profile'] = FALSE;
   /* Contextual filter: Events: Events ID */
   $handler->display->display_options['arguments']['event_id']['id'] = 'event_id';
@@ -166,15 +172,12 @@ function model_platform_model_job_auction_views_default_views() {
     t('Events'),
     t('Auction author'),
     t('Decision User'),
-    t('Created'),
     t('Mp auction ID'),
     t('.'),
     t(','),
-    t('Propose User'),
     t('<div class="user-picture">[picture]</div>
 <div class="user-full-name">[field_full_name]</div>'),
     t('Status'),
-    t('Cost propose'),
     t('Decision'),
     t('Have no decision yet'),
     t('Uid'),

@@ -84,9 +84,17 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $decision = $field_decision[0]['value'];
       }
 
+      $form['auction_form'] = array(
+        '#type' => 'markup',
+        '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
+      );
       $form['auction_id'] = array(
         '#type' => 'value',
         '#value' => $auction_data->auction_id,
+      );
+      $form['event_id'] = array(
+        '#type' => 'value',
+        '#value' => $event_id,
       );
 
       $form['job_status'] = array(
@@ -108,26 +116,28 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#suffix' => '</div>',
       );
 
-      $form['actions'] = array(
-        '#type' => 'container',
-        '#tree' => TRUE,
-      );
-      $form['actions']['confirm'] = array(
-        '#type' => 'submit',
-        '#value' => t('Confirm'),
-        '#name' => 'job_confirm',
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_confirm_submit',
-        ),
-      );
-      $form['actions']['cancel'] = array(
-        '#type' => 'submit',
-        '#value' => t('Cancel'),
-        '#name' => 'job_cancel',
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_cancel_submit',
-        ),
-      );
+      if (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])) {
+        $form['actions'] = array(
+          '#type' => 'container',
+          '#tree' => TRUE,
+        );
+        $form['actions']['confirm'] = array(
+          '#type' => 'submit',
+          '#value' => t('Confirm'),
+          '#name' => 'job_confirm',
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_confirm_submit',
+          ),
+        );
+        $form['actions']['cancel'] = array(
+          '#type' => 'submit',
+          '#value' => t('Cancel'),
+          '#name' => 'job_cancel',
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_cancel_submit',
+          ),
+        );
+      }
       if ($decision == 'Accept') {
         $decision = t('Confirmed');
       }
@@ -278,6 +288,11 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
   module_invoke_all('mpb_option_model_accept');
+
+  $event = bat_event_load($form_state['values']['event_id']);
+  $event->field_job_cost = $auction->field_auction_cost_propose;
+  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
+  bat_event_save($event);
 }
 
 /**

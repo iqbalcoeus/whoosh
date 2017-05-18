@@ -56,12 +56,15 @@ function _mp_booking_set_unit($entity_type, $entity, $unit) {
  * Get customer Jobs.
  */
 function _mp_booking_get_customer_jobs($customer_uid, $_fields = array('nid')) {
-  $result = db_select('node', 'n')
-    ->condition('type', 'job')
-    ->condition('uid', $customer_uid)
-    ->fields('n', $_fields)
-    ->execute()
-    ->fetchAllKeyed();
+  $query = db_select('node', 'n');
+  $query->condition('type', 'job');
+  $query->condition('uid', $customer_uid);
+  $query->innerJoin('field_data_field_job_start_date', 'sd',
+    'sd.entity_type = \'node\' AND sd.entity_id = n.nid');
+  $query->condition('sd.field_job_start_date_value',
+    date('Y-m-d H:i:s', REQUEST_TIME), '>');
+  $query->fields('n', $_fields);
+  $result = $query->execute()->fetchAllKeyed(0);
 
   return $result;
 }
