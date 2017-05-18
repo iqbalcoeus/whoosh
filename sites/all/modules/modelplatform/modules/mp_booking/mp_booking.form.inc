@@ -368,10 +368,10 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       $form['#suffix'] = '</div>';
 
 
-      $form['job_invitation_title'] = array(
-        '#type' => 'markup',
-        '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">' . t('New propose') . '</h5>',
-      );
+//      $form['job_invitation_title'] = array(
+//        '#type' => 'markup',
+//        '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">' . t('New propose') . '</h5>',
+//      );
 
       $form['#event'] = $event;
 
