@@ -23,7 +23,7 @@ function profile_2_model_galleries_and_videos_default_profile2_type() {
     "userView" : true,
     "type" : "model_videos",
     "label" : "Video section",
-    "weight" : "10",
+    "weight" : "9",
     "data" : { "registration" : 0, "revisions" : 1, "moderation" : 1, "use_page" : 0 },
     "rdf_mapping" : []
   }');
