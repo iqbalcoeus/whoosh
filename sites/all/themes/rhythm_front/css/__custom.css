@@ -4872,7 +4872,7 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 }
 
-.block.job-propose .user-picture img {
+.view-job-propose-auctions .user-picture img {
   display: inline-block;
   vertical-align: top;
   width: 100px;
@@ -4882,7 +4882,7 @@ div.sf-accordion-toggle.sf-style-white a {
   border-radius: 100px;
 }
 
-.block.job-propose .user-picture {
+.view-job-propose-auctions .user-picture {
   text-align: center;
 }
 
@@ -4915,6 +4915,7 @@ div.sf-accordion-toggle.sf-style-white a {
 
 .view-job-propose-auctions .user-full-name {
   font-size: 12px;
+  text-align: center;
 }
 
 .view-job-propose-auctions .auction-decision {
