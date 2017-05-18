@@ -388,7 +388,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       );
       $form['decision']['accept'] = array(
         '#type' => 'submit',
-        '#value' => t('Accept'),
+        '#value' => t('Agrees to the daily rate'),
         '#name' => 'auction_decision_accept',
         '#submit' => array(
           'mp_booking_job_auction_form_accept',
@@ -398,7 +398,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
         && $negotiations_count < 3) {
         $form['decision']['new_propose'] = array(
           '#type' => 'button',
-          '#value' => t('Open negotiantions'),
+          '#value' => t('Reject the daily Rate'),
           '#name' => 'auction_decision_new_propose',
           '#disabled' => $create_new_auction,
           '#ajax' => array(
@@ -412,13 +412,24 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       else {
         $form['decision']['decline'] = array(
           '#type' => 'submit',
-          '#value' => t('Decline'),
+          '#value' => t('Cancel job'),
           '#name' => 'auction_decision_decline',
           '#submit' => array(
             'mp_booking_job_auction_form_decline',
           ),
         );
       }
+      $form['decision']['description'] = array(
+        '#type' => 'markup',
+        '#markup' => '<span class="description">' .
+          t('You can negotiate the rate up to @max_times times only. (@times left)',
+            array(
+              '@max_times' => MP_BOOKING_MAX_NEGOTIATIONS,
+              '@times' => MP_BOOKING_MAX_NEGOTIATIONS - $negotiations_count)
+          )
+          . '</span>',
+      );
+
 
       // Hide filled fields.
       $form['field_auction_decision']['#access'] = FALSE;
@@ -434,22 +445,6 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       }
     }
   }
-
-
-      // Available if user is event owner.
-//    if ($event->uid === $user->uid || $model_uid === $user->uid) {
-//      if ($delta < 3) {
-//
-//      }
-//      else {
-//        $form['field_auction_cost_propose']['#access'] = FALSE;
-//        $form['actions']['submit'] = array(
-//          '#type' => 'markup',
-//          '#markup' => t('Auction limits have been reached.'),
-//        );
-//      }
-//    }
-
 
   return $form;
 }

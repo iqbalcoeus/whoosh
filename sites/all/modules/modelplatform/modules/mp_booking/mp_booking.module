@@ -29,6 +29,8 @@ define('MP_BOOKING_AUCTION_CONFIRMED', 'confirmed');
 define('MP_BOOKING_AUCTION_READ', 'read');
 define('MP_BOOKING_AUCTION_UNREAD', 'unread');
 
+define('MP_BOOKING_MAX_NEGOTIATIONS', 3);
+
 require_once 'mp_booking.inc';
 require_once 'mp_booking.form.inc';
 
