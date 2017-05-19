@@ -538,3 +538,16 @@ function mp_booking_get_event_last_auction($event_id) {
 
   return $event_query->execute()->fetch();
 }
+
+function mp_booking_auction_access($event) {
+  global $user;
+
+  $access = FALSE;
+
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $unit = $event_wrapper->event_bat_unit_reference->value();
+
+  $access = $access || ($unit->uid === $user->uid);
+
+  return $access;
+}

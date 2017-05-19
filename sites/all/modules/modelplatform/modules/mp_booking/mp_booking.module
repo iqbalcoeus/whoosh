@@ -54,8 +54,8 @@ function mp_booking_menu() {
     'title' => t('Job propose'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mp_booking_job_auction_form', 2),
-    'access callback' => 'user_access',
-    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
+    'access callback' => 'mp_booking_auction_access',
+    'access arguments' => array(2),
   );
 
   $items['job/propose/%'] = array(
