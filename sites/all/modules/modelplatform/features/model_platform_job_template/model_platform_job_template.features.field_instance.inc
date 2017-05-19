@@ -178,13 +178,14 @@ function model_platform_job_template_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_from',
-    'label' => 'field_job_daily_rate_from',
-    'required' => FALSE,
+    'label' => 'From',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'commerce_price',
       'settings' => array(
         'currency_code' => 'default',
@@ -237,13 +238,14 @@ function model_platform_job_template_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_to',
-    'label' => 'field_job_daily_rate_to',
-    'required' => FALSE,
+    'label' => 'To',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'commerce_price',
       'settings' => array(
         'currency_code' => 'default',
@@ -625,13 +627,14 @@ function model_platform_job_template_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_from',
-    'label' => 'field_job_daily_rate_from',
-    'required' => FALSE,
+    'label' => 'Daily rate from',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'commerce_price',
       'settings' => array(
         'currency_code' => 'default',
@@ -684,13 +687,14 @@ function model_platform_job_template_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_daily_rate_to',
-    'label' => 'field_job_daily_rate_to',
-    'required' => FALSE,
+    'label' => 'Daily rate to',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'commerce_price',
       'settings' => array(
         'currency_code' => 'default',
@@ -846,12 +850,14 @@ function model_platform_job_template_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Additional documents');
+  t('Daily rate from');
+  t('Daily rate to');
   t('Date');
+  t('From');
   t('Job status');
   t('Payment approval');
   t('Summary of the job');
-  t('field_job_daily_rate_from');
-  t('field_job_daily_rate_to');
+  t('To');
 
   return $field_instances;
 }
