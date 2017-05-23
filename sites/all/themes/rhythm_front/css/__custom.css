@@ -3162,22 +3162,13 @@ ul.flex-direction-nav {
   text-align: center;
 }
 
-#block-views-front-page-models-1-block-1 .widget-title {
-  border-bottom: 0;
-  margin-top: 0;
-  padding-top: 45px;
-  text-align: center;
-  color: #000;
-  font-size: 24px;
-  font-weight: 600;
-}
-
+#block-views-front-page-models-1-block-1 .widget-title,
 #block-views-front-page-models-1-block-2 .widget-title {
   border-bottom: 0;
   margin-top: 0;
   padding-top: 45px;
   text-align: center;
-  color: #fff;
+  color: #000;
   font-size: 24px;
   font-weight: 600;
 }
