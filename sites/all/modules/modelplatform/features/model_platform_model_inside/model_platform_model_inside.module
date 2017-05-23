@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model Platform - Model Inside feature.
+ */
+
+include_once 'model_platform_model_inside.features.inc';
