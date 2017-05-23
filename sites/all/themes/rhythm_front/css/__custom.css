@@ -3288,6 +3288,10 @@ ul.flippy li {
   border: 1px solid #000;
 }
 
+.view-front-page-models-1 .view-footer a:hover {
+  color: #888;
+}
+
 .view-front-page-models-1 ul.flex-direction-nav {
   top: 28%;
 }
@@ -3537,8 +3541,13 @@ a.add-more-images:hover {
   margin: 2px 3px;
 }
 
+.page-job-model #mp-booking-job-model-invite-form .auction-decision {
+  color: #fc1c5b;
+}
+
 .page-job-model #mp-booking-job-model-invite-form #edit-actions {
   width: 100%;
+  margin: 0 -3px;
 }
 
 .page-job-model #mp-booking-job-model-invite-form .form-type-select {
@@ -3555,8 +3564,8 @@ a.add-more-images:hover {
 
 .block-views.options-models .view-models .view-content {
   min-height: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  max-width: 1060px;
+  margin: 20px auto;
 }
 
 .block-views.options-models .views-row > div {
@@ -5063,6 +5072,15 @@ div.sf-accordion-toggle.sf-style-white a {
 .view-model-job-proposes .views-row .views-field-nothing a:hover {
   background: #151515;
   color: #fff;
+}
+
+.page-job-model .region-content {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.page-job-model .block.gallery {
+  margin: 0 10px;
 }
 
 @media screen and (max-width: 480px) {
