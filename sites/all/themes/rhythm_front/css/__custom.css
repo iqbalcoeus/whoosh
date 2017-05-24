@@ -3148,13 +3148,13 @@ ul.flex-direction-nav {
 }
 
 .view-front-page-models-1 {
-  background: #2a2a2a;
-  color: #fff;
+  background: #fff;
+  color: #000;
   padding-top: 20px;
 }
 
 .view-front-page-models-1 .views-field-nothing a {
-  color: #fff;
+  color: #000;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -3162,20 +3162,20 @@ ul.flex-direction-nav {
   text-align: center;
 }
 
-#block-views-front-page-models-1-block-2 .widget-title,
-#block-views-front-page-models-1-block-1 .widget-title {
+#block-views-front-page-models-1-block-1 .widget-title,
+#block-views-front-page-models-1-block-2 .widget-title {
   border-bottom: 0;
   margin-top: 0;
   padding-top: 45px;
   text-align: center;
-  color: #fff;
+  color: #000;
   font-size: 24px;
   font-weight: 600;
 }
 
-#block-views-front-page-models-1-block-2,
-#block-views-front-page-models-1-block-1 {
-  background: #2a2a2a;
+#block-views-front-page-models-1-block-1,
+#block-views-front-page-models-1-block-2 {
+  background: #fff;
 }
 
 #block-block-17,
@@ -3271,9 +3271,13 @@ ul.flippy li {
   display: inline-block;
   padding: 8px 20px;
   text-transform: uppercase;
-  color: #fff;
+  color: #000;
   text-decoration: none;
-  border: 1px solid #fff;
+  border: 1px solid #000;
+}
+
+.view-front-page-models-1 .view-footer a:hover {
+  color: #888;
 }
 
 .view-front-page-models-1 ul.flex-direction-nav {
@@ -3525,8 +3529,13 @@ a.add-more-images:hover {
   margin: 2px 3px;
 }
 
+.page-job-model #mp-booking-job-model-invite-form .auction-decision {
+  color: #fc1c5b;
+}
+
 .page-job-model #mp-booking-job-model-invite-form #edit-actions {
   width: 100%;
+  margin: 0 -3px;
 }
 
 .page-job-model #mp-booking-job-model-invite-form .form-type-select {
@@ -3543,8 +3552,8 @@ a.add-more-images:hover {
 
 .block-views.options-models .view-models .view-content {
   min-height: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  max-width: 1060px;
+  margin: 20px auto;
 }
 
 .block-views.options-models .views-row > div {
@@ -5051,6 +5060,15 @@ div.sf-accordion-toggle.sf-style-white a {
 .view-model-job-proposes .views-row .views-field-nothing a:hover {
   background: #151515;
   color: #fff;
+}
+
+.page-job-model .region-content {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.page-job-model .block.gallery {
+  margin: 0 10px;
 }
 
 @media screen and (max-width: 480px) {
