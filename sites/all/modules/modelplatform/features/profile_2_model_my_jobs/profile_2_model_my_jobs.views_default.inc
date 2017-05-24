@@ -22,7 +22,6 @@ function profile_2_model_my_jobs_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Model Job proposes';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -70,7 +69,7 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['path'] = 'job/event/[event_id]/auction';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  /* Field: Content: field_job_daily_rate_from */
+  /* Field: Content: Daily rate from */
   $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['field'] = 'field_job_daily_rate_from';
@@ -82,7 +81,7 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['fields']['field_job_daily_rate_from']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Content: field_job_daily_rate_to */
+  /* Field: Content: Daily rate to */
   $handler->display->display_options['fields']['field_job_daily_rate_to']['id'] = 'field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['table'] = 'field_data_field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['field'] = 'field_job_daily_rate_to';
@@ -207,7 +206,6 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['block_description'] = 'Model jobs - past jobs';
   $translatables['model_job_proposes'] = array(
     t('Master'),
-    t('Model Job proposes'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -226,6 +224,7 @@ function profile_2_model_my_jobs_views_default_views() {
     t('[start_date] - [end_date]'),
     t('Read more'),
     t('All'),
+    t('Model Job proposes'),
     t('Model jobs - job proposes'),
     t('Past Jobs'),
     t('Model jobs - past jobs'),

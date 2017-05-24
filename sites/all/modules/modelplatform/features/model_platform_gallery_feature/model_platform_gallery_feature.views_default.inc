@@ -3967,31 +3967,31 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Content: From */
+  /* Field: Content: Daily rate from */
   $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['field'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['label'] = '';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_job_daily_rate_from']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_job_daily_rate_from']['alter']['text'] = 'from [field_job_daily_rate_from-value]';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['alter']['text'] = 'from [field_job_daily_rate_from]';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
+    'calculation' => FALSE,
   );
-  /* Field: Content: To */
+  /* Field: Content: Daily rate to */
   $handler->display->display_options['fields']['field_job_daily_rate_to']['id'] = 'field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['table'] = 'field_data_field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['field'] = 'field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['label'] = '';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['text'] = ' to [field_job_daily_rate_to-value]';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['text'] = ' to [field_job_daily_rate_to]';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
+    'calculation' => FALSE,
   );
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
@@ -4111,8 +4111,8 @@ function model_platform_gallery_feature_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Nid'),
-    t('from [field_job_daily_rate_from-value]'),
-    t(' to [field_job_daily_rate_to-value]'),
+    t('from [field_job_daily_rate_from]'),
+    t(' to [field_job_daily_rate_to]'),
     t('[title]
 [field_job_daily_rate_from]
 [field_job_daily_rate_to]'),
