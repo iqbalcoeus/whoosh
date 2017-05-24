@@ -137,23 +137,25 @@ function modelplatform_job_node_form_validate($form, &$form_state) {
 /**
  * Clone model job.
  */
-function modelplatform_job_clone($node) {
+function modelplatform_job_clone($node, $create_job = TRUE) {
   $job = $node;
   $job->type = 'job';
   $job->nid = $job->vid = NULL;
-//  $job->field_job_start_date = NULL;
   $job->field_job_payment_approval = NULL;
   $job->created = REQUEST_TIME;
   $job->changed = REQUEST_TIME;
-  node_save($job);
 
-  if ($job->nid) {
-    $message = t('Job was cloned successfully.');
+  if ($create_job) {
+    node_save($job);
+
+    if ($job->nid) {
+      $message = t('Job was cloned successfully.');
+    }
+    else {
+      $message = t('Job was not cloned.');
+    }
+    drupal_set_message($message);
   }
-  else {
-    $message = t('Job was not cloned.');
-  }
-  drupal_set_message($message);
 
   return $job;
 }
@@ -185,8 +187,14 @@ function modelplatform_job_node_form_template($form, &$form_state) {
  */
 function modelplatform_job_node_form_clone($form, &$form_state) {
   if (isset($form['#node']->nid)) {
-    $job = modelplatform_job_clone($form['#node']);
-    $form_state['redirect'] = 'node/' . $job->nid . '/edit';
+    $form_state['redirect'] = array(
+      'node/add/job',
+      array(
+        'query' => array(
+          'parent_job' => $form['#node']->nid,
+        ),
+      ),
+    );
   }
 }
 
@@ -195,8 +203,11 @@ function modelplatform_job_node_form_clone($form, &$form_state) {
  */
 function modelplatform_job_clone_callback($node) {
   if ($node->type === 'job' || $node->type === 'job_template') {
-    $job = modelplatform_job_clone($node);
-    drupal_goto('node/' . $job->nid . '/edit');
+    drupal_goto('node/add/job', array(
+      'query' => array(
+        'parent_job' => $node->nid,
+      ),
+    ));
   }
 }
 

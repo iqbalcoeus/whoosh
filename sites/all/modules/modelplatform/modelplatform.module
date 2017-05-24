@@ -245,6 +245,15 @@ function modelplatform_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     case 'job_node_form':
+      $get_params = drupal_get_query_parameters();
+      if (isset($get_params['parent_job'])) {
+        $parent_job = node_load($get_params['parent_job']);
+        if (isset($parent_job->nid) && ($parent_job->type == 'job' || $parent_job->type == 'job_template') && ($parent_job->uid == $user->uid)) {
+          $new_job = modelplatform_job_clone($parent_job, FALSE);
+          $form = drupal_get_form('job_node_form', $new_job);
+        }
+      }
+
       if (isset($form['#node']->nid)
         && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
         $field_job_status = field_get_items('node', $form['#node'], 'field_job_status');
