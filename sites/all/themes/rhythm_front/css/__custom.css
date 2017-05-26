@@ -497,7 +497,8 @@ select {
   box-shadow: none !important;
 }
 
-.view-models .view-content {
+.view-models .view-content,
+.view-job-models .view-content {
   margin-top: 50px;
 }
 
@@ -506,7 +507,8 @@ select {
   display: none;
 }
 
-.view-models {
+.view-models,
+.view-job-models {
   margin: 0 -20px;
 }
 
@@ -550,58 +552,67 @@ html.js input.throbbing {
 }
 
 .view-models .views-row,
-.view-castinglist .views-row {
+.view-castinglist .views-row,
+.view-job-models .views-row {
   position: relative;
   width: 100%;
 }
 
 @media screen and (min-width: 480px) {
   .view-models .views-row,
-  .view-castinglist .views-row {
+  .view-castinglist .views-row,
+  .view-job-models .views-row {
     width: 50%;
   }
 }
 
 @media screen and (min-width: 375px) {
   .view-models .views-row,
-  .view-castinglist .views-row {
+  .view-castinglist .views-row,
+  .view-job-models .views-row {
     width: 50%;
   }
 }
 
 @media screen and (min-width: 414px) {
   .view-models .views-row,
-  .view-castinglist .views-row {
+  .view-castinglist .views-row,
+  .view-job-models .views-row {
     width: 33%;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .view-models .views-row,
-  .view-castinglist .views-row {
+  .view-castinglist .views-row,
+  .view-job-models .views-row {
     width: 25%;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .view-models .views-row,
-  .view-castinglist .views-row {
+  .view-castinglist .views-row,
+  .view-job-models .views-row {
     width: 12.5%;
   }
 }
 
 .view-models .views-row:hover .views-field-ops,
-.view-castinglist .views-row:hover .views-field-flagged {
+.view-castinglist .views-row:hover .views-field-flagged,
+.view-job-models .views-row:hover .views-field-ops {
   opacity: 0.6;
 }
 
 .view-models .views-row img,
-.view-castinglist .views-row img {
+.view-castinglist .views-row img,
+.view-job-models .views-row img {
   width: 100%;
 }
 
 .view-models .views-row .views-field-ops,
-.view-castinglist .views-field-flagged {
+.view-castinglist .views-field-flagged,
+.view-job-models .views-row .views-field-ops {
   position: absolute;
   z-index: 1;
   display: inline-block;
@@ -617,12 +628,14 @@ html.js input.throbbing {
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper,
-.view-castinglist .views-field-flagged .field-content {
+.view-castinglist .views-field-flagged .field-content,
+.view-job-models .views-row .views-field-ops .flag-wrapper {
   display: block;
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag,
-.view-castinglist .views-field-flagged .field-content {
+.view-castinglist .views-field-flagged .field-content,
+.view-job-models .views-row .views-field-ops .flag-wrapper a.flag {
   display: block;
   color: transparent;
   width: 21px;
@@ -630,19 +643,23 @@ html.js input.throbbing {
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
-.view-castinglist .views-field-flagged .field-content:before {
+.view-castinglist .views-field-flagged .field-content:before,
+.view-job-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
   content: '\e801';
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before {
+.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
+.view-job-models .views-row .views-field-ops .flag-wrapper a.flag:before,
+.view-job-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before {
   content: '\e800';
 }
 
 .view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
 .view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
 .view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
-.view-castinglist .views-field-flagged .field-content:before {
+.view-castinglist .views-field-flagged .field-content:before,
+.view-job-models .views-row .views-field-ops .flag-wrapper a.flag:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
