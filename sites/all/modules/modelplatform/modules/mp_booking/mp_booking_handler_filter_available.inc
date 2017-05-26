@@ -80,8 +80,9 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
       $start_date = $end_date = NULL;
 
       // Get date values.
-      if (isset($this->view->exposed_raw_input['start_date'])) {
-        $start_date = $this->view->exposed_raw_input['start_date'];
+      if (isset($this->view->exposed_input['start_date']['date'])
+        && $this->view->exposed_input['start_date']['date']) {
+        $start_date = $this->view->exposed_input['start_date']['date'];
 
         $c_start_date = db_and();
         $c_start_date->condition('be.start_date', $start_date, '<=');
@@ -90,8 +91,9 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
         $or->condition($c_start_date);
       }
 
-      if (isset($this->view->exposed_raw_input['end_date'])) {
-        $end_date = $this->view->exposed_raw_input['end_date'];
+      if (isset($this->view->exposed_input['end_date']['date'])
+        && $this->view->exposed_input['end_date']['date']) {
+        $end_date = $this->view->exposed_input['end_date']['date'];
 
         $c_end_date = db_and();
         $c_end_date->condition('be.start_date', $end_date, '<=');

@@ -145,6 +145,7 @@ function modelplatform_params_form_submit($form, &$form_state) {
  */
 function modelplatform_block_info() {
   $blocks = array();
+
   $blocks['modelplatform_b2b'] = array(
     'info' => t('Model platform B2B Link'),
     'cache' => DRUPAL_CACHE_GLOBAL,
@@ -157,6 +158,12 @@ function modelplatform_block_info() {
     'info' => t('Footer - Newsletter'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['modelplatform_job_models_view'] = array(
+    'info' => t('Job - Models'),
+    'cache' => DRUPAL_CACHE_PER_PAGE,
+    'region ' => 'content',
+  );
+
   return $blocks;
 }
 
@@ -200,6 +207,29 @@ function modelplatform_block_view($delta = '') {
       $block['subject'] = t('Newsletter');
       $block['content'] = '<p>' . t('Sign up for our Newsletter to stay updated on our newest offers') . '</p>';
       $block['content'] .= render($_block['content']);
+      break;
+
+    case 'modelplatform_job_models_view':
+      $block['subject'] = '';
+      if (($job = menu_get_object('node', 1)) && $job->type == 'job') {
+        $job_wrapper = entity_metadata_wrapper('node', $job);
+
+        $filters = array(
+          'start_date' => array(
+            'date' => $job_wrapper->field_job_start_date->value()['value'],
+          ),
+          'end_date' => array(
+            'date' => $job_wrapper->field_job_start_date->value()['value2'],
+          ),
+        );
+        $job_models_view = views_get_view('job_models');
+        $job_models_view->set_exposed_input($filters);
+        $display = 'block';
+        $job_models_view->build($display);
+        $content = $job_models_view->render($display);
+
+        $block['content'] = $content;
+      }
       break;
 
     default:
