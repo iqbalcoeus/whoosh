@@ -228,7 +228,15 @@ function modelplatform_block_view($delta = '') {
         $job_models_view->build($display);
         $content = $job_models_view->render($display);
 
-        $block['content'] = $content;
+        $block['content']['#markup'] = $content;
+        // Attach additional settings, js and css to block.
+        $block['content']['#attached'] = array(
+          'js' => array(
+            array(
+              'data' => drupal_get_path('module', 'modelplatform') . '/js/job_model.js'
+            ),
+          ),
+        );
       }
       break;
 
