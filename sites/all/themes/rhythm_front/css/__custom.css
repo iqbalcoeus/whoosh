@@ -5085,6 +5085,64 @@ div.sf-accordion-toggle.sf-style-white a {
   }
 }
 
+.node-type-job .submitted {
+  display: none;
+}
+
+.group-job-block.field-group-div {
+  vertical-align: top;
+  width: 100%;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  margin: 0 0 20px 0;
+  padding: 15px 20px 25px 20px;
+  max-width: 600px;
+}
+
+.group-job-block.field-group-div .field-name-body {
+  color: #888;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+.group-job-block.field-group-div .field-name-body p {
+  margin: 0 0 1em 0;
+}
+
+.group-job-block.field-group-div .field-name-field-job-status a {
+  color: #fc1c5b;
+  font-weight: 600;
+}
+
+.group-job-block.field-group-div .field-name-field-job-start-date {
+  display: flex;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.group-job-block.field-group-div .field-name-field-job-additional-documents {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.group-job-block.field-group-div .field-name-field-job-additional-documents .file {
+  font-weight: 400;
+}
+
+.group-job-block.field-group-div .field-name-field-job-start-date .date-display-range {
+  margin-left: 5px;
+}
+
+.group-job-block.field-group-div .field-type-commerce-price {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
