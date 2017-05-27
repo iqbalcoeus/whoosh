@@ -132,7 +132,7 @@ class mp_booking_handler_filter_available extends views_handler_filter_boolean_o
         if (count($not_uids)) {
           // Exclude reserved nodes from the results.
           $not_uids_str = implode(',', $not_uids);
-          $this->query->add_where_expression($this->options['group'], "user.uid NOT IN ($not_uids_str)");
+          $this->query->add_where_expression($this->options['group'], "users.uid NOT IN ($not_uids_str)");
         }
       }
     }
