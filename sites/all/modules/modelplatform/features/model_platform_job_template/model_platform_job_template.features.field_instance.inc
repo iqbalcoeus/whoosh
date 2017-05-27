@@ -22,7 +22,7 @@ function model_platform_job_template_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
