@@ -2420,6 +2420,555 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_full_name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_full_name']['alter']['path'] = 'job/model/[uid]/invite';
   $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+    3 => 'AND',
+    4 => 'AND',
+    5 => 'AND',
+    6 => 'AND',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Full name (field_full_name) */
+  $handler->display->display_options['filters']['field_full_name_value']['id'] = 'field_full_name_value';
+  $handler->display->display_options['filters']['field_full_name_value']['table'] = 'field_data_field_full_name';
+  $handler->display->display_options['filters']['field_full_name_value']['field'] = 'field_full_name_value';
+  $handler->display->display_options['filters']['field_full_name_value']['operator'] = 'allwords';
+  $handler->display->display_options['filters']['field_full_name_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_full_name_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_full_name_value']['expose']['operator_id'] = 'field_full_name_value_op';
+  $handler->display->display_options['filters']['field_full_name_value']['expose']['label'] = 'Full name';
+  $handler->display->display_options['filters']['field_full_name_value']['expose']['operator'] = 'field_full_name_value_op';
+  $handler->display->display_options['filters']['field_full_name_value']['expose']['identifier'] = 'field_full_name_value';
+  $handler->display->display_options['filters']['field_full_name_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+  );
+  $handler->display->display_options['filters']['rid']['group'] = 1;
+  /* Filter criterion: User: Model is active (field_model_is_active) */
+  $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
+  $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
+  $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
+  $handler->display->display_options['filters']['field_model_is_active_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_model_is_active_value']['group'] = 1;
+  /* Filter criterion: User: Model Availability */
+  $handler->display->display_options['filters']['model_status']['id'] = 'model_status';
+  $handler->display->display_options['filters']['model_status']['table'] = 'users';
+  $handler->display->display_options['filters']['model_status']['field'] = 'model_status';
+  $handler->display->display_options['filters']['model_status']['value'] = 1;
+  $handler->display->display_options['filters']['model_status']['group'] = 2;
+  $handler->display->display_options['filters']['model_status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['model_status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['model_status']['expose']['label'] = 'Dates';
+  $handler->display->display_options['filters']['model_status']['expose']['operator'] = 'model_status_op';
+  $handler->display->display_options['filters']['model_status']['expose']['identifier'] = 'model_status';
+  $handler->display->display_options['filters']['model_status']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['model_status']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['model_status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Gender (field_model_gender) */
+  $handler->display->display_options['filters']['field_model_gender_tid']['id'] = 'field_model_gender_tid';
+  $handler->display->display_options['filters']['field_model_gender_tid']['table'] = 'field_data_field_model_gender';
+  $handler->display->display_options['filters']['field_model_gender_tid']['field'] = 'field_model_gender_tid';
+  $handler->display->display_options['filters']['field_model_gender_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_gender_tid']['group'] = 3;
+  $handler->display->display_options['filters']['field_model_gender_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_gender_tid']['expose']['operator_id'] = 'field_model_gender_tid_op';
+  $handler->display->display_options['filters']['field_model_gender_tid']['expose']['operator'] = 'field_model_gender_tid_op';
+  $handler->display->display_options['filters']['field_model_gender_tid']['expose']['identifier'] = 'field_model_gender_tid';
+  $handler->display->display_options['filters']['field_model_gender_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_gender_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_gender_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_gender_tid']['vocabulary'] = 'gender';
+  $handler->display->display_options['filters']['field_model_gender_tid']['error_message'] = FALSE;
+  /* Filter criterion: Field collection item: Base city (field_model_base_city) */
+  $handler->display->display_options['filters']['field_model_base_city_tid']['id'] = 'field_model_base_city_tid';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['table'] = 'field_data_field_model_base_city';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['field'] = 'field_model_base_city_tid';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['relationship'] = 'field_c_base_city_value';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['group'] = 3;
+  $handler->display->display_options['filters']['field_model_base_city_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['operator_id'] = 'field_model_base_city_tid_op';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['label'] = 'Base city';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['operator'] = 'field_model_base_city_tid_op';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['identifier'] = 'field_model_base_city_tid';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_base_city_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_base_city_tid']['vocabulary'] = 'base_city';
+  $handler->display->display_options['filters']['field_model_base_city_tid']['error_message'] = FALSE;
+  /* Filter criterion: Profile: Eye color (field_model_eye_color) */
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['id'] = 'field_model_eye_color_tid';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['table'] = 'field_data_field_model_eye_color';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['field'] = 'field_model_eye_color_tid';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['group'] = 3;
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['operator_id'] = 'field_model_eye_color_tid_op';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['label'] = 'Eye color';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['operator'] = 'field_model_eye_color_tid_op';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['identifier'] = 'field_model_eye_color_tid';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_eye_color_tid']['vocabulary'] = 'eye_color';
+  /* Filter criterion: Profile: Hair color (field_model_hair_color) */
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['id'] = 'field_model_hair_color_tid';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['table'] = 'field_data_field_model_hair_color';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['field'] = 'field_model_hair_color_tid';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['group'] = 3;
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['operator_id'] = 'field_model_hair_color_tid_op';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['label'] = 'Hair color';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['operator'] = 'field_model_hair_color_tid_op';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['identifier'] = 'field_model_hair_color_tid';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_hair_color_tid']['vocabulary'] = 'hair_color';
+  /* Filter criterion: Profile: Daily rate (field_daily_rate:amount) */
+  $handler->display->display_options['filters']['field_daily_rate_amount']['id'] = 'field_daily_rate_amount';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['table'] = 'field_data_field_daily_rate';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['field'] = 'field_daily_rate_amount';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['group'] = 4;
+  $handler->display->display_options['filters']['field_daily_rate_amount']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['operator_id'] = 'field_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['label'] = 'Daily rate';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['operator'] = 'field_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['identifier'] = 'field_daily_rate_value_1';
+  $handler->display->display_options['filters']['field_daily_rate_amount']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Lingerie daily rate (field_lingerie_daily_rate:amount) */
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['id'] = 'field_lingerie_daily_rate_amount';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['table'] = 'field_data_field_lingerie_daily_rate';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['field'] = 'field_lingerie_daily_rate_amount';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['group'] = 4;
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['operator_id'] = 'field_lingerie_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['label'] = 'Lingerie daily rate';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['operator'] = 'field_lingerie_daily_rate_amount_op';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['identifier'] = 'field_lingerie_daily_rate_value';
+  $handler->display->display_options['filters']['field_lingerie_daily_rate_amount']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Lingerie (field_lingerie) */
+  $handler->display->display_options['filters']['field_lingerie_value']['id'] = 'field_lingerie_value';
+  $handler->display->display_options['filters']['field_lingerie_value']['table'] = 'field_data_field_lingerie';
+  $handler->display->display_options['filters']['field_lingerie_value']['field'] = 'field_lingerie_value';
+  $handler->display->display_options['filters']['field_lingerie_value']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_lingerie_value']['group'] = 4;
+  $handler->display->display_options['filters']['field_lingerie_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_lingerie_value']['expose']['operator_id'] = 'field_lingerie_value_op';
+  $handler->display->display_options['filters']['field_lingerie_value']['expose']['operator'] = 'field_lingerie_value_op';
+  $handler->display->display_options['filters']['field_lingerie_value']['expose']['identifier'] = 'field_lingerie_value';
+  $handler->display->display_options['filters']['field_lingerie_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_lingerie_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Teeth gap (field_teeth_gap) */
+  $handler->display->display_options['filters']['field_teeth_gap_value']['id'] = 'field_teeth_gap_value';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['table'] = 'field_data_field_teeth_gap';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['field'] = 'field_teeth_gap_value';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['group'] = 4;
+  $handler->display->display_options['filters']['field_teeth_gap_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_teeth_gap_value']['expose']['operator_id'] = 'field_teeth_gap_value_op';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['expose']['operator'] = 'field_teeth_gap_value_op';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['expose']['identifier'] = 'field_teeth_gap_value';
+  $handler->display->display_options['filters']['field_teeth_gap_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_teeth_gap_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Beautiful feet (field_beautiful_feet) */
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['id'] = 'field_beautiful_feet_value_1';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['table'] = 'field_data_field_beautiful_feet';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['field'] = 'field_beautiful_feet_value';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['expose']['operator_id'] = 'field_beautiful_feet_value_1_op';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['expose']['operator'] = 'field_beautiful_feet_value_1_op';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['expose']['identifier'] = 'field_beautiful_feet_value_1';
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_beautiful_feet_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Beautiful hands (field_beautiful_hands) */
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['id'] = 'field_beautiful_hands_value_1';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['table'] = 'field_data_field_beautiful_hands';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['field'] = 'field_beautiful_hands_value';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['expose']['operator_id'] = 'field_beautiful_hands_value_1_op';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['expose']['operator'] = 'field_beautiful_hands_value_1_op';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['expose']['identifier'] = 'field_beautiful_hands_value_1';
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_beautiful_hands_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Freckles (field_freckles) */
+  $handler->display->display_options['filters']['field_freckles_value']['id'] = 'field_freckles_value';
+  $handler->display->display_options['filters']['field_freckles_value']['table'] = 'field_data_field_freckles';
+  $handler->display->display_options['filters']['field_freckles_value']['field'] = 'field_freckles_value';
+  $handler->display->display_options['filters']['field_freckles_value']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_freckles_value']['group'] = 4;
+  $handler->display->display_options['filters']['field_freckles_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_freckles_value']['expose']['operator_id'] = 'field_freckles_value_op';
+  $handler->display->display_options['filters']['field_freckles_value']['expose']['operator'] = 'field_freckles_value_op';
+  $handler->display->display_options['filters']['field_freckles_value']['expose']['identifier'] = 'field_freckles_value';
+  $handler->display->display_options['filters']['field_freckles_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_freckles_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Age category (field_age_category) */
+  $handler->display->display_options['filters']['field_age_category_tid']['id'] = 'field_age_category_tid';
+  $handler->display->display_options['filters']['field_age_category_tid']['table'] = 'field_data_field_age_category';
+  $handler->display->display_options['filters']['field_age_category_tid']['field'] = 'field_age_category_tid';
+  $handler->display->display_options['filters']['field_age_category_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_age_category_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_age_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['operator_id'] = 'field_age_category_tid_op';
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['label'] = 'Age category';
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['operator'] = 'field_age_category_tid_op';
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['identifier'] = 'field_age_category_tid';
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_age_category_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_age_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_age_category_tid']['vocabulary'] = 'age_category';
+  /* Filter criterion: Profile: Ethnicity (field_model_ethnicity) */
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['id'] = 'field_model_ethnicity_tid';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['table'] = 'field_data_field_model_ethnicity';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['field'] = 'field_model_ethnicity_tid';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['operator_id'] = 'field_model_ethnicity_tid_op';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['label'] = 'Ethnicity';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['operator'] = 'field_model_ethnicity_tid_op';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['identifier'] = 'field_model_ethnicity_tid';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_ethnicity_tid']['vocabulary'] = 'ethnicity';
+  /* Filter criterion: Profile: Sports (field_model_sports) */
+  $handler->display->display_options['filters']['field_model_sports_tid']['id'] = 'field_model_sports_tid';
+  $handler->display->display_options['filters']['field_model_sports_tid']['table'] = 'field_data_field_model_sports';
+  $handler->display->display_options['filters']['field_model_sports_tid']['field'] = 'field_model_sports_tid';
+  $handler->display->display_options['filters']['field_model_sports_tid']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_model_sports_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_model_sports_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['operator_id'] = 'field_model_sports_tid_op';
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['label'] = 'Sports';
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['operator'] = 'field_model_sports_tid_op';
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['identifier'] = 'field_model_sports_tid';
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_sports_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_sports_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_sports_tid']['vocabulary'] = 'sport';
+  /* Filter criterion: Profile: Experience (field_model_experience) */
+  $handler->display->display_options['filters']['field_model_experience_tid']['id'] = 'field_model_experience_tid';
+  $handler->display->display_options['filters']['field_model_experience_tid']['table'] = 'field_data_field_model_experience';
+  $handler->display->display_options['filters']['field_model_experience_tid']['field'] = 'field_model_experience_tid';
+  $handler->display->display_options['filters']['field_model_experience_tid']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_model_experience_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_model_experience_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['operator_id'] = 'field_model_experience_tid_op';
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['label'] = 'Experience';
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['operator'] = 'field_model_experience_tid_op';
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['identifier'] = 'field_model_experience_tid';
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_experience_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_experience_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_experience_tid']['vocabulary'] = 'experience';
+  /* Filter criterion: Profile: Driving license (field_model_driving_license) */
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['id'] = 'field_model_driving_license_tid';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['table'] = 'field_data_field_model_driving_license';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['field'] = 'field_model_driving_license_tid';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['relationship'] = 'profile_2';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['operator_id'] = 'field_model_driving_license_tid_op';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['label'] = 'Driving license';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['operator'] = 'field_model_driving_license_tid_op';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['identifier'] = 'field_model_driving_license_tid';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_driving_license_tid']['vocabulary'] = 'driving_license';
+  /* Filter criterion: Profile: Instagram followers (field_model_instagram_followers) */
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['id'] = 'field_model_instagram_followers_tid';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['table'] = 'field_data_field_model_instagram_followers';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['field'] = 'field_model_instagram_followers_tid';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['group'] = 5;
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['operator_id'] = 'field_model_instagram_followers_tid_op';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['label'] = 'Instagram followers';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['operator'] = 'field_model_instagram_followers_tid_op';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['identifier'] = 'field_model_instagram_followers_tid';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_model_instagram_followers_tid']['vocabulary'] = 'instagram_followers';
+  /* Filter criterion: Profile: Height (field_height) */
+  $handler->display->display_options['filters']['field_height_value']['id'] = 'field_height_value';
+  $handler->display->display_options['filters']['field_height_value']['table'] = 'field_data_field_height';
+  $handler->display->display_options['filters']['field_height_value']['field'] = 'field_height_value';
+  $handler->display->display_options['filters']['field_height_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_height_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_height_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_height_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_height_value']['expose']['operator_id'] = 'field_height_value_op';
+  $handler->display->display_options['filters']['field_height_value']['expose']['label'] = 'Height';
+  $handler->display->display_options['filters']['field_height_value']['expose']['operator'] = 'field_height_value_op';
+  $handler->display->display_options['filters']['field_height_value']['expose']['identifier'] = 'field_height_value';
+  $handler->display->display_options['filters']['field_height_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Size (field_model_size) */
+  $handler->display->display_options['filters']['field_model_size_value']['id'] = 'field_model_size_value';
+  $handler->display->display_options['filters']['field_model_size_value']['table'] = 'field_data_field_model_size';
+  $handler->display->display_options['filters']['field_model_size_value']['field'] = 'field_model_size_value';
+  $handler->display->display_options['filters']['field_model_size_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_model_size_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_model_size_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_model_size_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_model_size_value']['expose']['operator_id'] = 'field_model_size_value_op';
+  $handler->display->display_options['filters']['field_model_size_value']['expose']['label'] = 'Size';
+  $handler->display->display_options['filters']['field_model_size_value']['expose']['operator'] = 'field_model_size_value_op';
+  $handler->display->display_options['filters']['field_model_size_value']['expose']['identifier'] = 'field_model_size_value';
+  $handler->display->display_options['filters']['field_model_size_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Bust (field_chest) */
+  $handler->display->display_options['filters']['field_chest_value']['id'] = 'field_chest_value';
+  $handler->display->display_options['filters']['field_chest_value']['table'] = 'field_data_field_chest';
+  $handler->display->display_options['filters']['field_chest_value']['field'] = 'field_chest_value';
+  $handler->display->display_options['filters']['field_chest_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_chest_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_chest_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_chest_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_chest_value']['expose']['operator_id'] = 'field_chest_value_op';
+  $handler->display->display_options['filters']['field_chest_value']['expose']['label'] = 'Bust';
+  $handler->display->display_options['filters']['field_chest_value']['expose']['operator'] = 'field_chest_value_op';
+  $handler->display->display_options['filters']['field_chest_value']['expose']['identifier'] = 'field_chest_value';
+  $handler->display->display_options['filters']['field_chest_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Waist (field_waist) */
+  $handler->display->display_options['filters']['field_waist_value']['id'] = 'field_waist_value';
+  $handler->display->display_options['filters']['field_waist_value']['table'] = 'field_data_field_waist';
+  $handler->display->display_options['filters']['field_waist_value']['field'] = 'field_waist_value';
+  $handler->display->display_options['filters']['field_waist_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_waist_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_waist_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_waist_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_waist_value']['expose']['operator_id'] = 'field_waist_value_op';
+  $handler->display->display_options['filters']['field_waist_value']['expose']['label'] = 'Waist';
+  $handler->display->display_options['filters']['field_waist_value']['expose']['operator'] = 'field_waist_value_op';
+  $handler->display->display_options['filters']['field_waist_value']['expose']['identifier'] = 'field_waist_value';
+  $handler->display->display_options['filters']['field_waist_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Hips (field_hip) */
+  $handler->display->display_options['filters']['field_hip_value']['id'] = 'field_hip_value';
+  $handler->display->display_options['filters']['field_hip_value']['table'] = 'field_data_field_hip';
+  $handler->display->display_options['filters']['field_hip_value']['field'] = 'field_hip_value';
+  $handler->display->display_options['filters']['field_hip_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_hip_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_hip_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_hip_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_hip_value']['expose']['operator_id'] = 'field_hip_value_op';
+  $handler->display->display_options['filters']['field_hip_value']['expose']['label'] = 'Hips';
+  $handler->display->display_options['filters']['field_hip_value']['expose']['operator'] = 'field_hip_value_op';
+  $handler->display->display_options['filters']['field_hip_value']['expose']['identifier'] = 'field_hip_value';
+  $handler->display->display_options['filters']['field_hip_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Profile: Shoe size (field_shoe_size) */
+  $handler->display->display_options['filters']['field_shoe_size_value']['id'] = 'field_shoe_size_value';
+  $handler->display->display_options['filters']['field_shoe_size_value']['table'] = 'field_data_field_shoe_size';
+  $handler->display->display_options['filters']['field_shoe_size_value']['field'] = 'field_shoe_size_value';
+  $handler->display->display_options['filters']['field_shoe_size_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['field_shoe_size_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_shoe_size_value']['group'] = 6;
+  $handler->display->display_options['filters']['field_shoe_size_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_shoe_size_value']['expose']['operator_id'] = 'field_shoe_size_value_op';
+  $handler->display->display_options['filters']['field_shoe_size_value']['expose']['label'] = 'Shoe size';
+  $handler->display->display_options['filters']['field_shoe_size_value']['expose']['operator'] = 'field_shoe_size_value_op';
+  $handler->display->display_options['filters']['field_shoe_size_value']['expose']['identifier'] = 'field_shoe_size_value';
+  $handler->display->display_options['filters']['field_shoe_size_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
   $handler->display->display_options['path'] = 'models';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Models';
