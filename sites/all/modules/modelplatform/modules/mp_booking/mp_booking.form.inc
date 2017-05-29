@@ -285,7 +285,7 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $auction = mp_auction_load($mp_auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
-  module_invoke_all('mpb_option_model_accept');
+  module_invoke_all('mpb_option_model_accept', $auction);
 
   $event = bat_event_load($form_state['values']['event_id']);
   $event->field_job_cost = $auction->field_auction_cost_propose;
@@ -303,7 +303,7 @@ function mp_booking_job_model_invite_form_cancel_submit($form, $form_state) {
   $auction = mp_auction_load($mp_auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Decline';
   mp_auction_save($auction);
-  module_invoke_all('mpb_option_model_decline');
+  module_invoke_all('mpb_option_model_decline', $auction);
 }
 
 /**
