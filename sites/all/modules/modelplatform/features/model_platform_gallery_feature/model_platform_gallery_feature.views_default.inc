@@ -39,6 +39,13 @@ function model_platform_gallery_feature_views_default_views() {
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
   $handler->display->display_options['fields']['field_gallery_image']['table'] = 'field_data_field_gallery_image';
@@ -211,6 +218,7 @@ function model_platform_gallery_feature_views_default_views() {
     t('<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>'),
+    t('<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>'),
     t('Edit'),
     t('All'),
     t('Block'),
