@@ -5161,6 +5161,42 @@ div.sf-accordion-toggle.sf-style-white a {
   margin-right: 10px;
 }
 
+.user-profile-tabs {
+  margin-bottom: 20px;
+}
+
+.user-profile-tabs ul {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #e5e5e5;
+  display: inline-block;
+}
+
+.user-profile-tabs li {
+  float: left;
+  margin-bottom: -1px;
+  list-style: none;
+}
+
+.user-profile-tabs ul a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  color: #777;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.user-profile-tabs ul a:hover,
+.user-profile-tabs ul a:focus {
+  text-decoration: none;
+  background-color: #f5f5f5;
+  color: #777;
+  border-color: #eee #eee #ddd;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
