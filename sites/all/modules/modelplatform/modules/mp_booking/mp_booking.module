@@ -33,8 +33,10 @@ define('MP_BOOKING_MAX_NEGOTIATIONS', 3);
 
 require_once 'mp_booking.inc';
 require_once 'mp_booking.form.inc';
+require_once 'mp_booking.block.inc';
 
 module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
+module_load_include('inc', 'bat_event', 'bat_event.admin');
 
 /**
  * Implements hook_menu().
@@ -140,6 +142,10 @@ function mp_booking_block_info() {
     'info' => t('Booking form'),
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['mp_booking_model_reciepts'] = array(
+    'info' => t('Job model reciepts form'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
 
   return $blocks;
 }
@@ -148,54 +154,19 @@ function mp_booking_block_info() {
  * Implements hook_block_view().
  */
 function mp_booking_block_view($delta = '') {
-  global $user;
-
-  $block = array();
   switch ($delta) {
     case 'mp_booking_calendar_form':
       $block['subject'] = '';
-
-      // Added system library to prevent $(...).tooltip is not a function error.
-      drupal_add_library('system', 'ui.tooltip');
-
-      if ($account = _mp_booking_get_calendar_account()) {
-
-        // Generate booking form.
-        if (_mp_booking_get_calendar_busy_access()) {
-          $booking_form = drupal_get_form('mp_booking_calendar_form', $account);
-          $form_rendered = drupal_render($booking_form);
-        }
-        else {
-          $form_rendered = '';
-        }
-
-        // Generate calendar.
-        $calendar = '<div id="calendar" class="fixed_event_states"></div>';
-        $library_path = libraries_get_path('fullcalendar');
-        $unit = _mp_booking_get_unit('user', $account);
-
-        $block['content']['#markup'] = $calendar . $form_rendered;
-        // Attach additional settings, js and css to block.
-        $block['content']['#attached'] = array(
-          'js' => array(
-            array('data' => $library_path . '/lib/moment.min.js'),
-            array('data' => $library_path . '/fullcalendar.js'),
-            array('data' => drupal_get_path('module', 'mp_booking') . '/js/mp_booking_calendar.js'),
-            array(
-              'data' => array(
-                'mp_booking' => array(
-                  'eventsPath' => _rcb_generate_calendar_events_path($unit),
-                ),
-              ),
-              'type' => 'setting',
-            ),
-          ),
-          'css' => array(
-            array('data' => $library_path . '/fullcalendar.css'),
-          ),
-        );
-      }
+      $block['content'] = _mp_booking_calendar_form_block_content();
       break;
+
+    case 'mp_booking_model_reciepts':
+      $block['subject'] = '';
+      $block['content'] = _mp_booking_job_model_reciepts_form_block_content();
+      break;
+
+    default:
+      $block = array();
   }
 
   return $block;

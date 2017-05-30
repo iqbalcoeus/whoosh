@@ -624,3 +624,62 @@ function mp_booking_calendar_form_submit($form, &$form_state) {
 
   $form_state['redirect'] = NULL;
 }
+
+/**
+ * Model job reciepts.
+ */
+function mp_booking_job_model_reciepts_form($form, &$form_state, $event) {
+  if ($event) {
+    $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+    $state_id = $event_wrapper->event_state_reference->value()['state_id'];
+    $end_date = strtotime($event_wrapper->end_date);
+
+    if (($state_id == MP_BOOKING_STATE_JOB_CONTRACT)
+      && (REQUEST_TIME > $end_date)
+      && ((REQUEST_TIME - $end_date) < 604800)) {
+      // Create form.
+      $form = bat_event_edit_form($form, $form_state, $event);
+
+      $form['user']['#access'] = FALSE;
+      $form['event_history']['#access'] = FALSE;
+      $form['event_bat_unit_reference']['#access'] = FALSE;
+      $form['event_state_reference']['#access'] = FALSE;
+      $form['field_job']['#access'] = FALSE;
+      $form['field_job_cost']['#access'] = FALSE;
+      $form['actions']['cancel']['#access'] = FALSE;
+      $form['bat_date_range']['#access'] = FALSE;
+
+      $field_collection = &$form['field_additional_receipts'][LANGUAGE_NONE];
+      foreach (element_children($field_collection) as $key) {
+        $field_collection[$key]['field_reciept_approved_by_admin']['#access'] = FALSE;
+        $field_collection[$key]['field_reciept_admin']['#access'] = FALSE;
+        if ($field_collection[$key]['field_reciept_admin'][LANGUAGE_NONE][0]['target_id']['#default_value']) {
+          $field_collection[$key]['remove_button']['#access'] = FALSE;
+        }
+      }
+
+      $form['#validate'] = array(
+        '_rcb_bat_event_form_validate',
+      );
+      $form['bat_date_range']['bat_start_date']['#element_validate'] = array('_rcb_bat_date_validate');
+      $form['bat_date_range']['bat_end_date']['#element_validate'] = array('_rcb_bat_date_validate');
+
+      $form['actions']['submit']['#submit'] = array('mp_booking_job_model_reciepts_form_submit');
+      $form['actions']['submit']['#value'] = t('Save reciepts');
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Job model reciepts submit.
+ *
+ * @see mp_booking_job_model_reciepts_form()
+ */
+function mp_booking_job_model_reciepts_form_submit($form, &$form_state) {
+  // Call exists BAT submit function.
+  bat_event_edit_form_submit($form, $form_state);
+
+  $form_state['redirect'] = NULL;
+}
