@@ -115,6 +115,7 @@ function _mp_dashboard_get_user_profile_tabs() {
   elseif (count($args) == 1 && $args[0] == 'user') {
     $access = TRUE;
   }
+  $access = $access && (isset($user->roles[MODELPLATFORM_ROLE_MODEL]));
 
   if ($access) {
     $model_profiles = _mp_dashboard_get_model_profiles();
