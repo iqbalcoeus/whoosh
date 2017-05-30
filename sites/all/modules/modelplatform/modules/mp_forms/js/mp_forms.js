@@ -16,7 +16,7 @@
             var suffix = ' cm';
             var divideNum = 1;
             var divideNum2 = 1;
-            var value = _value.val();
+            var value = _value.val() ? _value.val() : slider.min;
 
             wrapper.addClass('has-ui-slider');
             wrapper.append('<div id="' + slider.name + '_value" class="mp-slider-value"></div>');
@@ -35,13 +35,13 @@
               divideNum2 = 100;
             }
 
-            valueDiv.html(Math.round(_value.val() * divideNum2 / divideNum) / divideNum2 + suffix);
+            valueDiv.html(Math.round(value * divideNum2 / divideNum) / divideNum2 + suffix);
 
             wrapper.slider({
               range: false,
               min: parseInt(slider.min),
               max: parseInt(slider.max),
-              value: parseInt(_value.val()),
+              value: parseInt(value),
               slide: function (event, ui) {
                 _value.val(ui.value);
                 valueDiv.html(Math.round(ui.value * divideNum2 / divideNum) / divideNum2 + suffix);

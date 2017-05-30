@@ -155,9 +155,8 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
   drupal_add_library('system', 'ui.widget');
   drupal_add_library('system', 'ui.mouse');
   drupal_add_library('system', 'ui.slider');
-  $form['#attached']['js'] = array(
-    drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
-  );
+
+  drupal_add_js(drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js');
 
   // Sliders fields.
   $slider_fields = array(
