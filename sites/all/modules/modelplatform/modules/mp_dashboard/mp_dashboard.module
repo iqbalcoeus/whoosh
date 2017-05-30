@@ -68,3 +68,76 @@ function mp_dashboard_quicktabs_alter(&$quicktabs) {
     }
   }
 }
+
+/**
+ * Implements hook_block_info().
+ */
+function mp_dashboard_block_info() {
+  $blocks = array();
+
+  $blocks['mp_dashboard_profile_tabs'] = array(
+    'info' => t('Model platform User profiles on user view page'),
+    'cache' => DRUPAL_CACHE_PER_USER,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mp_dashboard_block_view($delta = '') {
+  switch ($delta) {
+    case 'mp_dashboard_profile_tabs':
+      $block['subject'] = '';
+      $block['content'] = _mp_dashboard_get_user_profile_tabs();
+      break;
+
+    default:
+      $block = array();
+  }
+
+  return $block;
+}
+
+function _mp_dashboard_get_user_profile_tabs() {
+  global $user;
+
+  $access = FALSE;
+  $args = arg();
+  $output = '';
+
+  $account = menu_get_object('user', 1);
+
+  if (isset($account->uid) && $account->uid == $user->uid) {
+    $access = TRUE;
+  }
+  elseif (count($args) == 1 && $args[0] == 'user') {
+    $access = TRUE;
+  }
+
+  if ($access) {
+    $model_profiles = _mp_dashboard_get_model_profiles();
+
+    $output = '<div class="user-profile-tabs">';
+    foreach ($model_profiles as $profile_name => $profile_title) {
+      $output .= l($profile_title, "user/$user->uid/edit/$profile_name");
+    }
+    $output .= '</div>';
+  }
+
+  return $output;
+}
+
+function _mp_dashboard_get_model_profiles() {
+  $profiles = array(
+    'model_additional_info' => t('Additional informaiton'),
+    'model_basic_informaiton' => t('Basic informaiton'),
+    'model_private_data' => t('Private Data'),
+    'galleries' => t('Image section'),
+    'model_videos' => t('Video section'),
+    'my_jobs' => t('My Jobs'),
+  );
+
+  return $profiles;
+}
