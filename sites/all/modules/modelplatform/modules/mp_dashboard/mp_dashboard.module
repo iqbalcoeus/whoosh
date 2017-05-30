@@ -77,7 +77,7 @@ function mp_dashboard_block_info() {
 
   $blocks['mp_dashboard_profile_tabs'] = array(
     'info' => t('Model platform User profiles on user view page'),
-    'cache' => DRUPAL_CACHE_PER_USER,
+    'cache' => DRUPAL_NO_CACHE,
   );
 
   return $blocks;
