@@ -120,11 +120,11 @@ function _mp_dashboard_get_user_profile_tabs() {
   if ($access) {
     $model_profiles = _mp_dashboard_get_model_profiles();
 
-    $output = '<div class="user-profile-tabs">';
+    $output = '<div class="user-profile-tabs"><ul>';
     foreach ($model_profiles as $profile_name => $profile_title) {
-      $output .= l($profile_title, "user/$user->uid/edit/$profile_name");
+      $output .= '<li>' . l($profile_title, "user/$user->uid/edit/$profile_name") . '</li>';
     }
-    $output .= '</div>';
+    $output .= '</ul></div>';
   }
 
   return $output;
