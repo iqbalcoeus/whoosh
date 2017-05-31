@@ -123,7 +123,6 @@ function profile2_model_basic_information_field_default_field_bases() {
     'module' => 'commerce_price',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
     ),
     'title' => 'Daily rate',
     'translatable' => 0,

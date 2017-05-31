@@ -99,7 +99,11 @@ function profile2_model_basic_information_field_default_field_instances() {
   // Exported field_instance: 'profile2-model_basic_informaiton-field_chest'.
   $field_instances['profile2-model_basic_informaiton-field_chest'] = array(
     'bundle' => 'model_basic_informaiton',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 75,
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Please insert data in Inches',
     'display' => array(
@@ -177,7 +181,11 @@ function profile2_model_basic_information_field_default_field_instances() {
   // Exported field_instance: 'profile2-model_basic_informaiton-field_height'.
   $field_instances['profile2-model_basic_informaiton-field_height'] = array(
     'bundle' => 'model_basic_informaiton',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 168,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -218,7 +226,11 @@ function profile2_model_basic_information_field_default_field_instances() {
   // Exported field_instance: 'profile2-model_basic_informaiton-field_hip'.
   $field_instances['profile2-model_basic_informaiton-field_hip'] = array(
     'bundle' => 'model_basic_informaiton',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 85,
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Please insert data in Inches',
     'display' => array(
@@ -545,7 +557,11 @@ function profile2_model_basic_information_field_default_field_instances() {
   // Exported field_instance: 'profile2-model_basic_informaiton-field_waist'.
   $field_instances['profile2-model_basic_informaiton-field_waist'] = array(
     'bundle' => 'model_basic_informaiton',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 58,
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Please insert data in Inches',
     'display' => array(
