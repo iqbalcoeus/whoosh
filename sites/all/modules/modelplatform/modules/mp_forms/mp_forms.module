@@ -23,6 +23,7 @@ function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
         break;
 
       case 'my_jobs':
+      case 'galleries':
         $form['#access'] = FALSE;
         break;
 
