@@ -5217,7 +5217,7 @@ div.sf-accordion-toggle.sf-style-white a {
 
 .block-mp-booking .tabledrag-toggle-weight-wrapper {
   float: right;
-  display: inline-block;
+  display: none;
 }
 
 .block-mp-booking form .field-multiple-table td.field-multiple-drag {
