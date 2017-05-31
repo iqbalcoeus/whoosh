@@ -107,7 +107,7 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['field_auction_cost_propose']['settings'] = array(
     'calculation' => FALSE,
   );
-  /* Field: Field: Decision */
+  /* Field: MP Auction: Decision */
   $handler->display->display_options['fields']['field_auction_decision']['id'] = 'field_auction_decision';
   $handler->display->display_options['fields']['field_auction_decision']['table'] = 'field_data_field_auction_decision';
   $handler->display->display_options['fields']['field_auction_decision']['field'] = 'field_auction_decision';
@@ -120,27 +120,27 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['fields']['uid_1']['relationship'] = 'field_decision_user_target_id';
   $handler->display->display_options['fields']['uid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['uid_1']['link_to_user'] = FALSE;
-  /* Field: User: Full name */
-  $handler->display->display_options['fields']['field_full_name_1']['id'] = 'field_full_name_1';
-  $handler->display->display_options['fields']['field_full_name_1']['table'] = 'field_data_field_full_name';
-  $handler->display->display_options['fields']['field_full_name_1']['field'] = 'field_full_name';
-  $handler->display->display_options['fields']['field_full_name_1']['relationship'] = 'field_decision_user_target_id';
-  $handler->display->display_options['fields']['field_full_name_1']['label'] = '';
-  $handler->display->display_options['fields']['field_full_name_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_full_name_1']['element_label_colon'] = FALSE;
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture_1']['id'] = 'picture_1';
   $handler->display->display_options['fields']['picture_1']['table'] = 'users';
   $handler->display->display_options['fields']['picture_1']['field'] = 'picture';
   $handler->display->display_options['fields']['picture_1']['relationship'] = 'field_decision_user_target_id';
   $handler->display->display_options['fields']['picture_1']['label'] = '';
-  $handler->display->display_options['fields']['picture_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['picture_1']['alter']['text'] = '<div class="user-picture">[picture_1]</div>
-<div class="user-full-name">[field_full_name_1]</div>
-<div class="auction-decision">[field_auction_decision]</div>';
+  $handler->display->display_options['fields']['picture_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['picture_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture_1']['link_photo_to_profile'] = FALSE;
   $handler->display->display_options['fields']['picture_1']['image_style'] = '512_512';
+  /* Field: User: Full name */
+  $handler->display->display_options['fields']['field_full_name_1']['id'] = 'field_full_name_1';
+  $handler->display->display_options['fields']['field_full_name_1']['table'] = 'field_data_field_full_name';
+  $handler->display->display_options['fields']['field_full_name_1']['field'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name_1']['relationship'] = 'field_decision_user_target_id';
+  $handler->display->display_options['fields']['field_full_name_1']['label'] = '';
+  $handler->display->display_options['fields']['field_full_name_1']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_full_name_1']['alter']['text'] = '<div class="user-picture">[picture_1]</div>
+<div class="user-full-name">[field_full_name_1]</div>
+<div class="auction-decision">[field_auction_decision]</div>';
+  $handler->display->display_options['fields']['field_full_name_1']['element_label_colon'] = FALSE;
   /* Contextual filter: Events: Events ID */
   $handler->display->display_options['arguments']['event_id']['id'] = 'event_id';
   $handler->display->display_options['arguments']['event_id']['table'] = 'bat_events';

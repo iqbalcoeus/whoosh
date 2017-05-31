@@ -473,6 +473,21 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
         $form['actions']['submit']['#submit'][] = 'mp_booking_job_auction_form_submit';
       }
     }
+    else {
+      $customer = user_load($customer_uid);
+      $customer_wrapper = entity_metadata_wrapper('user', $customer);
+      $customer_full_name = $customer_wrapper->field_full_name->value();
+      $form['decision']['description'] = array(
+        '#type' => 'markup',
+        '#markup' => '<span class="description">' .
+          t('You should wait @customer_full_name decision.',
+            array(
+              '@customer_full_name' => $customer_full_name,
+            )
+          )
+          . '</span>'
+      );
+    }
   }
 
   return $form;
