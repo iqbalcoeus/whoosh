@@ -5197,6 +5197,78 @@ div.sf-accordion-toggle.sf-style-white a {
   border-color: #eee #eee #ddd;
 }
 
+.block-mp-booking {
+  max-width: 1170px;
+  margin: 20px auto;
+}
+
+.block-mp-booking a.tabledrag-toggle-weight,
+.block-mp-booking .tabledrag-handle {
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.block-mp-booking th label,
+.block-mp-booking a.tabledrag-toggle-weight {
+  text-transform: uppercase;
+  color: #000;
+  font-size: 12px;
+}
+
+.block-mp-booking .tabledrag-toggle-weight-wrapper {
+  float: right;
+  display: none;
+}
+
+.block-mp-booking form .field-multiple-table td.field-multiple-drag {
+  width: auto;
+}
+
+.block-mp-booking table {
+  width: 100%;
+}
+
+.block-mp-booking table td div.form-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+}
+
+.block-mp-booking .tabledrag-hide {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.block-mp-booking .delta-order.tabledrag-hide {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.block-mp-booking table button {
+  clear: both;
+}
+
+.block-mp-booking table tr {
+  padding: 10px;
+}
+
+.block-mp-booking table .btn,
+.block-mp-booking .clearfix .btn {
+  margin: 10px;
+}
+
+.block-mp-booking table tr.odd {
+  background: #fff;
+}
+
+.block-mp-booking table tr.even {
+  background: #f1f1f1;
+}
+
+.block-mp-booking .description {
+  font-size: 11px;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
