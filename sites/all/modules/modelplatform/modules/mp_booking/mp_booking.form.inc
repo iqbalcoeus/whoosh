@@ -73,7 +73,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $event_id = $model_events[$auctioned_job->nid];
       $event = bat_event_load($event_id);
 
-      $status = t($event->field_event_target_status[LANGUAGE_NONE][0]['value']);
+      $status = NULL;
       $decision = '';
 
       $auction_data = mp_booking_get_event_last_auction($event_id);
@@ -90,13 +90,18 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $decision = $field_decision[0]['value'];
       }
 
-      $form['job_title'] = array(
+      // @TODO Remove it if client say ok.
+//      $form['job_title'] = array(
+//        '#type' => 'markup',
+//        '#markup' => '<h5>' . $auctioned_job->title . '</h5>',
+//      );
+//      $form['auction_form'] = array(
+//        '#type' => 'markup',
+//        '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
+//      );
+      $form['status'] = array(
         '#type' => 'markup',
-        '#markup' => '<h5>' . $auctioned_job->title . '</h5>',
-      );
-      $form['auction_form'] = array(
-        '#type' => 'markup',
-        '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
+        '#markup' => '<div class="auction-status">' . t($status) . '</div>',
       );
       $form['auction_id'] = array(
         '#type' => 'value',
@@ -360,7 +365,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
     $auction = end($auctions);
 
     if ((!isset($auction->field_auction_status[LANGUAGE_NONE][0]['value']) || $auction->field_auction_status[LANGUAGE_NONE][0]['value'] != 'read')) {
-      $auction->field_auction_status[LANGUAGE_NONE][0]['value'] == 'read';
+      $auction->field_auction_status[LANGUAGE_NONE][0]['value'] = 'read';
       mp_auction_save($auction);
     }
 
