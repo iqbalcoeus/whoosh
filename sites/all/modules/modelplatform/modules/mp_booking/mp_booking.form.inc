@@ -12,6 +12,12 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
   global $user;
 
   $model_account = user_load($model_uid);
+
+  // Works on models only.
+  if (!isset($model_account->roles[MODELPLATFORM_ROLE_MODEL])) {
+    drupal_goto(404);
+  }
+
   $field_full_name = field_get_items('user', $model_account, 'field_full_name');
   if (isset($field_full_name[0]['value'])) {
     $full_name = $field_full_name[0]['value'];
@@ -632,7 +638,7 @@ function mp_booking_job_model_reciepts_form($form, &$form_state, $event) {
   if ($event) {
     $event_wrapper = entity_metadata_wrapper('bat_event', $event);
     $state_id = $event_wrapper->event_state_reference->value()['state_id'];
-    $end_date = strtotime($event_wrapper->end_date);
+    $end_date = $event->end_date_object->getTimestamp();
 
     if (($state_id == MP_BOOKING_STATE_JOB_CONTRACT)
       && (REQUEST_TIME > $end_date)
