@@ -7,7 +7,7 @@
   Drupal.behaviors.modelplatform = {
     attach: function (context, settings) {
       // Masonry part.
-      var $grid = $('.filtered-hired-block').masonry({
+      var $grid = $('.view-job-models .view-content').masonry({
         itemSelector: '.views-row',
         fitWidth: true
       });

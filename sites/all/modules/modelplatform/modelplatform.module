@@ -214,8 +214,12 @@ function modelplatform_block_view($delta = '') {
         $filtered_models_view = views_embed_view('job_models', 'block');
         $hired_models_view = views_embed_view('job_models', 'block_1');
         $block['content']['#markup'] = '<div class="filtered-hired-block">'
-          . $filtered_models_view
-          . $hired_models_view
+            . '<div class="filtered-views-block"><h4 class="job-models-title">' . t('Filtered models') . '</h4>'
+              . $filtered_models_view
+            . '</div>'
+            . '<div class="hired-views-block"><h4 class="job-models-title">' . t('Hired models') . '</h4>'
+              . $hired_models_view
+            . '</div>'
           . '</div>';
         $block['content']['#attached'] = array(
           'js' => array(
