@@ -171,7 +171,6 @@ function modelplatform_block_info() {
  * Implements hook_block_view().
  */
 function modelplatform_block_view($delta = '') {
-  $block = array();
   switch ($delta) {
     case 'modelplatform_b2b':
       $block['subject'] = '';
@@ -212,7 +211,12 @@ function modelplatform_block_view($delta = '') {
     case 'modelplatform_job_models_view':
       $block['subject'] = '';
       if (($job = menu_get_object('node', 1)) && $job->type == 'job') {
-        $block['content']['#markup'] = views_embed_view('job_models', 'block');
+        $filtered_models_view = views_embed_view('job_models', 'block');
+        $hired_models_view = views_embed_view('job_models', 'block_1');
+        $block['content']['#markup'] = '<div class="filtered-hired-block">'
+          . $filtered_models_view
+          . $hired_models_view
+          . '</div>';
         $block['content']['#attached'] = array(
           'js' => array(
             array(
@@ -224,7 +228,7 @@ function modelplatform_block_view($delta = '') {
       break;
 
     default:
-      // Nothing to do.
+      $block = array();
   }
 
   return $block;

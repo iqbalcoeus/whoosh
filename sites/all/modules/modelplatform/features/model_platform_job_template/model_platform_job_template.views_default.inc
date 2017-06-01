@@ -212,8 +212,74 @@ function model_platform_job_template_views_default_views() {
     5 => 0,
   );
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
+  /* Display: Filtered models */
+  $handler = $view->new_display('block', 'Filtered models', 'block');
+
+  /* Display: Hired models */
+  $handler = $view->new_display('block', 'Hired models', 'block_1');
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Flags: casting_mark */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'users';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'casting_mark';
+  /* Relationship: Profile - Basic informaiton */
+  $handler->display->display_options['relationships']['profile']['id'] = 'profile';
+  $handler->display->display_options['relationships']['profile']['table'] = 'users';
+  $handler->display->display_options['relationships']['profile']['field'] = 'profile';
+  $handler->display->display_options['relationships']['profile']['ui_name'] = 'Profile - Basic informaiton';
+  $handler->display->display_options['relationships']['profile']['label'] = 'Profile - Basic informaiton';
+  $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
+    'model_basic_informaiton' => 'model_basic_informaiton',
+  );
+  /* Relationship: Unit */
+  $handler->display->display_options['relationships']['field_bat_unit_target_id']['id'] = 'field_bat_unit_target_id';
+  $handler->display->display_options['relationships']['field_bat_unit_target_id']['table'] = 'field_data_field_bat_unit';
+  $handler->display->display_options['relationships']['field_bat_unit_target_id']['field'] = 'field_bat_unit_target_id';
+  $handler->display->display_options['relationships']['field_bat_unit_target_id']['ui_name'] = 'Unit';
+  $handler->display->display_options['relationships']['field_bat_unit_target_id']['label'] = 'Unit';
+  /* Relationship: Events */
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['id'] = 'reverse_event_bat_unit_reference_bat_event';
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['table'] = 'bat_units';
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['field'] = 'reverse_event_bat_unit_reference_bat_event';
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['relationship'] = 'field_bat_unit_target_id';
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['ui_name'] = 'Events';
+  $handler->display->display_options['relationships']['reverse_event_bat_unit_reference_bat_event']['label'] = 'Events';
+  /* Relationship: Job */
+  $handler->display->display_options['relationships']['field_job_target_id']['id'] = 'field_job_target_id';
+  $handler->display->display_options['relationships']['field_job_target_id']['table'] = 'field_data_field_job';
+  $handler->display->display_options['relationships']['field_job_target_id']['field'] = 'field_job_target_id';
+  $handler->display->display_options['relationships']['field_job_target_id']['relationship'] = 'reverse_event_bat_unit_reference_bat_event';
+  $handler->display->display_options['relationships']['field_job_target_id']['ui_name'] = 'Job';
+  $handler->display->display_options['relationships']['field_job_target_id']['label'] = 'Job';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+  );
   $translatables['job_models'] = array(
     t('Master'),
     t('Job - Models'),
@@ -229,7 +295,12 @@ function model_platform_job_template_views_default_views() {
     t('Profile - Basic informaiton'),
     t('Dates'),
     t('Daily rate'),
-    t('Block'),
+    t('Filtered models'),
+    t('Hired models'),
+    t('Unit'),
+    t('Events'),
+    t('Job'),
+    t('All'),
   );
   $export['job_models'] = $view;
 

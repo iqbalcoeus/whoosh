@@ -1854,7 +1854,7 @@ function model_platform_gallery_feature_views_default_views() {
     5 => '5',
   );
   $handler->display->display_options['filters']['rid']['group'] = 1;
-  /* Filter criterion: User: Model is active (field_model_is_active) */
+  /* Filter criterion: User: Model is approved by admin (field_model_is_active) */
   $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
   $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
   $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
@@ -2466,7 +2466,7 @@ function model_platform_gallery_feature_views_default_views() {
     5 => '5',
   );
   $handler->display->display_options['filters']['rid']['group'] = 1;
-  /* Filter criterion: User: Model is active (field_model_is_active) */
+  /* Filter criterion: User: Model is approved by admin (field_model_is_active) */
   $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
   $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
   $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
@@ -3123,7 +3123,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['filters']['rid']['value'] = array(
     5 => '5',
   );
-  /* Filter criterion: User: Model is active (field_model_is_active) */
+  /* Filter criterion: User: Model is approved by admin (field_model_is_active) */
   $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
   $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
   $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
@@ -3276,7 +3276,7 @@ function model_platform_gallery_feature_views_default_views() {
     5 => '5',
   );
   $handler->display->display_options['filters']['rid']['group'] = 1;
-  /* Filter criterion: User: Model is active (field_model_is_active) */
+  /* Filter criterion: User: Model is approved by admin (field_model_is_active) */
   $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
   $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
   $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
@@ -3895,7 +3895,7 @@ function model_platform_gallery_feature_views_default_views() {
     5 => '5',
   );
   $handler->display->display_options['filters']['rid']['group'] = 1;
-  /* Filter criterion: User: Model is active (field_model_is_active) */
+  /* Filter criterion: User: Model is approved by admin (field_model_is_active) */
   $handler->display->display_options['filters']['field_model_is_active_value']['id'] = 'field_model_is_active_value';
   $handler->display->display_options['filters']['field_model_is_active_value']['table'] = 'field_data_field_model_is_active';
   $handler->display->display_options['filters']['field_model_is_active_value']['field'] = 'field_model_is_active_value';
@@ -4619,7 +4619,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['nothing_1']['label'] = '';
   $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[edit_node]
 [nothing]
-<a href="/job/[nid]/model-search">Model search</a>';
+<a href="/node/[nid]">Model search</a>';
   $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing_1']['element_wrapper_class'] = 'actions';
   /* Sort criterion: Content: Post date */
@@ -4672,7 +4672,7 @@ function model_platform_gallery_feature_views_default_views() {
     t('Duplicate Job'),
     t('[edit_node]
 [nothing]
-<a href="/job/[nid]/model-search">Model search</a>'),
+<a href="/node/[nid]">Model search</a>'),
     t('All'),
     t('Block'),
   );
