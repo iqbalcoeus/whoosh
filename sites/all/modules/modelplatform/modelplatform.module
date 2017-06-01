@@ -577,29 +577,31 @@ function modelplatform_views_pre_view(&$view, &$display_id, &$args) {
       break;
 
     case 'job_models':
-      if (($job = menu_get_object('node', 1)) && $job->type == 'job') {
-        $view_filters = $view->display_handler->get_option('filters');
+      if ($display_id != 'block_1') {
+        if (($job = menu_get_object('node', 1)) && $job->type == 'job') {
+          $view_filters = $view->display_handler->get_option('filters');
 
-        $job_wrapper = entity_metadata_wrapper('node', $job);
+          $job_wrapper = entity_metadata_wrapper('node', $job);
 
-        $start_date_time = $job_wrapper->field_job_start_date->value()['value'];
-        $start_date_time_array = explode(' ', $start_date_time);
-        $start_date = $start_date_time_array[0];
+          $start_date_time = $job_wrapper->field_job_start_date->value()['value'];
+          $start_date_time_array = explode(' ', $start_date_time);
+          $start_date = $start_date_time_array[0];
 
-        $end_date_time = $job_wrapper->field_job_start_date->value()['value2'];
-        $end_date_time_array = explode(' ', $end_date_time);
-        $end_date = $end_date_time_array[0];
+          $end_date_time = $job_wrapper->field_job_start_date->value()['value2'];
+          $end_date_time_array = explode(' ', $end_date_time);
+          $end_date = $end_date_time_array[0];
 
-        $daily_rate = $job_wrapper->field_job_daily_rate_to->value()['amount'] / 100;
+          $daily_rate = $job_wrapper->field_job_daily_rate_to->value()['amount'] / 100;
 
-        $view->exposed_input['start_date'] = array(
-          'date' => $start_date,
-        );
-        $view->exposed_input['end_date'] = array(
-          'date' => $end_date,
-        );
-        $view_filters['field_daily_rate_amount']['value']['value'] = $daily_rate;
-        $view->display_handler->override_option('filters', $view_filters);
+          $view->exposed_input['start_date'] = array(
+            'date' => $start_date,
+          );
+          $view->exposed_input['end_date'] = array(
+            'date' => $end_date,
+          );
+          $view_filters['field_daily_rate_amount']['value']['value'] = $daily_rate;
+          $view->display_handler->override_option('filters', $view_filters);
+        }
       }
       break;
   }
