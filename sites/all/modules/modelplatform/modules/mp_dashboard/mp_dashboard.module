@@ -34,6 +34,12 @@ function mp_dashboard_menu() {
  * Generate clear page.
  */
 function mp_dashboard_clear_page() {
+  global $user;
+
+  if (isset($user->roles[MODELPLATFORM_ROLE_MODEL])) {
+    drupal_goto('user/' . $user->uid . '/edit');
+  }
+
   return '';
 }
 
