@@ -107,6 +107,43 @@ function bat_event_type_fields_field_default_field_bases() {
     'type' => 'file',
   );
 
+  // Exported field_base: 'field_event'.
+  $field_bases['field_event'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_event',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'model_availability' => 'model_availability',
+        ),
+      ),
+      'profile2_private' => FALSE,
+      'target_type' => 'bat_event',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_job'.
   $field_bases['field_job'] = array(
     'active' => 1,
@@ -165,6 +202,43 @@ function bat_event_type_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'commerce_price',
+  );
+
+  // Exported field_base: 'field_order'.
+  $field_bases['field_order'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_order',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'commerce_order' => 'commerce_order',
+        ),
+      ),
+      'profile2_private' => FALSE,
+      'target_type' => 'commerce_order',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_reciept_admin'.
