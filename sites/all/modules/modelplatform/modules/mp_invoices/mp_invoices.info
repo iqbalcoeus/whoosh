@@ -1,0 +1,8 @@
+name = Model Platform - Invoices system.
+description = "Model Platform - Invoices system."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform
+dependencies[] = mp_booking
+dependencies[] = commerce_order

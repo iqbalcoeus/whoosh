@@ -1,0 +1,213 @@
+<?php
+
+/**
+ * @file
+ * Model Platform - Invoices system.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function mp_invoices_menu() {
+  $items = array();
+
+  $items['user/%user/invoices/%commerce_order'] = array(
+    'title' => t('My invoices'),
+    'page callback' => 'mp_invoices_page_callback',
+    'page arguments' => array(1, 3),
+    'access callback' => 'mp_invoices_access_own_invoices',
+    'access arguments' =>  array(1, 3),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_invoices_permission() {
+  $permissions = array(
+    'view own model platform invoices' => array(
+      'title' => t('View own invoices.'),
+      'description' => t('View own invoices.'),
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mp_invoices_theme($existing, $type, $theme, $path) {
+  return array(
+    'mp_invoices_page' => array(
+      'variables' => array(
+        'header',
+        'content' => array(
+          'address' => array(
+            'customer',
+            'model',
+          ),
+          'job' => array(
+            'date',
+            'company',
+            'details',
+          ),
+          'calculation' => array(
+            'days_cost',
+            'tax',
+            'additional_bills',
+            'total',
+          ),
+        ),
+        'footer',),
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function mp_invoices_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['job_invoice_state'] = array(
+    'name' => 'job_invoice_state',
+    'title' => t('Job invoice state'),
+    'description' => t('Orders in this state are not in the cart.'),
+    'weight' => 10,
+    'default_status' => 'job_invoice_status',
+  );
+
+  return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function mp_invoices_commerce_order_status_info() {
+  $order_statuses = array();
+
+  $order_statuses['job_invoice_status'] = array(
+    'name' => 'job_invoice_status',
+    'title' => t('Job invoice status'),
+    'state' => 'job_invoice_state',
+  );
+
+  return $order_statuses;
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function mp_invoices_entity_update($entity, $type) {
+  if ($type == 'bat_event') {
+    $event_wrapper = entity_metadata_wrapper($type, $entity);
+    $state_id = $event_wrapper->event_state_reference->value()['state_id'];
+    if ($state_id == MP_BOOKING_STATE_JOB_CONTRACT) {
+      $job = $event_wrapper->field_job->value();
+      $cost = $event_wrapper->field_job_cost->value();
+      $unit = $event_wrapper->event_bat_unit_reference->value();
+
+      $interval = $entity->start_date_object->diff($entity->end_date_object);
+
+      $model = user_load($unit->uid);
+      $model_wrapper = entity_metadata_wrapper('user', $model);
+      $model_full_name = $model_wrapper->field_full_name->value();
+
+      $order = $event_wrapper->field_order->value();
+      if (!$order) {
+        $order = commerce_order_new($job->uid, 'job_invoice_status');
+        $order->field_event[LANGUAGE_NONE][0]['target_id'] = $entity->event_id;
+        commerce_order_save($order);
+
+        $event_wrapper->field_order->set($order);
+        $event_wrapper->save();
+      }
+      $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+      $line_items = array();
+
+      $line_item = commerce_line_item_new('basic_line_item', $order->order_id);
+      $line_item->line_item_label = $model_full_name . ' (day)';
+      $line_item->quantity = $interval->days;
+      $cost['data'] = commerce_price_component_add($cost, 'basic_line_item', $cost, TRUE, FALSE);
+      $line_item->commerce_unit_price[LANGUAGE_NONE][0] = $cost;
+      commerce_line_item_save($line_item);
+      $line_items[] = $line_item;
+
+      $field_collections = $event_wrapper->field_additional_receipts->value();
+      foreach ($field_collections as $field_collection_item) {
+        $fc_wrapper = entity_metadata_wrapper('field_collection_item', $field_collection_item);
+        $approved = $fc_wrapper->field_reciept_approved_by_admin->value();
+        if ($approved) {
+          $reciept_type = $fc_wrapper->field_reciept_type->value();
+          $reciept_comment = $fc_wrapper->field_reciept_comment->value();
+          $reciept_cost = $fc_wrapper->field_reciept_cost->value();
+          $reciept_cost['data'] = commerce_price_component_add($reciept_cost, 'basic_line_item', $reciept_cost, TRUE, FALSE);
+
+          $line_item = commerce_line_item_new('basic_line_item', $order->order_id);
+          $line_item->line_item_label = "($reciept_type) $reciept_comment";
+          $line_item->quantity = 1;
+          $line_item->commerce_unit_price[LANGUAGE_NONE][0] = $reciept_cost;
+          commerce_line_item_save($line_item);
+          $line_items[] = $line_item;
+        }
+      }
+
+      $order_wrapper->commerce_line_items = $line_items;
+      $order_wrapper->save();
+    }
+  }
+}
+
+/**
+ * Access function.
+ */
+function mp_invoices_access_own_invoices($account, $order) {
+  global $user;
+
+  $access = TRUE;
+  $access = $access && user_access('view own model platform invoices');
+  $access = $access && ($account->uid == $user->uid || $user->roles[3]);
+  $access = $access && ($order->uid == $account->uid || $user->roles[3]);
+
+  return $access;
+}
+
+/**
+ * Page callback.
+ *
+ * @see mp_invoices_menu()
+ */
+function mp_invoices_page_callback($user, $order) {
+  $page = array();
+  $page['header'] = array(
+    'img' => variable_get('mp_invoices_page_header_img', NULL),
+    'text' => array(
+      'column1' => variable_get('mp_invoices_page_header_column_1', NULL),
+      'column2' => variable_get('mp_invoices_page_header_column_2', NULL),
+    ),
+  );
+
+  $page['content'] = array();
+  $page['content']['address'] = array(
+    'customer',
+    'model',
+  );
+  $page['content']['job'] = array(
+    'date',
+    'company',
+    'details',
+  );
+  $page['content']['calculation'] = array(
+    'days_cost',
+    'tax',
+    'additional_bills',
+    'total',
+  );
+  $page['footer'] = '';
+
+  return theme('mp_invoices_page', $page);
+}
