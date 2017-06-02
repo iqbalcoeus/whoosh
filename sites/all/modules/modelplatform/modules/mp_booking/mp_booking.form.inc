@@ -116,10 +116,16 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#value' => $auctioned_job->nid,
       );
 
+      if ($idx) {
+        $option = t('Option @option_num', array('@option_num' => $idx + 1));
+      }
+      else {
+        $option = t('<b>Option @option_num</b>', array('@option_num' => $idx + 1));
+      }
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' =>  $idx > 0 ? $idx + 1 : '<b>' . ($idx + 1) . '</b>',
+        '#markup' => $option,
         '#suffix' => '</div>',
       );
 
