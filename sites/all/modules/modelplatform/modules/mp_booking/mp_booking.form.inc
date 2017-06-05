@@ -122,10 +122,23 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       else {
         $option = t('<b>Option @option_num</b>', array('@option_num' => $idx + 1));
       }
+
+      foreach ($model_events as $key => $event) {
+        $class = $prefix = $suffix = '';
+        if ($key == $idx) {
+          $class = 'job-customer-decision';
+          if ($key == 0) {
+            $prefix = '<b>';
+            $suffix = '</b>';
+          }
+        }
+        $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $idx + 1)) . $suffix . '</span>';
+      }
+
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' => $option,
+        '#markup' => explode(' ', $items),
         '#suffix' => '</div>',
       );
 
