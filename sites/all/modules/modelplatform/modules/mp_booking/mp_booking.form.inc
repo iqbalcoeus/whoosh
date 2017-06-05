@@ -138,7 +138,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $form['job_number'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="job-number">',
-        '#markup' => explode(' ', $items),
+        '#markup' => implode(' ', $items),
         '#suffix' => '</div>',
       );
 
