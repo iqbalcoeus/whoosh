@@ -106,7 +106,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $decision_value = FALSE;
       $decision_field = field_info_field('field_auction_decision');
       $decision_values = list_allowed_values($decision_field);
-      $decision_values['Request sent'] = 'Request sent';
       if (isset($field_decision[0]['value'])) {
         $decision_value = $field_decision[0]['value'];
       }
