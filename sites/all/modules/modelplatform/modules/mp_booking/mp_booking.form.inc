@@ -132,7 +132,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
             $suffix = '</b>';
           }
         }
-        $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $idx + 1)) . $suffix . '</span>';
+        $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $key + 1)) . $suffix . '</span>';
       }
 
       $form['job_number'] = array(
