@@ -85,6 +85,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $field = field_info_field('field_auction_status');
         $values = list_allowed_values($field);
         unset($values['request sent']);
+        unset($values['confirmed']);
 
         foreach($values as $key => $status) {
           if ($key == $field_status[0]['value']) {
