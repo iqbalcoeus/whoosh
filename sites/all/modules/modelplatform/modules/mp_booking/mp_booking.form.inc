@@ -87,8 +87,12 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         unset($values['request sent']);
         unset($values['confirmed']);
 
+        $value = $field_status[0]['value'];
+        if ($value !== 'read') {
+          $value = 'unread';
+        }
         foreach($values as $key => $status) {
-          if ($key == $field_status[0]['value']) {
+          if ($key == $value) {
             $class = 'job-customer-decision';
           }
           $status_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
