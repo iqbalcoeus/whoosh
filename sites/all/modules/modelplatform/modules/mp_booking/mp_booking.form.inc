@@ -201,8 +201,8 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
 
       $form['actions']['decision'] = array(
         '#type' => 'markup',
-        '#prefix' => '<div class="auction-decision"><b>',
-        '#markup' => implode('', $decision_items),
+        '#prefix' => '<div class="auction-decision-new"><b>',
+        '#markup' => implode(' ', $decision_items),
         '#suffix' => '</b></div>',
       );
     }
