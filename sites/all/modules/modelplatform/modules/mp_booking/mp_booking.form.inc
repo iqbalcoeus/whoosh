@@ -80,10 +80,18 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
 
       $auction = mp_auction_load($auction_data->auction_id);
       $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
+      $status_items = array();
       if (isset($field_status[0]['value'])) {
         $field = field_info_field('field_auction_status');
         $values = list_allowed_values($field);
-        $status = $values[$field_status[0]['value']];
+        unset($values['request sent']);
+
+        foreach($values as $key => $status) {
+          if ($key == $field_status[0]['value']) {
+            $class = 'job-customer-decision';
+          }
+          $status_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
+        }
       }
       $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
       if (isset($field_decision[0]['value'])) {
@@ -100,7 +108,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       );
       $form['status'] = array(
         '#type' => 'markup',
-        '#markup' => '<div class="auction-status">' . t($status) . '</div>',
+        '#markup' => '<div class="auction-status">' . implode(' ', $status_items) . '</div>',
       );
       $form['auction_id'] = array(
         '#type' => 'value',
@@ -115,13 +123,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#type' => 'value',
         '#value' => $auctioned_job->nid,
       );
-
-      if ($idx) {
-        $option = t('Option @option_num', array('@option_num' => $idx + 1));
-      }
-      else {
-        $option = t('<b>Option @option_num</b>', array('@option_num' => $idx + 1));
-      }
 
       foreach ($keys as $key => $event_key) {
         $class = $prefix = $suffix = '';
