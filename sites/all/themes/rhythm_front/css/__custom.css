@@ -5269,6 +5269,10 @@ div.sf-accordion-toggle.sf-style-white a {
   font-size: 11px;
 }
 
+.job-customer-decision {
+  color: #fc1c5b;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
