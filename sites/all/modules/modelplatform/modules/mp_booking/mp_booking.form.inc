@@ -187,24 +187,26 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#type' => 'container',
         '#tree' => TRUE,
       );
-      $form['actions']['confirm'] = array(
-        '#type' => 'submit',
-        '#value' => t('Confirm'),
-        '#name' => 'job_confirm',
-        '#disabled' => !$enabled,
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_confirm_submit',
-        ),
-      );
-      $form['actions']['cancel'] = array(
-        '#type' => 'submit',
-        '#value' => t('Cancel'),
-        '#name' => 'job_cancel',
-        '#disabled' => !$enabled,
-        '#submit' => array(
-          'mp_booking_job_model_invite_form_cancel_submit',
-        ),
-      );
+      if ($enabled) {
+        $form['actions']['confirm'] = array(
+          '#type' => 'submit',
+          '#value' => t('Confirm'),
+          '#name' => 'job_confirm',
+          '#disabled' => !$enabled,
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_confirm_submit',
+          ),
+        );
+        $form['actions']['cancel'] = array(
+          '#type' => 'submit',
+          '#value' => t('Cancel'),
+          '#name' => 'job_cancel',
+          '#disabled' => !$enabled,
+          '#submit' => array(
+            'mp_booking_job_model_invite_form_cancel_submit',
+          ),
+        );
+      }
     }
     else {
       $form['model_uid'] = array(
