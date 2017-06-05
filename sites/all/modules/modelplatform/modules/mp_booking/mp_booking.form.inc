@@ -123,7 +123,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $option = t('<b>Option @option_num</b>', array('@option_num' => $idx + 1));
       }
 
-      foreach ($model_events as $key => $event) {
+      foreach ($keys as $key => $event_key) {
         $class = $prefix = $suffix = '';
         if ($key == $idx) {
           $class = 'job-customer-decision';
