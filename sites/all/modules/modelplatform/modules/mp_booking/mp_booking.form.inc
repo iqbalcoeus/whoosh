@@ -129,6 +129,12 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#type' => 'markup',
         '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
       );
+      $form['decision'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="auction-decision-new"><b>',
+        '#markup' => implode(' ', $decision_items),
+        '#suffix' => '</b></div>',
+      );
       $form['status'] = array(
         '#type' => 'markup',
         '#markup' => '<div class="auction-status">' . implode(' ', $status_items) . '</div>',
@@ -197,13 +203,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         '#submit' => array(
           'mp_booking_job_model_invite_form_cancel_submit',
         ),
-      );
-
-      $form['actions']['decision'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="auction-decision-new"><b>',
-        '#markup' => implode(' ', $decision_items),
-        '#suffix' => '</b></div>',
       );
     }
     else {
