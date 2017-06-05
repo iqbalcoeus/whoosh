@@ -84,6 +84,8 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       if (isset($field_status[0]['value'])) {
         $field = field_info_field('field_auction_status');
         $values = list_allowed_values($field);
+
+        // @TODO Should be changed. Hot fix.
         unset($values['request sent']);
         unset($values['confirmed']);
 
@@ -92,6 +94,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
           $value = 'unread';
         }
         foreach($values as $key => $status) {
+          $class = '';
           if ($key == $value) {
             $class = 'job-customer-decision';
           }
@@ -99,8 +102,23 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         }
       }
       $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
+      $decision_items = array();
+      $decision_value = FALSE;
+      $decision_field = field_info_field('field_auction_decision');
+      $decision_values = list_allowed_values($decision_field);
+      $decision_values['Request sent'] = 'Request sent';
       if (isset($field_decision[0]['value'])) {
-        $decision = $field_decision[0]['value'];
+        $decision_value = $field_decision[0]['value'];
+      }
+      if (!$decision_value) {
+        $decision_value = 'Request sent';
+      }
+      foreach($decision_values as $key => $status) {
+        $class = '';
+        if ($key == $decision_value) {
+          $class = 'job-customer-decision';
+        }
+        $decision_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
       }
 
       $form['job_title'] = array(
@@ -181,19 +199,10 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         ),
       );
 
-      if ($decision == 'Accept') {
-        $decision = t('Confirmed');
-      }
-      else if ($decision == 'Decline') {
-        $decision = t('Canceled');
-      }
-      else {
-        $decision = '';
-      }
       $form['actions']['decision'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="auction-decision"><b>',
-        '#markup' => $decision,
+        '#markup' => implode('', $decision_items),
         '#suffix' => '</b></div>',
       );
     }
