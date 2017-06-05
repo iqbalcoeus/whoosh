@@ -114,11 +114,13 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $decision_value = 'Request sent';
       }
       foreach($decision_values as $key => $status) {
-        $class = '';
+        $class = $prefix = $suffix = '';
         if ($key == $decision_value) {
           $class = 'job-customer-decision';
+          $prefix = '<b>';
+          $suffix = '</b>';
         }
-        $decision_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
+        $decision_items[] = '<span class="' . $class . '">' . $prefix . t($status) . $suffix . '</span>';
       }
 
       $form['job_title'] = array(
@@ -131,9 +133,9 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       );
       $form['decision'] = array(
         '#type' => 'markup',
-        '#prefix' => '<div class="auction-decision-new"><b>',
+        '#prefix' => '<div class="auction-decision-new">',
         '#markup' => implode(' ', $decision_items),
-        '#suffix' => '</b></div>',
+        '#suffix' => '</div>',
       );
       $form['status'] = array(
         '#type' => 'markup',
