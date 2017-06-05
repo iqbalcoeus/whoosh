@@ -5273,6 +5273,171 @@ div.sf-accordion-toggle.sf-style-white a {
   color: #fc1c5b;
 }
 
+.mpi-invoice .mpi-header .mpi-image img {
+  max-width: 250px;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.mpi-invoice .mpi-header .mpi-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 40%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-header .mpi-image {
+  max-width: 60%;
+  width: 100%;
+  padding: 1%;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-1 {
+  max-width: 40%;
+  width: 100%;
+  padding: 1%;
+  text-align: right;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-2 {
+  max-width: 60%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-content .mpi-address {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.mpi-invoice .mpi-content .mpi-address > div {
+  max-width: 50%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-content .mpi-job {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.mpi-invoice .mpi-content .mpi-job .mpi-job-dates {
+  max-width: 26%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-content .mpi-job .mpi-customer-compamny-name {
+  max-width: 30%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-content .mpi-job .mpi-job-details {
+  max-width: 34%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line,
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-label {
+  max-width: 40%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line .mpi-label,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-label {
+  max-width: 52%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line .mpi-qty,
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line .mpi-netto,
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line .mpi-brutto.mpi-total,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-qty,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-netto,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-brutto.mpi-total {
+  max-width: 16%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-qty,
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-netto,
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-brutto.mpi-total {
+  max-width: 20%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-tax-bills .mpi-main-bill-line .mpi-brutto.mpi-total,
+.mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-brutto.mpi-total,
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-brutto.mpi-total {
+  text-align: right;
+}
+
 /* HARDCODE END */
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
