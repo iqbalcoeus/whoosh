@@ -140,7 +140,7 @@ function mp_invoices_entity_update($entity, $type) {
       $line_items = array();
 
       // Main.
-      $line_items[] = _mp_invoices_line_item_create($order->order_id, $model_full_name . ' (day)', $interval->days, $cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
+      $line_items[] = _mp_invoices_line_item_create($order->order_id, 'Day hornonar including usage', $interval->days, $cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
 
       if (_mp_invoices_model_is_german($model)) {
         $tax_value = variable_get('mp_invoices_german_default_tax', 19);

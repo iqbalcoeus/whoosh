@@ -17,8 +17,8 @@ function mp_invoices_page_callback($user, $order) {
   $page['header'] = array(
     'img' => variable_get('mpi_page_header_img_url', NULL),
     'text' => array(
-      'column1' => variable_get('mpi_page_header_column_1', NULL),
-      'column2' => variable_get('mpi_page_header_column_2', NULL),
+      'column1' => t(variable_get('mpi_page_header_column_1', NULL)),
+      'column2' => t(variable_get('mpi_page_header_column_2', NULL)),
     ),
   );
 
@@ -73,8 +73,8 @@ function mp_invoices_page_callback($user, $order) {
       'tax_id' => $model_profile_wrapper->field_income_tax_id->value(),
     );
   }
-  $page['content']['address']['prefix'] = variable_get('mpi_address_prefix', '');
-  $page['content']['address']['suffix'] = variable_get('mpi_address_suffix', '');
+  $page['content']['address']['prefix'] = t(variable_get('mpi_address_prefix', ''));
+  $page['content']['address']['suffix'] = t(variable_get('mpi_address_suffix', ''));
 
   $page['content']['job'] = array(
     'job_dates' => array(
@@ -100,7 +100,7 @@ function mp_invoices_page_callback($user, $order) {
     $_currency_code = $_line_item_wrapper->commerce_total->currency_code->value();
 
     $line = array(
-      'label' => $_line_item->line_item_label,
+      'label' => t($_line_item->line_item_label),
       'quantity' => $_line_item->quantity,
       'amount' => $_amount,
       'currency_code' => $_currency_code,
@@ -126,19 +126,19 @@ function mp_invoices_page_callback($user, $order) {
 
   $page['content']['bills'] = array(
     'main' => array(
-      'prefix' => variable_get('mpi_main_prefix', ''),
+      'prefix' => t(variable_get('mpi_main_prefix', '')),
       'lines' => $main_lines,
-      'suffix' => variable_get('mpi_main_suffix', ''),
+      'suffix' => t(variable_get('mpi_main_suffix', '')),
     ),
     'tax' => array(
-      'prefix' => variable_get('mpi_tax_prefix', ''),
+      'prefix' => t(variable_get('mpi_tax_prefix', '')),
       'lines' => $tax_lines,
-      'suffix' => variable_get('mpi_tax_suffix', ''),
+      'suffix' => t(variable_get('mpi_tax_suffix', '')),
     ),
     'additional' => array(
-      'prefix' => variable_get('mpi_additional_prefix', ''),
+      'prefix' => t(variable_get('mpi_additional_prefix', '')),
       'lines' => $additional_lines,
-      'suffix' => variable_get('mpi_additional_suffix', ''),
+      'suffix' => t(variable_get('mpi_additional_suffix', '')),
     ),
     'total' => array(
       'label' => t('Total Invoice:'),
@@ -148,8 +148,8 @@ function mp_invoices_page_callback($user, $order) {
   );
 
   $page['footer'] = array();
-  $page['footer']['part_1'] = variable_get('mpi_footer_part_1', '');
-  $page['footer']['part_2'] = variable_get('mpi_footer_part_2', '');
+  $page['footer']['part_1'] = t(variable_get('mpi_footer_part_1', ''));
+  $page['footer']['part_2'] = t(variable_get('mpi_footer_part_2', ''));
 
   $output = theme('mp_invoices_page', $page);
 
