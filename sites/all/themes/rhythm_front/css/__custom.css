@@ -5385,7 +5385,8 @@ div.sf-accordion-toggle.sf-style-white a {
 
 .mpi-invoice .mpi-main-bills .mpi-main-bill-line,
 .mpi-invoice .mpi-tax-bills .mpi-main-bill-line,
-.mpi-invoice .mpi-additional-bills .mpi-main-bill-line {
+.mpi-invoice .mpi-additional-bills .mpi-main-bill-line,
+.mpi-invoice .mpi-total-invoice {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5436,6 +5437,27 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-main-bills .mpi-main-bill-line .mpi-brutto.mpi-total,
 .mpi-invoice .mpi-additional-bills .mpi-main-bill-line .mpi-brutto.mpi-total {
   text-align: right;
+}
+
+.page-user-invoices .region-content {
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.mpi-invoice .mpi-total-invoice {
+  text-align: right;
+}
+
+.mpi-invoice .mpi-total-invoice .mpi-total-invoice-label {
+  max-width: 60%;
+  padding: 1%;
+  width: 100%;
+}
+
+.mpi-invoice .mpi-total-invoice .mpi-total-invoice-value {
+  max-width: 40%;
+  padding: 1%;
+  width: 100%;
 }
 
 /* HARDCODE END */
