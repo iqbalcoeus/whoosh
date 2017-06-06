@@ -9,6 +9,9 @@ define('MP_INVOICES_LINE_ITEM_TYPE_MAIN', 'main');
 define('MP_INVOICES_LINE_ITEM_TYPE_TAX', 'tax');
 define('MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL', 'additional');
 
+require_once 'mp_invoices.inc';
+require_once 'mp_invoices.access.inc';
+
 /**
  * Implements hook_menu().
  */
@@ -21,7 +24,24 @@ function mp_invoices_menu() {
     'page arguments' => array(1, 3),
     'access callback' => 'mp_invoices_access_own_invoices',
     'access arguments' =>  array(1, 3),
+    'file' => 'mp_invoices.page.inc',
   );
+
+  $items['admin/modelplatform/params/invoice'] = array(
+    'title' => t('Model platform - Invoice parametrs'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_invoices_params_form'),
+    'access arguments' => array('moderate modelplatform documents'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'mp_invoices.form.inc',
+  );
+
+//  $items['mp_pdf/invoices/$order'] = array(
+//    'page callback' => 'mp_invoices_pdf',
+//    'access callback' => 'mp_invoices_access_own_invoices',
+//    'access arguments' => array('view own model platform invoices'),
+//    'type' => MENU_NORMAL_ITEM,
+//  );
 
   return $items;
 }
@@ -47,25 +67,11 @@ function mp_invoices_theme($existing, $type, $theme, $path) {
   return array(
     'mp_invoices_page' => array(
       'variables' => array(
-        'header',
-        'content' => array(
-          'address' => array(
-            'customer',
-            'model',
-          ),
-          'job' => array(
-            'date',
-            'company',
-            'details',
-          ),
-          'calculation' => array(
-            'days_cost',
-            'tax',
-            'additional_bills',
-            'total',
-          ),
-        ),
-        'footer',),
+        'header' => array(),
+        'content' => array(),
+        'footer' => array(),
+      ),
+      'file' => 'mp_invoices.theme.inc',
     ),
   );
 }
@@ -140,7 +146,7 @@ function mp_invoices_entity_update($entity, $type) {
         $tax_value = variable_get('mp_invoices_german_default_tax', 19);
         $tax_label = variable_get('mp_invoices_german_default_tax_label','VAT on fees');
         $tax_cost = array(
-          'amount' => $cost['amount'] * $tax_value / 100,
+          'amount' => $cost['amount'] * $interval->days * $tax_value / 100,
           'currency_code' => $cost['currency_code'],
         );
         $line_items[] = _mp_invoices_line_item_create($order->order_id, $tax_value . '% ' . t($tax_label), 1, $tax_cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
@@ -149,7 +155,7 @@ function mp_invoices_entity_update($entity, $type) {
       // Taxes.
       $commission = variable_get('mp_invoices_commission', 10);
       $commission_label = variable_get('mp_invoices_commission_label', 'Commission');
-      $result_commission_amount = ($cost['amount'] + $tax_cost['amount']) * $commission / 100;
+      $result_commission_amount = $cost['amount'] * $interval->days * $commission / 100;
       $commission_cost = array(
         'amount' => $result_commission_amount,
         'currency_code' => $cost['currency_code'],
@@ -163,7 +169,6 @@ function mp_invoices_entity_update($entity, $type) {
         'amount' => $result_commission_tax_amount,
         'currency_code' => $cost['currency_code'],
       );
-
       $line_items[] = _mp_invoices_line_item_create($order->order_id, $tax . '% ' . t($tax_label), 1, $commission_tax_cost, MP_INVOICES_LINE_ITEM_TYPE_TAX);
 
       // Additional.
@@ -184,427 +189,4 @@ function mp_invoices_entity_update($entity, $type) {
       $order_wrapper->save();
     }
   }
-}
-
-/**
- * Access function.
- */
-function mp_invoices_access_own_invoices($account, $order) {
-  global $user;
-
-  $access = TRUE;
-  $access = $access && user_access('view own model platform invoices');
-  $access = $access && ($account->uid == $user->uid || $user->roles[3]);
-  $access = $access && ($order->uid == $account->uid || $user->roles[3]);
-
-  return $access;
-}
-
-/**
- * Page callback.
- *
- * @see mp_invoices_menu()
- */
-function mp_invoices_page_callback($user, $order) {
-  $page = array();
-
-  // Header.
-  $page['header'] = array(
-    'img' => variable_get('mp_invoices_page_header_img', NULL),
-    'text' => array(
-      'column1' => variable_get('mp_invoices_page_header_column_1', NULL),
-      'column2' => variable_get('mp_invoices_page_header_column_2', NULL),
-    ),
-  );
-
-  // Content.
-  $page['content'] = array();
-
-  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-  $event = $order_wrapper->field_event->value();
-
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-  $job = $event_wrapper->field_job->value();
-  $job_wrapper = entity_metadata_wrapper('node', $job);
-
-  $unit = $event_wrapper->event_bat_unit_reference->value();
-
-  // Content - addresses.
-  $page['content']['address'] = array();
-  $customer_uid = $job->uid;
-  $model_uid = $unit->uid;
-
-  // Customer address.
-  $customer = user_load($customer_uid);
-  $customer_profiles = profile2_load_by_user($customer);
-  if (isset($customer_profiles['customer_private_data'])) {
-    $customer_wrapper = entity_metadata_wrapper('user', $customer);
-    $customer_profile_wrapper = entity_metadata_wrapper('profile2', $customer_profiles['customer_private_data']);
-    $page['content']['address']['customer'] = array(
-      'company_name' => '',
-      'name' => $customer_wrapper->field_full_name->value(),
-      'street' => $customer_profile_wrapper->field_model_street->value(),
-      'house' => $customer_profile_wrapper->field_model_house->value(),
-      'postal_code' => $customer_profile_wrapper->field_model_postal_code->value(),
-      'city' => $customer_profile_wrapper->field_complete_address->value()['locality'],
-    );
-  }
-
-  // Model address.
-  $model = user_load($model_uid);
-  $model_profiles = profile2_load_by_user($model);
-  $is_german_model = _mp_invoices_model_is_german($model);
-  if (isset($model_profiles['model_private_data'])) {
-    $model_wrapper = entity_metadata_wrapper('user', $model);
-    $model_profile_wrapper = entity_metadata_wrapper('profile2', $model_profiles['model_private_data']);
-    $page['content']['address']['model'] = array(
-      'name' => $model_wrapper->field_full_name->value(),
-      'street' => $model_profile_wrapper->field_model_street->value(),
-      'house' => $model_profile_wrapper->field_model_house->value(),
-      'postal_code' => $model_profile_wrapper->field_model_postal_code->value(),
-      'city' => $model_profile_wrapper->field_complete_address->value()['locality'],
-      'appartment' => $model_profile_wrapper->field_model_apartment->value(),
-    );
-  }
-
-  $page['content']['job'] = array(
-    'job_dates' => array(
-      'start_date' => $event->start_date_object,
-      'end_date' => $event->end_date_object,
-    ),
-    'company' => '',
-    'details' => $job_wrapper->body->summary->value(),
-  );
-
-  // Get order line items.
-  $line_items = $order_wrapper->commerce_line_items->value();
-
-  $main_lines = array();
-  $tax_lines = array();
-  $additional_lines = array();
-
-  foreach ($line_items as $_line_item) {
-    $_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $_line_item);
-    $type = $_line_item_wrapper->field_line_item_type->value();
-
-    $_amount = $_line_item_wrapper->commerce_total->amount->value();
-    $_currency_code = $_line_item_wrapper->commerce_total->currency_code->value();
-
-    $line = array(
-      'label' => $_line_item->line_item_label,
-      'quantity' => $_line_item->quantity,
-      'amount' => $_amount,
-      'currency_code' => $_currency_code,
-    );
-
-    switch ($type) {
-      case MP_INVOICES_LINE_ITEM_TYPE_MAIN:
-        $main_lines[] = $line;
-        break;
-
-      case MP_INVOICES_LINE_ITEM_TYPE_TAX:
-        $tax_lines[] = $line;
-        break;
-
-      case MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL:
-        $additional_lines[] = $line;
-        break;
-
-      default:
-        // Nothing to do.
-    }
-  }
-
-  $page['content']['bills'] = array(
-    'main' => array(
-      'prefix' => '',
-      'lines' => $main_lines,
-      'suffix' => '',
-    ),
-    'tax' => array(
-      'prefix' => '',
-      'lines' => $tax_lines,
-      'suffix' => '',
-    ),
-    'additional' => array(
-      'prefix' => '',
-      'lines' => $additional_lines,
-      'suffix' => '',
-    ),
-    'total' => array(
-      'label' => 'Total',
-      'amount' => 0,
-      'currency_code' => 'EUR',
-    ),
-  );
-  $page['footer'] = '';
-
-  $output = theme('mp_invoices_page', $page);
-
-  return $output;
-}
-
-function theme_mp_invoices_page($page_variables) {
-  // Header.
-  $header_variables = $page_variables['header'];
-
-  $header_img = theme('image', array('path' => $header_variables['img']));
-  $header_div_img = '<div class="mpi-image">' . $header_img . '</div>';
-
-  $header_text_column1 = '<div class="mpi-text-column mpi-text-column-1">';
-  $header_text_column1 .= $header_variables['text']['column1'];
-  $header_text_column1 .= '</div>';
-
-  $header_text_column2 = '<div class="mpi-text-column mpi-text-column-2">';;
-  $header_text_column2 .= $header_variables['text']['column2'];
-  $header_text_column2 .= '</div>';
-
-  $header_text = '<div class="mpi-text">';
-  $header_text .= $header_text_column1;
-  $header_text .= $header_text_column2;
-  $header_text .= '</div>';
-
-  $header = '<div class="mpi-header">';
-  $header .= $header_div_img;
-  $header .= $header_text;
-  $header .= '</div>';
-
-  // Content.
-  // Content - Address.
-  $address_variables = $page_variables['content']['address'];
-
-  $customer_address_variables = $address_variables['customer'];
-
-  $customer_company_name = '<div class="mpi-customer-company-name">' . $customer_address_variables['company_name'] . '</div>';
-  $customer_name = '<div class="mpi-customer-name">' . $customer_address_variables['name'] . '</div>';
-  $customer_street = '<div class="mpi-customer-street">' . $customer_address_variables['street'] . '</div>';
-  $customer_house = '<div class="mpi-customer-house">' . $customer_address_variables['house'] . '</div>';
-  $customer_postal_code = '<div class="mpi-customer-postal-code">' . $customer_address_variables['postal_code'] . '</div>';
-  $customer_city = '<div class="mpi-customer-city">' . $customer_address_variables['city'] . '</div>';
-
-  $customer_address = '<div class="mpi-customer-address">';
-  $customer_address .= $customer_company_name;
-  $customer_address .= $customer_name;
-  $customer_address .= $customer_street;
-  $customer_address .= $customer_house;
-  $customer_address .= $customer_postal_code;
-  $customer_address .= $customer_city;
-  $customer_address .= '</div>';
-
-  $model_address_variables = $address_variables['model'];
-
-  $model_name = '<div class="mpi-model-name">' . $model_address_variables['name'] . '</div>';
-  $model_street = '<div class="mpi-model-street">' . $model_address_variables['street'] . '</div>';
-  $model_house = '<div class="mpi-model-house">' . $model_address_variables['house'] . '</div>';
-  $model_postal_code = '<div class="mpi-model-postal-code">' . $model_address_variables['postal_code'] . '</div>';
-  $model_city = '<div class="mpi-model-city">' . $model_address_variables['city'] . '</div>';
-  $model_appartment = '<div class="mpi-model-appartment">' . $model_address_variables['city'] . '</div>';
-
-  $model_address = '<div class="mpi-model-address">';
-  $model_address .= $model_name;
-  $model_address .= $model_street;
-  $model_address .= $model_house;
-  $model_address .= $model_postal_code;
-  $model_address .= $model_city;
-  $model_address .= $model_appartment;
-  $model_address .= '</div>';
-
-  $address = '<div class="mpi-address">';
-  $address .= $customer_address;
-  $address .= $model_address;
-  $address .= '</div>';
-
-  // Content - Job.
-  $job_variables = $page_variables['content']['job'];
-
-  $start_date = $job_variables['job_dates']['start_date'];
-  $end_date = $job_variables['job_dates']['end_date'];
-
-  $job_start_date = '<div class="mpi-job-start-date">' . $start_date->format('Y-m-d') . '</div>';
-  $job_start_time = '<div class="mpi-job-start-time">' . $start_date->format('G:i A') . '</div>';
-
-  $job_end_date = '<div class="mpi-job-end-date">' . $end_date->format('Y-m-d') . '</div>';
-  $job_end_time = '<div class="mpi-job-end-time">' . $end_date->format('G:i A') . '</div>';
-
-  $job_dates = '<div class="mpi-job-dates">';
-  $job_dates .= $job_start_date;
-  $job_dates .= $job_start_time;
-  $job_dates .= '<span class="mpi-dates-separator"></span>';
-  $job_dates .= $job_end_date;
-  $job_dates .= $job_end_time;
-  $job_dates .= '</div>';
-
-  $job_company_name = '<div class="mpi-customer-compamny-name">';
-  $job_company_name .= $job_variables['company'];
-  $job_company_name .= '</div>';
-
-  $job_details = '<div class="mpi-job-details">';
-  $job_details .= $job_variables['details'];
-  $job_details .= '</div>';
-
-  $job = '<div class="mpi-job">';
-  $job .= $job_dates;
-  $job .= $job_company_name;
-  $job .= $job_details;
-  $job .= '</div>';
-
-  // Content - Bills.
-  $bills_variables = $page_variables['content']['bills'];
-
-//  $line = array(
-//    'label' => $_line_item->line_item_label,
-//    'quantity' => $_line_item->quantity,
-//    'amount' => $_amount,
-//    'currency_code' => $_currency_code,
-//  );
-//  $page['content']['bills'] = array(
-//    'main' => array(
-//      'prefix' => '',
-//      'lines' => $main_lines,
-//      'suffix' => '',
-//    ),
-//    'tax' => array(
-//      'prefix' => '',
-//      'lines' => $tax_lines,
-//      'suffix' => '',
-//    ),
-//    'additional' => array(
-//      'prefix' => '',
-//      'lines' => $additional_lines,
-//      'suffix' => '',
-//    ),
-//    'total' => array(
-//      'label' => 'Total',
-//      'amount' => 0,
-//      'currency_code' => 'EUR',
-//    ),
-//  );
-
-  $main_lines_prefix = $bills_variables['main']['prefix'];
-  $main_lines_suffix = $bills_variables['main']['suffix'];
-
-  $lines = array();
-  foreach ($bills_variables['main']['lines'] as $key => $line) {
-    $label = $line['label'];
-    if ($key == 0) {
-      $qty = $line['quantity'];
-      $netto = commerce_currency_format($line['amount'] / $qty, $line['currency_code']);
-    }
-    else {
-      $qty = $netto = '';
-    }
-    $total = commerce_currency_format($line['amount'], $line['currency_code']);
-
-    $bill_line = '<div class="mpi-main-bill-line">';
-    $bill_line .= '<div class="mpi-label">' . $label . '</div>';
-    $bill_line .= '<div class="mpi-qty">' . $qty . '</div>';
-    $bill_line .= '<div class="mpi-netto">' . $netto . '</div>';
-    $bill_line .= '<div class="mpi-brutto mpi-total">' . $total . '</div>';
-    $bill_line .= '</div>';
-
-    $lines[] = $bill_line;
-  }
-  $main_lines_content = '<div class="mpi-main-bills-content">' . implode('', $lines) . '</div>';
-
-  $main_lines = '<div class="mpi-main-bills">';
-  $main_lines .= $main_lines_prefix;
-  $main_lines .= $main_lines_content;
-  $main_lines .= $main_lines_suffix;
-  $main_lines .= '</div>';
-
-  $tax_lines_prefix = $bills_variables['tax']['prefix'];
-  $tax_lines_suffix = $bills_variables['tax']['suffix'];
-
-  $lines = array();
-  foreach ($bills_variables['tax']['lines'] as $key => $line) {
-    $label = $line['label'];
-    $qty = $netto = '';
-    $total = commerce_currency_format($line['amount'], $line['currency_code']);
-
-    $bill_line = '<div class="mpi-main-bill-line">';
-    $bill_line .= '<div class="mpi-label">' . $label . '</div>';
-    $bill_line .= '<div class="mpi-qty">' . $qty . '</div>';
-    $bill_line .= '<div class="mpi-netto">' . $netto . '</div>';
-    $bill_line .= '<div class="mpi-brutto mpi-total">' . $total . '</div>';
-    $bill_line .= '</div>';
-
-    $lines[] = $bill_line;
-  }
-  $tax_lines_content = '<div class="mpi-main-bills-content">' . implode('', $lines) . '</div>';
-
-  $tax_lines = '<div class="mpi-tax-bills">';
-  $tax_lines .= $tax_lines_prefix;
-  $tax_lines .= $tax_lines_content;
-  $tax_lines .= $tax_lines_suffix;
-  $tax_lines .= '</div>';
-
-  $additional_lines_prefix = $bills_variables['additional']['prefix'];
-  $additional_lines_suffix = $bills_variables['additional']['suffix'];
-
-  $lines = array();
-  foreach ($bills_variables['additional']['lines'] as $key => $line) {
-    $label = $line['label'];
-    $qty = $netto = '';
-    $total = commerce_currency_format($line['amount'], $line['currency_code']);
-
-    $bill_line = '<div class="mpi-main-bill-line">';
-    $bill_line .= '<div class="mpi-label">' . $label . '</div>';
-    $bill_line .= '<div class="mpi-qty">' . $qty . '</div>';
-    $bill_line .= '<div class="mpi-netto">' . $netto . '</div>';
-    $bill_line .= '<div class="mpi-brutto mpi-total">' . $total . '</div>';
-    $bill_line .= '</div>';
-
-    $lines[] = $bill_line;
-  }
-  $additional_lines_content = '<div class="mpi-main-bills-content">' . implode('', $lines) . '</div>';
-
-  $additional_lines = '<div class="mpi-additional-bills">';
-  $additional_lines .= $additional_lines_prefix;
-  $additional_lines .= $additional_lines_content;
-  $additional_lines .= $additional_lines_suffix;
-  $additional_lines .= '</div>';
-
-  $content = '<div class="mpi-content">';
-  $content .= $address;
-  $content .= $job;
-  $content .= $main_lines;
-  $content .= $tax_lines;
-  $content .= $additional_lines;
-  $content .= '</div>';
-
-  // Footer.
-  $footer = '<div class="mpi-footer">';
-  $footer .= $page_variables['footer'];
-  $footer .= '</div>';
-
-  $output = '<div class="mpi-invoice">';
-  $output .= $header;
-  $output .= $content;
-  $output .= $footer;
-  $output .= '</div>';
-
-  return $output;
-}
-
-function _mp_invoices_model_is_german($model) {
-  $model_profiles = profile2_load_by_user($model);
-  $is_german_model = FALSE;
-  if (isset($model_profiles['model_private_data'])) {
-    $model_profile_wrapper = entity_metadata_wrapper('profile2', $model_profiles['model_private_data']);
-    $is_german_model = ($model_profile_wrapper->field_complete_address->value()['country'] == 'DE');
-  }
-
-  return $is_german_model;
-}
-
-function _mp_invoices_line_item_create($order_id, $label, $qty, $price, $type) {
-  $line_item = commerce_line_item_new('basic_line_item', $order_id);
-  $line_item->line_item_label = $label;
-  $line_item->quantity = $qty;
-  $price['data'] = commerce_price_component_add($price, 'basic_line_item', $price, TRUE, FALSE);
-  $line_item->commerce_unit_price[LANGUAGE_NONE][0] = $price;
-  $line_item->field_line_item_type[LANGUAGE_NONE][0]['value'] = $type;
-  commerce_line_item_save($line_item);
-
-  return $line_item;
 }
