@@ -1,0 +1,12 @@
+name = Model Platform basic line item
+description = Model Platform basic line item
+core = 7.x
+package = Model Platform
+version = 7.x-1.0
+dependencies[] = commerce_basic_line_item
+dependencies[] = features
+dependencies[] = list
+dependencies[] = options
+features[features_api][] = api:2
+features[field_base][] = field_line_item_type
+features[field_instance][] = commerce_line_item-basic_line_item-field_line_item_type
