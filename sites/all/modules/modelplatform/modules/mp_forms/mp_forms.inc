@@ -265,3 +265,242 @@ function _mp_forms_customer_private_data_form_validate(&$form, &$form_state) {
     }
   }
 }
+
+/**
+ * Change user_profile_form.
+ */
+function _mp_forms_user_profile_form($form) {
+  global $user;
+
+  if (isset($form['field_model_is_active'])) {
+    $access = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
+    $access = $access && user_access('modelplatform administer models');
+    $form['field_model_is_active']['#access'] = $access;
+    $form['field_bat_unit']['#access'] = $access && ($user->uid == 1);
+    $form['field_front_page']['#access'] = $access;
+    $form['field_front_page_image']['#access'] = $access;
+    $form['field_front_page_logo']['#access'] = $access;
+    $form['field_front_page_text']['#access'] = $access;
+    $form['field_front_page_slider']['#access'] = $access;
+    $form['field_full_name']['#access'] = $access;
+    $form['field_rating']['#access'] = FALSE;
+
+    $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
+    $form['field_small_business']['#access'] = $is_model;
+    $form['picture']['#access'] = !$is_model || ($access);
+  }
+
+  return $form;
+}
+
+/**
+ * Change user_pass_reset form.
+ */
+function _mp_forms_user_pass_reset_form($form) {
+  if (isset($form['message']['#markup'])) {
+    drupal_set_title(t('One-time login'));
+    $message = t('<p>Click on this button to log in to the site.</p>');
+    $form['message']['#markup'] = $message;
+  }
+
+  return $form;
+}
+
+function _mp_forms_job_node_form($form) {
+  global $user;
+
+  $get_params = drupal_get_query_parameters();
+
+  if (isset($get_params['parent_job'])) {
+    $parent_job = node_load($get_params['parent_job']);
+    if (isset($parent_job->nid)
+      && ($parent_job->type == 'job' || $parent_job->type == 'job_template')
+      && ($parent_job->uid == $user->uid)) {
+      $new_job = modelplatform_job_clone($parent_job, FALSE);
+      $form = drupal_get_form('job_node_form', $new_job);
+    }
+  }
+
+  $job = $form['#node'];
+  if (isset($job->nid)
+    && ($user->uid === $job->uid || user_access('edit any job content'))) {
+    $field_job_status = field_get_items('node', $job, 'field_job_status');
+    if (isset($field_job_status[0]['tid'])
+      && $field_job_status[0]['tid'] == MODELPLATFORM_JOB_STATUS_DRAFTED) {
+      $form['actions']['template'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save as Job template'),
+        '#submit' => array(
+          '_mp_forms_job_node_form_template',
+        ),
+      );
+    }
+  }
+  $disabled = _modelplatform_job_is_confirmed($job->nid);
+  if ($disabled) {
+    drupal_set_message(t('Model was confirmed for this job. Some fields are disabled.'), 'info');
+  }
+
+  $form['field_job_start_date']['#disabled'] = $disabled;
+  $form['field_job_status']['#disabled'] = $disabled;
+  $form['field_job_daily_rate_from']['#disabled'] = $disabled;
+  $form['field_job_daily_rate_to']['#disabled'] = $disabled;
+  $form['actions']['delete']['#access'] = !$disabled;
+
+  $form['actions']['submit']['#submit'][] = '_mp_forms_job_node_form_submit';
+  $form['#validate'][] = '_mp_forms_job_node_form_validate';
+
+  return $form;
+}
+
+function _mp_forms_job_template_node_form($form) {
+  global $user;
+
+  if (isset($form['#node']->nid)
+    && ($user->uid === $form['#node']->uid || user_access('edit any job content'))) {
+    $form['actions']['clone'] = array(
+      '#type' => 'submit',
+      '#value' => t('Duplicate Job'),
+      '#submit' => array(
+        '_mp_forms_job_node_form_clone',
+      ),
+    );
+  }
+
+  return $form;
+}
+
+function _mp_forms_user_login_form($form) {
+  if (variable_get("autoassignrole_user_active", 0)
+    && !user_access('administer users')
+    && !autoassignrole_get_active_path_rid()) {
+
+    // Get a list of valid roles that can be selected.
+    $roles = array_intersect_key(user_roles(TRUE), array_filter(variable_get('autoassignrole_user_roles', array())));
+
+    if ($roles) {
+      $form['autoassignrole_user'] = array(
+        '#type' => 'fieldset',
+        '#title' => filter_xss(variable_get('autoassignrole_user_fieldset_title', t('User Roles'))),
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+      );
+
+      // Sort the roles.
+      if (variable_get('autoassignrole_user_sort', 'SORT_ASC') == 'SORT_ASC') {
+        asort($roles);
+      }
+      elseif (variable_get('autoassignrole_user_sort', 'SORT_DESC') == 'SORT_DESC') {
+        arsort($roles);
+      }
+      else {
+        drupal_sort_weight($roles, $roles);
+      }
+
+      $multiple = variable_get('autoassignrole_user_multiple', 0);
+      $user_selection = variable_get('autoassignrole_user_selection', AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX);
+
+      $type = 'select';
+      if ($user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX) {
+        $type = $user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX && !$multiple ? 'radios' : 'checkboxes';
+      }
+
+      // If not multiple + not required + select box, need a none selection.
+      if (!$multiple && !variable_get('autoassignrole_user_required', 0) && $type == 'select') {
+        $roles = array(0 => t('None')) + $roles;
+      }
+
+      // Set the user description filter format.
+      $autoassignrole_user_description = _autoassignrole_get_user_description();
+
+      // Add in the element.
+      $form['autoassignrole_user']['user_roles'] = array(
+        '#type' => $type,
+        '#title' => filter_xss(variable_get('autoassignrole_user_title', t('Role'))),
+        '#options' => $roles,
+        '#description' => filter_xss_admin($autoassignrole_user_description['value']),
+        '#required' => variable_get('autoassignrole_user_required', 0),
+        '#multiple' => $multiple,
+      );
+    }
+  }
+
+  $form['#attached']['js'] = array(
+    array(
+      'data' => array(
+        'mp_forms' => array(
+          'model' => 5,
+          'customer' => 4,
+        ),
+      ),
+      'type' => 'setting',
+    ),
+    array(
+      'data' => drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
+    ),
+  );
+  $form['autoassignrole_user']['#weight'] = -100;
+
+  return $form;
+}
+
+function _mp_forms_job_node_form_clone($form, &$form_state) {
+  if (isset($form['#node']->nid)) {
+    $form_state['redirect'] = array(
+      'node/add/job',
+      array(
+        'query' => array(
+          'parent_job' => $form['#node']->nid,
+        ),
+      ),
+    );
+  }
+}
+
+function _mp_forms_job_node_form_validate($form, &$form_state) {
+  $min = $max = 0;
+  if (isset($form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'])) {
+    $min = $form_state['values']['field_job_daily_rate_from'][LANGUAGE_NONE][0]['value'];
+  }
+  if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
+    $max = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
+  }
+  if ($min > $max) {
+    form_set_error('field_job_daily_rate_to', t('Daily payment rate to should be more then Daily payment rate from'));
+  }
+}
+
+function _mp_forms_job_node_form_submit($form, &$form_state) {
+  $query = array();
+
+  if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
+    $query['field_daily_rate_value_1'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
+  }
+  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'])) {
+    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value']);
+    $query['start_date']['date'] = $date_part[0];
+  }
+  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'])) {
+    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2']);
+    $query['end_date']['date'] = $date_part[0];
+  }
+
+  $form_state['redirect'] = array(
+    'models',
+    array(
+      'query' => $query,
+    ),
+  );
+}
+
+function _mp_forms_job_node_form_template($form, &$form_state) {
+  $job = $form['#node'];
+  $job->type = 'job_template';
+  $job->created = REQUEST_TIME;
+  $job->changed = REQUEST_TIME;
+  $job->nid = $job->vid = NULL;
+
+  $job_template_wrapper = entity_metadata_wrapper('node', $job);
+  $job_template_wrapper->field_job_status = MODELPLATFORM_JOB_STATUS_CREATED;
+  $job_template_wrapper->save();
+}

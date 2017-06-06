@@ -163,7 +163,7 @@ function modelplatform_job_clone($node, $create_job = TRUE) {
 /**
  * Save job as template.
  *
- * @see modelplatform_form_alter()
+ * @see pppmodelplatform_form_alter()
  */
 function modelplatform_job_node_form_template($form, &$form_state) {
   $job = $form['#node'];
@@ -283,4 +283,24 @@ function _modelplatform_user_is_model($user) {
 
 function _modelplatform_user_is_customer($user) {
   return isset($user->roles[MODELPLATFORM_ROLE_CUSTOMER]);
+}
+
+/**
+ * Return TRUE if job confirmed.
+ */
+function _modelplatform_job_is_confirmed($nid) {
+  $query = db_select('bat_events', 'be');
+  $query->innerJoin('field_data_event_state_reference', 'esr',
+    'esr.entity_type = \'bat_event\' AND esr.entity_id = be.event_id');
+  $query->innerJoin('bat_event_state', 'bes',
+    'bes.id = esr.event_state_reference_state_id AND bes.blocking = 1');
+
+  $query->innerJoin('field_data_field_job', 'fj',
+    'fj.entity_id - be.event_id AND fj.entity_type = \'bat_event\'');
+  $query->condition('fj.field_job_target_id', $nid);
+  $query->addField('be', 'event_id', 'event_id');
+  $query->addField('fj', 'field_job_target_id', 'nid');
+  $result = $query->execute()->fetchCol(0);
+
+  return count($result) > 0;
 }

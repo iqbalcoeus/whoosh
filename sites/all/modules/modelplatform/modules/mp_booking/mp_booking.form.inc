@@ -43,6 +43,14 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
   $form_state['#unit'] = $unit;
 
   $customer_jobs = _mp_booking_get_customer_jobs($customer_uid, array('nid', 'title'));
+
+  // Hide confirmed jobs.
+  foreach ($customer_jobs as $_nid => $_job_title) {
+    if (_modelplatform_job_is_confirmed($_nid)) {
+      unset($customer_jobs[$_nid]);
+    }
+  }
+
   $defult_job_nid = NULL;
   $count_jobs = count($customer_jobs);
   if ($count_jobs) {
@@ -347,6 +355,15 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $event->field_job_cost = $auction->field_auction_cost_propose;
   $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
   bat_event_save($event);
+
+  // Set booked status for the job.
+  $values = $form_state['values'];
+  $job_nid = $values['jobs'];
+
+  $job = node_load($job_nid);
+  $job_wrapper = entity_metadata_wrapper('node', $job);
+  $job_wrapper->field_job_status = 97;
+  $job_wrapper->save();
 }
 
 /**
@@ -552,12 +569,6 @@ function mp_booking_job_auction_form_accept($form, &$form_state) {
   $auction = mp_auction_load($auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
-
-  // @TODO Move to the entity_save hook.
-  $event = $form['#event'];
-  $event->field_job_cost = $auction->field_auction_cost_propose;
-  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
-  bat_event_save($event);
 
   module_invoke_all('mpb_option_model_accept', $auction);
 }

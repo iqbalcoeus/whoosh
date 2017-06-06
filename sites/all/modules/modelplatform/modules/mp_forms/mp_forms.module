@@ -3,6 +3,38 @@
 require_once 'mp_forms.inc';
 
 /**
+ * Implements hook_form_alter().
+ */
+function mp_forms_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case 'user_profile_form':
+      $form = _mp_forms_user_profile_form($form);
+      break;
+
+    case 'user_pass_reset':
+      $form = _mp_forms_user_pass_reset_form($form);
+      break;
+
+    case 'job_node_form':
+      $form = _mp_forms_job_node_form($form);
+    case 'job_template_node_form':
+      $form = _mp_forms_job_template_node_form($form);
+      break;
+
+    case 'node_gallery_item_node_form':
+      $form['revision_information']['#access'] = FALSE;
+      break;
+
+    case 'user_login':
+      $form = _mp_forms_user_login_form($form);
+      break;
+
+    default:
+      // Nothing to do.
+  }
+}
+
+/**
  * Implements hook_form_profile2_form_alter().
  */
 function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
