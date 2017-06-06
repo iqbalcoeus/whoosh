@@ -49,8 +49,9 @@ function model_platform_gallery_feature_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'Accept' => 'Accept',
-        'Decline' => 'Decline',
+        'Request sent' => 'Request sent',
+        'Accept' => 'Confirmed',
+        'Decline' => 'Canceled',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
