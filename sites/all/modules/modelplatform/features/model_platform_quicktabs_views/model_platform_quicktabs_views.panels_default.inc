@@ -275,6 +275,29 @@ function model_platform_quicktabs_views_default_panels_mini() {
   $display->storage_id = 'customer_dashboard_payments';
   $display->content = array();
   $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-a062ebb0-5d9a-4bd9-a304-d54710b4a5d0';
+  $pane->panel = 'middle';
+  $pane->type = 'block';
+  $pane->subtype = 'views-my_invoices-block_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'a062ebb0-5d9a-4bd9-a304-d54710b4a5d0';
+  $display->content['new-a062ebb0-5d9a-4bd9-a304-d54710b4a5d0'] = $pane;
+  $display->panels['middle'][0] = 'new-a062ebb0-5d9a-4bd9-a304-d54710b4a5d0';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $mini->display = $display;

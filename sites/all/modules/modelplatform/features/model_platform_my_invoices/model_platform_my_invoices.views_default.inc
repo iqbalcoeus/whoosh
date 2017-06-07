@@ -138,6 +138,19 @@ function model_platform_my_invoices_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'user/%/invoices';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Commerce Order: Uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'commerce_order';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $translatables['my_invoices'] = array(
     t('Master'),
     t('My invoices'),
@@ -169,6 +182,7 @@ function model_platform_my_invoices_views_default_views() {
 <a href=\'/mp_pdf/invoices/[order_id]\' >PDF</a>'),
     t('All'),
     t('Page'),
+    t('Block'),
   );
   $export['my_invoices'] = $view;
 
