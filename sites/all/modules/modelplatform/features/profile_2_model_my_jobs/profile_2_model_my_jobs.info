@@ -1,7 +1,7 @@
 name = Profile 2 - Model My Jobs
 description = Profile 2 - Model My Jobs
 core = 7.x
-package = Model Platform
+package = Model Platform - Profile2
 version = 7.x-1.2
 dependencies[] = features
 dependencies[] = panels_mini

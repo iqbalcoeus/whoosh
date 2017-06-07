@@ -1,7 +1,7 @@
 name = Model Platform - Model Inside
 description = Model Platform - Model Inside (Blog)
 core = 7.x
-package = Model Platform
+package = Model Platform - Views
 version = 7.x-1.1
 dependencies[] = better_exposed_filters
 dependencies[] = views

@@ -1,7 +1,7 @@
 name = Profile2 - Model Additional Information
 description = Profile2 - Model Additional Information
 core = 7.x
-package = Model Platform
+package = Model Platform - Profile2
 version = 7.x-1.4
 dependencies[] = commerce_price
 dependencies[] = entity

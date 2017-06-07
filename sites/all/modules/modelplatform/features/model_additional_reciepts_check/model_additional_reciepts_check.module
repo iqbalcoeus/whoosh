@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model additional reciepts check feature.
+ */
+
+include_once 'model_additional_reciepts_check.features.inc';

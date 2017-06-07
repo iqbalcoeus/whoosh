@@ -288,7 +288,7 @@ function bat_event_type_fields_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_document',
     'label' => 'Document',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
@@ -443,7 +443,7 @@ function bat_event_type_fields_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_reciept_cost',
     'label' => 'Reciept cost',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,

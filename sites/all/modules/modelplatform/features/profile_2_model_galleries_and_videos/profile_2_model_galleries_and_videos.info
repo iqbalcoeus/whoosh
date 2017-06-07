@@ -1,7 +1,7 @@
 name = Profile 2 - Model Galleries and Videos
 description = Profile 2 - Model Galleries and Videos
 core = 7.x
-package = Model Platform
+package = Model Platform - Profile2
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = image
