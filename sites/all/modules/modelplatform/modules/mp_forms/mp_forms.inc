@@ -485,12 +485,13 @@ function _mp_forms_job_node_form_submit($form, &$form_state) {
     $query['end_date']['date'] = $date_part[0];
   }
 
-  $form_state['redirect'] = array(
-    'models',
-    array(
-      'query' => $query,
-    ),
-  );
+  // @TODO Remove this code if all ok.
+//  $form_state['redirect'] = array(
+//    'models',
+//    array(
+//      'query' => $query,
+//    ),
+//  );
 }
 
 function _mp_forms_job_node_form_template($form, &$form_state) {
