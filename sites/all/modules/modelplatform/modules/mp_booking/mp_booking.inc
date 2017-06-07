@@ -612,3 +612,46 @@ function _mp_booking_get_auctioned_job($model_uid, $customer_uid) {
 
   return $auctioned_job;
 }
+
+function mp_booking_reciept_approve($event, $item_id) {
+  global $user;
+
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $fc_items = $event_wrapper->field_additional_receipts->value();
+  foreach ($fc_items as $fc_item) {
+    if ($fc_item->item_id == $item_id) {
+      $fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+      $fc_item_wrapper->field_reciept_approved_by_admin->set(1);
+      $fc_item_wrapper->field_reciept_admin->set($user);
+      $fc_item_wrapper->save();
+
+      // It will call entity_update and then order will be updated.
+      bat_event_save($event);
+    }
+  }
+
+  drupal_goto('admin/modelplatform/invoice_reciepts');
+}
+
+function mp_booking_reciept_remove($event, $item_id) {
+  global $user;
+
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $fc_items = $event_wrapper->field_additional_receipts->value();
+  foreach ($fc_items as $fc_item) {
+    if ($fc_item->item_id == $item_id) {
+      $fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+      $fc_item_wrapper->field_reciept_approved_by_admin->set(0);
+      $fc_item_wrapper->field_reciept_admin->set($user);
+      $fc_item_wrapper->save();
+
+      // It will call entity_update and then order will be updated.
+      bat_event_save($event);
+    }
+  }
+
+  // It will call entity_update and then order will be updated.
+  bat_event_save($event);
+
+  drupal_goto('admin/modelplatform/invoice_reciepts');
+}

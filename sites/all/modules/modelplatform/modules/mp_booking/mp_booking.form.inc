@@ -409,7 +409,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
 
     // Get events auctions.
     $auctions = mp_booking_get_event_auctions($event);
-    foreach($auctions as $auction_item) {
+    foreach ($auctions as $auction_item) {
       if ($auction_item->uid === $user->uid) {
         $negotiations_count++;
 
@@ -425,13 +425,15 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
     $decision_form_show = FALSE;
     if ($auction->uid != $user->uid) {
       if (!isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
-        || !$auction->field_auction_decision[LANGUAGE_NONE][0]['value']) {
+        || !$auction->field_auction_decision[LANGUAGE_NONE][0]['value']
+      ) {
         $decision_form_show = TRUE;
       }
     }
     else {
       if (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
-        && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline') {
+        && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline'
+      ) {
         $decision_form_show = TRUE;
       }
     }
@@ -448,12 +450,6 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       }
       $form['#prefix'] = '<div id="job_auction_form">';
       $form['#suffix'] = '</div>';
-
-
-//      $form['job_invitation_title'] = array(
-//        '#type' => 'markup',
-//        '#markup' => '<h5 class="font-alt mb-sm-40  widget-title">' . t('New propose') . '</h5>',
-//      );
 
       $form['#event'] = $event;
 
@@ -477,7 +473,8 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
         ),
       );
       if ($owner_uid != $customer_uid
-        && $negotiations_count < 3) {
+        && $negotiations_count < 3
+      ) {
         $form['decision']['new_propose'] = array(
           '#type' => 'button',
           '#value' => t('Reject the daily Rate'),
@@ -507,7 +504,8 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
           t('You can negotiate the rate up to @max_times times only. (@times left)',
             array(
               '@max_times' => MP_BOOKING_MAX_NEGOTIATIONS,
-              '@times' => MP_BOOKING_MAX_NEGOTIATIONS - $negotiations_count)
+              '@times' => MP_BOOKING_MAX_NEGOTIATIONS - $negotiations_count
+            )
           )
           . '</span>',
       );
@@ -527,19 +525,22 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       }
     }
     else {
-      $customer = user_load($customer_uid);
-      $customer_wrapper = entity_metadata_wrapper('user', $customer);
-      $customer_full_name = $customer_wrapper->field_full_name->value();
-      $form['decision']['description'] = array(
-        '#type' => 'markup',
-        '#markup' => '<span class="description">' .
-          t('You should wait @customer_full_name decision.',
-            array(
-              '@customer_full_name' => $customer_full_name,
+      if (!isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+          || $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] != 'Accept') {
+        $customer = user_load($customer_uid);
+        $customer_wrapper = entity_metadata_wrapper('user', $customer);
+        $customer_full_name = $customer_wrapper->field_full_name->value();
+        $form['decision']['description'] = array(
+          '#type' => 'markup',
+          '#markup' => '<span class="description">' .
+            t('You should wait @customer_full_name decision.',
+              array(
+                '@customer_full_name' => $customer_full_name,
+              )
             )
-          )
-          . '</span>'
-      );
+            . '</span>'
+        );
+      }
     }
   }
 
@@ -709,7 +710,8 @@ function mp_booking_job_model_reciepts_form($form, &$form_state, $event) {
 
     if (($state_id == MP_BOOKING_STATE_JOB_CONTRACT)
       && (REQUEST_TIME > $end_date)
-      && ((REQUEST_TIME - $end_date) < 604800)) {
+      && ((REQUEST_TIME - $end_date) < 604800)
+    ) {
       // Create form.
       $form = bat_event_edit_form($form, $form_state, $event);
 
@@ -718,16 +720,33 @@ function mp_booking_job_model_reciepts_form($form, &$form_state, $event) {
       $form['event_bat_unit_reference']['#access'] = FALSE;
       $form['event_state_reference']['#access'] = FALSE;
       $form['field_job']['#access'] = FALSE;
+      $form['field_order']['#access'] = FALSE;
       $form['field_job_cost']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
-      $form['bat_date_range']['#access'] = FALSE;
+//      $form['bat_date_range']['#access'] = FALSE;
 
+      $fc_items = $event_wrapper->field_additional_receipts->value();
       $field_collection = &$form['field_additional_receipts'][LANGUAGE_NONE];
       foreach (element_children($field_collection) as $key) {
+        if (!is_numeric($key)) {
+          continue;
+        }
+        $disabled = FALSE;
+        if (isset($fc_items[$key])) {
+          $fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $fc_items[$key]);
+          $admin = $fc_item_wrapper->field_reciept_admin->value();
+          $disabled = ($admin || $disabled);
+          $field_collection[$key]['field_reciept_type']['#disabled'] = $disabled;
+          $field_collection[$key]['field_document']['#disabled'] = $disabled;
+          $field_collection[$key]['field_reciept_comment']['#disabled'] = $disabled;
+          $field_collection[$key]['field_reciept_cost']['#disabled'] = $disabled;
+        }
+
         $field_collection[$key]['field_reciept_approved_by_admin']['#access'] = FALSE;
         $field_collection[$key]['field_reciept_admin']['#access'] = FALSE;
-        if ($field_collection[$key]['field_reciept_admin'][LANGUAGE_NONE][0]['target_id']['#default_value']) {
-          $field_collection[$key]['remove_button']['#access'] = FALSE;
+        $field_collection[$key]['remove_button']['#value']= t('Remove row');
+        if ($disabled) {
+          $field_collection[$key]['remove_button']['#disabled'] = FALSE;
         }
       }
 

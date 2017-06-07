@@ -60,6 +60,19 @@ function mp_booking_menu() {
     'access arguments' => array(2),
   );
 
+  $items['job/event/%bat_event/approve/%'] = array(
+    'page callback' => 'mp_booking_reciept_approve',
+    'page arguments' => array(2, 4),
+    'access callback' => 'user_access',
+    'access arguments' => array(MODELPLATFORM_MODERATE_DOCUMENTS),
+  );
+  $items['job/event/%bat_event/remove/%'] = array(
+    'page callback' => 'mp_booking_reciept_remove',
+    'page arguments' => array(2, 4),
+    'access callback' => 'user_access',
+    'access arguments' => array(MODELPLATFORM_MODERATE_DOCUMENTS),
+  );
+
   $items['job/propose/%'] = array(
     'title' => t('Model propose'),
     'page callback' => 'mp_booking_model_propose',

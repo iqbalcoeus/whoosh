@@ -14,6 +14,8 @@ define('MODELPLATFORM_JOB_STATUS_DRAFTED', 104);
 define('MODELPLATFORM_ROLE_MODEL', 5);
 define('MODELPLATFORM_ROLE_CUSTOMER', 4);
 
+define('MODELPLATFORM_MODERATE_DOCUMENTS', 'moderate modelplatform documents');
+
 /**
  * Implements hook_menu().
  */
@@ -247,7 +249,7 @@ function modelplatform_permission() {
       'title' => t('Administer models'),
       'description' => t('Can moderate models profiles.'),
     ),
-    'moderate modelplatform documents' => array(
+    MODELPLATFORM_MODERATE_DOCUMENTS => array(
       'title' => t('Administer Modelplatform documents'),
       'description' => t('Can moderate modelplatform document templates.'),
     ),
