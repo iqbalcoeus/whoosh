@@ -174,14 +174,23 @@ function _mp_pdf_using_mpdf_generator($html, $filename = NULL, $show_hf) {
   $page = variable_get('pdf_using_mpdf_pdf_page_size');
   $font_size = variable_get('pdf_using_mpdf_pdf_font_size');
   $font_style = variable_get('pdf_using_mpdf_pdf_default_font');
-
-  // DEFAULT PDF margin Values.
-  $margin_top = variable_get('pdf_using_mpdf_margin_top', 16);
-  $margin_right = variable_get('pdf_using_mpdf_margin_right', 15);
-  $margin_bottom = variable_get('pdf_using_mpdf_margin_bottom', 16);
-  $margin_left = variable_get('pdf_using_mpdf_margin_left', 15);
-  $margin_header = variable_get('pdf_using_mpdf_margin_header', 9);
-  $margin_footer = variable_get('pdf_using_mpdf_margin_footer', 9);
+  if ($show_hf) {
+    // DEFAULT PDF margin Values.
+    $margin_top = variable_get('pdf_using_mpdf_margin_top', 16);
+    $margin_right = variable_get('pdf_using_mpdf_margin_right', 15);
+    $margin_bottom = variable_get('pdf_using_mpdf_margin_bottom', 16);
+    $margin_left = variable_get('pdf_using_mpdf_margin_left', 15);
+    $margin_header = variable_get('pdf_using_mpdf_margin_header', 9);
+    $margin_footer = variable_get('pdf_using_mpdf_margin_footer', 9);
+  }
+  else {
+    $margin_top = 10;
+    $margin_right = 10;
+    $margin_bottom = 10;
+    $margin_left = 10;
+    $margin_header = 10;
+    $margin_footer = 10;
+  }
 
   // Creating Instance of mPDF Class Library.
   $mpdf = new mPDF(
