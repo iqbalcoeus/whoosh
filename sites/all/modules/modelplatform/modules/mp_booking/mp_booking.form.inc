@@ -723,7 +723,7 @@ function mp_booking_job_model_reciepts_form($form, &$form_state, $event) {
       $form['field_order']['#access'] = FALSE;
       $form['field_job_cost']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
-//      $form['bat_date_range']['#access'] = FALSE;
+      $form['bat_date_range']['#disabled'] = TRUE;
 
       $fc_items = $event_wrapper->field_additional_receipts->value();
       $field_collection = &$form['field_additional_receipts'][LANGUAGE_NONE];
