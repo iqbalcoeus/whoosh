@@ -38,18 +38,10 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
   }
 
   // Get model unit.
-  $model_account = user_load($model_uid);
   $unit = _mp_booking_get_unit('user', $model_account);
   $form_state['#unit'] = $unit;
 
-  $customer_jobs = _mp_booking_get_customer_jobs($customer_uid, array('nid', 'title'));
-
-  // Hide confirmed jobs.
-  foreach ($customer_jobs as $_nid => $_job_title) {
-    if (_modelplatform_job_is_confirmed($_nid)) {
-      unset($customer_jobs[$_nid]);
-    }
-  }
+  $customer_jobs = _mp_booking_get_opened_customer_jobs($customer_uid);
 
   $defult_job_nid = NULL;
   $count_jobs = count($customer_jobs);
@@ -59,11 +51,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $defult_job_nid = $nids[0];
     }
 
-    $event_data = _mp_booking_get_auction_event_data($model_uid, $customer_uid);
-    $auctioned_job = NULL;
-    if (isset($event_data->job_nid)) {
-      $auctioned_job = node_load($event_data->job_nid);
-    }
+    $auctioned_job = _mp_booking_get_auctioned_job($model_uid, $customer_uid);
 
     if ($auctioned_job) {
       $start_date = $end_date = NULL;
@@ -346,6 +334,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
  */
 function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $mp_auction_id = $form_state['values']['auction_id'];
+  $event_id = $form_state['values']['event_id'];
   $auction = mp_auction_load($mp_auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
@@ -364,6 +353,8 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $job_wrapper = entity_metadata_wrapper('node', $job);
   $job_wrapper->field_job_status = 97;
   $job_wrapper->save();
+
+  _mp_booking_cancel_other_events($job_nid, $event_id);
 }
 
 /**

@@ -53,9 +53,9 @@ function _mp_booking_set_unit($entity_type, $entity, $unit) {
 }
 
 /**
- * Get customer Jobs.
+ * Get all customer Jobs.
  */
-function _mp_booking_get_customer_jobs($customer_uid, $_fields = array('nid')) {
+function _mp_booking_get_all_customer_jobs($customer_uid, $_fields = array('nid')) {
   $query = db_select('node', 'n');
   $query->condition('type', 'job');
   $query->condition('uid', $customer_uid);
@@ -69,6 +69,24 @@ function _mp_booking_get_customer_jobs($customer_uid, $_fields = array('nid')) {
   return $result;
 }
 
+/**
+ * Get opened customer jobs.
+ */
+function _mp_booking_get_opened_customer_jobs($customer_uid) {
+  $customer_jobs = _mp_booking_get_all_customer_jobs($customer_uid, array('nid', 'title'));
+  // Hide confirmed jobs.
+  foreach ($customer_jobs as $_nid => $_job_title) {
+    if (_modelplatform_job_is_confirmed($_nid)) {
+      unset($customer_jobs[$_nid]);
+    }
+  }
+
+  return $customer_jobs;
+}
+
+/**
+ * Get auction event data.
+ */
 function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
   $result = NULL;
 
@@ -101,6 +119,9 @@ function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
   return $result;
 }
 
+/**
+ * Get job auction.
+ */
 function _mp_booking_get_job_auction($model_uid, $customer_uid) {
   $result = NULL;
 
@@ -133,6 +154,9 @@ function _mp_booking_get_job_auction($model_uid, $customer_uid) {
   return $result;
 }
 
+/**
+ * Get model events.
+ */
 function _mp_booking_get_model_events($model_uid, $start_date, $end_date) {
   // BAT Event.
   $event_query = db_select('bat_events', 'be');
@@ -186,6 +210,9 @@ function _mp_booking_get_model_events($model_uid, $start_date, $end_date) {
   return $result;
 }
 
+/**
+ * Get model auctions.
+ */
 function _mp_booking_get_model_auctions($model_uid, $start_date, $end_date) {
   $event_query = db_select('mp_auction', 'a');
 
@@ -539,15 +566,49 @@ function mp_booking_get_event_last_auction($event_id) {
   return $event_query->execute()->fetch();
 }
 
-function mp_booking_auction_access($event) {
-  global $user;
+/**
+ * Delete other job events.
+ */
+function _mp_booking_cancel_other_events($job_nid, $excluded_event_id) {
+  $event_ids = _mp_booking_get_job_events($job_nid);
+  unset($event_ids[$excluded_event_id]);
+  bat_event_delete_multiple($event_ids);
+}
 
-  $access = FALSE;
+/**
+ * Get all job event IDs.
+ */
+function _mp_booking_get_job_events($job_nid) {
+  $query = db_select('bat_event', 'be');
+  $query->innerJoin('field_data_field_job', 'fj',
+    'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
+  $query->condition('fj.field_job_target_id', $job_nid);
+  $query->addField('be', 'event_id', 'event_id');
+  $event_ids = $query->execute()->fetchAllKeyed(0, 0);
 
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-  $unit = $event_wrapper->event_bat_unit_reference->value();
+  return $event_ids;
+}
 
-  $access = $access || ($unit->uid === $user->uid);
+/**
+ * Get all event auction IDs.
+ */
+function _mp_booking_get_event_auctions($event_id) {
+  $query = db_select('mp_auction', 'a');
+  $query->innerJoin('field_data_field_auction_event', 'fe',
+    'fe.entity_id = a.mp_auction_id AND fe.entity_type = \'mp_auction\'');
+  $query->condition('fe.field_auction_event_target_id', $event_id);
+  $query->addField('a', 'mp_auction_id', 'mp_auction_id');
+  $mp_auction_ids = $query->execute()->fetchAllKeyed(0, 0);
 
-  return $access;
+  return $mp_auction_ids;
+}
+
+function _mp_booking_get_auctioned_job($model_uid, $customer_uid) {
+  $event_data = _mp_booking_get_auction_event_data($model_uid, $customer_uid);
+  $auctioned_job = NULL;
+  if (isset($event_data->job_nid)) {
+    $auctioned_job = node_load($event_data->job_nid);
+  }
+
+  return $auctioned_job;
 }
