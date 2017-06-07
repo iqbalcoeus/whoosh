@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model Platform - My invoices feature.
+ */
+
+include_once 'model_platform_my_invoices.features.inc';
