@@ -29,6 +29,14 @@ function mp_pdf_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
+  $items['mp_pdf/invoices/%commerce_order'] = array(
+    'title' => t('Invoice'),
+    'page callback' => 'mp_pdf_invoice',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $items;
 }
 
@@ -81,13 +89,19 @@ function mp_pdf_imprint() {
   _mp_pdf_using_mpdf_api($imprint);
 }
 
-function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL) {
+function mp_pdf_invoice($order) {
+  $account = user_load($order->uid);
+  $html = mp_invoices_page_callback($account, $order);
+  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
+}
+
+function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL, $show_hf = TRUE) {
   if (pdf_using_mpdf_library_exist() == TRUE) {
     if ($pdf_using_mpdf_pdf_filename === NULL) {
       $filename = explode(variable_get('pdf_using_mpdf_pdf_filename'), '[site:name]');
       $pdf_using_mpdf_pdf_filename = token_replace($filename[0]);
     }
-    _mp_pdf_using_mpdf_generator($html, $pdf_using_mpdf_pdf_filename);
+    _mp_pdf_using_mpdf_generator($html, $pdf_using_mpdf_pdf_filename, $show_hf);
   }
   else {
     drupal_set_message(t('No mPDF Library Found in "sites/all/libraries" or "!default_module_path". Please download PHP mPDF PDF generation tool from <a href="http://www.mpdf1.com/">mPDF1.com</a>', array(
@@ -96,7 +110,7 @@ function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL) {
   }
 }
 
-function _mp_pdf_using_mpdf_generator($html, $filename = NULL) {
+function _mp_pdf_using_mpdf_generator($html, $filename = NULL, $show_hf) {
 
   ini_set('Display_errors', 'On');
   error_reporting(E_ALL);
@@ -191,33 +205,16 @@ function _mp_pdf_using_mpdf_generator($html, $filename = NULL) {
 
   $theme_path = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('theme', 'rhythm_front');
 
-  $custom_fontdata = array(
-    'open_sansregular' => array(
-      'R' => "$theme_path/font/opensans-regular-webfont.eot",
-    ),
-    'open_sanslight' => array(
-      'R' => "$theme_path/font/opensans-light-webfont.eot",
-    ),
-    'open_sansbold' => array(
-      'R' => "$theme_path/font/opensans-bold-webfont.eot",
-    ),
-    'dosisregular' => array(
-      'R' => "$theme_path/font/dosis-regular-webfont.eot",
-    ),
-  );
-//  $mpdf->set
-//  add_custom_font_to_mpdf($mpdf, $custom_fontdata);
-
   // Enabling header option if available.
   $header = variable_get('pdf_using_mpdf_pdf_header');
-  if (isset($header) && $header != NULL) {
+  if ($show_hf && isset($header) && $header != NULL) {
     $header = token_replace($header);
     $mpdf->SetHTMLHeader($header);
   }
 
   // Enabling Footer option if available.
   $footer = variable_get('pdf_using_mpdf_pdf_footer');
-  if (isset($footer) && $footer != NULL) {
+  if ($show_hf && isset($footer) && $footer != NULL) {
     $footer = token_replace($footer);
     $mpdf->SetHTMLFooter($footer);
   }

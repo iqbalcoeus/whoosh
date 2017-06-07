@@ -10,7 +10,7 @@
  *
  * @see mp_invoices_menu()
  */
-function mp_invoices_page_callback($user, $order) {
+function mp_invoices_page_callback($account, $order) {
   $page = array();
 
   // Header.
