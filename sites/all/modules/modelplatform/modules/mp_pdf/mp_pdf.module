@@ -9,6 +9,10 @@ define('MP_PDF_BLOCK_POLICY', 17);
 define('MP_PDF_BLOCK_TERMS', 18);
 define('MP_PDF_NODE_IMPRINT', 236);
 
+require_once libraries_get_path('dompdf') . '/autoload.inc.php';
+//require_once libraries_get_path('dompdf') . '/vendor/autoload.php';
+//require_once libraries_get_path('dompdf') . '/src/Dompdf.php';
+
 /**
  * Implements hook_menu().
  */
@@ -92,7 +96,17 @@ function mp_pdf_imprint() {
 function mp_pdf_invoice($order) {
   $account = user_load($order->uid);
   $html = mp_invoices_page_callback($account, $order);
-  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
+//  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
+
+  global $theme_path;
+  $stylesheet_content = file_get_contents($theme_path . '/css/pdf.css');
+  $html = "<style>$stylesheet_content</style>" . $html;
+
+  $dompdf = new Dompdf\Dompdf();
+  $dompdf->loadHtml($html);
+//  $dompdf->setPaper;
+  $dompdf->render();
+  return $dompdf->stream();
 }
 
 function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL, $show_hf = TRUE) {
