@@ -94,15 +94,24 @@ function mp_pdf_imprint() {
 }
 
 function mp_pdf_invoice($order) {
+  global $theme_path;
+
   $account = user_load($order->uid);
   $html = mp_invoices_page_callback($account, $order);
 //  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
 
-  global $theme_path;
   $stylesheet_content = file_get_contents($theme_path . '/css/pdf.css');
   $html = "<style>$stylesheet_content</style>" . $html;
+  $html = htmlspecialchars_decode(htmlentities($html, ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES);
 
-  $dompdf = new Dompdf\Dompdf();
+  $options = new Dompdf\Options();
+  $options->set('tempDir', __DIR__ . '/site_uploads/dompdf_temp');
+  $options->set('isRemoteEnabled', TRUE);
+  $options->set('debugKeepTemp', TRUE);
+  $options->set('chroot', '/'); // Just for testing :)
+  $options->set('isHtml5ParserEnabled', true);
+
+  $dompdf = new Dompdf\Dompdf($options);
   $dompdf->loadHtml($html);
   $dompdf->setPaper('A4');
   $dompdf->render();
