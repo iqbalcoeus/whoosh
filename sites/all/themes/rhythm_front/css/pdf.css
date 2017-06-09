@@ -84,3 +84,144 @@ html {
   font-size: 14px;
   font-family: 'open_sansregular';
 }
+
+.mpi-invoice {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.mpi-invoice .mpi-header .mpi-image {
+  display: inline-block;
+  vertical-align: top;
+  width: 5cm;
+}
+
+.mpi-invoice .mpi-header .mpi-image img {
+  width: 5cm;
+  height: auto;
+}
+
+.mpi-invoice .mpi-header .mpi-text {
+  display: block;
+  width: 11cm;
+  float: right;
+  vertical-align: top;
+  margin-bottom: 0.3cm;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-1 {
+  width: 4.5cm;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 0.5cm;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-2 {
+  width: 6cm;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 0.5cm;
+}
+
+.mpi-invoice .mpi-content {
+  clear: both;
+  border-top: 1px solid #000;
+  padding-top: 0.3cm;
+}
+
+.mpi-customer-address,
+.mpi-model-address {
+  display: inline-block;
+  vertical-align: top;
+  width: 10cm;
+}
+
+.mpi-invoice .mpi-customer-prefix,
+.mpi-invoice .mpi-main-prefix.mpi-suffix,
+.mpi-invoice .mpi-footer {
+  font-size: 11px;
+}
+
+.mpi-invoice .mpi-footer {
+  line-height: 17px;
+}
+
+.mpi-invoice .mpi-main-prefix.mpi-prefix,
+.mpi-invoice .mpi-tax-prefix.mpi-prefix {
+  font-size: 13px;
+}
+
+.mpi-invoice .mpi-address-suffix {
+  font-weight: 600;
+}
+
+.mpi-job-dates .mpi-job-start-date,
+.mpi-job-dates .mpi-job-start-time,
+.mpi-job-dates .mpi-dates-separator,
+.mpi-job-dates .mpi-job-end-date,
+.mpi-job-dates .mpi-job-end-time {
+  display: inline-block;
+  vertical-align: top;
+  width: 1.8cm;
+}
+
+.mpi-job-dates,
+.mpi-additional-bills .mpi-main-bill-line {
+  border-top: 1px solid #000;
+  padding-top: 0.25cm;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.25cm;
+  margin-top: 0.25cm;
+  margin-bottom: 0.25cm;
+}
+
+.mpi-main-bills {
+  border-top: 1px solid #000;
+  padding-top: 0.25cm;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.25cm;
+  margin-bottom: 0.25cm;
+}
+
+.mpi-label,
+.mpi-qty,
+.mpi-netto,
+.mpi-brutto.mpi-total {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mpi-label {
+  width: 8cm;
+}
+
+.mpi-qty,
+.mpi-netto {
+  width: 3.5cm;
+}
+
+.mpi-brutto.mpi-total {
+  width: 3.5cm;
+  text-align: right;
+}
+
+.mpi-footer-part.mpi-footer-part-1 {
+  margin-bottom: 0.3cm;
+}
+
+.mpi-total-invoice .mpi-total-invoice-label,
+.mpi-total-invoice .mpi-total-invoice-value {
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.mpi-total-invoice .mpi-total-invoice-label {
+  width: 16.5cm;
+}
+
+.mpi-total-invoice .mpi-total-invoice-value {
+  width: 2cm;
+}
