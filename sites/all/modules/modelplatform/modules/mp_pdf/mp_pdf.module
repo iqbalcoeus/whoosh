@@ -115,7 +115,7 @@ function mp_pdf_invoice($order) {
   $dompdf->loadHtml($html);
   $dompdf->setPaper('A4');
   $dompdf->render();
-  $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
+  $dompdf->stream("Invoise #$order->order_id.pdf", array("Attachment" => false));
   exit(0);
 }
 
