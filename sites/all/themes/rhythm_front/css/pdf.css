@@ -1,10 +1,6 @@
 @font-face {
   font-family: 'open_sansregular';
-  src: url('../font/opensans-regular-webfont.eot');
-  src: url('../font/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-regular-webfont.woff2') format('woff2'),
-  url('../font/opensans-regular-webfont.woff') format('woff'),
-  url('../font/opensans-regular-webfont.svg#open_sansregular') format('svg');
+  src: url('[path]/font/OpenSans-Regular.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
 
@@ -12,11 +8,7 @@
 
 @font-face {
   font-family: 'open_sanslight';
-  src: url('../font/opensans-light-webfont.eot');
-  src: url('../font/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-light-webfont.woff2') format('woff2'),
-  url('../font/opensans-light-webfont.woff') format('woff'),
-  url('../font/opensans-light-webfont.svg#open_sanslight') format('svg');
+  src: url('[path]/font/OpenSans-Light.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
 
@@ -24,11 +16,7 @@
 
 @font-face {
   font-family: 'open_sansbold';
-  src: url('../font/opensans-bold-webfont.eot');
-  src: url('../font/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-bold-webfont.woff2') format('woff2'),
-  url('../font/opensans-bold-webfont.woff') format('woff'),
-  url('../font/opensans-bold-webfont.svg#open_sansbold') format('svg');
+  src: url('[path]/font/OpenSans-Bold.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
 
@@ -36,14 +24,9 @@
 
 @font-face {
   font-family: 'dosisregular';
-  src: url('../font/dosis-regular-webfont.eot');
-  src: url('../font/dosis-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/dosis-regular-webfont.woff2') format('woff2'),
-  url('../font/dosis-regular-webfont.woff') format('woff'),
-  url('../font/dosis-regular-webfont.svg#dosisregular') format('svg');
+  src: url('[path]/font/Dosis-Regular.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
-
 }
 
 .contextual-links-wrapper,
@@ -82,5 +65,9 @@ p {
 
 html {
   font-size: 14px;
+  font-family: 'open_sansregular';
+}
+
+.mpi-invoice * {
   font-family: 'open_sansregular';
 }

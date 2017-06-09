@@ -1,6 +1,18 @@
 <?php
 $distFontDir = $rootDir . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR;
 return array(
+  'open_sansregular' => array(
+    'normal' => $distFontDir . 'OpenSans-Regular',
+  ),
+  'open_sanslight' => array(
+    'normal' => $distFontDir . 'OpenSans-Light',
+  ),
+  'open_sansbold' => array(
+    'normal' => $distFontDir . 'OpenSans-Bold',
+  ),
+  'dosisregular' => array(
+    'normal' => $distFontDir . 'Dosis-Regular',
+  ),
     'sans-serif' =>
         array(
             'normal' => $distFontDir . 'Helvetica',
