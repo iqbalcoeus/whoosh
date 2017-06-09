@@ -104,9 +104,10 @@ function mp_pdf_invoice($order) {
 
   $dompdf = new Dompdf\Dompdf();
   $dompdf->loadHtml($html);
-//  $dompdf->setPaper;
+  $dompdf->setPaper('A4');
   $dompdf->render();
-  return $dompdf->stream();
+  $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
+  exit(0);
 }
 
 function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL, $show_hf = TRUE) {

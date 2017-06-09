@@ -9,6 +9,8 @@
  * Generate invoice page.
  */
 function theme_mp_invoices_page($page_variables) {
+  global $base_url;
+
   // Header.
   $header_variables = $page_variables['header'];
 
@@ -125,8 +127,10 @@ function theme_mp_invoices_page($page_variables) {
   $bills_variables = $page_variables['content']['bills'];
 
   // Content - main lines.
-  $main_lines_prefix = '<div class="mpi-main-prefix mpi-prefix">' . $bills_variables['main']['prefix'] . '</div>';
-  $main_lines_suffix = '<div class="mpi-main-prefix mpi-suffix">' . $bills_variables['main']['suffix'] . '</div>';
+  $main_lines_prefix = '<div class="mpi-main-prefix mpi-prefix">'
+    . $bills_variables['main']['prefix'] . '</div>';
+  $main_lines_suffix = '<div class="mpi-main-prefix mpi-suffix">'
+    . $bills_variables['main']['suffix'] . '</div>';
 
   $lines = array();
   foreach ($bills_variables['main']['lines'] as $key => $line) {
@@ -234,7 +238,6 @@ function theme_mp_invoices_page($page_variables) {
   $total .= $total_label;
   $total .= $total_value;
   $total .= '</div>';
-
 
   $content = '<div class="mpi-content">';
   $content .= $address;
