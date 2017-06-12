@@ -84,7 +84,7 @@ html {
 .mpi-invoice .mpi-header {
   width: 100%;
   overflow: hidden;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .mpi-invoice .mpi-header .mpi-image {
@@ -146,7 +146,7 @@ html {
   float: right;
 }
 .mpi-customer-prefix {
-  font-size: 11px;
+  font-size: 10px;
 }
 .mpi-address-suffix {
   font-size: 14px;
@@ -163,7 +163,7 @@ html {
   width: 70%;
   float: left;
   padding: 10px 0;
-  font-size: 11px;
+  font-size: 10px;
   overflow: hidden;
 }
 .mpi-invoice .mpi-job-dates {
@@ -257,7 +257,7 @@ html {
 
 /* Invoice Footer */
 .mpi-invoice .mpi-footer {
-  font-size: 11px;
+  font-size: 10px;
 }
 .mpi-footer-part-2 {
   padding-top: 20px;
