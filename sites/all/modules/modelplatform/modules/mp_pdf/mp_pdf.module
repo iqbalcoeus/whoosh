@@ -37,7 +37,8 @@ function mp_pdf_menu() {
     'title' => t('Invoice'),
     'page callback' => 'mp_pdf_invoice',
     'page arguments' => array(2),
-    'access arguments' => array('access content'),
+    'access callback' => 'mp_invoices_access_own_invoices',
+    'access arguments' => array('view own model platform invoices'),
     'type' => MENU_NORMAL_ITEM,
   );
 
