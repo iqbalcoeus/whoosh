@@ -140,7 +140,7 @@ function theme_mp_invoices_page($page_variables) {
       $netto = commerce_currency_format($line['amount'], $line['currency_code']);
     }
     else {
-      $qty = $netto = '';
+      $qty = $netto = '&nbsp;';
     }
     $total = commerce_currency_format($line['amount'], $line['currency_code']);
 
@@ -156,8 +156,8 @@ function theme_mp_invoices_page($page_variables) {
   $main_lines_content = '<div class="mpi-main-bills-content">' . implode('', $lines) . '</div>';
 
   $title_line = '<div class="mpi-main-bill-line">';
-  $title_line .= '<div class="mpi-label"></div>';
-  $title_line .= '<div class="mpi-qty"></div>';
+  $title_line .= '<div class="mpi-label">&nbsp;</div>';
+  $title_line .= '<div class="mpi-qty">&nbsp;</div>';
   $title_line .= '<div class="mpi-netto">' . t('netto') . '</div>';
   $title_line .= '<div class="mpi-brutto mpi-total">' . t('brutto') . '</div>';
   $title_line .= '</div>';
@@ -176,7 +176,7 @@ function theme_mp_invoices_page($page_variables) {
   $lines = array();
   foreach ($bills_variables['tax']['lines'] as $key => $line) {
     $label = $line['label'];
-    $qty = $netto = '';
+    $qty = $netto = '&nbsp;';
     $total = commerce_currency_format($line['amount'], $line['currency_code']);
 
     $bill_line = '<div class="mpi-main-bill-line">';
@@ -203,7 +203,7 @@ function theme_mp_invoices_page($page_variables) {
   $lines = array();
   foreach ($bills_variables['additional']['lines'] as $key => $line) {
     $label = $line['label'];
-    $qty = $netto = '';
+    $qty = $netto = '&nbsp;';
     $total = commerce_currency_format($line['amount'], $line['currency_code']);
 
     $bill_line = '<div class="mpi-main-bill-line">';
