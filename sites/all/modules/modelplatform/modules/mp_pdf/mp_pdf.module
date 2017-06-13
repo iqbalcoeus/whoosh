@@ -37,7 +37,8 @@ function mp_pdf_menu() {
     'title' => t('Invoice'),
     'page callback' => 'mp_pdf_invoice',
     'page arguments' => array(2),
-    'access arguments' => array('access content'),
+    'access callback' => 'mp_invoices_access_own_invoices',
+    'access arguments' => array('view own model platform invoices'),
     'type' => MENU_NORMAL_ITEM,
   );
 
@@ -95,32 +96,29 @@ function mp_pdf_imprint() {
 
 function mp_pdf_invoice($order) {
   global $theme_path;
-  global $base_url;
 
   $account = user_load($order->uid);
   $html = mp_invoices_page_callback($account, $order);
-//  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
+  _mp_pdf_using_mpdf_api($html, NULL, FALSE);
 
-  $stylesheet_content = file_get_contents($theme_path . '/css/pdf.css');
-  $stylesheet_content = str_replace('[path]', "$base_url/$theme_path", $stylesheet_content);
-  $html = "<html><head><style>$stylesheet_content</style></head><body>" . $html . '</body></html>';
-
-  $html = htmlspecialchars_decode(htmlentities($html, ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES);
-
-  $options = new Dompdf\Options();
-  $options->set('tempDir', __DIR__ . '/site_uploads/dompdf_temp');
-  $options->set('isRemoteEnabled', TRUE);
-  $options->set('debugKeepTemp', TRUE);
+  // @TODO Remove it if mpdf will be anough.
+//  $stylesheet_content = file_get_contents($theme_path . '/css/pdf.css');
+//  $html = "<style>$stylesheet_content</style>" . $html;
+//  $html = htmlspecialchars_decode(htmlentities($html, ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES);
+//
+//  $options = new Dompdf\Options();
+//  $options->set('tempDir', __DIR__ . '/site_uploads/dompdf_temp');
+//  $options->set('isRemoteEnabled', TRUE);
+//  $options->set('debugKeepTemp', TRUE);
 //  $options->set('chroot', '/'); // Just for testing :)
-  $options->setIsFontSubsettingEnabled(true);
-  $options->set('isHtml5ParserEnabled', true);
-
-  $dompdf = new Dompdf\Dompdf($options);
-  $dompdf->loadHtml($html);
-  $dompdf->setPaper('A4');
-  $dompdf->render();
-  $dompdf->stream("Invoice #$order->order_id.pdf", array("Attachment" => false));
-  exit(0);
+//  $options->set('isHtml5ParserEnabled', true);
+//
+//  $dompdf = new Dompdf\Dompdf($options);
+//  $dompdf->loadHtml($html);
+//  $dompdf->setPaper('A4');
+//  $dompdf->render();
+//  $dompdf->stream("Invoice #$order->order_id.pdf", array("Attachment" => false));
+//  exit(0);
 }
 
 function _mp_pdf_using_mpdf_api($html, $pdf_using_mpdf_pdf_filename = NULL, $show_hf = TRUE) {

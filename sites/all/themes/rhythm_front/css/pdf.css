@@ -1,49 +1,25 @@
 @font-face {
   font-family: 'open_sansregular';
-  src: url('../font/opensans-regular-webfont.eot');
-  src: url('../font/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-regular-webfont.woff2') format('woff2'),
-  url('../font/opensans-regular-webfont.woff') format('woff'),
-  url('../font/opensans-regular-webfont.svg#open_sansregular') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }
 
 @font-face {
   font-family: 'open_sanslight';
-  src: url('../font/opensans-light-webfont.eot');
-  src: url('../font/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-light-webfont.woff2') format('woff2'),
-  url('../font/opensans-light-webfont.woff') format('woff'),
-  url('../font/opensans-light-webfont.svg#open_sanslight') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }
 
 @font-face {
   font-family: 'open_sansbold';
-  src: url('../font/opensans-bold-webfont.eot');
-  src: url('../font/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/opensans-bold-webfont.woff2') format('woff2'),
-  url('../font/opensans-bold-webfont.woff') format('woff'),
-  url('../font/opensans-bold-webfont.svg#open_sansbold') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }
 
 @font-face {
   font-family: 'dosisregular';
-  src: url('../font/dosis-regular-webfont.eot');
-  src: url('../font/dosis-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../font/dosis-regular-webfont.woff2') format('woff2'),
-  url('../font/dosis-regular-webfont.woff') format('woff'),
-  url('../font/dosis-regular-webfont.svg#dosisregular') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }
 
 .contextual-links-wrapper,
@@ -84,3 +60,206 @@ html {
   font-size: 14px;
   font-family: 'open_sansregular';
 }
+
+/* Invoice Start */
+.mpi-invoice {
+  font-size: 12px;
+  line-height: 20px;
+  font-family: 'open_sansregular';
+}
+
+/* Invoice prefix suffix */
+.mpi-prefix,
+.mpi-suffix {
+  font-size: 10px;
+  font-family: 'open_sansregular';
+}
+.mpi-prefix {
+  padding-bottom: 10px;
+}
+.mpi-suffix {
+  padding-top: 5px;
+}
+/* Invoice header */
+.mpi-invoice .mpi-header {
+  width: 100%;
+  overflow: hidden;
+  font-size: 10px;
+}
+
+.mpi-invoice .mpi-header .mpi-image {
+  display: block;
+  float: left;
+  width: 220px;
+}
+
+.mpi-invoice .mpi-header .mpi-image img {
+  width: 100%;
+}
+
+.mpi-invoice .mpi-header .mpi-text {
+  display: block;
+  float: right;
+  width: 50%;
+  margin-bottom: 0.3cm;
+  overflow: hidden;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-1 {
+  width: 45%;
+  display: block;
+  float: left;
+  padding: 0;
+}
+
+.mpi-invoice .mpi-header .mpi-text .mpi-text-column-2 {
+  width: 45%;
+  display: block;
+  float: right;
+  padding-left: 0.5cm;
+}
+
+/* Invoice Content */
+.mpi-invoice .mpi-content {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.3cm;
+}
+
+/* Invoice Content Addresses */
+.mpi-invoice .mpi-address {
+  width: 100%;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 10px 0;
+}
+
+.mpi-customer-address,
+.mpi-model-address {
+  display: block;
+  width: 50%;
+}
+.mpi-customer-address {
+  float: left;
+}
+.mpi-model-address {
+  float: right;
+}
+.mpi-customer-prefix {
+  font-size: 10px;
+}
+.mpi-address-suffix {
+  font-size: 14px;
+  font-weight: bold;
+}
+/* Invoice content Job */
+.mpi-invoice .mpi-job {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+.mpi-invoice .mpi-job .mpi-job-dates {
+  display: block;
+  width: 70%;
+  float: left;
+  padding: 10px 0;
+  font-size: 10px;
+  overflow: hidden;
+}
+.mpi-invoice .mpi-job-dates {
+  float: left;
+  overflow: hidden;
+}
+.mpi-invoice .mpi-job .mpi-customer-compamny-name {
+  display: block;
+  width: 30%;
+  float: right;
+}
+.mpi-job-start-date,
+.mpi-job-start-time,
+.mpi-dates-separator,
+.mpi-job-end-date,
+.mpi-job-end-time {
+  width: 70px;
+  float: left;
+}
+.mpi-job-start-time,
+.mpi-job-end-time {
+  width: 60px;
+}
+.mpi-dates-separator:after {
+  width: 20px;
+  float: left;
+  content: "-";
+}
+.mpi-invoice .mpi-job-details {
+  width: 100%;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 10px 0;
+}
+.mpi-job-details p {
+  font-size: 10px;
+}
+
+/* Invoice Content Bills */
+.mpi-main-bills,
+.mpi-tax-bills,
+.mpi-additional-bills {
+  padding-top: 0.25cm;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.25cm;
+  overflow: hidden;
+}
+
+.mpi-label,
+.mpi-qty,
+.mpi-netto,
+.mpi-brutto.mpi-total {
+  display: block;
+  float: left;
+}
+
+.mpi-label {
+  width: 40%;
+}
+
+.mpi-qty,
+.mpi-netto {
+  width: 20%;
+}
+
+.mpi-brutto {
+  width: 20%;
+  text-align: right;
+}
+
+/* Total */
+.mpi-total-invoice {
+  width: 100%;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.mpi-total-invoice-label,
+.mpi-total-invoice-value {
+  float: left;
+  text-align: right;
+}
+.mpi-total-invoice-label {
+  width: 80%;
+}
+.mpi-total-invoice-value {
+  width: 20%;
+}
+
+/* Invoice Footer */
+.mpi-invoice .mpi-footer {
+  font-size: 10px;
+}
+.mpi-footer-part-2 {
+  padding-top: 20px;
+}
+/* Invoice end */
