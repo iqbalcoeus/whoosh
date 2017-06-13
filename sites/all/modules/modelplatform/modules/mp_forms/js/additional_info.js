@@ -17,7 +17,7 @@
   Drupal.behaviors.mp_forms = {
     attach: function (context, settings) {
       checkLingerie();
-      $('input[name="profile_model_additional_info[field_lingerie][und]"').change(checkLingerie);
+      $('input[name="profile_model_additional_info[field_lingerie][und]"]').change(checkLingerie);
     }
   };
 
