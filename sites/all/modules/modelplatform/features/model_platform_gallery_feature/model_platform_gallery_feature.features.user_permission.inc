@@ -300,6 +300,7 @@ function model_platform_gallery_feature_user_default_permissions() {
     'name' => 'customer dashboard access',
     'roles' => array(
       'Customer' => 'Customer',
+      'Model' => 'Model',
       'administrator' => 'administrator',
     ),
     'module' => 'mp_dashboard',

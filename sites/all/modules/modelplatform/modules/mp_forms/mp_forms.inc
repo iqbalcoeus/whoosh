@@ -484,14 +484,6 @@ function _mp_forms_job_node_form_submit($form, &$form_state) {
     $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2']);
     $query['end_date']['date'] = $date_part[0];
   }
-
-  // @TODO Remove this code if all ok.
-//  $form_state['redirect'] = array(
-//    'models',
-//    array(
-//      'query' => $query,
-//    ),
-//  );
 }
 
 function _mp_forms_job_node_form_template($form, &$form_state) {
@@ -504,4 +496,8 @@ function _mp_forms_job_node_form_template($form, &$form_state) {
   $job_template_wrapper = entity_metadata_wrapper('node', $job);
   $job_template_wrapper->field_job_status = MODELPLATFORM_JOB_STATUS_CREATED;
   $job_template_wrapper->save();
+}
+
+function _mp_forms_model_additional_informaiton_form(&$form, &$form_state, $profile_id) {
+  drupal_add_js(drupal_get_path('module', 'mp_forms') . '/js/additional_info.js');
 }

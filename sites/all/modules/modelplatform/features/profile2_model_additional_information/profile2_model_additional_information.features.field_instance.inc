@@ -185,7 +185,7 @@ function profile2_model_additional_information_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_lingerie_daily_rate',
     'label' => 'Lingerie daily rate',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,

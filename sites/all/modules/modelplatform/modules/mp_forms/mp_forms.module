@@ -50,6 +50,10 @@ function mp_forms_form_profile2_form_alter(&$form, &$form_state) {
         _mp_forms_model_basic_informaiton_form($form, $form_state, $profile_id);
         break;
 
+      case 'model_additional_info':
+        _mp_forms_model_additional_informaiton_form($form, $form_state, $profile_id);
+        break;
+
       case 'customer_private_data':
         _mp_forms_customer_private_data_form($form, $form_state, $profile_id);
         break;

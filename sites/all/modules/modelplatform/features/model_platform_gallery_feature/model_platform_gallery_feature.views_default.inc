@@ -315,7 +315,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
     4 => '4',
-    5 => '5',
   );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -4617,7 +4616,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_1']['label'] = '';
-  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[edit_node]
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/node/[nid]/edit">Edit</a>
 [nothing]
 <a href="/node/[nid]">Model search</a>';
   $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
@@ -4670,7 +4669,7 @@ function model_platform_gallery_feature_views_default_views() {
 [field_job_daily_rate_to]'),
     t('Edit'),
     t('Duplicate Job'),
-    t('[edit_node]
+    t('<a href="/node/[nid]/edit">Edit</a>
 [nothing]
 <a href="/node/[nid]">Model search</a>'),
     t('All'),
