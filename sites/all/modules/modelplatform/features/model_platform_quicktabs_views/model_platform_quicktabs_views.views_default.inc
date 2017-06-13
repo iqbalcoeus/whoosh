@@ -546,7 +546,7 @@ function model_platform_quicktabs_views_views_default_views() {
   $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_1']['label'] = '';
-  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[edit_node]
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/node/[nid]/edit">Edit</a>
 [nothing]
 ';
   $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
@@ -599,7 +599,7 @@ function model_platform_quicktabs_views_views_default_views() {
 [field_job_daily_rate_to]'),
     t('Edit'),
     t('Create job'),
-    t('[edit_node]
+    t('<a href="/node/[nid]/edit">Edit</a>
 [nothing]
 '),
     t('All'),
