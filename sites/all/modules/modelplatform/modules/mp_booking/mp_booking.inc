@@ -579,7 +579,7 @@ function _mp_booking_cancel_other_events($job_nid, $excluded_event_id) {
  * Get all job event IDs.
  */
 function _mp_booking_get_job_events($job_nid) {
-  $query = db_select('bat_event', 'be');
+  $query = db_select('bat_events', 'be');
   $query->innerJoin('field_data_field_job', 'fj',
     'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
   $query->condition('fj.field_job_target_id', $job_nid);

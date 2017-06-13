@@ -14,6 +14,7 @@
       $('.field-name-field-lingerie-daily-rate input').attr('required', '');
     }
   }
+
   Drupal.behaviors.mp_forms = {
     attach: function (context, settings) {
       checkLingerie();
