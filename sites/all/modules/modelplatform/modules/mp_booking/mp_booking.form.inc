@@ -616,6 +616,9 @@ function mp_booking_calendar_form($form, &$form_state, $account = NULL) {
       $form['field_job_cost']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
 
+      $form['field_order']['#access'] = FALSE;
+      $form['field_additional_receipts']['#access'] = FALSE;
+
       // Change date format.
       $date_format = 'Y-m-d h:i A';
       $date_year_range = '0:+1';
