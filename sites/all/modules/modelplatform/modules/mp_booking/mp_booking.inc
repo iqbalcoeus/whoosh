@@ -359,8 +359,9 @@ function mp_booking_get_event_auctions($event) {
 
 function _mp_booking_event_create($unit_id, $state_id, $uid, $job_nid = 0, $start_date = NULL, $end_date = NULL) {
   if (!$job = node_load($job_nid)) {
-//    drupal_set_message(t('Job ID was lost on the transaction. Please contact site administrator.'));
-    return;
+    if ($job_nid !== MP_BOOKING_EMPTY_JOB) {
+      return;
+    }
   }
   $event_params = array(
     'type' => MP_BOOKING_MODEL_AVAILABILITY,

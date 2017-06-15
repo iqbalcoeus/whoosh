@@ -600,7 +600,7 @@ function mp_booking_calendar_form($form, &$form_state, $account = NULL) {
 
     // Create BAT event object.
     module_load_include('inc', 'bat_event', 'bat_event.admin');
-    $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_BUSY, $account->uid);
+    $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_BUSY, $account->uid, -1);
 
     if ($event) {
       // Create form.
