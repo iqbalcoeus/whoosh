@@ -31,6 +31,21 @@ function mp_dashboard_menu() {
 }
 
 /**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function mp_dashboard_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  global $user;
+
+  if (isset($user->roles[MODELPLATFORM_ROLE_MODEL])) {
+    foreach ($data['tabs'][0]['output'] as $key => $link_item) {
+      if ($link_item['#link']['path'] == 'user/%/view') {
+        $data['tabs'][0]['output'][$key]['#link']['title'] = 'My calendar';
+      }
+    }
+  }
+}
+
+/**
  * Generate clear page.
  */
 function mp_dashboard_clear_page() {
