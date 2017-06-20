@@ -169,5 +169,28 @@ function model_platform_job_template_field_default_field_bases() {
     'type' => 'datetime',
   );
 
+  // Exported field_base: 'field_job_travel_budget'.
+  $field_bases['field_job_travel_budget'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_job_travel_budget',
+    'indexes' => array(
+      'currency_price' => array(
+        0 => 'amount',
+        1 => 'currency_code',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'commerce_price',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'commerce_price',
+  );
+
   return $field_bases;
 }

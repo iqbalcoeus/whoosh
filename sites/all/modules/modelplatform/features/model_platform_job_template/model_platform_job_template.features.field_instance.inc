@@ -458,6 +458,74 @@ function model_platform_job_template_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-job-field_job_travel_budget'.
+  $field_instances['node-job-field_job_travel_budget'] = array(
+    'bundle' => 'job',
+    'default_value' => array(
+      0 => array(
+        'amount' => 0,
+        'currency_code' => 'EUR',
+        'data' => array(
+          'components' => array(),
+        ),
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'commerce_price',
+        'settings' => array(
+          'calculation' => FALSE,
+        ),
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 9,
+      ),
+      'node_gallery_node_thumbnail' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'properties_compare_block' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'properties_compare_page' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_job_travel_budget',
+    'label' => 'Job Travel budget',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'commerce_price',
+      'settings' => array(
+        'currency_code' => 'default',
+      ),
+      'type' => 'commerce_price_full',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'node-job_template-body'.
   $field_instances['node-job_template-body'] = array(
     'bundle' => 'job_template',
@@ -854,6 +922,7 @@ function model_platform_job_template_field_default_field_instances() {
   t('Daily rate to');
   t('Date');
   t('From');
+  t('Job Travel budget');
   t('Job status');
   t('Payment approval');
   t('Summary of the job');
