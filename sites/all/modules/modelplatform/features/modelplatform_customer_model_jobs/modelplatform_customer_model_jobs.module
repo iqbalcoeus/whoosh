@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ModelPlatform - customer model jobs feature.
+ */
+
+include_once 'modelplatform_customer_model_jobs.features.inc';

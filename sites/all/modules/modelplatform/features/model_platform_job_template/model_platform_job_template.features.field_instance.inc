@@ -85,7 +85,7 @@ function model_platform_job_template_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -149,7 +149,7 @@ function model_platform_job_template_field_default_field_instances() {
           'calculation' => FALSE,
         ),
         'type' => 'commerce_price_formatted_amount',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -209,7 +209,7 @@ function model_platform_job_template_field_default_field_instances() {
           'calculation' => FALSE,
         ),
         'type' => 'commerce_price_formatted_amount',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -266,7 +266,7 @@ function model_platform_job_template_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -334,7 +334,7 @@ function model_platform_job_template_field_default_field_instances() {
           'show_remaining_days' => 0,
         ),
         'type' => 'date_default',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -414,7 +414,7 @@ function model_platform_job_template_field_default_field_instances() {
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',
@@ -480,7 +480,7 @@ function model_platform_job_template_field_default_field_instances() {
           'calculation' => FALSE,
         ),
         'type' => 'commerce_price_formatted_amount',
-        'weight' => 9,
+        'weight' => 8,
       ),
       'node_gallery_node_thumbnail' => array(
         'label' => 'above',

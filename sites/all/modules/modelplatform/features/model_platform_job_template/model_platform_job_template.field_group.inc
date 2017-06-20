@@ -30,6 +30,7 @@ function model_platform_job_template_field_group_info() {
       4 => 'field_job_status',
       5 => 'field_job_daily_rate_from',
       6 => 'field_job_daily_rate_to',
+      7 => 'field_job_travel_budget',
     ),
     'format_type' => 'div',
     'format_settings' => array(
