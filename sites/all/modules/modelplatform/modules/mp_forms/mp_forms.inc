@@ -316,8 +316,43 @@ function _mp_forms_job_node_form($form) {
     if (isset($parent_job->nid)
       && ($parent_job->type == 'job' || $parent_job->type == 'job_template')
       && ($parent_job->uid == $user->uid)) {
-      $new_job = modelplatform_job_clone($parent_job, FALSE);
-      $form = drupal_get_form('job_node_form', $new_job);
+      $new_job = modelplatform_job_clone($parent_job);
+
+      $fields = array(
+        'body',
+        'field_job_daily_rate_from',
+        'field_job_daily_rate_to',
+        'field_job_start_date',
+        'field_job_travel_budget',
+        'field_job_additional_documents',
+      );
+      $form['#node'] = $new_job;
+      $form['title']['#default_value'] = $parent_job->title;
+
+      foreach ($fields as $field_name) {
+        foreach (array('und', 'en', 'de') as $lang) {
+          foreach ($parent_job->{$field_name}[$lang] as $key => $item) {
+            switch ($field_name) {
+              case 'field_job_daily_rate_from':
+              case 'field_job_daily_rate_to':
+              case 'field_job_travel_budget':
+                $form[$field_name][LANGUAGE_NONE][$key]['amount']['#default_value'] = $item['amount'] / 100;
+                break;
+
+              case 'body':
+                $form[$field_name][LANGUAGE_NONE][$key]['#default_value'] = $item['value'];
+                break;
+
+              case 'field_job_start_date':
+                $form[$field_name][LANGUAGE_NONE][$key]['#default_value'] = $item;
+                break;
+
+              default:
+                // Nothing to do.
+            }
+          }
+        }
+      }
     }
   }
 
@@ -471,19 +506,7 @@ function _mp_forms_job_node_form_validate($form, &$form_state) {
 }
 
 function _mp_forms_job_node_form_submit($form, &$form_state) {
-  $query = array();
-
-  if (isset($form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'])) {
-    $query['field_daily_rate_value_1'] = $form_state['values']['field_job_daily_rate_to'][LANGUAGE_NONE][0]['value'];
-  }
-  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value'])) {
-    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value']);
-    $query['start_date']['date'] = $date_part[0];
-  }
-  if (isset($form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2'])) {
-    $date_part = explode(' ', $form_state['values']['field_job_start_date'][LANGUAGE_NONE][0]['value2']);
-    $query['end_date']['date'] = $date_part[0];
-  }
+  // @TODO remove it has no custom submit action.
 }
 
 function _mp_forms_job_node_form_template($form, &$form_state) {

@@ -137,25 +137,18 @@ function modelplatform_job_node_form_validate($form, &$form_state) {
 /**
  * Clone model job.
  */
-function modelplatform_job_clone($node, $create_job = TRUE) {
-  $job = $node;
+function modelplatform_job_clone($node) {
+  $job = new stdClass();
   $job->type = 'job';
-  $job->nid = $job->vid = NULL;
-  $job->field_job_payment_approval = NULL;
   $job->created = REQUEST_TIME;
   $job->changed = REQUEST_TIME;
-
-  if ($create_job) {
-    node_save($job);
-
-    if ($job->nid) {
-      $message = t('Job was cloned successfully.');
-    }
-    else {
-      $message = t('Job was not cloned.');
-    }
-    drupal_set_message($message);
-  }
+  $job->title = $node->title;
+  $job->body = $node->body;
+  $job->field_job_daily_rate_from = $node->field_job_daily_rate_from;
+  $job->field_job_daily_rate_to = $node->field_job_daily_rate_to;
+  $job->field_job_start_date = $node->field_job_start_date;
+  $job->field_job_additional_documents = $node->field_job_additional_documents;
+  $job->field_job_travel_budget = $node->field_job_travel_budget;
 
   return $job;
 }
