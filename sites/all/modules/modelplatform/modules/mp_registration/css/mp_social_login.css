@@ -73,7 +73,7 @@
 }
 
 .plugin #providers .providers_group .scroll div {
-  background: url("images/social_logos.png") no-repeat scroll 0 50% rgba(0, 0, 0, 0.04);
+  background: url("/img/api/themes/assets/arrows_lr.png") no-repeat scroll 0 50% rgba(0, 0, 0, 0.04);
   border-radius: 5px;
   height: 50%;
   min-height: 40px;
@@ -190,7 +190,7 @@
 .plugin #providers .provider .button {
   width: 35px;
   height: 35px ;
-  background-image: url("/img/api/themes/iconsets/beveled_w35_h35_c_v1.png");
+  background-image: url("http://public.oneallcdn.com/img/api/themes/iconsets/beveled_w35_h35_c_v1.png");
   background-repeat: no-repeat;
 }
 
@@ -313,11 +313,7 @@
 }
 
 .plugin #providers .provider #button_instagram {
-  background-image: url('images/instagram.png');
-  background-repeat: no-repeat;
-  background-position: -177px 0;
-  height: 35px;
-  width: 176px;
+  background-position: -1186px -1px;
 }
 
 .plugin #providers .provider #button_battlenet {
@@ -338,4 +334,28 @@
 
 .plugin #providers .provider #button_storage {
   background-position: -1371px -1px;
+}
+
+.plugin #providers .provider #button_meetup {
+  background-position: -1408px -1px;
+}
+
+.plugin #providers .provider #button_xing {
+  background-position: -483px -1px;
+}
+
+.plugin #providers .provider #button_line {
+  background-position: -1445px -1px;
+}
+
+.plugin #providers .provider #button_soundcloud {
+  background-position: -1482px -1px;
+}
+
+.plugin #providers .provider #button_instagram {
+  background-image: url('images/instagram.png');
+  background-repeat: no-repeat;
+  background-position: -177px 0;
+  height: 35px;
+  width: 176px;
 }
