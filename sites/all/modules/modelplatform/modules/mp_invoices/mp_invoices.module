@@ -36,13 +36,6 @@ function mp_invoices_menu() {
     'file' => 'mp_invoices.form.inc',
   );
 
-//  $items['mp_pdf/invoices/$order'] = array(
-//    'page callback' => 'mp_invoices_pdf',
-//    'access callback' => 'mp_invoices_access_own_invoices',
-//    'access arguments' => array('view own model platform invoices'),
-//    'type' => MENU_NORMAL_ITEM,
-//  );
-
   return $items;
 }
 
@@ -120,6 +113,7 @@ function mp_invoices_entity_update($entity, $type) {
       $cost = $event_wrapper->field_job_cost->value();
       $unit = $event_wrapper->event_bat_unit_reference->value();
 
+      $job_wrapper = entity_metadata_wrapper('node', $job);
       $interval = $entity->start_date_object->diff($entity->end_date_object);
 
       $model = user_load($unit->uid);
@@ -172,6 +166,7 @@ function mp_invoices_entity_update($entity, $type) {
       $line_items[] = _mp_invoices_line_item_create($order->order_id, $tax . '% ' . t($tax_label), 1, $commission_tax_cost, MP_INVOICES_LINE_ITEM_TYPE_TAX);
 
       // Additional.
+      $job_travel_cost = $job_wrapper->field_job_travel_budget->value();
       $field_collections = $event_wrapper->field_additional_receipts->value();
       foreach ($field_collections as $field_collection_item) {
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $field_collection_item);
@@ -180,9 +175,13 @@ function mp_invoices_entity_update($entity, $type) {
           $reciept_type = $fc_wrapper->field_reciept_type->value();
           $reciept_comment = $fc_wrapper->field_reciept_comment->value();
           $reciept_cost = $fc_wrapper->field_reciept_cost->value();
-          $reciept_cost['data'] = commerce_price_component_add($reciept_cost, 'basic_line_item', $reciept_cost, TRUE, FALSE);
           $line_items[] = _mp_invoices_line_item_create($order->order_id, "($reciept_type) $reciept_comment", 1, $reciept_cost, MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL);
+          $job_travel_cost['amount'] -= $reciept_cost['amount'];
         }
+      }
+
+      if ($job_travel_cost['amount'] < 0) {
+        $line_items[] = _mp_invoices_line_item_create($order->order_id, t("Model travel budget exceeded"), 1, $job_travel_cost, MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL);
       }
 
       $order_wrapper->commerce_line_items = $line_items;
