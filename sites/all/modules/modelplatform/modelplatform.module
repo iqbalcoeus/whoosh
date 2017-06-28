@@ -458,3 +458,38 @@ function modelplatform_views_pre_view(&$view, &$display_id, &$args) {
       break;
   }
 }
+
+/**
+ * Implements hook_cron().
+ */
+function modelplatform_cron() {
+  $query = db_select('bat_events', 'be');
+  $query->innerJoin('field_data_event_state_reference', 'st',
+    'st.entity_type = \'bat_event\' AND 
+    st.entity_id = be.event_id AND 
+    st.event_state_reference_state_id = 3');
+  $query->innerJoin('field_data_field_job', 'fj',
+    'fj.entity_type = \'bat_event\' AND 
+    fj.entity_id = be.event_id');
+  $query->condition('be.end_date', date('Y-m-d', REQUEST_TIME + 3600 * 24),'<');
+  $query->addField('fj', 'field_job_target_id', 'job_nid');
+
+  $job_nids = $query->execute()->fetchCol();
+
+  $queue = DrupalQueue::get('modelplatform_complited_jobs');
+  foreach ($job_nids as $job) {
+    $queue->createItem($job);
+  }
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function modelplatform_cron_queue_info() {
+  $queues['modelplatform_complited_jobs'] = array(
+    'worker callback' => 'modelplatform_complited_jobs_callback',
+    'time' => 60,
+  );
+
+  return $queues;
+}

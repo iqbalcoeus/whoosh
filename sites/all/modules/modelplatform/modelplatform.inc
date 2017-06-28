@@ -297,3 +297,13 @@ function _modelplatform_job_is_confirmed($nid) {
 
   return count($result) > 0;
 }
+
+/**
+ *
+ */
+function modelplatform_complited_jobs_callback($job_nid) {
+  $job = node_load($job_nid);
+  $job_wrapper = entity_metadata_wrapper('node', $job);
+  $job_wrapper->field_job_status = 98;
+  $job_wrapper->save();
+}
