@@ -301,9 +301,11 @@ function _modelplatform_job_is_confirmed($nid) {
 /**
  *
  */
-function modelplatform_complited_jobs_callback($job_nid) {
-  $job = node_load($job_nid);
+function modelplatform_complited_jobs_callback($job_info) {
+  $job = node_load($job_info->job_nid);
   $job_wrapper = entity_metadata_wrapper('node', $job);
   $job_wrapper->field_job_status = 98;
   $job_wrapper->save();
+
+  module_invoke_all('modelplatform_job_complete', $job_info->job_nid, $job_info->event_id);
 }

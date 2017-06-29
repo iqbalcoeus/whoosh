@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ *
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function mp_rating_schema() {
+  $schema = array();
+  $schema['mp_rating'] = array(
+    'fields' => array(
+      'mpr_id' => array(
+        'description' => 'Unique ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'User ID.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'event_id' => array(
+        'description' => 'Event ID.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'job_nid' => array(
+        'description' => 'Job node ID.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'unique keys' => array(
+      'mpr_id' => array('mpr_id'),
+    ),
+  );
+
+  return $schema;
+}

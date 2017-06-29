@@ -1,0 +1,7 @@
+name = Model Platform - Rating
+description = "Model Platform - Rating Module."
+core = 7.x
+package = Model Platform
+
+dependencies[] = modelplatform
+dependencies[] = fivestar

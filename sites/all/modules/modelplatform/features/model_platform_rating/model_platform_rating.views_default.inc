@@ -22,7 +22,6 @@ function model_platform_rating_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Rate job event';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -109,11 +108,20 @@ function model_platform_rating_views_default_views() {
     5 => '5',
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Events: Model rate */
   $handler->display->display_options['fields']['field_model_rate']['id'] = 'field_model_rate';
   $handler->display->display_options['fields']['field_model_rate']['table'] = 'field_data_field_model_rate';
   $handler->display->display_options['fields']['field_model_rate']['field'] = 'field_model_rate';
-  $handler->display->display_options['fields']['field_model_rate']['label'] = 'Your rate';
+  $handler->display->display_options['fields']['field_model_rate']['label'] = '';
+  $handler->display->display_options['fields']['field_model_rate']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_model_rate']['click_sort_column'] = 'rating';
   $handler->display->display_options['fields']['field_model_rate']['settings'] = array(
     'widget' => array(
@@ -133,11 +141,20 @@ function model_platform_rating_views_default_views() {
     4 => '4',
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Events: Customer rate */
   $handler->display->display_options['fields']['field_customer_rate']['id'] = 'field_customer_rate';
   $handler->display->display_options['fields']['field_customer_rate']['table'] = 'field_data_field_customer_rate';
   $handler->display->display_options['fields']['field_customer_rate']['field'] = 'field_customer_rate';
-  $handler->display->display_options['fields']['field_customer_rate']['label'] = 'Your rate';
+  $handler->display->display_options['fields']['field_customer_rate']['label'] = '';
+  $handler->display->display_options['fields']['field_customer_rate']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_customer_rate']['click_sort_column'] = 'rating';
   $handler->display->display_options['fields']['field_customer_rate']['settings'] = array(
     'widget' => array(
@@ -205,7 +222,6 @@ function model_platform_rating_views_default_views() {
   $handler->display->display_options['block_description'] = 'Customer job rate form';
   $translatables['rate_job_event'] = array(
     t('Master'),
-    t('Rate job event'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -287,8 +303,8 @@ function model_platform_rating_views_default_views() {
   $handler = $view->new_display('block', 'Model rating - invite page', 'block');
   $handler->display->display_options['block_description'] = 'Model rating - invite page';
 
-  /* Display: Model rating - invite page */
-  $handler = $view->new_display('block', 'Model rating - invite page', 'block_1');
+  /* Display: Model rating - user page */
+  $handler = $view->new_display('block', 'Model rating - user page', 'block_1');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -326,6 +342,7 @@ function model_platform_rating_views_default_views() {
     t('Desc'),
     t('All'),
     t('Model rating - invite page'),
+    t('Model rating - user page'),
     t('User rating - user page'),
     t('Customer rating - dashboard page'),
   );

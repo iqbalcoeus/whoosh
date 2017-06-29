@@ -472,9 +472,10 @@ function modelplatform_cron() {
     'fj.entity_type = \'bat_event\' AND 
     fj.entity_id = be.event_id');
   $query->condition('be.end_date', date('Y-m-d', REQUEST_TIME + 3600 * 24),'<');
+  $query->addField('be', 'event_id', 'event_id');
   $query->addField('fj', 'field_job_target_id', 'job_nid');
 
-  $job_nids = $query->execute()->fetchCol();
+  $job_nids = $query->execute()->fetchAll();
 
   $queue = DrupalQueue::get('modelplatform_complited_jobs');
   foreach ($job_nids as $job) {
@@ -492,32 +493,4 @@ function modelplatform_cron_queue_info() {
   );
 
   return $queues;
-}
-
-/**
- * Implements hook_votingapi_insert().
- */
-function modelplatform_votingapi_insert($votes) {
-  foreach($votes as $vote) {
-    if ($vote['entity_type'] == 'bat_event') {
-      $event_id = $vote['entity_id'];
-      $event = bat_event_load($event_id);
-      $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-      $unit = $event_wrapper->event_bat_unit_reference->value();
-      $job = $event_wrapper->field_job->value();
-      $model_uid = $unit->uid;
-      $customer_uid = $job->uid;
-
-      _votingapi_prep_vote($vote);
-      $vote['entity_type'] = 'user';
-      unset($vote['vote_id']);
-      if ($vote['uid'] == $model_uid) {
-        $vote['entity_id'] = $customer_uid;
-      }
-      elseif ($vote['uid'] == $customer_uid) {
-        $vote['entity_id'] = $model_uid;
-      }
-      _fivestar_update_field_value($vote['entity_type'], user_load($vote['entity_id']), 'field_rating', LANGUAGE_NONE, $vote['value']);
-    }
-  }
 }
