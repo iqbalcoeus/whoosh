@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Model platform - Rating feature.
+ */
+
+include_once 'model_platform_rating.features.inc';
