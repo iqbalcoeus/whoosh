@@ -2855,7 +2855,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['filters']['field_height_value']['table'] = 'field_data_field_height';
   $handler->display->display_options['filters']['field_height_value']['field'] = 'field_height_value';
   $handler->display->display_options['filters']['field_height_value']['relationship'] = 'profile';
-  $handler->display->display_options['filters']['field_height_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_height_value']['operator'] = '>=';
   $handler->display->display_options['filters']['field_height_value']['group'] = 6;
   $handler->display->display_options['filters']['field_height_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_height_value']['expose']['operator_id'] = 'field_height_value_op';
