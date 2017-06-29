@@ -202,7 +202,7 @@ function model_platform_quicktabs_views_views_default_views() {
   $handler->display->display_options['fields']['field_rating']['click_sort_column'] = 'rating';
   $handler->display->display_options['fields']['field_rating']['settings'] = array(
     'widget' => array(
-      'fivestar_widget' => 'sites/all/modules/fivestar/widgets/oxygen/oxygen.css',
+      'fivestar_widget' => 'sites/all/modules/fivestar/widgets/basic/basic.css',
     ),
     'expose' => 0,
     'style' => 'average',
@@ -305,6 +305,21 @@ function model_platform_quicktabs_views_views_default_views() {
   $handler->display->display_options['fields']['field_full_name']['field'] = 'field_full_name';
   $handler->display->display_options['fields']['field_full_name']['label'] = '';
   $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
+  /* Field: User: Rating */
+  $handler->display->display_options['fields']['field_rating_1']['id'] = 'field_rating_1';
+  $handler->display->display_options['fields']['field_rating_1']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['fields']['field_rating_1']['field'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating_1']['label'] = '';
+  $handler->display->display_options['fields']['field_rating_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating_1']['click_sort_column'] = 'rating';
+  $handler->display->display_options['fields']['field_rating_1']['settings'] = array(
+    'widget' => array(
+      'fivestar_widget' => 'default',
+    ),
+    'expose' => 0,
+    'style' => 'average',
+    'text' => 'none',
+  );
   $handler->display->display_options['block_description'] = 'Customer - User info';
 
   /* Display: Customer - Private data */
