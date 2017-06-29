@@ -124,6 +124,49 @@ function bat_event_type_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'bat_event-model_availability-field_customer_rate'.
+  $field_instances['bat_event-model_availability-field_customer_rate'] = array(
+    'bundle' => 'model_availability',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'bat_event',
+    'field_name' => 'field_customer_rate',
+    'label' => 'Customer rate',
+    'required' => 0,
+    'settings' => array(
+      'allow_clear' => 0,
+      'entity_translation_sync' => FALSE,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(),
+      'type' => 'exposed',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'bat_event-model_availability-field_job'.
   $field_instances['bat_event-model_availability-field_job'] = array(
     'bundle' => 'model_availability',
@@ -191,6 +234,48 @@ function bat_event_type_fields_field_default_field_instances() {
       ),
       'type' => 'commerce_price_full',
       'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'bat_event-model_availability-field_model_rate'.
+  $field_instances['bat_event-model_availability-field_model_rate'] = array(
+    'bundle' => 'model_availability',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'bat_event',
+    'field_name' => 'field_model_rate',
+    'label' => 'Model rate',
+    'required' => 0,
+    'settings' => array(
+      'allow_clear' => 0,
+      'entity_translation_sync' => FALSE,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(),
+      'type' => 'exposed',
+      'weight' => 6,
     ),
   );
 
@@ -500,9 +585,11 @@ function bat_event_type_fields_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Additional receipts');
   t('Cost');
+  t('Customer rate');
   t('Document');
   t('Event');
   t('Job');
+  t('Model rate');
   t('Order');
   t('Reciept admin');
   t('Reciept approved by admin');

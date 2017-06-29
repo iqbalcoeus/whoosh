@@ -80,6 +80,25 @@ function bat_event_type_fields_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_customer_rate'.
+  $field_bases['field_customer_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_customer_rate',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'fivestar',
+    'settings' => array(
+      'axis' => 'vote',
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'fivestar',
+  );
+
   // Exported field_base: 'field_document'.
   $field_bases['field_document'] = array(
     'active' => 1,
@@ -202,6 +221,25 @@ function bat_event_type_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'commerce_price',
+  );
+
+  // Exported field_base: 'field_model_rate'.
+  $field_bases['field_model_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_model_rate',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'fivestar',
+    'settings' => array(
+      'axis' => 'vote',
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'fivestar',
   );
 
   // Exported field_base: 'field_order'.
