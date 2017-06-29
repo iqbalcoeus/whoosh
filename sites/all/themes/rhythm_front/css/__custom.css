@@ -1874,7 +1874,10 @@ html.js input.throbbing {
   margin-right: 3px;
 }
 
-.page-node-add-job .filter-wrapper {
+.page-node-add-job .filter-wrapper,
+.page-node-add-job-template .filter-wrapper,
+.page-node-edit.node-type-job .filter-wrapper,
+.page-node-edit.node-type-job-template .filter-wrapper {
   display: none;
 }
 
