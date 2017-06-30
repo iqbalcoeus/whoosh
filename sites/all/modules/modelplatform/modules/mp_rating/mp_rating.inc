@@ -75,7 +75,7 @@ function _mp_rating_job_rate_block() {
 function _mp_rating_complited_jobs_rating_ends_callback($job_info) {
   $event_id = $job_info->event_id;
 
-  db_delete('mp_rating', 'mpr')
+  db_delete('mp_rating')
     ->condition('event_id', $event_id)
     ->execute();
 }
