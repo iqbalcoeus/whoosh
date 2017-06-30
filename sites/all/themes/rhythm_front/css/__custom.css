@@ -5527,3 +5527,28 @@ div.sf-accordion-toggle.sf-style-white a {
 .page-job-model #block-mp-booking-mp-booking-calendar-form {
   display: none;
 }
+
+/* RATING BLOCK */
+.past-job-rating {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.past-job-rating h5 {
+  width: 280px;
+  padding: 20px;
+  margin: 30% auto 0 auto;
+  text-align: center;
+  background-color: white;
+}
+.past-job-rating .block-content {
+  width: 280px;
+  padding: 20px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
+}
+
