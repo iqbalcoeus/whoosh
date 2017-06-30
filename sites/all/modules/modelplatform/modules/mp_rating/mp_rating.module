@@ -106,11 +106,11 @@ function mp_rating_cron() {
   $query->addField('be', 'event_id', 'event_id');
   $query->addField('fj', 'field_job_target_id', 'job_nid');
 
-  $job_nids = $query->execute()->fetchAll();
+  $job_data = $query->execute()->fetchAll();
 
   $queue = DrupalQueue::get('mp_rating_complited_jobs_rating_ends');
-  foreach ($job_nids as $job) {
-    $queue->createItem($job);
+  foreach ($job_data as $job_info) {
+    $queue->createItem($job_info);
   }
 }
 
