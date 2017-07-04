@@ -134,13 +134,28 @@ function mp_invoices_entity_update($entity, $type) {
       $line_items = array();
 
       // Main.
-      $line_items[] = _mp_invoices_line_item_create($order->order_id, 'Day hornonar including usage', $interval->days, $cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
+      if ($interval->days) {
+        $time_name = 'Day';
+        $qty = $interval->days;
+      }
+      else {
+        if ($interval->h > 8) {
+          $time_name = 'Day';
+          $qty = 1;
+        }
+        else {
+          $time_name = 'Hour';
+          $qty = $interval->h;
+          $cost['amount'] = $cost['amount'] / 8;
+        }
+      }
+      $line_items[] = _mp_invoices_line_item_create($order->order_id, "$time_name hornonar including usage", $qty, $cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
 
       if (_mp_invoices_model_is_german($model)) {
         $tax_value = variable_get('mp_invoices_german_default_tax', 19);
         $tax_label = variable_get('mp_invoices_german_default_tax_label','VAT on fees');
         $tax_cost = array(
-          'amount' => $cost['amount'] * $interval->days * $tax_value / 100,
+          'amount' => $cost['amount'] * $qty * $tax_value / 100,
           'currency_code' => $cost['currency_code'],
         );
         $line_items[] = _mp_invoices_line_item_create($order->order_id, $tax_value . '% ' . t($tax_label), 1, $tax_cost, MP_INVOICES_LINE_ITEM_TYPE_MAIN);
@@ -149,7 +164,7 @@ function mp_invoices_entity_update($entity, $type) {
       // Taxes.
       $commission = variable_get('mp_invoices_commission', 10);
       $commission_label = variable_get('mp_invoices_commission_label', 'Commission');
-      $result_commission_amount = $cost['amount'] * $interval->days * $commission / 100;
+      $result_commission_amount = $cost['amount'] * $qty * $commission / 100;
       $commission_cost = array(
         'amount' => $result_commission_amount,
         'currency_code' => $cost['currency_code'],
