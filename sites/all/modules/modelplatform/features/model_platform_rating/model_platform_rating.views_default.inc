@@ -165,16 +165,15 @@ function model_platform_rating_views_default_views() {
     'text' => 'none',
   );
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Nid */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_job_target_id';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Events: Events ID */
+  $handler->display->display_options['arguments']['event_id']['id'] = 'event_id';
+  $handler->display->display_options['arguments']['event_id']['table'] = 'bat_events';
+  $handler->display->display_options['arguments']['event_id']['field'] = 'event_id';
+  $handler->display->display_options['arguments']['event_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['event_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['event_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['event_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['event_id']['summary_options']['items_per_page'] = '25';
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
   $handler->display->display_options['arguments']['uid']['table'] = 'node';
