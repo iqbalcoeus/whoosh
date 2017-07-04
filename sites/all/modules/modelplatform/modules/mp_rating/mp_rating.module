@@ -45,19 +45,22 @@ function mp_rating_modelplatform_job_complete($job_nid, $event_id) {
   $unit = $event_wrapper->event_bat_unit_reference->value();
 
   if ($unit->uid && $event_id && $job->nid && $job->uid) {
-    $model_item = array(
-      'uid' => $unit->uid,
-      'event_id' => $event_id,
-      'job_nid' => $job->nid,
-    );
-    _mp_rating_fill_row($model_item);
-
-    $customer_item = array(
-      'uid' => $job->uid,
-      'event_id' => $event_id,
-      'job_nid' => $job->nid,
-    );
-    _mp_rating_fill_row($customer_item);
+    if (!$event_wrapper->field_customer_rate->value()) {
+      $customer_item = array(
+        'uid' => $job->uid,
+        'event_id' => $event_id,
+        'job_nid' => $job->nid,
+      );
+      _mp_rating_fill_row($customer_item);
+    }
+    if (!$event_wrapper->field_model_rate->value()) {
+      $model_item = array(
+        'uid' => $unit->uid,
+        'event_id' => $event_id,
+        'job_nid' => $job->nid,
+      );
+      _mp_rating_fill_row($model_item);
+    }
   }
 }
 

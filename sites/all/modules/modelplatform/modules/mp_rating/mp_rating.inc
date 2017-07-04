@@ -44,15 +44,18 @@ function _mp_rating_get_user_rate_events($uid) {
 /**
  *
  */
-function _mp_rating_is_event_ready($event_id) {
+function _mp_rating_is_event_ready($event_id, $field_rate_name) {
   $result = TRUE;
   if ($event_id) {
     $event = bat_event_load($event_id);
-    $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-    $job = $event_wrapper->field_job->value();
-    $unit = $event_wrapper->event_bat_unit_reference->value();
-    $result = $result && isset($job->uid) && $job->uid;
-    $result = $result && isset($unit->uid) && $unit->uid && ($model = user_load($unit->uid)) && isset($model->roles[5]);
+    if ($event) {
+      $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+      $job = $event_wrapper->field_job->value();
+      $unit = $event_wrapper->event_bat_unit_reference->value();
+      $result = $result && isset($job->uid) && $job->uid;
+      $result = $result && isset($unit->uid) && $unit->uid && ($model = user_load($unit->uid)) && isset($model->roles[5]);
+      $result = $result && !$event_wrapper->{$field_rate_name}->value();
+    }
   }
   else {
     $result = FALSE;
@@ -71,16 +74,17 @@ function _mp_rating_job_rate_block() {
 
   $content = array();
   foreach($event_data as $event_info) {
-    $flag = _mp_rating_is_event_ready($event_info->event_id);
-
-    if ($flag) {
+    $views_arg = $event_info->event_id;
+    if (_modelplatform_user_is_customer($user)) {
+      $display_id = 'block_1';
+      $field_rate_name = 'field_customer_rate';
+    }
+    else {
       $display_id = 'block';
-      $views_arg = $event_info->event_id;
+      $field_rate_name = 'field_model_rate';
+    }
 
-      if (_modelplatform_user_is_customer($user)) {
-        $display_id = 'block_1';
-      }
-
+    if (_mp_rating_is_event_ready($event_info->event_id, $field_rate_name)) {
       $content[] = '<div class="rating-row">'
         . views_embed_view('rate_job_event', $display_id, $views_arg)
         . '</div>';
