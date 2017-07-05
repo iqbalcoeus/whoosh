@@ -152,6 +152,8 @@ function _mp_forms_get_changed_fields() {
  * Customization of model basic information profile form.
  */
 function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_id) {
+  global $user;
+
   drupal_add_library('system', 'ui.widget');
   drupal_add_library('system', 'ui.mouse');
   drupal_add_library('system', 'ui.slider');
@@ -187,7 +189,7 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
     ),
   ), 'setting');
 
-  $form[$profile_id]['field_verification_status']['#disabled'] = TRUE;
+  $form[$profile_id]['field_verification_status']['#disabled'] = TRUE && !isset($user->roles[3]);
   $form[$profile_id]['field_age_category']['#access'] = FALSE;
 }
 
