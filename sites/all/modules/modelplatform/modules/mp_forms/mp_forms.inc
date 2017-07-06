@@ -311,7 +311,7 @@ function _mp_forms_user_pass_reset_form($form) {
 function _mp_forms_job_node_form($form) {
   global $user;
 
-  if (_modelplatform_job_creation_access($user)) {
+  if (!_modelplatform_job_creation_access($user)) {
     drupal_set_message(t('Please enter mandatory data before creating a job.'), 'warning');
     drupal_goto("user/$user->uid/edit/customer_private_data");
   }
