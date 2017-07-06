@@ -309,3 +309,21 @@ function modelplatform_complited_jobs_callback($job_info) {
 
   module_invoke_all('modelplatform_job_complete', $job_info->job_nid, $job_info->event_id);
 }
+
+function _modelplatform_job_creation_access($customer) {
+  $mandatory_fields = array(
+    'field_tax_number',
+    'field_vat_id',
+    'field_commercial_registry_number',
+  );
+  $profile = profile2_load_by_user($customer->uid);
+  $access = isset($profile['customer_private_data']);
+  if ($access) {
+    $profile_wrapper = entity_metadata_wrapper('profile2', $profile['customer_private_data']);
+    foreach ($mandatory_fields as $field_name) {
+      $access = $access && $profile_wrapper->{$field_name}->value();
+    }
+  }
+
+  return $access;
+}

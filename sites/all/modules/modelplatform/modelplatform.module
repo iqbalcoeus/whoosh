@@ -299,7 +299,6 @@ function modelplatform_documents_form_submit($form, &$form_state) {
  */
 function modelplatform_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   global $language;
-  global $user;
 
   $lang_name = $language->language;
   foreach ($data['tabs'] as $key => &$data_item) {
