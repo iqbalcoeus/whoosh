@@ -1,0 +1,198 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: cimpleo
+ * Date: 18.07.17
+ * Time: 11:08
+ */
+
+define('MP_MANGOPAY_CONFIG_FORM_ACCESS', 'manage mangopay');
+
+/**
+ * Implements hook_menu().
+ */
+function mp_mangopay_menu() {
+  $items = array();
+
+  $items['admin/config/magopay'] = array(
+    'title' => 'MangoPay',
+    'description' => 'MangoPay specific settings.',
+    'access arguments' => array(MP_MANGOPAY_CONFIG_FORM_ACCESS),
+  );
+  $items['admin/config/magopay/settings'] = array(
+    'title' => 'MangoPay Settings',
+    'description' => 'Configure settings for MangoPay API.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_mangopay_config_form'),
+    'access arguments' => array(MP_MANGOPAY_CONFIG_FORM_ACCESS),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mp_mangopay_permission() {
+  $permissions = array(
+    MP_MANGOPAY_CONFIG_FORM_ACCESS => array(
+      'title' => t('Administer mangopay'),
+      'description' => t('Can configure mangopay parameters.'),
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Mangopay configuration form.
+ *
+ * @see mp_mangopay_config_form_submit().
+ */
+function mp_mangopay_config_form($form, &$form_state) {
+  $form = array();
+
+  $form['account_settings'] = array(
+    '#title' => 'MangoPay account settings',
+    '#type' => 'container',
+    '#tree' => TRUE,
+  );
+
+  $form['account_settings']['mp_mangopay_client_id'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Client ID',
+    '#default_value' => variable_get('mp_mangopay_client_id', ''),
+  );
+
+  $form['account_settings']['mp_mangopay_client_pass'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Client password',
+    '#default_value' => variable_get('mp_mangopay_client_pass', ''),
+  );
+
+  $form['account_settings']['mp_mangopay_tmp_folder'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Temporary folder',
+    '#default_value' => variable_get('mp_mangopay_tmp_folder', '/tmp'),
+  );
+
+  $form['curl_settings'] = array(
+    '#title' => 'cURL settings',
+    '#type' => 'container',
+    '#tree' => TRUE,
+  );
+
+  $form['actions']['apply'] = array(
+    '#type' => 'submit',
+    '#value' => 'Save configuration',
+  );
+
+  t('MangoPay account settings');
+  t('Client ID');
+  t('Client password');
+  t('Temporary folder');
+  t('cURL settings');
+  t('Save configuration');
+
+  return $form;
+}
+
+/**
+ * Form submit action.
+ *
+ * @see mp_mangopay_config_form().
+ */
+function mp_mangopay_config_form_submit($form, &$form_state) {
+  if (isset($form_state['values']) && is_array($form_state['values'])) {
+    foreach ($form_state['values'] as $key => $values) {
+      foreach ($values as $variable_name => $value) {
+        variable_set($variable_name, $value);
+      }
+    }
+  }
+}
+
+function _mp_mangopay_create_natural_user($customer_uid) {
+  $api = _mp_mangopay_api();
+
+  $customer = user_load($customer_uid);
+  $customer_wrapper = entity_metadata_wrapper('user', $customer);
+  $customer_private_data = profile2_load_by_user($customer, 'customer_private_data');
+  $customer_private_data_wrapper = entity_metadata_wrapper('profile2', $customer_private_data);
+
+  $UserNatural = new \MangoPay\UserNatural();
+  $UserNatural->Tag = "Customer #$customer_uid";
+  $UserNatural->FirstName = $customer_wrapper->field_first_name->value();
+  $UserNatural->LastName = $customer_wrapper->field_last_name->value();
+  $UserNatural->Address = new \MangoPay\Address();
+  $UserNatural->Address->AddressLine1 = $customer_private_data_wrapper->field_model_street->value() . ' '
+    . $customer_private_data_wrapper->field_model_house->value() . ', '
+    . $customer_private_data_wrapper->field_model_apartment->value();
+  $UserNatural->Address->City = $customer_private_data_wrapper->field_complete_address->locality->value();
+  $UserNatural->Address->PostalCode = $customer_private_data_wrapper->field_model_postal_code->value();
+  $UserNatural->Address->Country = $customer_private_data_wrapper->field_complete_address->country->value();
+  $UserNatural->Birthday = 1163496101;
+  $UserNatural->Nationality = $UserNatural->Address->Country;
+  $UserNatural->CountryOfResidence = $UserNatural->Address->Country;
+  $UserNatural->Occupation = "Carpenter";
+  $UserNatural->IncomeRange = 2;
+  $UserNatural->Email = $customer->mail;
+
+  try {
+    $result = $api->Users->Create($UserNatural);
+    dsm($result);
+  } catch(MangoPay\Libraries\ResponseException $e) {
+
+  } catch(MangoPay\Libraries\Exception $e) {
+
+  }
+
+  return $result;
+}
+
+function _mp_mangopay_api() {
+  require_once libraries_get_path('mango_pay') . '/vendor/autoload.php';
+
+  $api = new MangoPay\MangoPayApi();
+  $api->Config->ClientId = variable_get('mp_mangopay_client_id', '');
+  $api->Config->ClientPassword = variable_get('mp_mangopay_client_pass', '');
+  $api->Config->TemporaryFolder = variable_get('mp_mangopay_tmp_folder', '/tmp');
+  $api->Config->DebugMode = TRUE;
+
+  return $api;
+}
+
+function _mp_mangopay_test() {
+  $api = _mp_mangopay_api();
+
+  // get some user by id
+  try {
+    dsm($api);
+    $john = $api->Users->Get(29635616);
+    dsm($john);
+  } catch(MangoPay\Libraries\ResponseException $e) {
+
+  } catch(MangoPay\Libraries\Exception $e) {
+
+  }
+}
+
+function _mp_mangopay_card_registration($uid) {
+  $api = _mp_mangopay_api();
+
+  $CardRegistration = new \MangoPay\CardRegistration();
+  $CardRegistration->Tag = "custom meta";
+  $CardRegistration->UserId = "8494514";
+  $CardRegistration->Currency = "EUR";
+  $CardRegistration->CardType = "CB_VISA_MASTERCARD";
+
+  $result = $api->CardRegistrations->Create($CardRegistration);
+
+  return $result;
+}
+
+function _mp_mangopay_get_user_id($uid) {
+
+}

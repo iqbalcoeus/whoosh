@@ -1,0 +1,11 @@
+name = Model Platform - MangoPay
+description = "Model Platform - MangoPay"
+core = 7.x
+package = Model Platform
+
+configure = admin/config/magopay/settings
+
+dependencies[] = modelplatform
+dependencies[] = commerce_cart
+dependencies[] = commerce_payment
+dependencies[] = commerce_product
