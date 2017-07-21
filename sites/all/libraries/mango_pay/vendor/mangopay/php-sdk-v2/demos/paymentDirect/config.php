@@ -3,8 +3,8 @@
 /**
  * Setting for client: client Id, client password
  */
-define('MangoPayDemo_ClientId', 'sdk-unit-tests');
-define('MangoPayDemo_ClientPassword', 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju');
+define('MangoPayDemo_ClientId', 'cimpleo');
+define('MangoPayDemo_ClientPassword', 'YXUxD69eXR5tTsvtScLeVsgxfxpmKC3p8Py4syPkf0R7H4Hari');
 
 /**
  * Path to folder to store temporary files (with permissions to write)

@@ -3,7 +3,7 @@
 session_start();
 
 // include MangoPay SDK
-require_once '../../vendor/autoload.php';
+require_once '../../../../autoload.php';
 require_once 'config.php';
 
 // check if payment has been initialized
@@ -15,13 +15,17 @@ if (!isset($_SESSION['amount'])) {
 $mangoPayApi = new \MangoPay\MangoPayApi();
 $mangoPayApi->Config->ClientId = MangoPayDemo_ClientId;
 $mangoPayApi->Config->ClientPassword = MangoPayDemo_ClientPassword;
-$mangoPayApi->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
+$mangoPayApi->Config->TemporaryFolder = '/tmp';
 
 try {
+  var_dump($_SESSION);
     // update register card with registration data from Payline service
     $cardRegister = $mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']);
+    var_dump($cardRegister);
     $cardRegister->RegistrationData = isset($_GET['data']) ? 'data=' . $_GET['data'] : 'errorCode=' . $_GET['errorCode'];
+    var_dump($cardRegister);
     $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
+    var_dump($updatedCardRegister);
 
     if ($updatedCardRegister->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($updatedCardRegister->CardId))
         die('<div style="color:red;">Cannot create card. Payment has not been created.<div>');
@@ -35,6 +39,7 @@ try {
     $wallet->Currency = $_SESSION['currency'];
     $wallet->Description = 'Temporary wallet for payment demo';
     $createdWallet = $mangoPayApi->Wallets->Create($wallet);
+  var_dump($createdWallet);
 
     // create pay-in CARD DIRECT
     $payIn = new \MangoPay\PayIn();
@@ -58,7 +63,7 @@ try {
 
     // create Pay-In
     $createdPayIn = $mangoPayApi->PayIns->Create($payIn);
-
+  var_dump($createdPayIn);
     // if created Pay-in object has status SUCCEEDED it's mean that all is fine
     if ($createdPayIn->Status == \MangoPay\PayInStatus::Succeeded) {
         print '<div style="color:green;">'.

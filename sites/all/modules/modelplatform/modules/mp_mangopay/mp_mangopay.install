@@ -21,6 +21,86 @@ function mp_mangopay_schema() {
           'not null' => TRUE,
           'default' => 0,
         ),
+        'last_card_num' => array(
+          'description' => 'Card number of the last card.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+      ),
+    ),
+    'mp_mangopay_cards' => array(
+      'fields' => array(
+        'uid' => array(
+          'description' => 'Model platform user id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'mangopay_user_id' => array(
+          'description' => 'Mango pay user id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'card_id' => array(
+          'description' => 'Mango pay card ID.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => NULL,
+        ),
+        'card_number' => array(
+          'description' => 'Card number.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+      ),
+    ),
+    'mp_mangopay_payments' => array(
+      'fields' => array(
+        'payment_id' => array(
+          'description' => 'Card number.',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'uid' => array(
+          'description' => 'Model platform user id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'mangopay_user_id' => array(
+          'description' => 'Mango pay user id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'card_id' => array(
+          'description' => 'Mango pay card ID.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => NULL,
+        ),
+        'created' => array(
+          'description' => 'Time created.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        )
+      ),
+      'unique keys' => array(
+        'payment_id' => array('payment_id'),
       ),
     ),
   );

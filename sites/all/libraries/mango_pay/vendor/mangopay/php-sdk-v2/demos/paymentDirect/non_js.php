@@ -5,7 +5,7 @@ require_once '../../../../autoload.php';
 require_once 'config.php';
 
 // sample payment data
-$_SESSION['amount'] = 3300;
+$_SESSION['amount'] = 10;
 $_SESSION['currency'] = 'EUR';
 $_SESSION['cardType'] = 'CB_VISA_MASTERCARD';//or alternatively MAESTRO or DINERS etc
 
@@ -19,13 +19,14 @@ $mangoPayApi->Config->TemporaryFolder = '/tmp';
 $user = new MangoPay\UserNatural();
 $user->FirstName = 'John';
 $user->LastName = 'Smith';
-$user->Email = 'email@domain.com';
+$user->Email = 'newemail@domain.com';
 $user->Birthday = time();
 $user->Nationality = 'FR';
 $user->CountryOfResidence = 'FR';
 $user->Occupation = "programmer";
 $user->IncomeRange = 3;
 $createdUser = $mangoPayApi->Users->Create($user);
+var_dump($createdUser);
 
 // register card
 $cardRegister = new \MangoPay\CardRegistration();
@@ -34,6 +35,8 @@ $cardRegister->Currency = $_SESSION['currency'];
 $cardRegister->CardType = $_SESSION['cardType'];
 $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
+var_dump($createdCardRegister);
+var_dump($mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']));
 
 // build the return URL to capture token response
 $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
