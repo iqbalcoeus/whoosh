@@ -50,7 +50,7 @@ function _mp_mangopay_db_mp_mangopay_users_update($uid, $fields_data) {
  * @return mixed
  */
 function _mp_mangopay_db_mp_mangopay_users_get_field_value($field_key_value, $field_name, $field_key_name = 'uid') {
-  $value = _mp_mangopay_db_get_field_value('mp_mangopay_users', $field_key_name, $field_key_value, $field_name);
+  $value = _mp_mangopay_db_get_values('mp_mangopay_users', $field_key_name, $field_key_value, $field_name);
 
   return isset($value->{$field_name}) ? $value->{$field_name} : FALSE;
 }
@@ -62,7 +62,7 @@ function _mp_mangopay_db_mp_mangopay_users_get_field_value($field_key_value, $fi
  * @return mixed
  */
 function _mp_mangopay_db_mp_mangopay_users_get_row_values($field_key_value, $field_key_name = 'uid') {
-  $value = _mp_mangopay_db_get_field_value('mp_mangopay_users', $field_key_name, $field_key_value);
+  $value = _mp_mangopay_db_get_values('mp_mangopay_users', $field_key_name, $field_key_value);
 
   return isset($value->uid) ? $value : FALSE;
 }

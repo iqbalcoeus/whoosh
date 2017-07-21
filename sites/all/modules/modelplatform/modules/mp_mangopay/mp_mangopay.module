@@ -24,12 +24,12 @@ function mp_mangopay_menu() {
 
   $module_path = drupal_get_path('module', 'mp_mangopay');
 
-  $items['admin/config/magopay'] = array(
+  $items['admin/config/mangopay'] = array(
     'title' => 'MangoPay',
     'description' => 'MangoPay specific settings.',
     'access arguments' => array(MP_MANGOPAY_CONFIG_FORM_ACCESS),
   );
-  $items['admin/config/magopay/settings'] = array(
+  $items['admin/config/mangopay/settings'] = array(
     'title' => 'MangoPay Settings',
     'description' => 'Configure settings for MangoPay API.',
     'page callback' => 'drupal_get_form',
@@ -39,25 +39,14 @@ function mp_mangopay_menu() {
     'file' => 'mp_mangopay.config_form.inc',
     'file path' => $module_path . '/includes/forms',
   );
-  $items['user/%user/invoices/%commerce_order/payment'] = array(
-    'title' => 'Payment',
-    'description' => 'Invoice payment.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('mp_mangopay_payment_form', 1, 3),
-    'access callback' => 'mp_invoices_access_own_invoices',
-    'access arguments' =>  array(1, 3),
-    'type' => MENU_NORMAL_ITEM,
-    'file' => 'mp_mangopay.payment_form.inc',
-    'file path' => $module_path . '/includes/forms',
-  );
 
-  $items['user/%user/invoices/%commerce_order/payment_result'] = array(
+  $items['user/%user/invoices/%commerce_order/payment'] = array(
     'title' => 'Payment result',
     'description' => 'Invoice payment result.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('mp_mangopay_payment_callback_form', 1, 3),
+    'page callback' => 'mp_mangopay_payment_callback_form',
+    'page arguments' => array(NULL, 3),
     'access callback' => 'mp_invoices_access_own_invoices',
-    'access arguments' =>  array(1, 3),
+    'access arguments' =>  array(NULL, 3),
     'type' => MENU_NORMAL_ITEM,
     'file' => 'mp_mangopay.payment_form.inc',
     'file path' => $module_path . '/includes/forms',
@@ -82,4 +71,39 @@ function mp_mangopay_permission() {
   );
 
   return $permissions;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function mp_mangopay_block_info() {
+  $blocks = array();
+  $blocks['mp_mangopay_payment_form'] = array(
+    'info' => t('Payment form'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mp_mangopay_block_view($delta = '') {
+  switch ($delta) {
+    case 'mp_mangopay_payment_form':
+      require_once 'includes/forms/mp_mangopay.payment_form.inc';
+      $args = arg();
+      $block = array();
+      if (!isset($args[4])) {
+        $block['subject'] = '';
+        $block['content'] = mp_mangopay_payment_form(user_load($args[1]), commerce_order_load($args[3]));
+      }
+      break;
+
+    default:
+      $block = array();
+  }
+
+  return $block;
 }

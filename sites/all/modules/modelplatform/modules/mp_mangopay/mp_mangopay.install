@@ -51,7 +51,7 @@ function mp_mangopay_schema() {
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => TRUE,
-          'default' => NULL,
+          'default' => 0,
         ),
         'card_number' => array(
           'description' => 'Card number.',

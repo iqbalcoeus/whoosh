@@ -3,7 +3,7 @@ description = "Model Platform - MangoPay"
 core = 7.x
 package = Model Platform
 
-configure = admin/config/magopay/settings
+configure = admin/config/mangopay/settings
 
 dependencies[] = modelplatform
 dependencies[] = commerce_cart

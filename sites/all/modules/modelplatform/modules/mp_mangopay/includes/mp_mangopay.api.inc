@@ -15,7 +15,7 @@ function _mp_mangopay_api() {
   $api->Config->ClientId = variable_get('mp_mangopay_client_id', '');
   $api->Config->ClientPassword = variable_get('mp_mangopay_client_pass', '');
   $api->Config->TemporaryFolder = variable_get('mp_mangopay_tmp_folder', '/tmp');
-  $api->Config->DebugMode = TRUE;
+  $api->Config->DebugMode = FALSE;
 
   return $api;
 }
@@ -75,7 +75,7 @@ function _mp_mangopay_card_registration($uid) {
     _mp_mangopay_create_natural_user($uid);
     $mangopay_user_data = _mp_mangopay_db_mp_mangopay_users_get_row_values($uid, 'uid');
   }
-  $new_card_number = $mangopay_user_data->last_card_number + 1;
+  $new_card_number = $mangopay_user_data->last_card_num + 1;
   $mangopay_user_id = $mangopay_user_data->mangopay_user_id;
 
   $CardRegistration = new \MangoPay\CardRegistration();
@@ -85,7 +85,7 @@ function _mp_mangopay_card_registration($uid) {
   $CardRegistration->CardType = "CB_VISA_MASTERCARD";
 
   $new_card = $api->CardRegistrations->Create($CardRegistration);
-  _mp_mangopay_db_mp_mangopay_users_update($uid, array('last_card_number' => $new_card_number));
+  _mp_mangopay_db_mp_mangopay_users_update($uid, array('last_card_num' => $new_card_number));
 
   _mp_mangopay_include_db_mp_mangopay_cards();
   _mp_mangopay_db_mp_mangopay_cards_insert($uid, $mangopay_user_id, $new_card->Id, $new_card_number);

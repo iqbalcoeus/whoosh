@@ -8,48 +8,122 @@
 /**
  * Mangopay payment form.
  */
-function mp_mangopay_payment_form(&$form, &$form_state, $account, $order) {
-  dsm($order);
-
+function mp_mangopay_payment_form($account, $order) {
   global $user;
+  global $base_url;
   $uid = $user->uid;
-  $card = _mp_mangopay_card_registration($uid);
 
-  $_SESSION['cardRegisterId'] = $card->Id;
 
-  $returnUrl = 'user/' . $account->uid . '/invoices/' . $order->order_id . '/payment_result';
+  $form = '';
+  if ($order->status == 'job_invoice_status') {
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $_SESSION['mangopay_data']['order_total'] = $order_wrapper->commerce_order_total->amount->value() / 100;
+    $_SESSION['mangopay_data']['currency'] = 'EUR';
 
-  $form['#action'] = $card->CardRegistrationURL;
-  $form['data'] = array(
-    '#type' => 'hidden',
-    '#value' => $card->PreregistrationData,
-  );
-  $form['accessKeyRef'] = array(
-    '#type' => 'hidden',
-    '#value' => $card->AccessKey,
-  );
-  $form['returnURL'] = array(
-    '#type' => 'hidden',
-    '#value' => $returnUrl,
-  );
+    $card = _mp_mangopay_card_registration($uid);
+    $_SESSION['mangopay_data']['cardRegisterId'] = $card->Id;
 
-  $form['cardNumber'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Card number',
-  );
-  $form['cardExpirationDate'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Expiration Date',
-  );
-  $form['cardCvx'] = array(
-    '#type' => 'textfield',
-    '#title' => 'CVV',
-  );
+    $returnUrl = $base_url . '/user/' . $account->uid . '/invoices/' . $order->order_id . '/payment';
 
-  $form['cardCvx'] = array(
-    '#type' => 'submit',
-    '#value' => 'Pay',
-  );
+//    $form['#action'] = $card->CardRegistrationURL;
+//    $form['data'] = array(
+//      '#type' => 'hidden',
+//      '#value' => $card->PreregistrationData,
+//      '#name' => 'data',
+//    );
+//    $form['accessKeyRef'] = array(
+//      '#type' => 'hidden',
+//      '#value' => $card->AccessKey,
+//      '#name' => 'accessKeyRef',
+//    );
+//    $form['returnURL'] = array(
+//      '#type' => 'hidden',
+//      '#value' => $returnUrl,
+//      '#name' => 'returnURL',
+//    );
+//    $form['cardNumber'] = array(
+//      '#type' => 'container',
+//      '#tree' => TRUE,
+//      '#prefix' => '<div class="form-item-card-number">',
+//      '#suffix' => '</div>',
+//      'label' => array(
+//        '#type' => 'markup',
+//        '#markup' => '<label for="cardNumber">' . t('Card number') . '</label>',
+//      ),
+//      'value' => array(
+//        '#type' => 'textfield',
+//        '#name' => 'cardNumber',
+//      ),
+//    );
+//    $form['cardExpirationDate'] = array(
+//      '#type' => 'container',
+//      '#tree' => TRUE,
+//      '#prefix' => '<div class="form-item-card-expiration-date">',
+//      '#suffix' => '</div>',
+//      'label' => array(
+//        '#type' => 'markup',
+//        '#markup' => '<label for="cardExpirationDate">' . t('Expiration Date') . '</label>',
+//      ),
+//      'value' => array(
+//        '#type' => 'textfield',
+//        '#name' => 'cardExpirationDate',
+//      ),
+//    );
+//    $form['cardCvx'] = array(
+//      '#type' => 'container',
+//      '#tree' => TRUE,
+//      '#prefix' => '<div class="form-item-card-cvv">',
+//      '#suffix' => '</div>',
+//      'label' => array(
+//        '#type' => 'markup',
+//        '#markup' => '<label for="cardCvx">' . t('CVV') . '</label>',
+//      ),
+//      'value' => array(
+//        '#type' => 'textfield',
+//        '#name' => 'cardCvx',
+//      ),
+//    );
+//
+//    $form['submit'] = array(
+//      '#type' => 'submit',
+//      '#value' => 'Pay',
+//    );
+    dsm($card->CardRegistrationURL);
+    $form = '<form action="' . $card->CardRegistrationURL . '" method="post">
+    <input type="hidden" name="data" value="' . $card->PreregistrationData .'" />
+    <input type="hidden" name="accessKeyRef" value="' . $card->AccessKey . '" />
+    <input type="hidden" name="returnURL" value="' . $returnUrl . '" />
+
+    <div>
+      <div>
+        <label for="cardNumber">Card Number</label>
+      </div>
+      <div>
+        <input type="text" name="cardNumber" value="" />
+      </div>
+    </div>    
+
+    <div>
+      <div>
+        <label for="cardExpirationDate">Expiration Date</label>
+      </div>
+      <div>
+        <input type="text" name="cardExpirationDate" value="" />
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <label for="cardCvx">CVV</label>
+      </div>
+      <div>
+        <input type="text" name="cardCvx" value="" />
+      </div>
+    </div>
+
+    <input type="submit" value="Pay" />
+</form>';
+  }
 
   return $form;
 }
@@ -57,17 +131,15 @@ function mp_mangopay_payment_form(&$form, &$form_state, $account, $order) {
 /**
  * Payment callback.
  */
-function mp_mangopay_payment_callback_form(&$form, &$form_state, $account, $order) {
+function mp_mangopay_payment_callback_form($account, $order) {
+  $mangoPayApi = _mp_mangopay_api();
 
   $cardRegister = $mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']);
-  var_dump($cardRegister);
   $cardRegister->RegistrationData = isset($_GET['data']) ? 'data=' . $_GET['data'] : 'errorCode=' . $_GET['errorCode'];
-  var_dump($cardRegister);
   $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
-  var_dump($updatedCardRegister);
 
   if ($updatedCardRegister->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($updatedCardRegister->CardId))
-    die('<div style="color:red;">Cannot create card. Payment has not been created.<div>');
+    die('<div style="color:red;">Cannot create card. Payment has not been created. Please try again later.<div>');
 
   // get created virtual card object
   $card = $mangoPayApi->Cards->Get($updatedCardRegister->CardId);
@@ -75,21 +147,20 @@ function mp_mangopay_payment_callback_form(&$form, &$form_state, $account, $orde
   // create temporary wallet for user
   $wallet = new \MangoPay\Wallet();
   $wallet->Owners = array( $updatedCardRegister->UserId );
-  $wallet->Currency = $_SESSION['currency'];
+  $wallet->Currency = 'EUR';
   $wallet->Description = 'Temporary wallet for payment demo';
   $createdWallet = $mangoPayApi->Wallets->Create($wallet);
-  var_dump($createdWallet);
 
   // create pay-in CARD DIRECT
   $payIn = new \MangoPay\PayIn();
   $payIn->CreditedWalletId = $createdWallet->Id;
   $payIn->AuthorId = $updatedCardRegister->UserId;
   $payIn->DebitedFunds = new \MangoPay\Money();
-  $payIn->DebitedFunds->Amount = $_SESSION['amount'];
-  $payIn->DebitedFunds->Currency = $_SESSION['currency'];
+  $payIn->DebitedFunds->Amount = $_SESSION['mangopay_data']['order_total'];
+  $payIn->DebitedFunds->Currency = $_SESSION['mangopay_data']['currency'];
   $payIn->Fees = new \MangoPay\Money();
   $payIn->Fees->Amount = 0;
-  $payIn->Fees->Currency = $_SESSION['currency'];
+  $payIn->Fees->Currency = $_SESSION['mangopay_data']['currency'];
 
   // payment type as CARD
   $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
@@ -102,34 +173,27 @@ function mp_mangopay_payment_callback_form(&$form, &$form_state, $account, $orde
 
   // create Pay-In
   $createdPayIn = $mangoPayApi->PayIns->Create($payIn);
-  var_dump($createdPayIn);
+
   // if created Pay-in object has status SUCCEEDED it's mean that all is fine
   if ($createdPayIn->Status == \MangoPay\PayInStatus::Succeeded) {
-    print '<div style="color:green;">'.
+    $order->status = 'completed';
+    commerce_order_save($order);
+
+    return '<div style="color:green;">'.
       'Pay-In has been created successfully. '
       .'Pay-In Id = ' . $createdPayIn->Id
       . ', Wallet Id = ' . $createdWallet->Id
       . '</div>';
+
+    $link = "/user/$account->uid/invoices/$order->order_id";
   }
   else {
     // if created Pay-in object has status different than SUCCEEDED
     // that occurred error and display error message
-    print '<div style="color:red;">'.
+    return '<div style="color:red;">'.
       'Pay-In has been created with status: '
       . $createdPayIn->Status . ' (result code: '
       . $createdPayIn->ResultCode . ')'
-      .'</div>';
+      . '</div>';
   }
-
-  /*
-   *
-   */
-  $result = 'success';
-
-  $form['label'] = array(
-    '#type' => 'markup',
-    '#markup' => '<div class="payment result">' . $result . '</div>',
-  );
-
-  return $form;
 }

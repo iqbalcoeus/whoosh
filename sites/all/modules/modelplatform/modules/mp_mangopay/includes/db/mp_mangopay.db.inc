@@ -8,11 +8,16 @@
 /**
  * Get field values.
  */
-function _mp_mangopay_db_get_field_value($table_name, $field_key_name, $field_key_value, $field_name) {
-  $mp_mangopay_users = db_select($table_name, 'table_alias')
-    ->condition('table_alias.' . $field_key_name, $field_key_value)
-    ->fields('table_alias', array($field_key_name, $field_name))
-    ->execute()->fetch();
+function _mp_mangopay_db_get_values($table_name, $field_key_name, $field_key_value, $field_name = '') {
+  $query = db_select($table_name, 'ta');
+  $query->condition($field_key_name, $field_key_value);
+  if ($field_name) {
+    $query->fields('ta', array($field_key_name, $field_name));
+  }
+  else {
+    $query->fields('ta');
+  }
+  $data = $query->execute()->fetch();
 
-  return $mp_mangopay_users;
+  return $data;
 }

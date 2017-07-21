@@ -16,6 +16,7 @@
 function _mp_mangopay_db_mp_mangopay_cards_insert($uid, $mangopay_user_id, $card_id, $card_number) {
   $result = db_insert('mp_mangopay_cards')
     ->fields(array(
+      'uid' => $uid,
       'mangopay_user_id' => $mangopay_user_id,
       'card_id' => $card_id,
       'card_number' => $card_number,
@@ -48,7 +49,7 @@ function _mp_mangopay_db_mp_mangopay_cards_update($card_id, $fields_data) {
  * @return mixed
  */
 function _mp_mangopay_db_mp_mangopay_cards_get_field_value($field_key_value, $field_name, $field_key_name = 'card_id') {
-  $value = _mp_mangopay_db_get_field_value('mp_mangopay_cards', $field_key_name, $field_key_value, $field_name);
+  $value = _mp_mangopay_db_get_values('mp_mangopay_cards', $field_key_name, $field_key_value, $field_name);
 
   return isset($value->{$field_name}) ? $value->{$field_name} : FALSE;
 }
@@ -60,7 +61,7 @@ function _mp_mangopay_db_mp_mangopay_cards_get_field_value($field_key_value, $fi
  * @return mixed
  */
 function _mp_mangopay_db_mp_mangopay_cards_get_row_values($field_key_value, $field_key_name = 'card_id') {
-  $value = _mp_mangopay_db_get_field_value('mp_mangopay_cards', $field_key_name, $field_key_value);
+  $value = _mp_mangopay_db_get_values('mp_mangopay_cards', $field_key_name, $field_key_value);
 
   return isset($value->mangopay_user_id) ? $value : FALSE;
 }

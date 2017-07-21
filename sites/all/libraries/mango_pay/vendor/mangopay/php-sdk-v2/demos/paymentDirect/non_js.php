@@ -42,7 +42,7 @@ var_dump($mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']));
 $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
 $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], '/') + 1);
 $returnUrl .= 'payment.php';
-
+var_dump($createdCardRegister->CardRegistrationURL);
 ?>
 
 <p>
