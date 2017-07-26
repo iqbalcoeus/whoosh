@@ -25,7 +25,7 @@ $user->Nationality = 'FR';
 $user->CountryOfResidence = 'FR';
 $user->Occupation = "programmer";
 $user->IncomeRange = 3;
-$createdUser = $mangoPayApi->Users->Create($user);
+$createdUser = $mangoPayApi->Users->Get(29835730);
 var_dump($createdUser);
 
 // register card

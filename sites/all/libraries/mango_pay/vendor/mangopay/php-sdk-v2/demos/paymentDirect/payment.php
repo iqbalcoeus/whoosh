@@ -35,7 +35,7 @@ try {
 
     // create temporary wallet for user
     $wallet = new \MangoPay\Wallet();
-    $wallet->Owners = array( $updatedCardRegister->UserId );
+    $wallet->Owners = array( 29722300);
     $wallet->Currency = $_SESSION['currency'];
     $wallet->Description = 'Temporary wallet for payment demo';
     $createdWallet = $mangoPayApi->Wallets->Create($wallet);

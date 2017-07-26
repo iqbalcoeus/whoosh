@@ -43,7 +43,7 @@ function mp_dashboard_menu_local_tasks_alter(&$data, $router_item, $root_path) {
           $data['tabs'][0]['output'][$key]['#link']['title'] = t('My calendar');
           break;
 
-        case 'user/%/edit':
+        case 'user/%/orders':
           $data['tabs'][0]['output'][$key]['#link']['title'] = t('Accounting');
           break;
 

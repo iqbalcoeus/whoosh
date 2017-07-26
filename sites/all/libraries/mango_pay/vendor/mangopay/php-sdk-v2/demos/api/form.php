@@ -1,6 +1,6 @@
 <?php
 namespace MangoPay\Demo;
-require_once '../../vendor/autoload.php';
+require_once '../../../../autoload.php';
 require_once 'htmlHelper.php';
 require_once 'config.php';
 
