@@ -43,6 +43,7 @@ function _mp_mangopay_create_natural_user($customer_uid) {
   $UserNatural->Address->City = $customer_private_data_wrapper->field_complete_address->locality->value();
   $UserNatural->Address->PostalCode = $customer_private_data_wrapper->field_model_postal_code->value();
   $UserNatural->Address->Country = $customer_private_data_wrapper->field_complete_address->country->value();
+  $UserNatural->Address->Region = $customer_private_data_wrapper->field_complete_address->administrative_area->value();
 
   $UserNatural->Birthday = 1163496101;
   $UserNatural->Nationality = $UserNatural->Address->Country;
@@ -55,7 +56,11 @@ function _mp_mangopay_create_natural_user($customer_uid) {
     $new_user_natural = $api->Users->Create($UserNatural);
     _mp_mangopay_db_mp_mangopay_users_insert($customer_uid, $new_user_natural->Id);
   } catch(MangoPay\Libraries\ResponseException $e) {
-
+    watchdog('error', '<div style="color: red;">'
+      .'\MangoPay\ResponseException: Code: '
+      . $e->getCode() . '<br/>Message: ' . $e->getMessage()
+      .'<br/><br/>Details: ' . '<pre>' . print_r($e->GetErrorDetails()) . '</pre>'
+    .'</div>');
   } catch(MangoPay\Libraries\Exception $e) {
 
   }
