@@ -5,6 +5,48 @@
  * Model Platform - MangoPay payment form.
  */
 
+function _get_month_select() {
+  return '<select id="payment_month">
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>';
+}
+
+function _get_year_select() {
+  $year_select = array();
+  for($year = date('y'); $year < date('y') + 5; $year++) {
+    $year_select[] = "<option value=\"$year\">$year</option>";
+  }
+
+  return '<select id="payment_year">' . implode('', $year_select) . '</select>';
+}
+
+function _get_card_type() {
+  $types = array(
+    'CB_VISA_MASTERCARD' => 'CB/Visa/MasterCard',
+    'DINERS' => 'DINERS',
+//    'MASTERPASS' => 'MASTERPASS',
+    'MAESTRO' => 'MAESTRO',
+//    'P24' => 'P24',
+  );
+  $select = array();
+  foreach ($types as $key => $value) {
+    $select[] = "<option value=\"$key\">$value</option>";
+  }
+
+  return '<select id="card_type">' . implode('', $select) . '</select>';
+}
+
 /**
  * Mangopay payment form.
  */
@@ -12,6 +54,7 @@ function mp_mangopay_payment_form($account, $order) {
   global $user;
   global $base_url;
   $uid = $user->uid;
+  drupal_add_js(drupal_get_path('module', 'mp_mangopay') . '/js/card_form.js');
 
   $form = '';
   if ($order->status == 'job_invoice_status') {
@@ -24,12 +67,20 @@ function mp_mangopay_payment_form($account, $order) {
 
     $returnUrl = $base_url . '/user/' . $account->uid . '/invoices/' . $order->order_id . '/payment';
 
-    $form = '<form action="' . $card->CardRegistrationURL . '" method="post">
-    
-    <input type="hidden" name="data" value="' . $card->PreregistrationData .'" />
-    <input type="hidden" name="accessKeyRef" value="' . $card->AccessKey . '" />
+    $form = '<form id="card_payment_form" action="' . $card->CardRegistrationURL . '" method="post">
+    <input type="hidden" id="card_order" value="' . $order->order_id .'" />
+    <input type="hidden" id="card_data" name="data" value="' . $card->PreregistrationData .'" />
+    <input type="hidden" id="card_key" name="accessKeyRef" value="' . $card->AccessKey . '" />
     <input type="hidden" name="returnURL" value="' . $returnUrl . '" />
 
+    <div>
+      <div>
+        <label>Card type</label>
+      </div>
+      <div>
+        ' . _get_card_type() . '
+      </div>
+    </div>
     <div>
       <div>
         <label for="cardNumber">Card Number</label>
@@ -43,8 +94,11 @@ function mp_mangopay_payment_form($account, $order) {
       <div>
         <label for="cardExpirationDate">Expiration Date</label>
       </div>
-      <div>
-        <input type="text" name="cardExpirationDate" value="" />
+      <div>'
+        . _get_month_select()
+        . '<span> / </span>'
+        . _get_year_select()
+        . '<input type="hidden" name="cardExpirationDate" value="" id="card_date" />
       </div>
     </div>
 
@@ -53,11 +107,11 @@ function mp_mangopay_payment_form($account, $order) {
         <label for="cardCvx">CVV</label>
       </div>
       <div>
-        <input type="text" name="cardCvx" value="" />
+        <input type="password" name="cardCvx" value="" />
       </div>
     </div>
-
-    <input type="submit" value="Pay" />
+    <br>
+    <input type="submit" value="Pay" id="card_pay" />
 </form>';
   }
 

@@ -71,7 +71,7 @@ function _mp_mangopay_create_natural_user($customer_uid) {
 /**
  * MangoPay card registration.
  */
-function _mp_mangopay_card_registration($uid) {
+function _mp_mangopay_card_registration($uid, $card_type = 'CB_VISA_MASTERCARD') {
   $api = _mp_mangopay_api();
 
   _mp_mangopay_include_db_mp_mangopay_users();
@@ -87,7 +87,7 @@ function _mp_mangopay_card_registration($uid) {
   $CardRegistration->Tag = "Customer #$uid - Card #$new_card_number";
   $CardRegistration->UserId = $mangopay_user_id;
   $CardRegistration->Currency = "EUR";
-  $CardRegistration->CardType = "CB_VISA_MASTERCARD";
+  $CardRegistration->CardType = $card_type; //"CB_VISA_MASTERCARD";
 
   $new_card = $api->CardRegistrations->Create($CardRegistration);
   _mp_mangopay_db_mp_mangopay_users_update($uid, array('last_card_num' => $new_card_number));
@@ -96,4 +96,18 @@ function _mp_mangopay_card_registration($uid) {
   _mp_mangopay_db_mp_mangopay_cards_insert($uid, $mangopay_user_id, $new_card->Id, $new_card_number);
 
   return $new_card;
+}
+
+function mp_mangopay_card_request($order, $card_type) {
+  global $user;
+  $card = _mp_mangopay_card_registration($user->uid, $card_type);
+  $_SESSION['mangopay_data']['cardRegisterId'] = $card->Id;
+
+  $result = array(
+    'key' => $card->AccessKey,
+    'data' => $card->PreregistrationData,
+    'url' => $card->CardRegistrationURL,
+  );
+
+  drupal_json_output($result);
 }

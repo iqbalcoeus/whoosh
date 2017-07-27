@@ -52,6 +52,13 @@ function mp_mangopay_menu() {
     'file path' => $module_path . '/includes/forms',
   );
 
+  $items['mangopay/ajax/%commerce_order/%'] = array(
+    'page callback' => 'mp_mangopay_card_request',
+    'access callback' => 'mp_invoices_access_own_invoices',
+    'access arguments' =>  array(NULL, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   t('Payment');
   t('MangoPay');
   t('MangoPay Settings');
