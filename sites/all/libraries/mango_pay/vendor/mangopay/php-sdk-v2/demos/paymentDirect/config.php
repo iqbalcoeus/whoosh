@@ -9,4 +9,4 @@ define('MangoPayDemo_ClientPassword', 'YXUxD69eXR5tTsvtScLeVsgxfxpmKC3p8Py4syPkf
 /**
  * Path to folder to store temporary files (with permissions to write)
  */
-define('MangoPayDemo_TemporaryFolder', __dir__);
+define('MangoPayDemo_TemporaryFolder', '/tmp');
