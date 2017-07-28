@@ -5561,10 +5561,3 @@ div.sf-accordion-toggle.sf-style-white a {
   padding-right: 70px;
   max-width: 100%;
 }
-
-.page-models #content,
-.page-castinglist #content,
-.page-mine-search #content {
-  padding-left: 0;
-  padding-right: 0;
-}
