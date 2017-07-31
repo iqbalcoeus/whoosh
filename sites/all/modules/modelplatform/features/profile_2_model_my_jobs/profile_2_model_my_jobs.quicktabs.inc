@@ -20,18 +20,20 @@ function profile_2_model_my_jobs_quicktabs_default_quicktabs() {
   $quicktabs->title = 'My Jobs';
   $quicktabs->tabs = array(
     0 => array(
-      'bid' => 'panels_mini_delta_model_job_offers',
-      'hide_title' => 1,
+      'vid' => 'model_job_proposes',
+      'display' => 'block',
+      'args' => '',
       'title' => 'Job offers',
       'weight' => '-100',
-      'type' => 'block',
+      'type' => 'view',
     ),
     1 => array(
-      'bid' => 'panels_mini_delta_model_past_jobs',
-      'hide_title' => 1,
+      'vid' => 'model_job_proposes',
+      'display' => 'block_1',
+      'args' => '',
       'title' => 'Past jobs',
       'weight' => '-99',
-      'type' => 'block',
+      'type' => 'view',
     ),
   );
   $quicktabs->renderer = 'quicktabs';

@@ -137,6 +137,17 @@ function model_platform_job_template_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
+  /* Field: Global: Fieldset */
+  $handler->display->display_options['fields']['fieldset']['id'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['table'] = 'views';
+  $handler->display->display_options['fields']['fieldset']['field'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['label'] = 'image-column';
+  $handler->display->display_options['fields']['fieldset']['children'] = array(
+    0 => 'picture',
+    1 => 'ops',
+  );
+  $handler->display->display_options['fields']['fieldset']['fieldset']['type'] = 'div';
+  $handler->display->display_options['fields']['fieldset']['fieldset']['classes'] = 'image-column';
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
@@ -154,6 +165,34 @@ function model_platform_job_template_views_default_views() {
   $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['fields']['ops']['label'] = '';
   $handler->display->display_options['fields']['ops']['element_label_colon'] = FALSE;
+  /* Field: Global: Fieldset */
+  $handler->display->display_options['fields']['fieldset_1']['id'] = 'fieldset_1';
+  $handler->display->display_options['fields']['fieldset_1']['table'] = 'views';
+  $handler->display->display_options['fields']['fieldset_1']['field'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset_1']['label'] = 'info-column';
+  $handler->display->display_options['fields']['fieldset_1']['children'] = array(
+    0 => 'field_full_name',
+    1 => 'field_height',
+  );
+  $handler->display->display_options['fields']['fieldset_1']['fieldset']['type'] = 'div';
+  $handler->display->display_options['fields']['fieldset_1']['fieldset']['classes'] = 'info-column';
+  /* Field: User: Full name */
+  $handler->display->display_options['fields']['field_full_name']['id'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['table'] = 'field_data_field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['field'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['label'] = '';
+  $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
+  /* Field: Profile: Height */
+  $handler->display->display_options['fields']['field_height']['id'] = 'field_height';
+  $handler->display->display_options['fields']['field_height']['table'] = 'field_data_field_height';
+  $handler->display->display_options['fields']['field_height']['field'] = 'field_height';
+  $handler->display->display_options['fields']['field_height']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_height']['element_label_type'] = 'div';
+  $handler->display->display_options['fields']['field_height']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_height']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 1,
+  );
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
@@ -293,6 +332,9 @@ function model_platform_job_template_views_default_views() {
     t('Select any filter and click on Apply to see results'),
     t('flag'),
     t('Profile - Basic informaiton'),
+    t('image-column'),
+    t('info-column'),
+    t('Height'),
     t('Dates'),
     t('Daily rate'),
     t('Filtered models'),
