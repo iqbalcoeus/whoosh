@@ -551,125 +551,8 @@ html.js input.throbbing {
   margin-right: 3px;
 }
 
-.view-models .views-row,
-.view-castinglist .views-row,
-.view-job-models .views-row {
-  position: relative;
-  width: 100%;
-}
-
-@media screen and (min-width: 480px) {
-  .view-models .views-row,
-  .view-castinglist .views-row,
-  .view-job-models .views-row {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 375px) {
-  .view-models .views-row,
-  .view-castinglist .views-row,
-  .view-job-models .views-row {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 414px) {
-  .view-models .views-row,
-  .view-castinglist .views-row,
-  .view-job-models .views-row {
-    width: 33%;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .view-models .views-row,
-  .view-castinglist .views-row,
-  .view-job-models .views-row {
-    width: 25%;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .view-models .views-row,
-  .view-castinglist .views-row,
-  .view-job-models .views-row {
-    width: 12.5%;
-  }
-}
-
-.view-models .views-row:hover .views-field-ops,
-.view-castinglist .views-row:hover .views-field-flagged,
-.view-job-models .views-row:hover .views-field-ops {
-  opacity: 0.6;
-}
-
-.view-models .views-row img,
-.view-castinglist .views-row img,
-.view-job-models .views-row img {
-  width: 100%;
-}
-
-.view-models .views-row .views-field-ops,
-.view-castinglist .views-field-flagged,
-.view-job-models .views-row .views-field-ops {
-  position: absolute;
-  z-index: 1;
-  display: inline-block;
-  top: 5px;
-  right: 5px;
-  width: 21px;
-  height: 21px;
-  overflow: hidden;
-}
-
 .view-models .view-models form .views-submit-button {
   display: block !important;
-}
-
-.view-models .views-row .views-field-ops .flag-wrapper,
-.view-castinglist .views-field-flagged .field-content,
-.view-job-models .views-row .views-field-ops .flag-wrapper {
-  display: block;
-}
-
-.view-models .views-row .views-field-ops .flag-wrapper a.flag,
-.view-castinglist .views-field-flagged .field-content,
-.view-job-models .views-row .views-field-ops .flag-wrapper a.flag {
-  display: block;
-  color: transparent;
-  width: 21px;
-  height: 21px;
-}
-
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
-.view-castinglist .views-field-flagged .field-content:before,
-.view-job-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before {
-  content: '\e801';
-}
-
-.view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
-.view-job-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-job-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before {
-  content: '\e800';
-}
-
-.view-models .views-row .views-field-ops .flag-wrapper a.flag:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.flag-action:before,
-.view-models .views-row .views-field-ops .flag-wrapper a.flag.unflag-action:before,
-.view-castinglist .views-field-flagged .field-content:before,
-.view-job-models .views-row .views-field-ops .flag-wrapper a.flag:before {
-  font-family: "fontello";
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-  display: inline-block;
-  color: #fc1c5b;
-  font-size: 21px;
-  line-height: 21px;
-  width: 21px;
-  height: 21px;
 }
 
 .page-customer-dashboard #block-system-user-menu h5,
@@ -1528,32 +1411,6 @@ html.js input.throbbing {
   display: block;
 }
 
-.view-models.view-id-models .views-field-field-full-name a {
-  display: none;
-}
-
-.view-models.view-id-models .views-row:hover .views-field-field-full-name a {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 16px;
-  padding: 0 10px;
-  text-align: center;
-  line-height: 1.1;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-}
-
 .view-models .views-exposed-widget > div,
 .view-models .views-exposed-widget > div label,
 .view-models .views-exposed-widget > div input {
@@ -1663,15 +1520,6 @@ html.js input.throbbing {
 .not-front.page-castinglist h1,
 .not-front.page-mine-search h1 {
   margin-bottom: 10px !important;
-}
-
-.not-front.page-models .region-content-top,
-.not-front.page-castinglist .region-content-top,
-.not-front.page-mine-search .region-content-top {
-  background: #f2f2f2;
-  display: block;
-  margin: 0;
-  min-height: 250px;
 }
 
 .page-models #block-block-16,
@@ -5565,4 +5413,122 @@ div.sf-accordion-toggle.sf-style-white a {
   padding-left: 70px;
   padding-right: 70px;
   max-width: 100%;
+}
+
+/* Models search restyling. */
+.not-front.page-models #content_top,
+.not-front.page-castinglist #content_top,
+.not-front.page-mine-search #content_top {
+  background-color: #f2f2f2;
+  background-image: url(images/content-top-bg.png);
+  background-size: 100% 105%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.not-front.page-models .region-content-top,
+.not-front.page-castinglist .region-content-top,
+.not-front.page-mine-search .region-content-top {
+  display: block;
+  margin: 0;
+  min-height: 250px;
+}
+.view-models .view-content {
+  margin: 0 -10px;
+}
+
+.view-models .views-row {
+  margin: 10px;
+  overflow: hidden;
+  border: 1px solid #fff;
+}
+.view-models .views-row:hover {
+  border: 1px solid #cecece;
+}
+
+.view-models .views-row .image-column,
+.view-models .views-row .info-column {
+  position: relative;
+  width: 168px;
+  max-width: 50%;
+  height: 100%;
+  max-height: 236px;
+  float: left;
+}
+
+.view-models .views-row .views-field-ops {
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+  top: 5px;
+  right: 5px;
+  width: 21px;
+  height: 21px;
+  overflow: hidden;
+}
+
+.view-models .image-column .flag-action:before,
+.view-models .image-column .unflag-action:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  font-size: 21px;
+  line-height: 21px;
+  width: 21px;
+  height: 21px;
+  content: '\e801';
+}
+
+.view-models .image-column .flag-action:before  {
+  color: #fff;
+}
+
+.view-models .image-column .unflag-action:before,
+.view-models .image-column .views-field-ops:hover flag-action:before {
+  color: #fc1c5b;
+}
+
+.view-models .views-row .views-field-ops .flag-wrapper a.flag {
+  display: block;
+  color: transparent;
+  width: 21px;
+  height: 21px;
+}
+
+.view-models .views-row .info-column {
+  text-transform: uppercase;
+}
+.view-models .views-row:hover .info-column {
+  background-image: url(images/model-bg.png);
+  background-size: 100% 100%;
+}
+
+.view-models .views-row:hover .info-column,
+.view-models .views-row:hover .info-column a {
+  text-decoration: none;
+  color: #fc1c5b;
+}
+.view-models .info-column .views-field-field-full-name {
+  position: absolute;
+  left: 15px;
+  bottom: 40px;
+}
+
+.view-models .info-column .views-field-field-height {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+}
+
+.view-models .info-column .views-field-field-height > div {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+#block-views-user-rating-block {
+  padding-left: 62px;
+  padding-bottom: 60px;
+  margin-top: -70px;
 }
