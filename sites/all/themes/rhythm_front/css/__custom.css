@@ -2548,9 +2548,9 @@ a.link-to-top .fa {
   min-height: 230px;
 }
 
-.view-models .view-content,
-.view-models .view-empty,
-.view-castinglist .view-content {
+.not-front.page-models .view-models .view-content,
+.not-front.page-castinglist .view-models .view-empty,
+.not-front.page-mine-search .view-castinglist .view-content {
   min-height: 760px;
 }
 
