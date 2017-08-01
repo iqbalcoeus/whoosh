@@ -48,7 +48,7 @@ function model_platform_quicktabs_views_quicktabs_default_quicktabs() {
       'type' => 'block',
     ),
     4 => array(
-      'bid' => 'panels_mini_delta_customer_dashboard_my_castings',
+      'bid' => 'views_delta_castinglist-block',
       'hide_title' => 1,
       'title' => 'My castings',
       'weight' => '-96',
@@ -63,7 +63,7 @@ function model_platform_quicktabs_views_quicktabs_default_quicktabs() {
     ),
   );
   $quicktabs->renderer = 'quicktabs';
-  $quicktabs->style = 'default';
+  $quicktabs->style = 'nostyle';
   $quicktabs->options = array();
 
   // Translatables

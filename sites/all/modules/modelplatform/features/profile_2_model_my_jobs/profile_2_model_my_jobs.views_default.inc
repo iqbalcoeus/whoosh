@@ -52,6 +52,12 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['relationships']['field_job_target_id']['ui_name'] = 'Job';
   $handler->display->display_options['relationships']['field_job_target_id']['label'] = 'Job';
   $handler->display->display_options['relationships']['field_job_target_id']['required'] = TRUE;
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['relationships']['uid']['label'] = 'Customer';
   /* Field: Events: Events ID */
   $handler->display->display_options['fields']['event_id']['id'] = 'event_id';
   $handler->display->display_options['fields']['event_id']['table'] = 'bat_events';
@@ -69,6 +75,42 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['path'] = 'job/event/[event_id]/auction';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: Global: Fieldset */
+  $handler->display->display_options['fields']['fieldset']['id'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['table'] = 'views';
+  $handler->display->display_options['fields']['fieldset']['field'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['label'] = 'Customer rating';
+  $handler->display->display_options['fields']['fieldset']['children'] = array(
+    0 => 'field_full_name',
+    1 => 'field_rating',
+  );
+  $handler->display->display_options['fields']['fieldset']['fieldset']['type'] = 'div';
+  $handler->display->display_options['fields']['fieldset']['fieldset']['classes'] = 'customer-rating';
+  /* Field: User: Full name */
+  $handler->display->display_options['fields']['field_full_name']['id'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['table'] = 'field_data_field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['field'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['field_full_name']['label'] = '';
+  $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_name']['element_wrapper_type'] = 'span';
+  /* Field: User: Rating */
+  $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['relationship'] = 'reverse_field_bat_unit_user';
+  $handler->display->display_options['fields']['field_rating']['label'] = '';
+  $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating']['element_wrapper_type'] = 'span';
+  $handler->display->display_options['fields']['field_rating']['click_sort_column'] = 'rating';
+  $handler->display->display_options['fields']['field_rating']['settings'] = array(
+    'widget' => array(
+      'fivestar_widget' => 'sites/all/modules/fivestar/widgets/basic/basic.css',
+    ),
+    'expose' => 0,
+    'style' => 'average',
+    'text' => 'none',
+  );
   /* Field: Content: Daily rate from */
   $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
@@ -215,8 +257,10 @@ function profile_2_model_my_jobs_views_default_views() {
     t('Unit'),
     t('User'),
     t('Job'),
+    t('Customer'),
     t('.'),
     t(','),
+    t('Customer rating'),
     t('Job daily rate'),
     t('[field_job_daily_rate_from] - [field_job_daily_rate_to]'),
     t('Cost'),

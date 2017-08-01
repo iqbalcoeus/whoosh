@@ -5538,3 +5538,9 @@ div.sf-accordion-toggle.sf-style-white a {
   padding-bottom: 60px;
   margin-top: -70px;
 }
+
+/* Model job proposes */
+.view-model-job-proposes .customer-rating > * {
+  display: inline-block;
+}
+

@@ -28,7 +28,8 @@ function model_platform_rating_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '12';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Relationship: Entity Reference: Referenced Entity */
@@ -131,6 +132,45 @@ function model_platform_rating_views_default_views() {
     'style' => 'user',
     'text' => 'none',
   );
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Events: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'bat_events';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'model_availability' => 'model_availability',
+  );
+  /* Filter criterion: Content: Job status (field_job_status) */
+  $handler->display->display_options['filters']['field_job_status_tid']['id'] = 'field_job_status_tid';
+  $handler->display->display_options['filters']['field_job_status_tid']['table'] = 'field_data_field_job_status';
+  $handler->display->display_options['filters']['field_job_status_tid']['field'] = 'field_job_status_tid';
+  $handler->display->display_options['filters']['field_job_status_tid']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['filters']['field_job_status_tid']['value'] = array(
+    98 => '98',
+  );
+  $handler->display->display_options['filters']['field_job_status_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_job_status_tid']['vocabulary'] = 'job_status';
+  /* Filter criterion: Events: End Date */
+  $handler->display->display_options['filters']['end_date']['id'] = 'end_date';
+  $handler->display->display_options['filters']['end_date']['table'] = 'bat_events';
+  $handler->display->display_options['filters']['end_date']['field'] = 'end_date';
+  $handler->display->display_options['filters']['end_date']['operator'] = '<=';
+  $handler->display->display_options['filters']['end_date']['value']['value'] = '+7 day';
+  $handler->display->display_options['filters']['end_date']['value']['type'] = 'offset';
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'job' => 'job',
+  );
+  /* Filter criterion: Events: Model rate (field_model_rate:rating) */
+  $handler->display->display_options['filters']['field_model_rate_rating']['id'] = 'field_model_rate_rating';
+  $handler->display->display_options['filters']['field_model_rate_rating']['table'] = 'field_data_field_model_rate';
+  $handler->display->display_options['filters']['field_model_rate_rating']['field'] = 'field_model_rate_rating';
+  $handler->display->display_options['filters']['field_model_rate_rating']['operator'] = 'empty';
   $handler->display->display_options['block_description'] = 'Model job rate form';
 
   /* Display: Customer */
@@ -218,6 +258,11 @@ function model_platform_rating_views_default_views() {
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'job' => 'job',
   );
+  /* Filter criterion: Events: Customer rate (field_customer_rate:rating) */
+  $handler->display->display_options['filters']['field_customer_rate_rating']['id'] = 'field_customer_rate_rating';
+  $handler->display->display_options['filters']['field_customer_rate_rating']['table'] = 'field_data_field_customer_rate';
+  $handler->display->display_options['filters']['field_customer_rate_rating']['field'] = 'field_customer_rate_rating';
+  $handler->display->display_options['filters']['field_customer_rate_rating']['operator'] = 'empty';
   $handler->display->display_options['block_description'] = 'Customer job rate form';
   $translatables['rate_job_event'] = array(
     t('Master'),
