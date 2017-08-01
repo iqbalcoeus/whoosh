@@ -5523,6 +5523,7 @@ div.sf-accordion-toggle.sf-style-white a {
   position: absolute;
   left: 15px;
   bottom: 40px;
+  line-height: 1.15;
 }
 
 .view-models .info-column .views-field-field-height {
