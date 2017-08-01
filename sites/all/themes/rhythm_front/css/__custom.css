@@ -5548,3 +5548,9 @@ div.sf-accordion-toggle.sf-style-white a {
   display: inline-block;
 }
 
+@media screen and (max-width: 768px) {
+  .not-front #content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
