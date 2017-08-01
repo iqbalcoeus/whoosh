@@ -5447,6 +5447,7 @@ div.sf-accordion-toggle.sf-style-white a {
   margin: 5px;
   overflow: hidden;
   border: 1px solid #fff;
+  max-height: 236px;
 }
 .view-models .views-row:hover {
   border: 1px solid #cecece;
@@ -5458,7 +5459,6 @@ div.sf-accordion-toggle.sf-style-white a {
   width: 168px;
   max-width: 50%;
   height: 100%;
-  max-height: 236px;
   float: left;
 }
 .view-models .views-row .image-column {
