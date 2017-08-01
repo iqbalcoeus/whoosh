@@ -5434,7 +5434,7 @@ div.sf-accordion-toggle.sf-style-white a {
   min-height: 250px;
 }
 .view-models .view-content {
-  margin: 0 -10px;
+  margin: 0 -5px;
   display: flex;
   -ms-flex-wrap: wrap;
   flex-flow: row wrap;
@@ -5444,7 +5444,7 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 .view-models .views-row {
-  margin: 10px;
+  margin: 5px;
   overflow: hidden;
   border: 1px solid #fff;
 }
