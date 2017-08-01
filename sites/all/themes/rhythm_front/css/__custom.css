@@ -5461,6 +5461,9 @@ div.sf-accordion-toggle.sf-style-white a {
   max-height: 236px;
   float: left;
 }
+.view-models .views-row .image-column {
+  width: 164px;
+}
 
 .view-models .views-row .views-field-ops {
   position: absolute;
