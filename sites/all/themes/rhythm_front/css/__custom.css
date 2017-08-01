@@ -5554,3 +5554,9 @@ div.sf-accordion-toggle.sf-style-white a {
     padding-right: 10px;
   }
 }
+
+/**/
+.hired-views-block {
+  margin-top: 20px;
+  border-top: 1px solid #222;
+}
