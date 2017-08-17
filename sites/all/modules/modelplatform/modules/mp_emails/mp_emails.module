@@ -1,52 +1,20 @@
 <?php
+
 /**
  * @file
  * Model Platform Email Module.
  */
 
+require_once 'mp_emails.inc';
+require_once 'mp_emails.emails.inc';
+
 /**
  * Implements hook_mpb_option_model().
  */
 function mp_emails_mpb_option_model($event) {
-  global $base_url;
-
-  if (isset($event->event_bat_unit_reference['und'][0]['target_id'])) {
-    $unit = bat_unit_load($event->event_bat_unit_reference['und'][0]['target_id']);
-    $model_uid = $unit->uid;
-    $model = user_load($model_uid);
-    $customer = user_load($event->uid);
-
-    $job_nid = $event->field_job[LANGUAGE_NONE][0]['target_id'];
-    $job = node_load($job_nid);
-
-    $module = 'mp_emails';
-    $key = 'mp_emeils_job_propose';
-
-    $to = $model->mail;
-    $from = variable_get('site_mail', 'admin@example.com');
-
-    $message = t('
-      Dear, @model_full_name.
-      
-      You have new job propose, please go to the link. 
-      @url
-      
-      @email_footer',
-      array(
-        '@model_full_name' => $model->field_full_name[LANGUAGE_NONE][0]['value'],
-        '@url' => $base_url . '/job/event/' . $event->event_id . '/auction',
-        '@email_footer' => variable_get('mp_emails_mail_footer', 'Model Platform Team'),
-      )
-    );
-
-    $params = array(
-      'subject' => 'New job propose - ' . $job->title,
-      'message' => $message,
-    );
-    $language = language_default();
-    $send = TRUE;
-    $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
-  }
+  $email_params = _mp_emails_get_event_params($event);
+  _mp_emails_model_job_option_notification($email_params);
+  _mp_emails_customer_job_option_notification($email_params);
 }
 
 /**
