@@ -5621,6 +5621,7 @@ div.sf-accordion-toggle.sf-style-white a {
   border: 1px solid #fff;
   height: 236px;
   width: 336px;
+  min-width: 336px;
   max-height: 236px;
 }
 .view-models .views-row:hover {
