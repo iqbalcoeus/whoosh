@@ -67,8 +67,25 @@ ul#superfish-1 a {
 .field-name-field-previous-jobs tr > td:nth-child(2),
 .field-name-field-c-base-city .ajax-new-content,
 .field-name-field-previous-jobs .ajax-new-content {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
+
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+
   flex-flow: nowrap row;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
 }
 
@@ -86,6 +103,10 @@ ul#superfish-1 a {
 }
 
 .file-widget {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
 }
 
@@ -302,6 +323,10 @@ ul.language-switcher-locale-url {
 .block .block-system .block-menu {
   margin: -5px 0 0 -5px;
   display: -webkit-flex;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   flex-wrap: wrap;
 }
@@ -367,6 +392,10 @@ ul.language-switcher-locale-url {
 .region .region-top {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -727,6 +756,10 @@ html.js input.throbbing {
   position: relative;
   margin: 5px;
   padding: 15px 20px 25px 20px;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   flex-direction: column;
 }
@@ -813,6 +846,10 @@ html.js input.throbbing {
 .view-id-my_job_templates .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -830,7 +867,18 @@ html.js input.throbbing {
 }
 
 .view-models .view-content {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   flex-flow: row wrap;
 }
 
@@ -1858,6 +1906,10 @@ html.js input.throbbing {
 .view-job-list.view-display-id-page .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -2491,9 +2543,24 @@ a.link-to-top .fa {
 }
 
 .view-front-page-models-1.view-display-id-block .view-content {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   flex-flow: row wrap;
   align-items: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
@@ -2532,9 +2599,24 @@ a.link-to-top .fa {
 }
 
 .view-front-page-models-1.view-display-id-block .views-row:hover .front-page-logo-and-text {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   flex-flow: column nowrap;
   align-items: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
@@ -2599,9 +2681,24 @@ a.link-to-top .fa {
 }
 
 #block-block-14 .block-content {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   flex-flow: row wrap;
   align-items: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
@@ -2845,6 +2942,10 @@ a.link-to-top .fa {
 .view-news .view-content {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -3444,6 +3545,10 @@ a.add-more-images:hover {
 
 .block-views.gallery .view-content {
   display: -webkit-box;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -3610,6 +3715,10 @@ a.add-more-images:hover {
 .view-front-page-third .views-field-body.help-slide-217 .role-choose {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -3622,6 +3731,8 @@ a.add-more-images:hover {
   flex-direction: row;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-box-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
   margin: 3% -3%;
 }
@@ -4769,11 +4880,25 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 .view-job-propose-auctions .views-row {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+
   flex-flow: row wrap;
   -webkit-box-pack: justify;
+  -moz-box-pack: justify;
   -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px 15px;
@@ -4871,6 +4996,10 @@ div.sf-accordion-toggle.sf-style-white a {
   position: relative;
   margin: 5px 0;
   padding: 15px 20px 25px 20px;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   flex-direction: column;
 }
@@ -4991,6 +5120,10 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 .group-job-block.field-group-div .field-name-field-job-start-date {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   font-size: 17px;
   font-weight: 600;
@@ -5141,6 +5274,10 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-header {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -5156,6 +5293,10 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-header .mpi-text {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -5210,6 +5351,10 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-job-dates {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -5245,6 +5390,10 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-address-content {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -5304,6 +5453,10 @@ div.sf-accordion-toggle.sf-style-white a {
 .mpi-invoice .mpi-total-invoice {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -5435,11 +5588,22 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 .view-models .view-content {
   margin: 0 -5px;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: justify;
+  -moz-box-pack: justify;
   -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
 }
 

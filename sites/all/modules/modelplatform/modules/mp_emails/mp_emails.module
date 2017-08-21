@@ -21,110 +21,32 @@ function mp_emails_mpb_option_model($event) {
  * Implements hook_mpb_option_model_accept().
  */
 function mp_emails_mpb_option_model_accept($auction) {
-  global $base_url;
-
   $auction_wrapper = entity_metadata_wrapper('mp_auction', $auction);
   $decision_user = $auction_wrapper->field_decision_user->value();
   $event = $auction_wrapper->field_auction_event->value();
-
-  $decision_user_wrapper = entity_metadata_wrapper('user', $decision_user);
-  $decision_user_full_name = $decision_user_wrapper->field_full_name->value();
-  $decision_user_mail = $decision_user_wrapper->mail->value();
-
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-  $job = $event_wrapper->field_job->value();
-  $unit = $event_wrapper->event_bat_unit_reference->value();
-
+  $email_params = _mp_emails_get_event_params($event);
   if (_modelplatform_user_is_model($decision_user)) {
-    $url = $base_url . '/job/event/' . $event->event_id . '/auction';
+    _mp_emails_customer_job_option_model_confirm($email_params);
   }
   else {
-    $url = $base_url . '/job/model/' . $unit->uid . '/invite';
+    _mp_emails_model_job_confirmed($email_params);
   }
-
-  $module = 'mp_emails';
-  $key = 'mp_emeils_job_propose';
-
-  $to = $decision_user_mail;
-  $from = variable_get('site_mail', 'admin@example.com');
-
-  $message = t('
-      Dear, @full_name.
-      
-      Job was accepted. 
-      @url
-      
-      @email_footer',
-    array(
-      '@full_name' => $decision_user_full_name,
-      '@url' => $url,
-      '@email_footer' => variable_get('mp_emails_mail_footer', 'Model Platform Team'),
-    )
-  );
-
-  $params = array(
-    'subject' => 'New job propose - ' . $job->title,
-    'message' => $message,
-  );
-
-  $language = language_default();
-  $send = TRUE;
-  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
 }
 
 /**
  * Implements hook_mpb_option_model_decline().
  */
 function mp_emails_mpb_option_model_decline($auction) {
-  global $base_url;
-
   $auction_wrapper = entity_metadata_wrapper('mp_auction', $auction);
   $decision_user = $auction_wrapper->field_decision_user->value();
   $event = $auction_wrapper->field_auction_event->value();
-
-  $decision_user_wrapper = entity_metadata_wrapper('user', $decision_user);
-  $decision_user_full_name = $decision_user_wrapper->field_full_name->value();
-  $decision_user_mail = $decision_user_wrapper->mail->value();
-
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-  $job = $event_wrapper->field_job->value();
-  $unit = $event_wrapper->event_bat_unit_reference->value();
-
+  $email_params = _mp_emails_get_event_params($event);
   if (_modelplatform_user_is_model($decision_user)) {
-    $url = $base_url . '/job/event/' . $event->event_id . '/auction';
+    _mp_emails_customer_job_option_model_confirm($email_params);
   }
   else {
-    $url = $base_url . '/job/model/' . $unit->uid . '/invite';
+    _mp_emails_model_job_confirmed($email_params);
   }
-
-  $module = 'mp_emails';
-  $key = 'mp_emeils_job_propose';
-
-  $to = $decision_user_mail;
-  $from = variable_get('site_mail', 'admin@example.com');
-
-  $message = t('
-      Dear, @full_name.
-      
-      New cost propose. 
-      @url
-      
-      @email_footer',
-    array(
-      '@full_name' => $decision_user_full_name,
-      '@url' => $url,
-      '@email_footer' => variable_get('mp_emails_mail_footer', 'Model Platform Team'),
-    )
-  );
-
-  $params = array(
-    'subject' => 'New job propose - ' . $job->title,
-    'message' => $message,
-  );
-
-  $language = language_default();
-  $send = TRUE;
-  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
 }
 
 /**
