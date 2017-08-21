@@ -5595,6 +5595,8 @@ div.sf-accordion-toggle.sf-style-white a {
   min-height: 250px;
 }
 .view-models .view-content {
+  max-width: 100%;
+  width: 100%;
   margin: 0 -5px;
   display: -webkit-box;
   display: -moz-box;
