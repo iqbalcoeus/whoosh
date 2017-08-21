@@ -80,6 +80,7 @@ ul#superfish-1 a {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-flex: 1 1 auto;
 
   flex-flow: nowrap row;
   -webkit-box-pack: justify;
@@ -329,6 +330,7 @@ ul.language-switcher-locale-url {
   display: -webkit-flex;     /* NEW - Chrome */
   display: flex;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
 }
 
 .block-delta-blocks {
@@ -399,6 +401,7 @@ ul.language-switcher-locale-url {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
@@ -853,6 +856,7 @@ html.js input.throbbing {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
@@ -880,6 +884,7 @@ html.js input.throbbing {
   -ms-flex-direction: row;
   flex-direction: row;
   flex-flow: row wrap;
+  -webkit-flex: 1 1 auto;
 }
 
 .view-models .views-exposed-form .views-exposed-widget {
@@ -1913,6 +1918,7 @@ html.js input.throbbing {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
@@ -2555,6 +2561,7 @@ a.link-to-top .fa {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-flex: 1 1 auto;
   flex-flow: row wrap;
   align-items: center;
   -webkit-box-pack: center;
@@ -2611,6 +2618,7 @@ a.link-to-top .fa {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-flex: 1 1 auto;
   flex-flow: column nowrap;
   align-items: center;
   -webkit-box-pack: center;
