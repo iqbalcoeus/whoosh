@@ -74,3 +74,17 @@ function _mp_emails_get_event_params($event) {
     '@url' => $base_url . '/job/event/' . $event->event_id . '/auction',
   );
 }
+
+function _mp_emails_model_notification_callback($event_info) {
+  $event = bat_event_load($event_info->event_id);
+  $email_params = _mp_emails_get_event_params($event);
+  _mp_emails_model_job_reminder_notification($email_params);
+}
+
+function _mp_emails_prepare_message($message, $params) {
+  foreach($params as $key => $value) {
+    $message = str_replace($key, $value, $message);
+  }
+
+  return $message;
+}

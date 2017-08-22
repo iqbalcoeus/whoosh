@@ -9,6 +9,24 @@ require_once 'mp_emails.inc';
 require_once 'mp_emails.emails.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function mp_emails_menu() {
+  $items = array();
+
+  $items['admin/modelplatform/params/mails'] = array(
+    'title' => t('Model platform - Emails'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_emails_form'),
+    'access arguments' => array('moderate modelplatform documents'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'mp_emails.form.inc',
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_mpb_option_model().
  */
 function mp_emails_mpb_option_model($event) {
@@ -45,7 +63,7 @@ function mp_emails_mpb_option_model_decline($auction) {
     _mp_emails_customer_job_option_model_confirm($email_params);
   }
   else {
-    _mp_emails_model_job_confirmed($email_params);
+//    _mp_emails_model_job_confirmed($email_params);
   }
 }
 
@@ -62,4 +80,44 @@ function mp_emails_mail($key, &$message, $params) {
     default:
       // Nothing to do.
   }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function mp_emails_cron() {
+  $query = db_select('bat_events', 'be');
+  $query->innerJoin('field_data_event_bat_unit_reference', 'bur',
+    'bur.entity_id = be.event_id AND bur.entity_type = \'bat_event\'');
+  $query->innerJoin('bat_units', 'bu',
+    'bu.unit_id = bur.event_bat_unit_reference_target_id');
+  $query->innerJoin('users', 'model', 'model.uid = bu.uid');
+  $query->innerJoin('field_data_field_auction_event', 'ae',
+    'ae.entity_type = \'mp_auction\' AND ae.field_auction_event_target_id = be.event_id');
+  $query->innerJoin('mp_auction', 'a',
+    'a.mp_auction_id = ae.entity_id');
+
+  $query->condition('a.created', REQUEST_TIME - 3600 * 24, '>');
+  $query->condition('a.created', REQUEST_TIME - 3600 * 18, '<');
+
+  $query->addField('model', 'uid', 'model_uid');
+  $query->addField('be', 'event_id', 'event_id');
+  $event_data = $query->execute()->fetchAll();
+
+  $queue = DrupalQueue::get('mp_emails_model_notification');
+  foreach ($event_data as $event_info) {
+    $queue->createItem($event_info);
+  }
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function mp_emails_cron_queue_info() {
+  $queues['mp_emails_model_notification'] = array(
+    'worker callback' => '_mp_emails_model_notification_callback',
+    'time' => 60,
+  );
+
+  return $queues;
 }

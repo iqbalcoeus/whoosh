@@ -5678,7 +5678,7 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 .view-models .image-column .unflag-action:before,
-.view-models .image-column .views-field-ops:hover flag-action:before {
+.view-models .image-column .views-field-ops:hover .flag-action:before {
   color: #fc1c5b;
 }
 
