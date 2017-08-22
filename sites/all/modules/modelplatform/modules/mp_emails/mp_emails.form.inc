@@ -1,8 +1,10 @@
 <?php
 
-function mp_emails_form(&$form, $form_state) {
+function mp_emails_form($form, $form_state) {
   require_once 'mp_emails.default_variables.inc';
   global $language;
+
+  $form = array();
 
   $form['mpe_description'] = array(
     '#type' => 'markup',
