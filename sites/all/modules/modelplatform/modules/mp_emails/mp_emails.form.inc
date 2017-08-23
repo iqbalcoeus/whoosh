@@ -82,6 +82,16 @@ function mp_emails_form($form, $form_state) {
     '#title' => t('Model calendar'),
     '#default_value' => i18n_variable_get('mpe_model_calendar', $language->language, _mp_emails_get_var_model_calendar($language->language)),
   );
+
+  $form['actions'] = array(
+    '#type' => 'container',
+    '#tree' => TRUE,
+  );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#submit' => array('mp_emails_form_submit'),
+  );
   
   return $form;
 }
