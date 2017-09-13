@@ -14,6 +14,7 @@
   }
 
   $(document).ready(function() {
+    $('#superfish-1-toggle').on('click', callNativeApp);
 
     if ($('body').hasClass('page-page-404')) {
       $('body').css('background-image', 'url(' + Drupal.settings.rhythm_front.body_images.p404 + ')');
@@ -75,19 +76,17 @@
     });
   });
 
+  function callNativeApp () {
+    try {
+      webkit.messageHandlers.callbackHandler.postMessage("camera");
+    } catch(err) {
+      console.log('The native context does not exist yet');
+    }
+  }
+
   Drupal.behaviors.rhythm_front = {
     attach: function (context, settings) {
-      // Masonry part.
-      // var $grid = $('.view-castinglist .view-content').masonry({
-      //   itemSelector: '.views-row',
-      //   //columnWidth: 283,
-      //   fitWidth: true
-      // });
-      //
-      // // layout Masonry after each image loads
-      // $grid.imagesLoaded().progress(function () {
-      //   $grid.masonry('layout');
-      // });
+
     }
   };
 
