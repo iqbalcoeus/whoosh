@@ -78,7 +78,7 @@
 
   function callNativeApp () {
     try {
-      webkit.messageHandlers.callbackHandler.postMessage("camera");
+      webkit.messageHandlers.callbackHandler.postMessage("Hello from JavaScript");
     } catch(err) {
       console.log('The native context does not exist yet');
     }
