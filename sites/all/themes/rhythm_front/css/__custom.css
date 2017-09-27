@@ -188,6 +188,7 @@ a.tabledrag-handle .handle {
   overflow: hidden;
   position: relative;
   height: 52px!important;
+  min-height: 52px!important;
   width: 280px;
 }
 
