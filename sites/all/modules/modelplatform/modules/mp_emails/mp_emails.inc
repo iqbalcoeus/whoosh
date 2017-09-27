@@ -58,13 +58,13 @@ function _mp_emails_get_event_params($event) {
   $job_daily_rate_to = commerce_currency_format($job_wrapper->field_job_daily_rate_to->amount->value(), $job_wrapper->field_job_daily_rate_to->currency_code->value());
   $job_daily_rate = "$job_daily_rate_from - $job_daily_rate_to";
 
-  array(
+  $email_params = array(
     '@model_full_name' => $model_wrapper->field_full_name->value(),
     '@model_language' => $model->language,
     '@model_mail' => $model->mail,
     '@customer_full_name' => $customer_wrapper->field_full_name->value(),
     '@customer_language' => $customer->language,
-    '@customer_mail' => $model->mail,
+    '@customer_mail' => $customer->mail,
     '@model_salutation' => $model_salutation[$model->language],
     '@customer_salutation' => $customer_salutation[$customer->language],
     '@job_title' => $job->title,
@@ -73,6 +73,8 @@ function _mp_emails_get_event_params($event) {
     '@job_daily_rate' => $job_daily_rate,
     '@url' => $base_url . '/job/event/' . $event->event_id . '/auction',
   );
+
+  return $email_params;
 }
 
 function _mp_emails_model_notification_callback($event_info) {

@@ -37,9 +37,9 @@ function _mp_emails_customer_job_option_notification($email_params) {
   $module = 'mp_emails';
   $key = 'mp_emeils_job_propose';
 
-  $to = $email_params['@model_mail'];
-  $from = variable_get('site_mail', 'admin@example.com');
-  $language = $email_params['@model_language'];
+  $to = $email_params['@customer_mail'];
+  $from = variable_get('site_mail', 'admin@megaonline.com');
+  $language = $email_params['@customer_language'];
 
   $message_text = i18n_variable_get('mpe_customer_job_option_notification', $language);
   $message = _mp_emails_prepare_message($message_text, $email_params);
