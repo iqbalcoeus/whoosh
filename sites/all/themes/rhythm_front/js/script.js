@@ -98,10 +98,10 @@
 
   function callNativeApp () {
     var osInfo = validateOS();
-    if (osInfo == "android") {
+    if (osInfo == "Android") {
       android.openMenu("openMenu");
     }
-    else if (osInfo == "ios") {
+    else if (osInfo == "iOS") {
       try {
         webkit.messageHandlers.callbackHandler.postMessage("openMenu");
       }
