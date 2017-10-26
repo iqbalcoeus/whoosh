@@ -172,3 +172,24 @@ function _mp_dashboard_get_model_profiles() {
 
   return $profiles;
 }
+
+/**
+ * Implements hook_custom_theme().
+ */
+function mp_dashboard_custom_theme() {
+  $path = current_path();
+  if (strpos($path, 'user/') === 0) {
+    return 'rhythm_front';
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function mp_dashboard_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'custom_theme') {
+    $group = $implementations['mp_dashboard'];
+    unset($implementations['mp_dashboard']);
+    $implementations['mp_dashboard'] = $group;
+  }
+}
