@@ -466,7 +466,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'bundle' => 'model_private_data',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Once we have a booking for you, we need your tax number. Please, therefore, promptly complete. Please feel free to contact us',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -479,7 +479,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_income_tax_id',
     'label' => 'Income tax ID',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,
@@ -929,7 +929,7 @@ function profile2_model_private_data_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_paypal',
     'label' => 'PayPal',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -1002,6 +1002,7 @@ function profile2_model_private_data_field_default_field_instances() {
   t('Model Agency <a href="/content/terms">terms</a> of use');
   t('Model Mega');
   t('Model agency entry');
+  t('Once we have a booking for you, we need your tax number. Please, therefore, promptly complete. Please feel free to contact us');
   t('Parental approval for minors');
   t('PayPal');
   t('Postal code');

@@ -35,10 +35,11 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>
+  $handler->display->display_options['header']['area']['content'] = '<a href="/node/add/node-gallery-item?destination=user/[uid]/edit/galleries" class="add-more-images">Add more images</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['header']['area']['tokenize'] = TRUE;
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
   $handler->display->display_options['fields']['field_gallery_image']['table'] = 'field_data_field_gallery_image';
@@ -77,6 +78,14 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_ver_status']['label'] = '';
   $handler->display->display_options['fields']['field_ver_status']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ver_status']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'node';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -151,6 +160,14 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_ver_status']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ver_status']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ver_status']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'node';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -209,7 +226,7 @@ function model_platform_gallery_feature_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>
+    t('<a href="/node/add/node-gallery-item?destination=user/[uid]/edit/galleries" class="add-more-images">Add more images</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>'),
     t('Edit'),

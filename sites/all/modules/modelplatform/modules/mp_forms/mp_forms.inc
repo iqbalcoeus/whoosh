@@ -92,7 +92,7 @@ function _mp_forms_model_private_data_form_validate($form, &$form_state) {
     $values['field_model_agensy_terms_of_use'][LANGUAGE_NONE][0]['value'] = $model_agency;
   }
 
-  if (isset($values['field_income_tax_id'][LANGUAGE_NONE][0]['value'])) {
+  if (isset($values['field_income_tax_id'][LANGUAGE_NONE][0]['value']) && $values['field_income_tax_id'][LANGUAGE_NONE][0]['value']) {
     if (!is_numeric($values['field_income_tax_id'][LANGUAGE_NONE][0]['value'])) {
       $title = $form[$profile_id]['field_income_tax_id'][LANGUAGE_NONE]['#title'];
       $message = t('!title must be numeric', array('!title' => $title));
