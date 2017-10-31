@@ -98,12 +98,15 @@
 
   function callNativeApp () {
     var osInfo = validateOS();
+
     if (osInfo == "Android") {
       android.openMenu("openMenu");
+      android.openMenu(Drupal.settings.rhythm_front.user.role_class);
     }
     else if (osInfo == "iOS") {
       try {
         webkit.messageHandlers.callbackHandler.postMessage("openMenu");
+        webkit.messageHandlers.callbackHandler.postMessage(Drupal.settings.rhythm_front.user.role_class);
       }
       catch(err) {
         console.log('The native context does not exist yet');
