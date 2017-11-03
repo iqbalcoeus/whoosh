@@ -526,6 +526,75 @@ function model_platform_job_template_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-job-field_job_travel_days'.
+  $field_instances['node-job-field_job_travel_days'] = array(
+    'bundle' => 'job',
+    'default_value' => array(
+      0 => array(
+        'value' => 3,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 9,
+      ),
+      'node_gallery_node_thumbnail' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'properties_compare_block' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'properties_compare_page' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_job_travel_days',
+    'label' => 'Job travel days',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => 3,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-job_template-body'.
   $field_instances['node-job_template-body'] = array(
     'bundle' => 'job_template',
@@ -924,6 +993,7 @@ function model_platform_job_template_field_default_field_instances() {
   t('From');
   t('Job Travel budget');
   t('Job status');
+  t('Job travel days');
   t('Payment approval');
   t('Summary of the job');
   t('To');

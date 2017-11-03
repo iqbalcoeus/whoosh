@@ -778,3 +778,40 @@ function mp_booking_job_model_reciepts_form_submit($form, &$form_state) {
 
   $form_state['redirect'] = NULL;
 }
+
+/**
+ *
+ */
+function mp_booking_job_cancel_form($form, &$form_state, $job_nid) {
+  $form['#job_nid'] = $job_nid;
+  $form_state['#direct_path'] = current_path();
+  return confirm_form(
+    $form,
+    t('Are you sure you want to reject the job contract?'),
+    current_path(),
+    t('This action cannot be undone.'),
+    t('Accept'),
+    t('Decline')
+  );
+}
+
+function mp_booking_job_cancel_form_submit($form, &$form_state) {
+  global $user;
+
+  $job_nid = $form['#job_nid'];
+  $job = node_load($job_nid);
+  $job_wrapper = entity_metadata_wrapper('node', $job);
+  $job_wrapper->field_job_status->set(99);
+  $job_wrapper->save();
+
+  $job_events = _mp_booking_get_job_events($job_nid);
+  foreach ($job_events as $job_event_id) {
+    $job_event = bat_event_load($job_event_id);
+    $job_event->uid = $user->uid;
+    $job_event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 6;
+
+    bat_event_save($job_event);
+  }
+
+  $form_state['redirect'] = $form_state['#direct_path'];
+}

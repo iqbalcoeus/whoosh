@@ -53,7 +53,13 @@ function mp_booking_menu() {
     'access callback' => 'user_access',
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
-
+  $items['job/cancel/%'] = array(
+    'title' => t('Model invitation'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_booking_job_cancel_form', 2),
+    'access callback' => 'mp_booking_job_cancel_access',
+    'access arguments' => array(2),
+  );
   $items['job/event/%bat_event/auction'] = array(
     'title' => t('Job propose'),
     'page callback' => 'drupal_get_form',
@@ -92,6 +98,30 @@ function mp_booking_menu() {
   );
 
   return $items;
+}
+
+function mp_booking_job_cancel_access($job_nid) {
+  global $user;
+  $access = FALSE;
+
+  $job = node_load($job_nid);
+  if ($job->field_job_status[LANGUAGE_NONE][0]['tid'] != 99 || TRUE) {
+    if ($job->uid == $user->uid) {
+      $access = TRUE;
+    }
+    else {
+      $job_events = _mp_booking_get_job_events($job_nid);
+      if (count($job_events) == 1) {
+        $event_id = reset($job_events);
+        $event = bat_event_load($event_id);
+        $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+        $unit = $event_wrapper->event_bat_unit_reference->value();
+        $access = $user->uid == $unit->uid;
+      }
+    }
+  }
+
+  return $access;
 }
 
 /**

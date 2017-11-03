@@ -192,5 +192,23 @@ function model_platform_job_template_field_default_field_bases() {
     'type' => 'commerce_price',
   );
 
+  // Exported field_base: 'field_job_travel_days'.
+  $field_bases['field_job_travel_days'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_job_travel_days',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   return $field_bases;
 }

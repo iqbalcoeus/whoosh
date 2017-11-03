@@ -65,6 +65,15 @@ function bat_event_type_fields_default_bat_event_type() {
         "locked" : "0",
         "blocking" : "0",
         "default_state" : "0"
+      },
+      {
+        "machine_name" : "was_canceled",
+        "label" : "Was canceled",
+        "color" : "#ffffff",
+        "calendar_label" : "Canceled",
+        "locked" : "0",
+        "blocking" : "0",
+        "default_state" : "0"
       }
     ]
   }');
