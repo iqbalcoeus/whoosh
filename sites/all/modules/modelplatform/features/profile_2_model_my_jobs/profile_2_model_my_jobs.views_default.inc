@@ -58,6 +58,14 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'field_job_target_id';
   $handler->display->display_options['relationships']['uid']['label'] = 'Customer';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Field: Events: Events ID */
   $handler->display->display_options['fields']['event_id']['id'] = 'event_id';
   $handler->display->display_options['fields']['event_id']['table'] = 'bat_events';
@@ -183,6 +191,14 @@ function profile_2_model_my_jobs_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'job/event/[event_id]/auction';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = '';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/job/cancel/[nid]">Cancel job</a>';
+  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing_1']['element_wrapper_class'] = 'views-field-nothing';
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
   $handler->display->display_options['arguments']['uid']['table'] = 'users';
@@ -224,6 +240,149 @@ function profile_2_model_my_jobs_views_default_views() {
 
   /* Display: Past Jobs */
   $handler = $view->new_display('block', 'Past Jobs', 'block_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Events: Events ID */
+  $handler->display->display_options['fields']['event_id']['id'] = 'event_id';
+  $handler->display->display_options['fields']['event_id']['table'] = 'bat_events';
+  $handler->display->display_options['fields']['event_id']['field'] = 'event_id';
+  $handler->display->display_options['fields']['event_id']['label'] = '';
+  $handler->display->display_options['fields']['event_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['event_id']['element_label_colon'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'job/event/[event_id]/auction';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: Global: Fieldset */
+  $handler->display->display_options['fields']['fieldset']['id'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['table'] = 'views';
+  $handler->display->display_options['fields']['fieldset']['field'] = 'fieldset';
+  $handler->display->display_options['fields']['fieldset']['label'] = 'Customer rating';
+  $handler->display->display_options['fields']['fieldset']['children'] = array(
+    0 => 'field_full_name',
+    1 => 'field_rating',
+  );
+  $handler->display->display_options['fields']['fieldset']['fieldset']['type'] = 'div';
+  $handler->display->display_options['fields']['fieldset']['fieldset']['classes'] = 'customer-rating';
+  /* Field: User: Full name */
+  $handler->display->display_options['fields']['field_full_name']['id'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['table'] = 'field_data_field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['field'] = 'field_full_name';
+  $handler->display->display_options['fields']['field_full_name']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['field_full_name']['label'] = '';
+  $handler->display->display_options['fields']['field_full_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_full_name']['element_wrapper_type'] = 'span';
+  /* Field: User: Rating */
+  $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['relationship'] = 'reverse_field_bat_unit_user';
+  $handler->display->display_options['fields']['field_rating']['label'] = '';
+  $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating']['element_wrapper_type'] = 'span';
+  $handler->display->display_options['fields']['field_rating']['click_sort_column'] = 'rating';
+  $handler->display->display_options['fields']['field_rating']['settings'] = array(
+    'widget' => array(
+      'fivestar_widget' => 'sites/all/modules/fivestar/widgets/basic/basic.css',
+    ),
+    'expose' => 0,
+    'style' => 'average',
+    'text' => 'none',
+  );
+  /* Field: Content: Daily rate from */
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['field'] = 'field_job_daily_rate_from';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['label'] = '';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_job_daily_rate_from']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Content: Daily rate to */
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['id'] = 'field_job_daily_rate_to';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['table'] = 'field_data_field_job_daily_rate_to';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['field'] = 'field_job_daily_rate_to';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['label'] = 'Job daily rate';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['text'] = '[field_job_daily_rate_from] - [field_job_daily_rate_to]';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_job_daily_rate_to']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Events: Cost */
+  $handler->display->display_options['fields']['field_job_cost']['id'] = 'field_job_cost';
+  $handler->display->display_options['fields']['field_job_cost']['table'] = 'field_data_field_job_cost';
+  $handler->display->display_options['fields']['field_job_cost']['field'] = 'field_job_cost';
+  $handler->display->display_options['fields']['field_job_cost']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_job_cost']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Events: Start Date */
+  $handler->display->display_options['fields']['start_date']['id'] = 'start_date';
+  $handler->display->display_options['fields']['start_date']['table'] = 'bat_events';
+  $handler->display->display_options['fields']['start_date']['field'] = 'start_date';
+  $handler->display->display_options['fields']['start_date']['label'] = '';
+  $handler->display->display_options['fields']['start_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['start_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['start_date']['date_format'] = 'bat';
+  $handler->display->display_options['fields']['start_date']['second_date_format'] = 'bat_daily';
+  /* Field: Events: End Date */
+  $handler->display->display_options['fields']['end_date']['id'] = 'end_date';
+  $handler->display->display_options['fields']['end_date']['table'] = 'bat_events';
+  $handler->display->display_options['fields']['end_date']['field'] = 'end_date';
+  $handler->display->display_options['fields']['end_date']['label'] = 'Job dates';
+  $handler->display->display_options['fields']['end_date']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['end_date']['alter']['text'] = '[start_date] - [end_date]';
+  $handler->display->display_options['fields']['end_date']['date_format'] = 'bat';
+  $handler->display->display_options['fields']['end_date']['second_date_format'] = 'bat_daily';
+  /* Field: Content: Body */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['relationship'] = 'field_job_target_id';
+  $handler->display->display_options['fields']['body']['label'] = '';
+  $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['body']['type'] = 'text_summary_or_trimmed';
+  $handler->display->display_options['fields']['body']['settings'] = array(
+    'trim_length' => '250',
+  );
+  /* Field: Read more */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Read more';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Read more';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'job/event/[event_id]/auction';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = '';
+  $handler->display->display_options['fields']['nothing_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/job/cancel/[nid]">Cancel job</a>';
+  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing_1']['element_wrapper_class'] = 'views-field-nothing';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Events: Type */
@@ -267,6 +426,7 @@ function profile_2_model_my_jobs_views_default_views() {
     t('Job dates'),
     t('[start_date] - [end_date]'),
     t('Read more'),
+    t('<a href="/job/cancel/[nid]">Cancel job</a>'),
     t('All'),
     t('Model Job proposes'),
     t('Model jobs - job proposes'),

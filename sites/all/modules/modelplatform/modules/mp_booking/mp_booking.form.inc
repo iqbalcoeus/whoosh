@@ -311,8 +311,6 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_AUCTION, $user->uid, $job_nid, $start_date, $end_date);
   bat_event_save($event);
 
-  module_invoke_all('mpb_option_model', $event);
-
   // Create auction.
   module_load_include('inc', 'mp_auction', 'mp_auction_mp_auction.admin');
   $auction = mp_auction_create(array('type' => 'auction'));
@@ -324,6 +322,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $values['model_uid'];
   mp_auction_save($auction);
 
+  module_invoke_all('mpb_option_model', $event);
   drupal_set_message(t('Model was optioned'));
 }
 
@@ -784,7 +783,8 @@ function mp_booking_job_model_reciepts_form_submit($form, &$form_state) {
  */
 function mp_booking_job_cancel_form($form, &$form_state, $job_nid) {
   $form['#job_nid'] = $job_nid;
-  $form_state['#direct_path'] = current_path();
+  $form_state['#direct_path'] = '/dashboard';
+
   return confirm_form(
     $form,
     t('Are you sure you want to reject the job contract?'),

@@ -227,31 +227,40 @@ function _mp_invoices_create_order_was_canceled($event) {
   $cost = $event_wrapper->field_job_cost->value();
   $cost['amount'] = 0;
 
-  $interval = $event->start_date_object->diff($event->end_date_object);
-  if ($interval->days) {
-    $time_name = 'Day';
-    $qty = $interval->days;
+  $remove_order = FALSE;
+  $interval = $event->start_date_object->diff(new DateTime());
+  if ($interval->invert == 1) {
+    $job = $event_wrapper->field_job->value();
+    $job_wrapper = entity_metadata_wrapper('node', $job);
+    if ($job_wrapper->field_job_travel_days->value() > $interval->days) {
+      $remove_order = TRUE;
+    }
   }
-
   $order = $event_wrapper->field_order->value();
-  if (!$order || $order->status == 'job_invoice_status') {
-    $order = commerce_order_new($event->uid, 'job_invoice_cancelation_fee');
-    $order->field_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
-    commerce_order_save($order);
 
-    $event_wrapper->field_order->set($order);
-    $event_wrapper->save();
+  if ($remove_order && isset($order->order_id)) {
+    commerce_order_delete($order->order_id);
   }
-  elseif ($order->uid !== $event->uid) {
-    $order->uid = $event->uid;
-    commerce_order_save($order);
+  else {
+    if (!$order || $order->status == 'job_invoice_status') {
+      $order = commerce_order_new($event->uid, 'job_invoice_cancelation_fee');
+      $order->field_event[LANGUAGE_NONE][0]['target_id'] = $event->event_id;
+      commerce_order_save($order);
+
+      $event_wrapper->field_order->set($order);
+      $event_wrapper->save();
+    }
+    elseif ($order->uid !== $event->uid) {
+      $order->uid = $event->uid;
+      commerce_order_save($order);
+    }
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    $line_items = array();
+    $line_items[] = _mp_invoices_line_item_create($order->order_id, "Cancelation fee", 1, $cost, MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL);
+
+    $order_wrapper->commerce_line_items = $line_items;
+    $order_wrapper->save();
   }
-  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-
-  $line_items = array();
-  $line_items[] = _mp_invoices_line_item_create($order->order_id, "Cancelation fee", 1, $cost, MP_INVOICES_LINE_ITEM_TYPE_ADDITIONAL);
-
-  $order_wrapper->commerce_line_items = $line_items;
-  $order_wrapper->save();
 }
 

@@ -58,21 +58,20 @@ function _mp_emails_get_event_params($event) {
   $job_daily_rate_to = commerce_currency_format($job_wrapper->field_job_daily_rate_to->amount->value(), $job_wrapper->field_job_daily_rate_to->currency_code->value());
   $job_daily_rate = "$job_daily_rate_from - $job_daily_rate_to";
 
-  $email_params = array(
-    '@model_full_name' => $model_wrapper->field_full_name->value(),
-    '@model_language' => $model->language,
-    '@model_mail' => $model->mail,
-    '@customer_full_name' => $customer_wrapper->field_full_name->value(),
-    '@customer_language' => $customer->language,
-    '@customer_mail' => $customer->mail,
-    '@model_salutation' => $model_salutation[$model->language],
-    '@customer_salutation' => $customer_salutation[$customer->language],
-    '@job_title' => $job->title,
-    '!job_description' => $job_wrapper->body->value->value(),
-    '@job_date' => $job_date,
-    '@job_daily_rate' => $job_daily_rate,
-    '@url' => $base_url . '/job/event/' . $event->event_id . '/auction',
-  );
+  $email_params = array();
+  $email_params['@model_full_name']     = $model_wrapper->field_full_name->value();
+  $email_params['@model_language']      = $model->language;
+  $email_params['@model_mail']          = $model->mail;
+  $email_params['@customer_full_name']  = $customer_wrapper->field_full_name->value();
+  $email_params['@customer_language']   = $customer->language;
+  $email_params['@customer_mail']       = $customer->mail;
+  $email_params['@model_salutation']    = $model_salutation[$model->language];
+  $email_params['@customer_salutation'] = $customer_salutation[$customer->language];
+  $email_params['@job_title']           = $job->title;
+  $email_params['!job_description']     = count($job->body) ? $job_wrapper->body->value->value() : '';
+  $email_params['@job_date']            = $job_date;
+  $email_params['@job_daily_rate']      = $job_daily_rate;
+  $email_params['@url']                 = $base_url . '/job/event/' . $event->event_id . '/auction';
 
   return $email_params;
 }
