@@ -232,7 +232,7 @@ function _mp_invoices_create_order_was_canceled($event) {
   if ($interval->invert == 1) {
     $job = $event_wrapper->field_job->value();
     $job_wrapper = entity_metadata_wrapper('node', $job);
-    if ($job_wrapper->field_job_travel_days->value() > $interval->days) {
+    if ($job_wrapper->field_job_travel_days->value() < $interval->days) {
       $remove_order = TRUE;
     }
   }

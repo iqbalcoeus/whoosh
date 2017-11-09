@@ -94,6 +94,10 @@ function _mp_booking_get_auction_event_data($model_uid, $customer_uid) {
   $event_query = db_select('bat_events', 'be');
   $event_query->condition('be.start_date', date('Y-m-d H:i:s', REQUEST_TIME), '>');
 
+  // State.
+  $event_query->innerJoin('field_data_event_state_reference', 'es',
+    'es.entity_id = be.event_id AND es.entity_type = \'bat_event\' AND es.event_state_reference_state_id IN (3, 4, 5)');
+
   // Job.
   $event_query->innerJoin('field_data_field_job', 'fj',
     'fj.entity_id = be.event_id AND fj.entity_type = \'bat_event\'');
