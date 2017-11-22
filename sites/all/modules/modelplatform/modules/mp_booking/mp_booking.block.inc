@@ -9,6 +9,8 @@
  * Calendar form.
  */
 function _mp_booking_calendar_form_block_content() {
+  global $user;
+
   $content = '';
   drupal_add_library('system', 'ui.tooltip');
 
@@ -16,7 +18,14 @@ function _mp_booking_calendar_form_block_content() {
 
     // Generate booking form.
     if (_mp_booking_get_calendar_busy_access()) {
-      $booking_form = drupal_get_form('mp_booking_calendar_form', $account);
+      $args = arg();
+      if (isset($args[1]) && $args[0] === 'user' && $account->uid != $user->uid) {
+        $booking_form = array();
+      }
+      else {
+        $booking_form = drupal_get_form('mp_booking_calendar_form', $account);
+      }
+
       $form_rendered = drupal_render($booking_form);
     }
     else {

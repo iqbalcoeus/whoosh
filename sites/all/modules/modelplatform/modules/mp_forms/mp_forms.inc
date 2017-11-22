@@ -286,10 +286,15 @@ function _mp_forms_user_profile_form($form) {
     $form['field_front_page_slider']['#access'] = $access;
     $form['field_full_name']['#access'] = $access;
     $form['field_rating']['#access'] = FALSE;
+    $form['field_company_name']['#access'] = FALSE;
 
     $is_model = in_array(MODELPLATFORM_MODEL_ROLE_NAME, $form['#user']->roles);
     $form['field_small_business']['#access'] = $is_model;
     $form['picture']['#access'] = !$is_model || ($access);
+  }
+  if (isset($form['#user']->roles[MODELPLATFORM_ROLE_CUSTOMER])) {
+    $form['picture']['#title'] = t('Logo');
+    $form['field_company_name']['#access'] = TRUE;
   }
 
   return $form;

@@ -593,6 +593,7 @@ function mp_booking_job_auction_form_submit($form, &$form_state) {
  * Booking form.
  */
 function mp_booking_calendar_form($form, &$form_state, $account = NULL) {
+  $event = NULL;
   if ($account) {
     // Get BAT Unit object.
     $unit = _mp_booking_get_unit('user', $account);
@@ -600,46 +601,52 @@ function mp_booking_calendar_form($form, &$form_state, $account = NULL) {
     // Create BAT event object.
     module_load_include('inc', 'bat_event', 'bat_event.admin');
     $event = _mp_booking_event_create($unit->unit_id, MP_BOOKING_STATE_BUSY, $account->uid, -1);
-
-    if ($event) {
-      // Create form.
-      $form = bat_event_edit_form($form, $form_state, $event);
-
-      // Hide other fields.
-      // @TODO Create module configuration for this fields.
-      $form['user']['#access'] = FALSE;
-      $form['event_history']['#access'] = FALSE;
-      $form['event_bat_unit_reference']['#access'] = FALSE;
-      $form['event_state_reference']['#access'] = FALSE;
-      $form['field_job']['#access'] = FALSE;
-      $form['field_job_cost']['#access'] = FALSE;
-      $form['actions']['cancel']['#access'] = FALSE;
-
-      $form['field_order']['#access'] = FALSE;
-      $form['field_additional_receipts']['#access'] = FALSE;
-
-      // Change date format.
-      $date_format = 'Y-m-d h:i A';
-      $date_year_range = '0:+1';
-
-      $form['bat_date_range']['bat_start_date']['#date_format'] = $date_format;
-      $form['bat_date_range']['bat_start_date']['#date_year_range'] = $date_year_range;
-
-      $form['bat_date_range']['bat_end_date']['#date_format'] = $date_format;
-      $form['bat_date_range']['bat_end_date']['#date_year_range'] = $date_year_range;
-
-      // I had to disable the validation of the form, because BAT generates
-      // new values for the start and end date, even if they have not been entered
-      // by the user, which causes the error when form submit.
-      $form['#validate'] = array(
-        '_rcb_bat_event_form_validate',
-      );
-      $form['bat_date_range']['bat_start_date']['#element_validate'] = array('_rcb_bat_date_validate');
-      $form['bat_date_range']['bat_end_date']['#element_validate'] = array('_rcb_bat_date_validate');
-
-      $form['actions']['submit']['#submit'] = array('mp_booking_calendar_form_submit');
-      $form['actions']['submit']['#value'] = t('Mark as unavailable');
+  }
+  else {
+    $args = arg();
+    if (count($args) === 4 && $args[0] === 'busy' && $args[1] === 'event' && $args[3] === 'edit') {
+      $event = bat_event_load(intval($args[2]));
     }
+  }
+
+  if ($event) {
+    // Create form.
+    $form = bat_event_edit_form($form, $form_state, $event);
+
+    // Hide other fields.
+    // @TODO Create module configuration for this fields.
+    $form['user']['#access'] = FALSE;
+    $form['event_history']['#access'] = FALSE;
+    $form['event_bat_unit_reference']['#access'] = FALSE;
+    $form['event_state_reference']['#access'] = FALSE;
+    $form['field_job']['#access'] = FALSE;
+    $form['field_job_cost']['#access'] = FALSE;
+    $form['actions']['cancel']['#access'] = FALSE;
+
+    $form['field_order']['#access'] = FALSE;
+    $form['field_additional_receipts']['#access'] = FALSE;
+
+    // Change date format.
+    $date_format = 'Y-m-d h:i A';
+    $date_year_range = '0:+1';
+
+    $form['bat_date_range']['bat_start_date']['#date_format'] = $date_format;
+    $form['bat_date_range']['bat_start_date']['#date_year_range'] = $date_year_range;
+
+    $form['bat_date_range']['bat_end_date']['#date_format'] = $date_format;
+    $form['bat_date_range']['bat_end_date']['#date_year_range'] = $date_year_range;
+
+    // I had to disable the validation of the form, because BAT generates
+    // new values for the start and end date, even if they have not been entered
+    // by the user, which causes the error when form submit.
+    $form['#validate'] = array(
+      '_rcb_bat_event_form_validate',
+    );
+    $form['bat_date_range']['bat_start_date']['#element_validate'] = array('_rcb_bat_date_validate');
+    $form['bat_date_range']['bat_end_date']['#element_validate'] = array('_rcb_bat_date_validate');
+
+    $form['actions']['submit']['#submit'] = array('mp_booking_calendar_form_submit');
+    $form['actions']['submit']['#value'] = t('Mark as unavailable');
   }
 
   return $form;
@@ -814,4 +821,56 @@ function mp_booking_job_cancel_form_submit($form, &$form_state) {
   }
 
   $form_state['redirect'] = $form_state['#direct_path'];
+}
+
+/**
+ * Delete event form.
+ */
+function mp_booking_busy_event_delete_form(&$form, &$form_state, $event_id) {
+  global $user;
+
+  $form['caution'] = array(
+    '#prefix' => '<div class="caution">',
+    '#markup' => t('This action can not be undone.'),
+    '#suffix' => '</div>',
+  );
+
+  $form['event_id'] = array(
+    '#type' => 'value',
+    '#value' => $event_id
+  );
+  $form['actions'] = array(
+    '#type' => 'container',
+    '#tree' => FALSE,
+  );
+
+  $form['actions']['delete'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete'),
+    '#submit' => array(
+      'mp_booking_busy_event_delete_form_submit',
+    ),
+  );
+
+  $form['actions']['cancel'] = array(
+    '#type' => 'markup',
+    '#markup' => l(t('Cancel'), '/user/' . $user->uid),
+  );
+
+  return $form;
+}
+
+/**
+ * Delete event form submit.
+ *
+ * @see mp_booking_busy_event_delete_form()
+ */
+function mp_booking_busy_event_delete_form_submit($form, &$form_state, $event) {
+  global $user;
+  $values = $form_state['values'];
+
+  $event = bat_Event_load($values['event_id']);
+  bat_event_delete($event);
+
+  $form_state['redirect'] = '/user/' . $user->uid;
 }

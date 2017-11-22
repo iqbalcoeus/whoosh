@@ -97,7 +97,37 @@ function mp_booking_menu() {
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
 
+  $items['busy/event/%/edit'] = array(
+    'title' => t('Busy event edit'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_booking_calendar_form', NULL),
+    'access callback' => 'mp_booking_busy_event_access',
+    'access arguments' => array(2),
+  );
+
+  $items['busy/event/%/delete'] = array(
+    'title' => t('Busy event delete'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_booking_busy_event_delete_form', 2),
+    'access callback' => 'mp_booking_busy_event_access',
+    'access arguments' => array(2),
+  );
+
   return $items;
+}
+
+function mp_booking_busy_event_access($event_id) {
+  global $user;
+
+  $event = bat_event_load($event_id);
+  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  $state_id = $event_wrapper->event_state_reference->state_id->value();
+
+  $access = TRUE;
+  $access = $access && ($event->uid == $user->uid);
+  $access = $access && ($state_id   == MP_BOOKING_STATE_BUSY);
+
+  return $access;
 }
 
 function mp_booking_job_cancel_access($job_nid) {
