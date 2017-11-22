@@ -826,7 +826,7 @@ function mp_booking_job_cancel_form_submit($form, &$form_state) {
 /**
  * Delete event form.
  */
-function mp_booking_busy_event_delete_form(&$form, &$form_state, $event_id) {
+function mp_booking_busy_event_delete_form($form, &$form_state, $event_id) {
   global $user;
 
   $form['caution'] = array(
@@ -865,7 +865,7 @@ function mp_booking_busy_event_delete_form(&$form, &$form_state, $event_id) {
  *
  * @see mp_booking_busy_event_delete_form()
  */
-function mp_booking_busy_event_delete_form_submit($form, &$form_state, $event) {
+function mp_booking_busy_event_delete_form_submit(&$form, &$form_state) {
   global $user;
   $values = $form_state['values'];
 
