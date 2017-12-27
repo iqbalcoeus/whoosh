@@ -284,3 +284,11 @@ function modelplatform_update_7208() {
       ->execute();
   }
 }
+
+/**
+ * Remove wrong variables.
+ */
+function modelplatform_update_7209() {
+  variable_del('nikadevs_cms_block_settings_rhythm_sub');
+  variable_del('nikadevs_cms_layout_rhythm_sub');
+}

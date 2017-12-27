@@ -36,7 +36,7 @@ function bat_event_type_fields_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_model_documents|bat_event|model_availability|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.

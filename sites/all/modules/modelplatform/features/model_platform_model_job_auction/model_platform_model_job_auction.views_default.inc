@@ -152,6 +152,10 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['arguments']['event_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['event_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['event_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   /* Filter criterion: MP Auction: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'mp_auction';
@@ -159,6 +163,28 @@ function model_platform_model_job_auction_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'auction' => 'auction',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Events: State (event_state_reference) */
+  $handler->display->display_options['filters']['event_state_reference_state_id']['id'] = 'event_state_reference_state_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id']['table'] = 'field_data_event_state_reference';
+  $handler->display->display_options['filters']['event_state_reference_state_id']['field'] = 'event_state_reference_state_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id']['relationship'] = 'field_auction_event_target_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id']['value']['value'] = '3';
+  $handler->display->display_options['filters']['event_state_reference_state_id']['group'] = 2;
+  /* Filter criterion: Events: State (event_state_reference) */
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['id'] = 'event_state_reference_state_id_1';
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['table'] = 'field_data_event_state_reference';
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['field'] = 'event_state_reference_state_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['relationship'] = 'field_auction_event_target_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['value']['value'] = '4';
+  $handler->display->display_options['filters']['event_state_reference_state_id_1']['group'] = 2;
+  /* Filter criterion: Events: State (event_state_reference) */
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['id'] = 'event_state_reference_state_id_2';
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['table'] = 'field_data_event_state_reference';
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['field'] = 'event_state_reference_state_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['relationship'] = 'field_auction_event_target_id';
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['value']['value'] = '5';
+  $handler->display->display_options['filters']['event_state_reference_state_id_2']['group'] = 2;
 
   /* Display: Job propose - auction */
   $handler = $view->new_display('block', 'Job propose - auction', 'block');
