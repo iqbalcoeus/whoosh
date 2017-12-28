@@ -86,10 +86,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Sort criterion: Content: Weight (field_weight) */
-  $handler->display->display_options['sorts']['field_weight_value']['id'] = 'field_weight_value';
-  $handler->display->display_options['sorts']['field_weight_value']['table'] = 'field_data_field_weight';
-  $handler->display->display_options['sorts']['field_weight_value']['field'] = 'field_weight_value';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -123,37 +119,13 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['header']['area']['content'] = '<div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area_1']['id'] = 'area_1';
-  $handler->display->display_options['header']['area_1']['table'] = 'views';
-  $handler->display->display_options['header']['area_1']['field'] = 'area';
-  $handler->display->display_options['header']['area_1']['content'] = '<div class="block-quick-tabs">
-<ul class="quicktabs-tabs quicktabs-style-nostyle">
- <li class="active first">
-  <a id="book-picture">Book-picture</a>
- </li>
- <li>
-  <a id="polaroid">Polaroid</a>
- </li>
-</ul>
-</div>';
-  $handler->display->display_options['header']['area_1']['format'] = 'full_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Image category */
-  $handler->display->display_options['fields']['field_image_category']['id'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['table'] = 'field_data_field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['field'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['label'] = '';
-  $handler->display->display_options['fields']['field_image_category']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_image_category']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_image_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
   $handler->display->display_options['fields']['field_gallery_image']['table'] = 'field_data_field_gallery_image';
   $handler->display->display_options['fields']['field_gallery_image']['field'] = 'field_gallery_image';
   $handler->display->display_options['fields']['field_gallery_image']['label'] = '';
   $handler->display->display_options['fields']['field_gallery_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_gallery_image']['element_wrapper_class'] = '[field_image_category]';
   $handler->display->display_options['fields']['field_gallery_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_gallery_image']['type'] = 'colorbox';
   $handler->display->display_options['fields']['field_gallery_image']['settings'] = array(
@@ -172,6 +144,14 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['label'] = '';
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
+  /* Field: Content: Image category */
+  $handler->display->display_options['fields']['field_image_category']['id'] = 'field_image_category';
+  $handler->display->display_options['fields']['field_image_category']['table'] = 'field_data_field_image_category';
+  $handler->display->display_options['fields']['field_image_category']['field'] = 'field_image_category';
+  $handler->display->display_options['fields']['field_image_category']['label'] = '';
+  $handler->display->display_options['fields']['field_image_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_image_category']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Verification status */
   $handler->display->display_options['fields']['field_ver_status']['id'] = 'field_ver_status';
   $handler->display->display_options['fields']['field_ver_status']['table'] = 'field_data_field_ver_status';
@@ -237,176 +217,6 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['block_description'] = 'Model images - Gallery';
-
-  /* Display: Model images - Job palaroid */
-  $handler = $view->new_display('block', 'Model images - Job palaroid', 'block_2');
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<div id="model-gallery-next"></div>
-<div id="model-gallery-prev"></div>';
-  $handler->display->display_options['header']['area']['format'] = 'full_html';
-  $handler->display->display_options['header']['area']['tokenize'] = TRUE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Image */
-  $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['table'] = 'field_data_field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['field'] = 'field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['label'] = '';
-  $handler->display->display_options['fields']['field_gallery_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_gallery_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_gallery_image']['type'] = 'colorbox';
-  $handler->display->display_options['fields']['field_gallery_image']['settings'] = array(
-    'colorbox_node_style' => '150x225_gallery',
-    'colorbox_node_style_first' => '',
-    'colorbox_image_style' => '556x913_colorbox_open',
-    'colorbox_gallery' => 'page',
-    'colorbox_gallery_custom' => '',
-    'colorbox_caption' => 'none',
-    'colorbox_caption_custom' => '',
-  );
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-  /* Field: Content: Image category */
-  $handler->display->display_options['fields']['field_image_category']['id'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['table'] = 'field_data_field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['field'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['label'] = '';
-  $handler->display->display_options['fields']['field_image_category']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_image_category']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_image_category']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Verification status */
-  $handler->display->display_options['fields']['field_ver_status']['id'] = 'field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['table'] = 'field_data_field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['field'] = 'field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['label'] = '';
-  $handler->display->display_options['fields']['field_ver_status']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ver_status']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ver_status']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Author uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'node';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'node_gallery_item' => 'node_gallery_item',
-  );
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  /* Filter criterion: Content: Image category (field_image_category) */
-  $handler->display->display_options['filters']['field_image_category_tid']['id'] = 'field_image_category_tid';
-  $handler->display->display_options['filters']['field_image_category_tid']['table'] = 'field_data_field_image_category';
-  $handler->display->display_options['filters']['field_image_category_tid']['field'] = 'field_image_category_tid';
-  $handler->display->display_options['filters']['field_image_category_tid']['value'] = array(
-    94 => '94',
-  );
-  $handler->display->display_options['filters']['field_image_category_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_image_category_tid']['vocabulary'] = 'image_categories';
-  $handler->display->display_options['block_description'] = 'Model images - Job palaroid';
-
-  /* Display: Model images - Job book */
-  $handler = $view->new_display('block', 'Model images - Job book', 'block_3');
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<div id="model-gallery-next"></div>
-<div id="model-gallery-prev"></div>';
-  $handler->display->display_options['header']['area']['format'] = 'full_html';
-  $handler->display->display_options['header']['area']['tokenize'] = TRUE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Image */
-  $handler->display->display_options['fields']['field_gallery_image']['id'] = 'field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['table'] = 'field_data_field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['field'] = 'field_gallery_image';
-  $handler->display->display_options['fields']['field_gallery_image']['label'] = '';
-  $handler->display->display_options['fields']['field_gallery_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_gallery_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_gallery_image']['type'] = 'colorbox';
-  $handler->display->display_options['fields']['field_gallery_image']['settings'] = array(
-    'colorbox_node_style' => '150x225_gallery',
-    'colorbox_node_style_first' => '',
-    'colorbox_image_style' => '556x913_colorbox_open',
-    'colorbox_gallery' => 'page',
-    'colorbox_gallery_custom' => '',
-    'colorbox_caption' => 'none',
-    'colorbox_caption_custom' => '',
-  );
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-  /* Field: Content: Image category */
-  $handler->display->display_options['fields']['field_image_category']['id'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['table'] = 'field_data_field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['field'] = 'field_image_category';
-  $handler->display->display_options['fields']['field_image_category']['label'] = '';
-  $handler->display->display_options['fields']['field_image_category']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_image_category']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_image_category']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Verification status */
-  $handler->display->display_options['fields']['field_ver_status']['id'] = 'field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['table'] = 'field_data_field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['field'] = 'field_ver_status';
-  $handler->display->display_options['fields']['field_ver_status']['label'] = '';
-  $handler->display->display_options['fields']['field_ver_status']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ver_status']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ver_status']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Author uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'node';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'node_gallery_item' => 'node_gallery_item',
-  );
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  /* Filter criterion: Content: Image category (field_image_category) */
-  $handler->display->display_options['filters']['field_image_category_tid']['id'] = 'field_image_category_tid';
-  $handler->display->display_options['filters']['field_image_category_tid']['table'] = 'field_data_field_image_category';
-  $handler->display->display_options['filters']['field_image_category_tid']['field'] = 'field_image_category_tid';
-  $handler->display->display_options['filters']['field_image_category_tid']['value'] = array(
-    93 => '93',
-  );
-  $handler->display->display_options['filters']['field_image_category_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_image_category_tid']['vocabulary'] = 'image_categories';
-  $handler->display->display_options['block_description'] = 'Model images - Job book';
   $translatables['model_gallery'] = array(
     t('Master'),
     t('Model gallery'),
@@ -424,21 +234,9 @@ function model_platform_gallery_feature_views_default_views() {
     t('Block'),
     t('<div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>'),
-    t('<div class="block-quick-tabs">
-<ul class="quicktabs-tabs quicktabs-style-nostyle">
- <li class="active first">
-  <a id="book-picture">Book-picture</a>
- </li>
- <li>
-  <a id="polaroid">Polaroid</a>
- </li>
-</ul>
-</div>'),
     t('Model images - Job'),
     t('<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>'),
     t('Model images - Gallery'),
-    t('Model images - Job palaroid'),
-    t('Model images - Job book'),
   );
   $export['model_gallery'] = $view;
 
@@ -4838,7 +4636,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Content: From */
+  /* Field: Content: Daily rate from */
   $handler->display->display_options['fields']['field_job_daily_rate_from']['id'] = 'field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['table'] = 'field_data_field_job_daily_rate_from';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['field'] = 'field_job_daily_rate_from';
@@ -4848,11 +4646,10 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_job_daily_rate_from']['alter']['text'] = 'from [field_job_daily_rate_from]';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_job_daily_rate_from']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['field_job_daily_rate_from']['type'] = 'commerce_price_no_decimals';
   $handler->display->display_options['fields']['field_job_daily_rate_from']['settings'] = array(
-    'calculation' => TRUE,
+    'calculation' => FALSE,
   );
-  /* Field: Content: To */
+  /* Field: Content: Daily rate to */
   $handler->display->display_options['fields']['field_job_daily_rate_to']['id'] = 'field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['table'] = 'field_data_field_job_daily_rate_to';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['field'] = 'field_job_daily_rate_to';
@@ -4862,9 +4659,8 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_job_daily_rate_to']['alter']['text'] = ' to [field_job_daily_rate_to]';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_job_daily_rate_to']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['field_job_daily_rate_to']['type'] = 'commerce_price_no_decimals';
   $handler->display->display_options['fields']['field_job_daily_rate_to']['settings'] = array(
-    'calculation' => TRUE,
+    'calculation' => FALSE,
   );
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
@@ -4901,7 +4697,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['fields']['field_job_start_date']['label'] = '';
   $handler->display->display_options['fields']['field_job_start_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_job_start_date']['settings'] = array(
-    'format_type' => 'client_date_format',
+    'format_type' => 'short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',

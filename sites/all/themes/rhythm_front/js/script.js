@@ -14,8 +14,6 @@
   }
 
   $(document).ready(function() {
-    $('#block-views-model-gallery-block').hide();
-    $('#block-quicktabs-model-gallery .quicktabs-tabpage').addClass('block-views').addClass('gallery');
     $('#superfish-1-toggle').on('click', callNativeApp);
 
     if ($('body').hasClass('page-page-404')) {

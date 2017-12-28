@@ -47,7 +47,7 @@ function model_platform_job_template_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups[''] = $field_group;
+  $field_groups['group_job_block|node|job|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -76,7 +76,7 @@ function model_platform_job_template_field_group_info() {
       ),
     ),
   );
-  $field_groups[''] = $field_group;
+  $field_groups['group_job_daily_rate|node|job|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.

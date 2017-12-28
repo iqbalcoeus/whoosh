@@ -83,9 +83,8 @@ function rhythm_front_textfield($variables) {
     'size',
     'maxlength',
   ));
-
   $required = !empty($element['#required']) ? theme('form_required_marker', $variables) : '';
-  $output = '<label>' . t('!title !required', array('!title' => isset($element['#title']) ? $element['#title'] : '', '!required' => $required)) . "</label>";
+  $output = '<label>' . t('!title !required', array('!title' => $element['#title'], '!required' => $required)) . "</label>";
   $output .= '<div class="rhythm-input"><input' . drupal_attributes($element['#attributes']) . ' /></div>';
   $extra = '';
   if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
