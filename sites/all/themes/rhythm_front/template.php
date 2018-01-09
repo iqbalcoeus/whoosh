@@ -12,12 +12,12 @@ function rhythm_front_preprocess_page(&$vars) {
   global $language;
   global $user;
 
-  $role_class = 'yet_not_login';
+  $role_class = array('status'=>'yet_not_login', 'uid' => null, 'user_name' => null);
   if (_modelplatform_user_is_model($user)) {
-    $role_class = 'login_as_model';
+    $role_class = array('status'=>'login_as_model', 'uid' => $user->uid, 'user_name' => $user->name);
   }
   elseif (_modelplatform_user_is_customer($user)) {
-    $role_class = 'login_as_customer';
+    $role_class = array('status'=>'login_as_customer', 'uid' => $user->uid, 'user_name' => $user->name);
   }
 
   $image = variable_get('modelplatform_body_image_404_url', '');
