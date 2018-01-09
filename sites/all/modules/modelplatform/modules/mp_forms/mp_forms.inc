@@ -293,8 +293,9 @@ function _mp_forms_user_profile_form($form) {
     $form['picture']['#access'] = !$is_model || ($access);
   }
   if (isset($form['#user']->roles[MODELPLATFORM_ROLE_CUSTOMER])) {
-    $form['picture']['#title'] = t('Logo');
+//    $form['picture']['#title'] = t('Logo');
     $form['field_company_name']['#access'] = TRUE;
+    $form['picture']['picture_upload']['#description'] = t('Your virtual face or logo. Pictures larger than @dimensions pixels will be scaled down.', array('@dimensions' => variable_get('user_picture_dimensions', '85x85'))) . ' ' . filter_xss_admin(variable_get('user_picture_guidelines', ''));
   }
 
   return $form;
