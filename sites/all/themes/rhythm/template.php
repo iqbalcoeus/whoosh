@@ -159,6 +159,8 @@ function rhythm_fivestar_static_element($variables) {
  * Update status messages
 */
 function rhythm_status_messages($variables) {
+
+  global $user;
   $display = $variables['display'];
   $output = '<div class = "row"><div class = "col-md-8 col-md-offset-2">';
 
@@ -178,6 +180,10 @@ function rhythm_status_messages($variables) {
     'warning' => 'fa-times-circle',
   ); 
   foreach (drupal_get_messages($display) as $type => $messages) {
+    
+    if (in_array('Model', $user->roles) && strpos($messages[0], 'You do not have permission to moderate') !== false && strpos($messages[0], 'Gallery Item-') !== false) {
+        continue;
+    }
     $output .= "<div class=\"alert " . $types[$type] . "\">\n<i class=\"fa fa-lg fa-" . $icons[$type] . "\"></i>";
     if (!empty($status_heading[$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";

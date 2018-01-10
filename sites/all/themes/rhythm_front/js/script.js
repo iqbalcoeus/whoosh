@@ -103,7 +103,7 @@
 
     if (osInfo == "Android") {
       android.openMenu("openMenu");
-      android.openMenu(Drupal.settings.rhythm_front.user.role_class);
+      android.openMenuData(JSON.stringify(Drupal.settings.rhythm_front.user.role_class));
     }
     else if (osInfo == "iOS") {
       try {
