@@ -4564,7 +4564,7 @@ div.sf-accordion-toggle.sf-style-white a {
   #block-delta-blocks-logo,
   #block-locale-language,
   #block-menu-menu-header-social-links {
-    z-index: 9;
+    z-index: 10001;
     position: relative;
   }
 
@@ -5737,6 +5737,9 @@ div.sf-accordion-toggle.sf-style-white a {
     padding-left: 10px;
     padding-right: 10px;
   }
+  .block-views.gallery .views-field-edit-node a{
+    display: block;
+  }
 }
 
 /**/
@@ -5747,4 +5750,16 @@ div.sf-accordion-toggle.sf-style-white a {
 
 .view-models.view-display-id-block_1 .views-row {
   height: auto;
+}
+@media screen and (max-width: 480px) {
+  .group-model-documents .file-widget.form-managed-file{
+    display: block;
+  }
+  .group-model-documents .file-widget.form-managed-file .btn-mod.btn-medium{
+    margin-top: 7px;
+    float: right;
+  }
+  #block-delta-blocks-logo, #block-locale-language, #block-menu-menu-header-social-links{
+    z-index: 10001;
+  }
 }
