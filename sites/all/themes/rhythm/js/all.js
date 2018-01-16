@@ -13,8 +13,10 @@
         $("body").imagesLoaded(function(){
             $(".page-loader div").fadeOut();
         $(".page-loader").delay(200).fadeOut("slow");
+         $(".plugin #providers .provider .button").css("background-image", 'url("/sites/all/modules/modelplatform/modules/mp_registration/css/images/social_login.providers.png")');
         });
         
+
         
     
         init_scroll_navigate();

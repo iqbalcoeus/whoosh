@@ -190,7 +190,7 @@
 .plugin #providers .provider .button {
   width: 35px;
   height: 35px ;
-  background-image: url("http://public.oneallcdn.com/img/api/themes/iconsets/beveled_w35_h35_c_v1.png");
+  background-image: url("/sites/all/modules/modelplatform/modules/mp_registration/css/images/social_login.providers.png");
   background-repeat: no-repeat;
 }
 
