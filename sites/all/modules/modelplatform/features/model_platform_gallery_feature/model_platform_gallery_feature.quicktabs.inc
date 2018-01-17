@@ -35,6 +35,13 @@ function model_platform_gallery_feature_quicktabs_default_quicktabs() {
       'weight' => '-99',
       'type' => 'view',
     ),
+    2 => array(
+      'bid' => 'model_delta_model_video',
+      'hide_title' => 1,
+      'title' => 'Videos',
+      'weight' => '-98',
+      'type' => 'block',
+    ),
   );
   $quicktabs->renderer = 'quicktabs';
   $quicktabs->style = 'nostyle';

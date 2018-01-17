@@ -1,0 +1,36 @@
+<?php 
+	
+	function model_block_info() {    
+	  $blocks['model_video'] = array(
+	    // info: The name of the block.
+	    'info' => t('Model videos to show'),
+	  );
+
+	  return $blocks;
+	}
+
+	function model_block_view($delta = '') {
+	  $uid = arg(2);
+	  $block['subject'] = t('');
+	  $profile = db_select('profile', 'p')
+	    ->fields('p')
+	    ->condition('uid', $uid, '=')
+	    ->condition('type','model_videos', '=')
+	    ->execute()
+	    ->fetchAssoc();
+
+	  $videos = db_select('field_data_field_videos', 'video')
+	    ->fields('video')
+	    ->condition('entity_id', $profile['pid'],'=')
+	    ->execute();
+
+	    $block['content'] = '<div class="book-videos">';
+	    foreach($videos as $video) {
+	    	$url = $video->field_videos_video_url;
+	    	$url=explode('?v=', $url);
+	      $block['content'].= '<iframe style="margin:10px; width="300" height="280"src="https://www.youtube.com/embed/'.$url[1].'"></iframe>';
+	    }
+	    $block['content'] .="</div>";
+	return $block;
+	}
+?>

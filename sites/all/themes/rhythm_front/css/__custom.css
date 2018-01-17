@@ -5763,3 +5763,7 @@ div.sf-accordion-toggle.sf-style-white a {
     z-index: 10001;
   }
 }
+
+#block-model-model-video--2{
+  display: none;
+}
