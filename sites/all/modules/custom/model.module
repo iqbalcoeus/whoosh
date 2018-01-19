@@ -33,4 +33,22 @@
 	    $block['content'] .="</div>";
 	return $block;
 	}
+
+	/**
+	 * Implements hook_menu().
+	 */
+	function model_menu() {
+	  $items = array();
+
+	  $items['user/%user/hybridauth'] = array(
+	    'title' => '',
+	    'page callback' => 'hybridauth_user_identity',
+	    'page arguments' => array(1),
+	    'access callback' => 'user_edit_access',
+	    'access arguments' => array(1),
+	    'file' => 'hybridauth.pages.inc',
+	    'type' => MENU_LOCAL_TASK,
+	  );
+	  return $items;
+	}
 ?>

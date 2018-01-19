@@ -54,6 +54,7 @@
   };
 
   $(document).ready(function() {
+    showSocialIcons();
     var socialBlock = $('.block-social-login-widget .social_login');
     $('#edit-user-roles input').click(function() {
       if ($(this).val() == Drupal.settings.mp_forms.model) {
@@ -74,6 +75,19 @@
     }
     else {
       $('#edit-user-roles-' + Drupal.settings.mp_forms.model).click();
+    }
+    $('input[name="user_roles"]').on("change", function(){
+        showSocialIcons();
+    });
+
+    function showSocialIcons(){
+      if($('input[name="user_roles"]:checked').val()=='4'){
+          $(".hybridauth-icon.facebook, .hybridauth-icon.instagram").hide();
+          $(".hybridauth-icon.linkedin").show();
+      } else{
+          $(".hybridauth-icon.facebook, .hybridauth-icon.instagram").show();
+          $(".hybridauth-icon.linkedin").hide();
+      }
     }
   });
 

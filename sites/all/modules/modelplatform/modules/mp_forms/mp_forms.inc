@@ -486,7 +486,7 @@ function _mp_forms_user_login_form($form) {
       'data' => drupal_get_path('module', 'mp_forms') . '/js/mp_forms.js',
     ),
   );
-  $form['autoassignrole_user']['#weight'] = -100;
+   $form['autoassignrole_user']['#weight'] = -1;
 
   return $form;
 }

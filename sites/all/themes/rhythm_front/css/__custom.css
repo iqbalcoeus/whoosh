@@ -241,7 +241,7 @@ a.tabledrag-handle .handle {
 
 .xing_apply_btn a.customer {
   left: 85px !important;
-  /*top: -80px;*/
+  top: 0 !important;
 }
 
 #block-locale-language,
@@ -5765,5 +5765,22 @@ div.sf-accordion-toggle.sf-style-white a {
 }
 
 #block-model-model-video--2{
+  display: none;
+}
+.hybridauth-widget-wrapper{
+  margin-bottom: 35px;
+}
+.hybridauth-icon p{
+  position: absolute;
+  top:35px;
+  font-size: 11px;
+}
+.hybridauth-icon{
+  margin-right: 30px;
+}
+.hybridauth-icon-hybridauth-32{
+  opacity: 1;
+}
+.profile .form-item-hybridauth{
   display: none;
 }
