@@ -53,6 +53,13 @@ function mp_booking_menu() {
     'access callback' => 'user_access',
     'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
   );
+  $items['job/model/%/invite/%'] = array(
+    'title' => t('Model invitation'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mp_booking_job_model_invite_form_2', 2, 4),
+    'access callback' => 'user_access',
+    'access arguments' => array(MP_BOOKING_PERMISSION_JOB_PROPOSE),
+  );
   $items['job/cancel/%'] = array(
     'title' => t('Model invitation'),
     'page callback' => 'drupal_get_form',

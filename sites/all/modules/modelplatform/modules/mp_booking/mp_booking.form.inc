@@ -5,6 +5,210 @@
  * Model Platform Booking - Forms.
  */
 
+function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $customer_uid = 0) {
+  global $user;
+
+  $model_account = user_load($model_uid);
+
+  // Works on models only.
+  if (!isset($model_account->roles[MODELPLATFORM_ROLE_MODEL])) {
+    drupal_goto(404);
+  }
+
+  $field_full_name = field_get_items('user', $model_account, 'field_full_name');
+  if (isset($field_full_name[0]['value'])) {
+    $full_name = $field_full_name[0]['value'];
+    $title_params = array(
+      '@model_name' => $full_name,
+    );
+  }
+  else {
+    $title_params = array(
+      '@model_name' => $model_account->name,
+    );
+  }
+  $title = t('Book of @model_name', $title_params);
+  drupal_set_title($title);
+
+    $customer_uid = $user->uid; 
+  // Get model unit.
+  $unit = _mp_booking_get_unit('user', $model_account);
+  $form_state['#unit'] = $unit;
+
+  $customer_jobs = _mp_booking_get_opened_customer_jobs($customer_uid);
+
+  $defult_job_nid = NULL;
+  $count_jobs = count($customer_jobs);
+  if (true) {
+    if ($count_jobs == 1) {
+      $nids = array_keys($customer_jobs);
+      $defult_job_nid = $nids[0];
+    }
+
+    $auctioned_job = _mp_booking_get_auctioned_job($model_uid, $customer_uid);
+
+    if ($auctioned_job) {
+        $start_date = $end_date = NULL;
+
+        // Job dates.
+        if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
+          $start_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'];
+        }
+        if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
+          $end_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
+        }
+        $model_events = _mp_booking_get_model_events($model_uid, $start_date, $end_date);
+        $keys = array_keys($model_events);
+        $idx = array_search($auctioned_job->nid, $keys);
+        $event_id = $model_events[$auctioned_job->nid];
+        $event = bat_event_load($event_id);
+
+        $status = NULL;
+        $decision = '';
+
+        $auction_data = mp_booking_get_event_last_auction($event_id);
+
+        $auction = mp_auction_load($auction_data->auction_id);
+        $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
+        $status_items = array();
+        if (isset($field_status[0]['value'])) {
+          $field = field_info_field('field_auction_status');
+          $values = list_allowed_values($field);
+
+          // @TODO Should be changed. Hot fix.
+          unset($values['request sent']);
+          unset($values['confirmed']);
+
+          $value = $field_status[0]['value'];
+          if ($value !== 'read') {
+            $value = 'unread';
+          }
+          foreach($values as $key => $status) {
+            $class = '';
+            if ($key == $value) {
+              $class = 'job-customer-decision';
+            }
+            $status_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
+          }
+        }
+        $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
+        $decision_items = array();
+        $decision_value = FALSE;
+        $decision_field = field_info_field('field_auction_decision');
+        $decision_values = list_allowed_values($decision_field);
+        if (isset($field_decision[0]['value'])) {
+          $decision_value = $field_decision[0]['value'];
+        }
+        if (!$decision_value) {
+          $decision_value = 'Request sent';
+        }
+        foreach($decision_values as $key => $status) {
+          $class = $prefix = $suffix = '';
+          if ($key == $decision_value) {
+            $class = 'job-customer-decision';
+            $prefix = '<b>';
+            $suffix = '</b>';
+          }
+          $decision_items[] = '<span class="' . $class . '">' . $prefix . t($status) . $suffix . '</span>';
+        }
+
+        $form['job_title'] = array(
+          '#type' => 'markup',
+          '#markup' => '<h5>' . $auctioned_job->title . '</h5>',
+        );
+        $form['auction_form'] = array(
+          '#type' => 'markup',
+          '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
+        );
+        $form['decision'] = array(
+          '#type' => 'markup',
+          '#prefix' => '<div class="auction-decision-new">',
+          '#markup' => implode(' ', $decision_items),
+          '#suffix' => '</div>',
+        );
+        $form['status'] = array(
+          '#type' => 'markup',
+          '#markup' => '<div class="auction-status">' . implode(' ', $status_items) . '</div>',
+        );
+        $form['auction_id'] = array(
+          '#type' => 'value',
+          '#value' => $auction_data->auction_id,
+        );
+        $form['event_id'] = array(
+          '#type' => 'value',
+          '#value' => $event_id,
+        );
+
+        $form['jobs'] = array(
+          '#type' => 'value',
+          '#value' => $auctioned_job->nid,
+        );
+
+        foreach ($keys as $key => $event_key) {
+          $class = $prefix = $suffix = '';
+          if ($key == $idx) {
+            $class = 'job-customer-decision';
+            if ($key == 0) {
+              $prefix = '<b>';
+              $suffix = '</b>';
+            }
+          }
+          $items[]=null;
+          $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $key + 1)) . $suffix . '</span>';
+        }
+
+        $form['job_number'] = array(
+          '#type' => 'markup',
+          '#prefix' => '<div class="job-number">',
+          '#markup' => implode(' ', $items),
+          '#suffix' => '</div>',
+        );
+        $enabled = (
+              !isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+          &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid
+          )
+          || (
+              isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+          &&  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Accept'
+          &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] != $user->uid
+        ) && $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] !=3;
+
+        $form['actions'] = array(
+          '#type' => 'container',
+          '#tree' => TRUE,
+        );
+        if ($enabled) {
+          $form['actions']['confirm'] = array(
+            '#type' => 'submit',
+            '#value' => t('Confirm'),
+            '#name' => 'job_confirm',
+            '#disabled' => !$enabled,
+            '#submit' => array(
+              'mp_booking_job_model_invite_form_confirm_submit',
+            ),
+          );
+          $form['actions']['cancel'] = array(
+            '#type' => 'submit',
+            '#value' => t('Cancel'),
+            '#name' => 'job_cancel',
+            '#disabled' => !$enabled,
+            '#submit' => array(
+              'mp_booking_job_model_invite_form_cancel_submit',
+            ),
+          );
+        }
+      }
+  }
+  else {
+    $form['info'] = array(
+      '#type' => 'markup',
+      '#markup' => t('You have no active Jobs'),
+    );
+  }
+
+  return $form;
+}
+
 /**
  * Model job invitiation form.
  */
@@ -42,7 +246,10 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
   $form_state['#unit'] = $unit;
 
   $customer_jobs = _mp_booking_get_opened_customer_jobs($customer_uid);
-
+  $auctioned_jobs = _mp_booking_get_auction_event_data_2($model_uid, $customer_uid);
+  foreach ($auctioned_jobs as $job) {
+    unset($customer_jobs[$job->job_nid]);
+  }
   $defult_job_nid = NULL;
   $count_jobs = count($customer_jobs);
   if ($count_jobs) {
@@ -50,161 +257,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
       $nids = array_keys($customer_jobs);
       $defult_job_nid = $nids[0];
     }
-
-    $auctioned_job = _mp_booking_get_auctioned_job($model_uid, $customer_uid);
-
-    if ($auctioned_job) {
-      $start_date = $end_date = NULL;
-
-      // Job dates.
-      if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'])) {
-        $start_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value'];
-      }
-      if (isset($auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'])) {
-        $end_date = $auctioned_job->field_job_start_date[LANGUAGE_NONE][0]['value2'];
-      }
-      $model_events = _mp_booking_get_model_events($model_uid, $start_date, $end_date);
-      $keys = array_keys($model_events);
-      $idx = array_search($auctioned_job->nid, $keys);
-      $event_id = $model_events[$auctioned_job->nid];
-      $event = bat_event_load($event_id);
-
-      $status = NULL;
-      $decision = '';
-
-      $auction_data = mp_booking_get_event_last_auction($event_id);
-
-      $auction = mp_auction_load($auction_data->auction_id);
-      $field_status = field_get_items('mp_auction', $auction, 'field_auction_status');
-      $status_items = array();
-      if (isset($field_status[0]['value'])) {
-        $field = field_info_field('field_auction_status');
-        $values = list_allowed_values($field);
-
-        // @TODO Should be changed. Hot fix.
-        unset($values['request sent']);
-        unset($values['confirmed']);
-
-        $value = $field_status[0]['value'];
-        if ($value !== 'read') {
-          $value = 'unread';
-        }
-        foreach($values as $key => $status) {
-          $class = '';
-          if ($key == $value) {
-            $class = 'job-customer-decision';
-          }
-          $status_items[] = '<span class="' . $class . '">' . t($status) . '</span>';
-        }
-      }
-      $field_decision = field_get_items('mp_auction', $auction, 'field_auction_decision');
-      $decision_items = array();
-      $decision_value = FALSE;
-      $decision_field = field_info_field('field_auction_decision');
-      $decision_values = list_allowed_values($decision_field);
-      if (isset($field_decision[0]['value'])) {
-        $decision_value = $field_decision[0]['value'];
-      }
-      if (!$decision_value) {
-        $decision_value = 'Request sent';
-      }
-      foreach($decision_values as $key => $status) {
-        $class = $prefix = $suffix = '';
-        if ($key == $decision_value) {
-          $class = 'job-customer-decision';
-          $prefix = '<b>';
-          $suffix = '</b>';
-        }
-        $decision_items[] = '<span class="' . $class . '">' . $prefix . t($status) . $suffix . '</span>';
-      }
-
-      $form['job_title'] = array(
-        '#type' => 'markup',
-        '#markup' => '<h5>' . $auctioned_job->title . '</h5>',
-      );
-      $form['auction_form'] = array(
-        '#type' => 'markup',
-        '#markup' => views_embed_view('job_propose_auctions', 'block', array($event_id)),
-      );
-      $form['decision'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="auction-decision-new">',
-        '#markup' => implode(' ', $decision_items),
-        '#suffix' => '</div>',
-      );
-      $form['status'] = array(
-        '#type' => 'markup',
-        '#markup' => '<div class="auction-status">' . implode(' ', $status_items) . '</div>',
-      );
-      $form['auction_id'] = array(
-        '#type' => 'value',
-        '#value' => $auction_data->auction_id,
-      );
-      $form['event_id'] = array(
-        '#type' => 'value',
-        '#value' => $event_id,
-      );
-
-      $form['jobs'] = array(
-        '#type' => 'value',
-        '#value' => $auctioned_job->nid,
-      );
-
-      foreach ($keys as $key => $event_key) {
-        $class = $prefix = $suffix = '';
-        if ($key == $idx) {
-          $class = 'job-customer-decision';
-          if ($key == 0) {
-            $prefix = '<b>';
-            $suffix = '</b>';
-          }
-        }
-        $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $key + 1)) . $suffix . '</span>';
-      }
-
-      $form['job_number'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="job-number">',
-        '#markup' => implode(' ', $items),
-        '#suffix' => '</div>',
-      );
-
-      $enabled = (
-            !isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
-        &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid
-        )
-        || (
-            isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
-        &&  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Accept'
-        &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] != $user->uid
-      );
-
-      $form['actions'] = array(
-        '#type' => 'container',
-        '#tree' => TRUE,
-      );
-      if ($enabled) {
-        $form['actions']['confirm'] = array(
-          '#type' => 'submit',
-          '#value' => t('Confirm'),
-          '#name' => 'job_confirm',
-          '#disabled' => !$enabled,
-          '#submit' => array(
-            'mp_booking_job_model_invite_form_confirm_submit',
-          ),
-        );
-        $form['actions']['cancel'] = array(
-          '#type' => 'submit',
-          '#value' => t('Cancel'),
-          '#name' => 'job_cancel',
-          '#disabled' => !$enabled,
-          '#submit' => array(
-            'mp_booking_job_model_invite_form_cancel_submit',
-          ),
-        );
-      }
-    }
-    else {
       $form['model_uid'] = array(
         '#type' => 'value',
         '#value' => $model_uid,
@@ -236,7 +288,6 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         ),
       );
       $form['#validate'] = 'mp_booking_job_model_invite_form_validate';
-    }
   }
   else {
     $form['info'] = array(
@@ -340,8 +391,10 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   module_invoke_all('mpb_option_model_accept', $auction);
 
   $event = bat_event_load($form_state['values']['event_id']);
+
   $event->field_job_cost = $auction->field_auction_cost_propose;
   $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
+
   bat_event_save($event);
 
   // Set booked status for the job.
