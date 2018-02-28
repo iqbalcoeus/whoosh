@@ -373,7 +373,7 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $values['model_uid'];
   mp_auction_save($auction);
 
-  $job['field_job_status'][LANGUAGE_NONE][0]['target_id'] = 96;
+  $job->field_job_status[LANGUAGE_NONE][0]['tid'] = 96;
   node_save($job);
 
   module_invoke_all('mpb_option_model', $event);
