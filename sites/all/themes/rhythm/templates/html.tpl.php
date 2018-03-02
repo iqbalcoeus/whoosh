@@ -10,7 +10,15 @@
   <meta name=viewport content="width=device-width, initial-scale=1">
 
   <?php print $styles; ?>
-  
+  <?php 
+      global $user;
+      if(isset($user))
+      {
+        if (in_array('Model', $user->roles)) {
+          $classes .= ' model-user';
+        }
+      }
+  ?>
 </head>
 <body class="appear-animate <?php print $classes; ?>"<?php print $attributes; ?>>
   <div class="main-wrap">
