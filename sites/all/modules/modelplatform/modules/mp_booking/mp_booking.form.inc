@@ -177,16 +177,28 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
           '#type' => 'container',
           '#tree' => TRUE,
         );
-        if ($enabled) {
-          $form['actions']['confirm'] = array(
-            '#type' => 'submit',
-            '#value' => t('Confirm'),
-            '#name' => 'job_confirm',
-            '#disabled' => !$enabled,
-            '#submit' => array(
-              'mp_booking_job_model_invite_form_confirm_submit',
-            ),
-          );
+        if ($enabled && $auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] !=97) {
+          if($auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] == 96){
+            $form['actions']['book'] = array(
+              '#type' => 'submit',
+              '#value' => t('Book'),
+              '#name' => 'job_book',
+              '#disabled' => !$enabled,
+              '#submit' => array(
+                'mp_booking_job_model_invite_form_confirm_submit',
+              ),
+            );
+          } else  {
+            $form['actions']['confirm'] = array(
+              '#type' => 'submit',
+              '#value' => t('Confirm'),
+              '#name' => 'job_confirm',
+              '#disabled' => !$enabled,
+              '#submit' => array(
+                'mp_booking_job_model_optioned_form_submit',
+              ),
+            );
+          }
           $form['actions']['cancel'] = array(
             '#type' => 'submit',
             '#value' => t('Cancel'),
@@ -278,7 +290,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
 
       $form['job_invite'] = array(
         '#type' => 'submit',
-        '#value' => t('Option Please'),
+        '#value' => t('Invite Please'),
         '#name' => "job_invite",
         '#submit' => array(
           'mp_booking_job_model_invite_form_submit',
@@ -373,13 +385,26 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $values['model_uid'];
   mp_auction_save($auction);
 
+  // $job->field_job_status[LANGUAGE_NONE][0]['tid'] = 96;
+  // node_save($job);
+
+  module_invoke_all('mpb_option_model', $event);
+  drupal_set_message(t('Model has been invited'));
+}
+
+function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
+  global $user;
+
+  $values = $form_state['values'];
+
+  $job_nid = $values['jobs'];
+  $job = node_load($job_nid);
+
   $job->field_job_status[LANGUAGE_NONE][0]['tid'] = 96;
   node_save($job);
 
-  module_invoke_all('mpb_option_model', $event);
   drupal_set_message(t('Model was optioned'));
 }
-
 /**
  * Form submit.
  *
