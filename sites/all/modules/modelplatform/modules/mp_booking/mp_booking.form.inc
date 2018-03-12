@@ -415,6 +415,11 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
   $job->field_job_status[LANGUAGE_NONE][0]['tid'] = 96;
   node_save($job);
 
+  db_update('model_job')
+                ->fields(array('job_status' => 'accepted' ))
+                ->condition('job_id', $job_nid, '=')
+                ->condition('uid', $values['model_uid'], '=')
+                ->execute();
   drupal_set_message(t('Model was optioned'));
 }
 /**
@@ -655,11 +660,6 @@ function mp_booking_job_auction_form_accept($form, &$form_state) {
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
 
-  db_update('model_job')
-                ->fields(array('job_status' => 'accepted' ))
-                ->condition('job_id', $form['#event']->field_job[LANGUAGE_NONE][0]['target_id'], '=')
-                ->condition('uid', $user->uid, '=')
-                ->execute();
   module_invoke_all('mpb_option_model_accept', $auction);
 }
 
