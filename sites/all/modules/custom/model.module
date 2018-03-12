@@ -51,4 +51,44 @@
 	  );
 	  return $items;
 	}
-?>
+
+	/**
+	* Implement hook chema
+	*/
+	function model_schema() {
+	  $schema = array();
+	  $schema['model_job'] = array(
+	    'description' => 'bridge between model and job',
+	    'fields' => array(
+	      'uid' => array(
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	        'description' => 'model uid',
+	      ),
+	      'job_id' => array(
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	        'default' => '',
+	        'description' => 'job id',
+	      ),
+	      'job_status' => array(
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	        'default' => '',
+	        'description' => 'job status for model',
+	      ),
+	  )
+	 );
+	  return $schema;
+	}
+
+	//create table for model job status
+	function model_update_7001() {
+
+	  $schema = model_schema();
+	  if(!db_table_exists('model_job'))
+	    db_create_table('model_job', $schema['model_job']);
+	}

@@ -177,8 +177,15 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
           '#type' => 'container',
           '#tree' => TRUE,
         );
+        $query = db_select('model_job', 'mj');
+        $query->fields('mj', array('job_status'));
+        $query->condition('uid',$model_uid,'=');
+        $query->condition('job_id',$auctioned_job->nid,'=');
+        $result = $query->execute()->fetchAssoc();
+
         if ($enabled && $auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] !=97) {
-          if($auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] == 96){
+
+          if($result['job_status'] =='accepted'){
             $form['actions']['book'] = array(
               '#type' => 'submit',
               '#value' => t('Book'),
@@ -188,10 +195,10 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
                 'mp_booking_job_model_invite_form_confirm_submit',
               ),
             );
-          } else  {
+          } else {
             $form['actions']['confirm'] = array(
               '#type' => 'submit',
-              '#value' => t('Confirm'),
+              '#value' => t('option'),
               '#name' => 'job_confirm',
               '#disabled' => !$enabled,
               '#submit' => array(
@@ -385,8 +392,13 @@ function mp_booking_job_model_invite_form_submit($form, &$form_state) {
   $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $values['model_uid'];
   mp_auction_save($auction);
 
-  // $job->field_job_status[LANGUAGE_NONE][0]['tid'] = 96;
-  // node_save($job);
+  db_insert('model_job')
+    ->fields(array(
+      'uid' => $values['model_uid'],
+      'job_id' => $job_nid,
+      'job_status' => 'invited'
+    ))
+    ->execute();
 
   module_invoke_all('mpb_option_model', $event);
   drupal_set_message(t('Model has been invited'));
@@ -637,11 +649,17 @@ function mp_booking_job_auction_form_ajax($form, $form_state) {
  * @see mp_booking_job_auction_form()
  */
 function mp_booking_job_auction_form_accept($form, &$form_state) {
+  global $user;
   $auction_id = $form_state['values']['_mp_auction_id'];
   $auction = mp_auction_load($auction_id);
   $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
   mp_auction_save($auction);
 
+  db_update('model_job')
+                ->fields(array('job_status' => 'accepted' ))
+                ->condition('job_id', $form['#event']->field_job[LANGUAGE_NONE][0]['target_id'], '=')
+                ->condition('uid', $user->uid, '=')
+                ->execute();
   module_invoke_all('mpb_option_model_accept', $auction);
 }
 
