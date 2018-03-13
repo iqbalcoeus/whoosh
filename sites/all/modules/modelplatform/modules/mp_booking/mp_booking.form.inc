@@ -418,7 +418,7 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
   db_update('model_job')
                 ->fields(array('job_status' => 'accepted' ))
                 ->condition('job_id', $job_nid, '=')
-                ->condition('uid', $values['model_uid'], '=')
+                ->condition('uid', arg(2), '=')
                 ->execute();
   drupal_set_message(t('Model was optioned'));
 }

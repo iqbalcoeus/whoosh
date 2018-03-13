@@ -92,3 +92,37 @@
 	  if(!db_table_exists('model_job'))
 	    db_create_table('model_job', $schema['model_job']);
 	}
+
+	/**
+	 * Implements hook_views_query_alter().
+	 */
+	function model_views_query_alter($view, $query) {  
+		
+	    if($view->name == "job_models" && $view->current_display=='block_1') {
+
+	        $join = new views_join();
+	        $join->table = 'model_job';
+	        $join->field = 'job_id';
+	        $join->left_table = 'node_field_data_field_job';
+	        $join->left_field = 'nid';
+	        $join->type = 'inner';
+
+	        $query->add_relationship('model_job', $join, 'node');
+	       
+			$query->where[1]['conditions'][] = array(
+			 'field' => 'model_job.job_id',
+			 'value' => 'node_field_data_field_job.nid', // Make your condition with the help of Where Clause
+			 'operator' => '='
+			);
+
+			$query->where[1]['conditions'][] = array(
+			 'field' => 'model_job.uid',
+			 'value' => 'users.uid', // Make your condition with the help of Where Clause
+			 'operator' => '='
+			);
+	        
+	    }
+	  }
+	
+
+?>
