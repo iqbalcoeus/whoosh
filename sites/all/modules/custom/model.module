@@ -105,25 +105,17 @@
 	        $join->field = 'job_id';
 	        $join->left_table = 'node_field_data_field_job';
 	        $join->left_field = 'nid';
-	        $join->type = 'LEFT';
+	        $join->type = 'INNER';
+	        $join->extra = 'model_job.uid = users.uid';
+
 
 	        $query->add_relationship('model_job', $join, 'node_field_data_field_job');
 
-	        $join = new views_join();
-	        $join->table = 'model_job';
-	        $join->field = 'uid';
-	        $join->left_table = 'users';
-	        $join->left_field = 'uid';
-	        $join->type = 'LEFT';
-
-	        $query->add_relationship('model_job', $join, 'users');
-	       
-			$query->where[1]['conditions'][] = array(
+	        $query->where[1]['conditions'][] = array(
 			 'field' => 'model_job.job_status',
-			 'value' => 'accepted', // Make your condition with the help of Where Clause
+			 'value' => 'accepted',
 			 'operator' => '='
 			);
-	        
 	    }
 	  }
 	
