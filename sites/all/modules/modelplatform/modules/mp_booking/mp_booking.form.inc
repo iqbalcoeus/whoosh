@@ -408,7 +408,7 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
   global $user;
 
   $values = $form_state['values'];
-
+  $event = bat_event_load($form_state['values']['event_id']);
   $job_nid = $values['jobs'];
   $job = node_load($job_nid);
 
