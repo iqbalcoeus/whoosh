@@ -119,5 +119,19 @@
 	    }
 	  }
 	
-
+	// starting block validation model profile form
+	  function model_form_user_profile_form_alter(&$form, &$form_state, $form_id)
+	  {
+	  	$form['#validate'][] = 'model_article_form_validate';
+	  }
+	  function model_article_form_validate($form, &$form_state) 
+	  {
+		if(!empty($form_state['input']['profile_model_basic_informaiton']))
+		{
+			if($form_state['input']['profile_model_basic_informaiton']['field_daily_rate']['und'][0]['amount'] < 500){
+				form_set_error('title', 'Daily Rate can not be less than 500');
+			}
+		}
+	  }
+	// ending block
 ?>
