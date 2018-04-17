@@ -68,8 +68,8 @@
         // Placeholders.
         $('input[name="bat_start_date[date]"]').attr('placeholder', 'Start date');
         $('input[name="bat_end_date[date]"]').attr('placeholder', 'End date');
-        $('input[name="bat_start_date[time]"]').attr('placeholder', '10:00 AM');
-        $('input[name="bat_end_date[time]"]').attr('placeholder', '10:00 AM');
+        $('input[name="bat_start_date[time]"]').attr('placeholder', '16:00');
+        $('input[name="bat_end_date[time]"]').attr('placeholder', '16:00');
 
         $('#model-gallery-next').appendTo('body');
         $('#model-gallery-prev').appendTo('body');
