@@ -9,16 +9,16 @@ $conf['file_temporary_path'] = '/tmp';
 $databases['default']['default'] = array(
   'driver' => 'mysql',
   'database' => 'db543256_1',
-  'username' => 'db543256_1',
+  'username' => 'root',
   'port' => '3306',
-  'password' => 'fTQU7sG9ND6TYA8aB4DprDvKf',
-  'host' => 'mysql5.megamodelonline.com',
+  'password' => 'coeus123',
+  'host' => 'localhost',
   'prefix' => '',
 );
 $update_free_access = TRUE;
 
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 0);
-error_reporting(0);
+error_reporting(E_ALL);
 
-ini_set('memory_limit','256M');
+ini_set('memory_limit','512M');
