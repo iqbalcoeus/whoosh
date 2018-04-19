@@ -318,7 +318,8 @@ function _mp_forms_job_node_form($form) {
   global $user;
 
   if (!_modelplatform_job_creation_access($user)) {
-    drupal_set_message(t('Please enter mandatory data before creating a job.'), 'warning');
+    // drupal_set_message(t('Please enter mandatory data before creating a job.'), 'warning');
+    drupal_set_message(t('Tax number, VAT ID and Commercial registry number fields required to create a job.'), 'warning');
     drupal_goto("user/$user->uid/edit/customer_private_data");
   }
   $get_params = drupal_get_query_parameters();
