@@ -8,7 +8,7 @@
 /**
  * The current system version.
  */
-define('VERSION', '7.55');
+define('VERSION', '7.59');
 
 /**
  * Core API compatibility.
@@ -747,31 +747,6 @@ function drupal_settings_initialize() {
     include_once DRUPAL_ROOT . '/' . conf_path() . '/settings.php';
   }
   $is_https = drupal_is_https();
-
-  // Load environmental config, if present.
-  if (isset($_SERVER['PRESSFLOW_SETTINGS'])) {
-    $pressflow_settings = json_decode($_SERVER['PRESSFLOW_SETTINGS'], TRUE);
-    foreach ($pressflow_settings as $key => $value) {
-      // One level of depth should be enough for $conf and $database.
-      if ($key == 'conf') {
-        foreach($value as $conf_key => $conf_value) {
-          $conf[$conf_key] = $conf_value;
-        }
-      }
-      elseif ($key == 'databases') {
-        // Protect default configuration but allow the specification of
-        // additional databases. Also, allows fun things with 'prefix' if they
-        // want to try multisite.
-        if (!isset($databases) || !is_array($databases)) {
-          $databases = array();
-        }
-        $databases = array_replace_recursive($databases, $value);
-      }
-      else {
-        $$key = $value;
-      }
-    }
-  }
 
   if (isset($base_url)) {
     // Parse fixed base URL from settings.php.
@@ -2657,6 +2632,10 @@ function _drupal_bootstrap_configuration() {
   timer_start('page');
   // Initialize the configuration, including variables from settings.php.
   drupal_settings_initialize();
+
+  // Sanitize unsafe keys from the request.
+  require_once DRUPAL_ROOT . '/includes/request-sanitizer.inc';
+  DrupalRequestSanitizer::sanitize();
 }
 
 /**
@@ -2776,22 +2755,6 @@ function _drupal_bootstrap_database() {
 function _drupal_bootstrap_variables() {
   global $conf;
 
-  // Pressflow Smart Start
-  if (!empty($GLOBALS['databases']) && variable_get('pressflow_smart_start', FALSE)) {
-    try {
-      $result = db_query('SELECT s.name FROM {system} s WHERE s.name = :name', array(':name' => 'system'));
-    } catch (PDOException $e) {
-      if ($e->getCode() == '2003') {
-        header('Status: 550 Database Offline');
-        exit();
-      }
-      elseif ($e->getCode() == '42S02') {
-        include_once DRUPAL_ROOT . '/includes/install.inc';
-        install_goto('install.php');
-      }
-    }
-  }
-
   // Initialize the lock system.
   require_once DRUPAL_ROOT . '/' . variable_get('lock_inc', 'includes/lock.inc');
   lock_initialize();
@@ -2814,6 +2777,11 @@ function _drupal_bootstrap_variables() {
     if (isset($_GET['destination']) && url_is_external($_GET['destination'])) {
       unset($_GET['destination']);
       unset($_REQUEST['destination']);
+    }
+    // Use the DrupalRequestSanitizer to ensure that the destination's query
+    // parameters are not dangerous.
+    if (isset($_GET['destination'])) {
+      DrupalRequestSanitizer::cleanDestination();
     }
     // If there's still something in $_REQUEST['destination'] that didn't come
     // from $_GET, check it too.

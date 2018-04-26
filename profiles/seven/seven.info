@@ -1,6 +1,0 @@
-name = JobBoard PREMIUM v1.5.41 (Released November 4th, 2015)
-description = JobBoard Premium Theme Installation Profile.
-version = VERSION
-core = 7.x
-dependencies[] = block
-files[] = seven.profile
