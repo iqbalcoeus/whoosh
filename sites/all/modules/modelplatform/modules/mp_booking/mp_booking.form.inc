@@ -892,10 +892,20 @@ function mp_booking_job_cancel_form($form, &$form_state, $job_nid) {
   $form['#job_nid'] = $job_nid;
   $form_state['#direct_path'] = '/dashboard';
 
+  $cancel_path ='/dashboard';
+  if (!empty($_SERVER['HTTP_REFERER']) OR isset($_SESSION['referrer'])) {
+    
+    if(!empty($_SERVER['HTTP_REFERER'])){
+      $_SESSION['referrer'] = $_SERVER['HTTP_REFERER'];
+    }
+
+    $cancel_path = $_SESSION['referrer'];
+  }
+
   return confirm_form(
     $form,
     t('Are you sure you want to reject the job contract?'),
-    current_path(),
+    $cancel_path,
     t('This action cannot be undone.'),
     t('Accept'),
     t('Decline')

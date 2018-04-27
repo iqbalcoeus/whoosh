@@ -5784,3 +5784,14 @@ div.sf-accordion-toggle.sf-style-white a {
 .profile .form-item-hybridauth{
   display: none;
 }
+#mp-booking-job-cancel-form #edit-cancel{
+  margin-left: 10px;
+  padding: 8px 15px;
+  border-radius: 2px;
+  height: auto;
+  font-size: 12px;
+  display: inline-block;
+  color: #fff;
+  background: rgba(34,34,34, .9);
+  /*border: 2px solid transparent;*/
+}
