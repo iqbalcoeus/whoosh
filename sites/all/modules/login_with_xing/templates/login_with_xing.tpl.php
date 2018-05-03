@@ -7,7 +7,7 @@
 <script id="lwx" src="https://www.xing-share.com/plugins/login.js"></script>
 <script>
     var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
 
     onXingLogout();
 
@@ -45,7 +45,6 @@
             {
               "consumer_key": "<?php echo variable_get('login_with_xing_ckey') ?>",
               "color":"grey",
-              "language":"en",
               "size":"large"
             }
             </script>
