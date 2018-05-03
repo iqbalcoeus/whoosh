@@ -1,0 +1,13 @@
+name = Login With Xing
+description = "A Xing module to allow users to login/singup with their Xing account"
+package = Xing
+core = 7.x
+configure = admin/config/people/login_with_xing
+; Information added by Drupal.org packaging script on 2015-02-26
+
+; Information added by Drupal.org packaging script on 2015-08-05
+version = "7.x-1.0"
+core = "7.x"
+project = "login_with_xing"
+datestamp = "1525320098"
+

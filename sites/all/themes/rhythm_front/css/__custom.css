@@ -197,7 +197,7 @@ a.tabledrag-handle .handle {
 }
 
 .xing_apply_btn a {
-  background-image: url('images/xing-logo.svg');
+  /*background-image: url('images/xing-logo.svg');*/
   background-size: 100% 100%;
   width: 35px;
   height: 35px;
@@ -219,7 +219,7 @@ a.tabledrag-handle .handle {
   text-align: center;
   font-size: 11px;
   line-height: 14px;
-  margin-top: 38px;
+  margin-top: 7px;
   color: #222;
   font-weight: 500;
   text-decoration: none;
@@ -241,7 +241,7 @@ a.tabledrag-handle .handle {
 
 .xing_apply_btn a.customer {
   left: 85px !important;
-  top: 0 !important;
+  top: 6px !important;
 }
 
 #block-locale-language,

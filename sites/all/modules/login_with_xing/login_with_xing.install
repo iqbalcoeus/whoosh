@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Install file for xing module. Checks Requirements.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function login_with_xing_uninstall() {
+  variable_del('login_with_xing_ckey');
+  variable_del('login_with_xing_login');
+}
