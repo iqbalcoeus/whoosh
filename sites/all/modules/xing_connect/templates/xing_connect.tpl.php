@@ -44,7 +44,8 @@
             <script type="xing/login">
             {
               "consumer_key": "<?php echo variable_get('login_with_xing_ckey') ?>",
-              "color":"grey",
+              "language": "<?php global $language; echo $language->language; ?>",
+              "color":"green",
               "size":"large"
             }
             </script>
