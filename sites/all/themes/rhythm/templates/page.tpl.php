@@ -63,7 +63,7 @@
  * @see template_preprocess_page()
  * @see template_process()
  */
-$messages = $messages ? '<div class = "container">' . $messages . '</div>' : '';
+$messages = $messages ? '<div class = "messages container">' . $messages . '</div>' : '';
 $tabs = render($tabs);
 $tabs = $tabs ? '<div class = "container">' . $tabs . '</div>' : '';
 $page['content']['#prefix'] = render($title_prefix) . $messages . $tabs . render($title_suffix);

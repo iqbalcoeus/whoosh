@@ -134,4 +134,27 @@
 		}
 	  }
 	// ending block
+
+	function model_form_simplenews_block_form_alter (&$form, &$form_state, $form_id)
+	{
+		$form['#validate'][] = 'simplenews_block_form_validate_email';
+	}
+
+	function simplenews_block_form_validate_email($form, &$form_state)
+	{
+		// print_r($form_state); die;
+		$result = db_select('simplenews_subscriber', 'ss')
+		    ->fields('ss')
+		    ->condition('mail', $form_state['values']['mail'],'=')
+		    ->condition('activated', 1,'=')
+		    ->execute();
+		$num_of_results = $result->rowCount();
+
+		if($result->rowCount() > 0)
+		{
+			form_set_error('title', $form_state['values']['mail'].t(' Email already exist.'));
+		}
+
+	}
+
 ?>
