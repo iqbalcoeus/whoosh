@@ -45,6 +45,20 @@
     this.events = Drupal.settings.basePath + Drupal.settings.mp_booking.eventsPath;
     this.eventRender = function(event, element) {
       $(element[0]).attr('title', event.tooltip);
+    };
+    //limit the calender start date
+    this.viewRender= function(currentView){
+        //start of the year
+        var minDate = moment().startOf('year');
+        // Past
+        if (minDate >= currentView.start && minDate <= currentView.end) {
+            $(".fc-prev-button").prop('disabled', true);
+            $(".fc-prev-button").addClass('fc-state-disabled');
+        }
+        else {
+            $(".fc-prev-button").removeClass('fc-state-disabled');
+            $(".fc-prev-button").prop('disabled', false);
+        }
     }
   };
 
