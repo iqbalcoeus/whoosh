@@ -65,7 +65,7 @@
  */
 ?>
 <?php print render($page['top']); ?>
-<div class="js-height-full">
+<div class="js-height-full" id="page-404">
     <div class="home-content container">
         <div class="home-text">
             <div class="hs-cont">
@@ -82,7 +82,7 @@
                     </div>
                     
                     <div class="local-scroll">                                        
-                        <a href="<?php print url('<front>'); ?>" class="btn btn-mod btn-w btn-round btn-small"><i class="fa fa-angle-left"></i> <?php print t('Back To Home Page'); ?></a>                                        
+                        <a href="<?php print url('<front>'); ?>" class="btn-medium btn btn-mod btn-round"><i class="fa fa-angle-left"></i> <?php print t('Back To Home Page'); ?></a>                                        
                     </div>
                     
                 </div>
