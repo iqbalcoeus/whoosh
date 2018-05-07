@@ -2201,8 +2201,16 @@ function user_login_authenticate_validate($form, &$form_state) {
       }
     }
     // We are not limited by flood control, so try to authenticate.
-    // Set $form_state['uid'] as a flag for user_login_final_validate().
-    $form_state['uid'] = user_authenticate($form_state['values']['name'], $password);
+    // Set $form_state['uid'] as a flag for user_login_final_validate()
+
+      // Checks the role at time of login
+      $role = db_query("SELECT * FROM {users_roles} WHERE uid = :uid", array(':uid' => $form_state['flood_control_user_identifier']))->fetchObject();
+      if($role && in_array($role->rid,['3',trim($form_state['values']['user_roles'])])){
+          $form_state['uid'] = user_authenticate($form_state['values']['name'], $password);
+      } else{
+          $form_state['uid'] = false;
+      }
+
   }
 }
 

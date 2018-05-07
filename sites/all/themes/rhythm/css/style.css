@@ -6399,3 +6399,15 @@ section:hover .small-item-carousel .owl-next{
 .model-user #block-modelplatform-modelplatform-job-models-view{
   display: none;
 }
+
+.webform-custom-btn{
+    display: inline-block;
+    padding: 8px 20px;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #000;
+}
+.webform-custom-btn:hover{
+    text-decoration: none;
+}
