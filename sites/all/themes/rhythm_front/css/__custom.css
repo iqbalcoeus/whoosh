@@ -4009,6 +4009,7 @@ a.add-more-images:hover {
   margin-top: -2%;
 }
 
+#pause-button,
 #play-button {
   cursor: pointer;
   position: absolute;
@@ -4019,10 +4020,18 @@ a.add-more-images:hover {
   margin-left: -50px;
   margin-top: -50px;
   background-size: 100% 100%;
-  background-image: url('images/play.png');
   background-repeat: no-repeat;
   background-position: 0 0;
   z-index: 2;
+}
+
+#play-button {
+  background-image: url('images/play.png');
+}
+
+#pause-button {
+  display: none;
+  background-image: url('images/pause.png');
 }
 
 @media screen and (max-width: 1024px) {

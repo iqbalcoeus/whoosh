@@ -52,11 +52,19 @@ function onPlayerStateChange(newState) {
     Drupal.youtubeFlag = false;
     Drupal.youtube_player.pauseVideo();
   }
+
+  var playButton = document.getElementById("play-button");
+  var pauseButton = document.getElementById("pause-button");
+
   if (newState.data == 1) {
     jQuery('.front-page-video-block').addClass('playing');
+    playButton.style.display = "none";
+    pauseButton.style.display = "block";
   }
   else {
     jQuery('.front-page-video-block').removeClass('playing');
+    pauseButton.style.display = "none";
+    playButton.style.display = "block";
   }
 }
 
@@ -87,12 +95,17 @@ function onYouTubePlayerAPIReady() {
   jQuery('.front-page-video-block').append(_play).append(_pause);
 
   var playButton = document.getElementById("play-button");
+  var pauseButton = document.getElementById("pause-button");
+
   playButton.addEventListener("click", function() {
     Drupal.youtube_player.playVideo();
+    playButton.style.display = "none";
+    pauseButton.style.display = "block";
   });
 
-  var pauseButton = document.getElementById("pause-button");
   pauseButton.addEventListener("click", function() {
     Drupal.youtube_player.pauseVideo();
+    pauseButton.style.display = "none";
+    playButton.style.display = "block";
   });
 }
