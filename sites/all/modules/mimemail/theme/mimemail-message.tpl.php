@@ -27,12 +27,15 @@
       <!--
       <?php print $css ?>
       -->
+      #main a{
+        color: #15c !important;
+      }
     </style>
     <?php endif; ?>
   </head>
   <body id="mimemail-body" <?php if ($module && $key): print 'class="'. $module .'-'. $key .'"'; endif; ?> style ="font-family: arial;">
     <div id="center">
-      <div id="main" style ="font-family: arial !important;">
+      <div id="main" style ="font-family: arial !important; font-size: 12px;">
         <?php print $body ?>
       </div>
     </div>
