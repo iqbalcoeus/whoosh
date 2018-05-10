@@ -30,9 +30,9 @@
     </style>
     <?php endif; ?>
   </head>
-  <body id="mimemail-body" <?php if ($module && $key): print 'class="'. $module .'-'. $key .'"'; endif; ?>>
+  <body id="mimemail-body" <?php if ($module && $key): print 'class="'. $module .'-'. $key .'"'; endif; ?> style ="font-family: arial;">
     <div id="center">
-      <div id="main">
+      <div id="main" style ="font-family: arial !important;">
         <?php print $body ?>
       </div>
     </div>
