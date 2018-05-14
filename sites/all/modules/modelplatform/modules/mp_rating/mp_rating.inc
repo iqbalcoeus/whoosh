@@ -33,6 +33,7 @@ function _mp_rating_remove_row($uid, $event_id, $job_nid = NULL) {
  */
 function _mp_rating_get_user_rate_events($uid) {
   $event_data = db_select('mp_rating', 'mpr')
+    ->distinct()
     ->condition('mpr.uid', $uid)
     ->fields('mpr', array('event_id', 'job_nid'))
     ->execute()
