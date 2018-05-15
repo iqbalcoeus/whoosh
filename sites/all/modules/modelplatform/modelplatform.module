@@ -440,12 +440,14 @@ function modelplatform_views_pre_view(&$view, &$display_id, &$args) {
           $job_wrapper = entity_metadata_wrapper('node', $job);
 
           $start_date_time = $job_wrapper->field_job_start_date->value()['value'];
-          $start_date_time_array = explode(' ', $start_date_time);
-          $start_date = $start_date_time_array[0];
+//          $start_date_time_array = explode(' ', $start_date_time);
+//          $start_date = $start_date_time_array[0];
+            $start_date = $start_date_time;
 
           $end_date_time = $job_wrapper->field_job_start_date->value()['value2'];
-          $end_date_time_array = explode(' ', $end_date_time);
-          $end_date = $end_date_time_array[0];
+//          $end_date_time_array = explode(' ', $end_date_time);
+//          $end_date = $end_date_time_array[0];
+          $end_date = $end_date_time;
 
           $daily_rate = $job_wrapper->field_job_daily_rate_to->value()['amount'] / 100;
 
