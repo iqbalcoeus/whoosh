@@ -5821,6 +5821,8 @@ div.sf-accordion-toggle.sf-style-white a {
 .front .container.messages .alert{
   z-index: 100;
   position: absolute;
+  background-color: #fff;
+  min-width: 92%;
 }
 #page-404 .font-alt{
   color: #000;
