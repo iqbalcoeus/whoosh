@@ -142,17 +142,18 @@
 
 	function simplenews_block_form_validate_email($form, &$form_state)
 	{
-		// print_r($form_state); die;
-		$result = db_select('simplenews_subscriber', 'ss')
-		    ->fields('ss')
-		    ->condition('mail', $form_state['values']['mail'],'=')
-		    ->condition('activated', 1,'=')
-		    ->execute();
-		$num_of_results = $result->rowCount();
-
-		if($result->rowCount() > 0)
-		{
-			form_set_error('title', $form_state['values']['mail'].t(' Email already exist.'));
+		
+		if($form_state['values']['action']=='subscribe'){
+			$result = db_select('simplenews_subscriber', 'ss')
+			    ->fields('ss')
+			    ->condition('mail', $form_state['values']['mail'],'=')
+			    ->condition('activated', 1,'=')
+			    ->execute();
+			$num_of_results = $result->rowCount();
+			if($result->rowCount() > 0)
+			{
+				form_set_error('title', $form_state['values']['mail'].t(' : Email already exist.'));
+			}
 		}
 
 	}
