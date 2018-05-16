@@ -2863,6 +2863,9 @@ a.link-to-top .fa {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
+  height: 33px;
+  line-height: 1.1;
+  overflow: hidden;
 }
 
 .view-news .views-field-name,
@@ -2921,6 +2924,8 @@ a.link-to-top .fa {
   font-size: 15px;
   font-weight: 300;
   line-height: 1.75;
+  height: 125px;
+  overflow: hidden;
 }
 
 .view-news .views-field-view-node a,
