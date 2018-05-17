@@ -86,7 +86,7 @@ function mp_mangopay_payment_form($account, $order) {
         <label for="cardNumber">Card Number</label>
       </div>
       <div>
-        <input type="text" name="cardNumber" value="" />
+        <input type="text" required name="cardNumber" value="" />
       </div>
     </div>    
 
@@ -107,7 +107,7 @@ function mp_mangopay_payment_form($account, $order) {
         <label for="cardCvx">CVV</label>
       </div>
       <div>
-        <input type="password" name="cardCvx" value="" />
+        <input type="password" required name="cardCvx" value="" />
       </div>
     </div>
     <br>
@@ -124,13 +124,21 @@ function mp_mangopay_payment_form($account, $order) {
 function mp_mangopay_payment_callback_form($account, $order) {
   $mangoPayApi = _mp_mangopay_api();
 
+  $link = '/dashboard';
+
+  if(isset(drupal_get_destination()['destination'])) {
+      $link = explode('/payment',drupal_get_destination()['destination'])[0];
+  }
+
   try {
     $cardRegister = $mangoPayApi->CardRegistrations->Get($_SESSION['mangopay_data']['cardRegisterId']);
     $cardRegister->RegistrationData = isset($_GET['data']) ? 'data=' . $_GET['data'] : 'errorCode=' . $_GET['errorCode'];
     $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
 
-    if ($updatedCardRegister->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($updatedCardRegister->CardId))
-      die('<div style="color:red;">Cannot create card. Payment has not been created. Please try again later.<div>');
+    if ($updatedCardRegister->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($updatedCardRegister->CardId)){
+        drupal_set_message(t('Cannot create card. Payment has not been created. Please try again later.'), 'error');
+        drupal_goto($link);
+    }
 
     // get created virtual card object
     $card = $mangoPayApi->Cards->Get($updatedCardRegister->CardId);
@@ -172,28 +180,27 @@ function mp_mangopay_payment_callback_form($account, $order) {
 
       unset($_SESSION['mangopay_data']);
 
-      return '<div style="color:green;">'.
-        'Pay-In has been created successfully. '
-        .'Pay-In Id = ' . $createdPayIn->Id
-        . ', Wallet Id = ' . $createdWallet->Id
-        . '</div>';
+      $msg = 'Pay-In has been created successfully.<br>'
+        . 'Pay-In Id = ' . $createdPayIn->Id .'<br>'
+        . 'Wallet Id = ' . $createdWallet->Id ;
+
+        drupal_set_message(t($msg));
+        drupal_goto($link);
 
       $link = "/user/$account->uid/invoices/$order->order_id";
     }
     else {
       // if created Pay-in object has status different than SUCCEEDED
       // that occurred error and display error message
-      return '<div style="color:red;">'.
-        'Pay-In has been created with status: '
-        . $createdPayIn->Status . ' (result code: '
-        . $createdPayIn->ResultCode . ')'
-        . '</div>';
+     $msg = 'Pay-In has been created with <br>'
+        . 'status: ' . $createdPayIn->Status . ' <br> '
+        . 'result code:'. $createdPayIn->ResultCode;
+
+        drupal_set_message(t($msg),'error');
+        drupal_goto($link);
     }
   } catch (\MangoPay\Libraries\ResponseException $e) {
-    print '<div style="color: red;">'
-      .'\MangoPay\ResponseException: Code: '
-      . $e->getCode() . '<br/>Message: ' . $e->getMessage()
-      .'<br/><br/>Details: '; print_r($e->GetErrorDetails())
-    .'</div>';
+      drupal_set_message(t($e->getMessage()),'error');
+      drupal_goto($link);
   }
 }
