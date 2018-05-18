@@ -5830,3 +5830,9 @@ div.sf-accordion-toggle.sf-style-white a {
 .event-delete-cancel{
   margin-left: 10px;
 }
+#mp-booking-busy-event-delete-form{
+  text-align: center;
+}
+#mp-booking-busy-event-delete-form .caution{
+  margin-bottom: 10px;
+}
