@@ -2919,6 +2919,7 @@ function confirm_form($form, $question, $path, $description = NULL, $yes = NULL,
     '#href' => $options['path'],
     '#options' => $options,
   );
+  $form['actions']['cancel']['#attributes']['class'][] = 'btn-medium btn btn-mod btn-round';
   // By default, render the form using theme_confirm_form().
   if (!isset($form['#theme'])) {
     $form['#theme'] = 'confirm_form';

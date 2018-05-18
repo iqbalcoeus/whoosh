@@ -962,10 +962,17 @@ function mp_booking_busy_event_delete_form($form, &$form_state, $event_id) {
     ),
   );
 
+//  $form['actions']['cancel'] = array(
+//    '#type' => 'markup',
+//    '#markup' => l(t('Cancel'), '/user/' . $user->uid),
+//  );
+
   $form['actions']['cancel'] = array(
-    '#type' => 'markup',
-    '#markup' => l(t('Cancel'), '/user/' . $user->uid),
+        '#type' => 'link',
+        '#title' => t('Cancel'),
+        '#href' => '/user/' . $user->uid,
   );
+  $form['actions']['cancel']['#attributes']['class'][] = 'event-delete-cancel btn-medium btn btn-mod btn-round';
 
   return $form;
 }
