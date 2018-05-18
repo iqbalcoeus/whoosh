@@ -15,7 +15,7 @@ function mp_invoices_page_callback($account, $order) {
 
   // Header.
   $page['header'] = array(
-    'img' => variable_get('mpi_page_header_img_url', NULL),
+    'img' => 'http://megamodelonline.com/sites/default/files/Logo_MegaOnline_Black.jpg',//variable_get('mpi_page_header_img_url', NULL),
     'text' => array(
       'column1' => t(variable_get('mpi_page_header_column_1', NULL)),
       'column2' => t(variable_get('mpi_page_header_column_2', NULL)),
