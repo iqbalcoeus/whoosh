@@ -163,7 +163,7 @@
 	        $view = $form_state['view'];
 	        if ($view->name == 'job_models' && $view->current_display == 'block') {
 	            $node = node_load(arg(1));
-	            $form['field_geofield_distance']['#default_value']['origin'] = $node->field_job_location['und'][0]['locality'].' '.$node->field_job_location['und'][0]['postal_code'];
+	            $form['field_geo_current_location']['#default_value']['origin'] = $node->field_job_location['und'][0]['locality'].' '.$node->field_job_location['und'][0]['postal_code'];
 	        }
 	    }
 	}
