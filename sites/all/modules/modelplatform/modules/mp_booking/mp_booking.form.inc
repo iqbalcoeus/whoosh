@@ -532,7 +532,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       if (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
         && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline'
       ) {
-        $decision_form_show = TRUE;
+        $decision_form_show = FALSE;
       }
     }
 
@@ -588,12 +588,7 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       }
       else {
         $form['decision']['decline'] = array(
-          '#type' => 'submit',
-          '#value' => t('Cancel job'),
-          '#name' => 'auction_decision_decline',
-          '#submit' => array(
-            'mp_booking_job_auction_form_decline',
-          ),
+            '#markup' => '<div class="job-cancel-final">'.l(t('Cancel job'), 'job/cancel/'.$job->nid). '</div>',
         );
       }
       $form['decision']['description'] = array(
