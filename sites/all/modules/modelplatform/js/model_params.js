@@ -31,41 +31,45 @@
 // Download images feature
 jQuery( document ).ready(function() {
 
-  var imgUrls = jQuery('#quicktabs-container-model_gallery').find('img').map(function() { return this.src; }).get();
+	var imgUrls = jQuery('#quicktabs-container-model_gallery').find('img').map(function() { 
+		var image = new Image(); 
+		image.src = this.src;
+		if (image.width > 0) {
+		  return this.src;
+		}
+	}).get();
 
-  if(imgUrls.length>0){
-    jQuery("#quicktabs-model_gallery").append('<div class="form-actions form-wrapper"><input class="btn-medium btn btn-mod btn-round form-submit" type="button" id="download-images" name="op" value="Download"></div>');
+	if(imgUrls.length>0){
 
-    jQuery("#download-images").click(function() {
+		jQuery("#quicktabs-model_gallery").append('<div class="form-actions form-wrapper"><input class="btn-medium btn btn-mod btn-round form-submit" type="button" id="download-images" name="op" value="Download"></div>');
 
-      var zip = new JSZip();
-      var count = 0;
-      var zipFilename = "model_images.zip";
+		jQuery("#download-images").click(function() {
 
-      var imgTitle = 1;
-      imgUrls.forEach(function(url){
+			var zip = new JSZip();
+			var count = 0;
+			var zipFilename = "model_images.zip";
 
-        var filename = "img_"+imgTitle+".png";
+			var imgTitle = 1;
+			imgUrls.forEach(function(url){
 
-        imgTitle = imgTitle+1;
+				var filename = "img_"+imgTitle+(url.match(/.gif|.png|.jpg|.jpeg|.tiff|.bmp|.ppm|.svg/));
 
-        // loading a file and add it in a zip file
-        JSZipUtils.getBinaryContent(url, function (err, data) {
-         if(err) {
-              throw err; // or handle the error
-              console.log(err);
-            }
+				imgTitle = imgTitle+1;
 
-            zip.file(filename, data, {binary:true});
-            count++;
+		        // loading a file and add it in a zip file
+		        JSZipUtils.getBinaryContent(url, function (err, data) {
+		        	if(!err) {
+		        		zip.file(filename, data, {binary:true});
+		        		count++;
 
-            if (count == imgUrls.length) {
-             var zipFile = zip.generate({type: "blob"});
-             saveAs(zipFile, zipFilename);
-           }
-         });
-      });
+		        		if (count == imgUrls.length) {
+		        			var zipFile = zip.generate({type: "blob"});
+		        			saveAs(zipFile, zipFilename);
+		        		}
+		        	}
+		        });
+    		});
 
-    });
-  }
+		});
+	}
 });
