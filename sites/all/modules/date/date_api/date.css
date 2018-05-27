@@ -86,6 +86,7 @@ fieldset.date-combo .container-inline-date .date-padding {
 
 /* formatting for start/end dates in nodes and views */
 span.date-display-single {
+  margin-left: 5px;
 }
 span.date-display-start {
 }
