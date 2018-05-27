@@ -122,8 +122,14 @@
 	// starting block validation model profile form
 	  function model_form_user_profile_form_alter(&$form, &$form_state, $form_id)
 	  {
+	  	global $user;
+
+	  	if(in_array('Customer', $user->roles)){
+	  		$form['field_current_location']['#access'] = FALSE;
+	  	}
 	  	$form['#validate'][] = 'model_article_form_validate';
 	  }
+	  
 	  function model_article_form_validate($form, &$form_state) 
 	  {
 		if(!empty($form_state['input']['profile_model_basic_informaiton']))
@@ -133,6 +139,7 @@
 			}
 		}
 	  }
+
 	// ending block
 
 	function model_form_simplenews_block_form_alter (&$form, &$form_state, $form_id)
