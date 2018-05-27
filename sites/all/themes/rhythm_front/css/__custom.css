@@ -5833,3 +5833,9 @@ div.sf-accordion-toggle.sf-style-white a {
 .btn{
   margin: 10px;
 }
+.views-field-field-geofield-distance{
+  position: absolute;
+  left: 16px;
+  bottom: 122px;
+  line-height: 1.15;
+}
