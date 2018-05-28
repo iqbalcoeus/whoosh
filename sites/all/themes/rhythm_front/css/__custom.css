@@ -5833,6 +5833,11 @@ div.sf-accordion-toggle.sf-style-white a {
 .btn{
   margin: 10px;
 }
+
+#browse-optioned-models {
+  text-align: center;
+}
+
 .views-field-field-geofield-distance{
   position: absolute;
   left: 16px;

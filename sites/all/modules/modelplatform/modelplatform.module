@@ -216,12 +216,16 @@ function modelplatform_block_view($delta = '') {
         $filtered_models_view = views_embed_view('job_models', 'block');
         $hired_models_view = views_embed_view('job_models', 'block_1');
         $booked_models_view = views_embed_view('job_models', 'block_2');
+
+//        $browseOptionedBtn = '<div id="browse-optioned-models" ><a href="/node/'.$job->nid.'/optioned_models" class="btn-mod btn-round">Overview</a></div>';
+
         $block['content']['#markup'] = '<div class="filtered-hired-block">'
             . '<div class="filtered-views-block"><h4 class="job-models-title">' . t('Filtered models') . '</h4>'
               . $filtered_models_view
             . '</div>'
             . '<div class="hired-views-block"><h4 class="job-models-title">' . t('Optioned models') . '</h4>'
-              . $hired_models_view
+            . $hired_models_view
+//            . $hired_models_view .$browseOptionedBtn
             . '</div>'
             . '<div class="hired-views-block"><h4 class="job-models-title">' . t('Booked models') . '</h4>'
               . $booked_models_view
@@ -410,7 +414,12 @@ function modelplatform_views_pre_view(&$view, &$display_id, &$args) {
   switch($view->name) {
     case 'models':
       if ($display_id == 'block_1') {
-        drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_params.js', 'file');
+          // libraries to add download images feature
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/FileSaver.js', 'file');
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/jszip.min_2x.js', 'file');
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/jszip-utils.js', 'file');
+
+         drupal_add_js(drupal_get_path('module', 'modelplatform') . '/js/model_params.js', 'file');
         $fields = array(
 //      'height',
           'chest',
