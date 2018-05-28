@@ -25,13 +25,13 @@
       }
     }
   };
+    jQuery("#quicktabs-model_gallery").append('<div class="form-actions form-wrapper"><input class="btn-medium btn btn-mod btn-round form-submit" type="button" id="download-images" name="op" value="Download"></div>');
 
 })(jQuery);
 
 // Download images feature
 jQuery( document ).ready(function() {
-
-	var imgUrls = jQuery('#quicktabs-container-model_gallery').find('img').map(function() { 
+    var imgUrls = jQuery('#quicktabs-container-model_gallery').find('img').map(function() {
 		var image = new Image(); 
 		image.src = this.src;
 		if (image.width > 0) {
@@ -40,9 +40,6 @@ jQuery( document ).ready(function() {
 	}).get();
 
 	if(imgUrls.length>0){
-
-		jQuery("#quicktabs-model_gallery").append('<div class="form-actions form-wrapper"><input class="btn-medium btn btn-mod btn-round form-submit" type="button" id="download-images" name="op" value="Download"></div>');
-
 		jQuery("#download-images").click(function() {
 
 			var zip = new JSZip();
@@ -71,5 +68,7 @@ jQuery( document ).ready(function() {
     		});
 
 		});
+	}else{
+        jQuery("#download-images").hide();
 	}
 });
