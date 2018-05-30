@@ -81,7 +81,7 @@
  */
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-
+<p class="node-id" style="display: none;"><?php echo  $node->nid;?></p>
   <?php print $user_picture; ?>
 
   <?php print render($title_prefix); ?>

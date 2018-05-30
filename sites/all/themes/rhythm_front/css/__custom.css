@@ -3533,7 +3533,7 @@ a.add-more-images:hover {
 
 .page-job-model #mp-booking-job-model-invite-form .form-type-select {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: bottom;
   margin-bottom: 0 !important;
   max-width: 200px;
   width: 100%;
@@ -5871,4 +5871,57 @@ div.sf-accordion-toggle.sf-style-white a {
 .job-cancel-final a:hover{
     background: #151515;
     color: #fff;
+}
+#edit-profile-model-private-data-field-income-tax-certificate-und-0-remove-button,
+#edit-profile-model-private-data-field-parental-approval-for-mino-und-0-remove-button,
+#edit-profile-model-private-data-field-identity-card-or-pasport-und-0-remove-button,
+#edit-profile-model-private-data-field-other-documents-und-0-remove-button,
+#edit-profile-model-private-data-field-travel-passport-und-0-remove-button,
+#edit-profile-model-private-data-field-local-registration-documen-und-0-remove-button{
+  margin-left: 40px;
+}
+
+#mp-booking-job-model-invite-form .form-group {
+    height: 40px;
+    width: 200px;
+    /*border: 1px solid #e3e3e3;*/
+    color: #616263;
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+}
+
+#mp-booking-job-model-invite-form .form-group:after {
+    content: "▼";
+    padding: 12px 8px;
+    position: absolute;
+    right: 10px;
+    top: -5px;
+    z-index: 1;
+    text-align: center;
+    width: 8%;
+    height: 100%;
+    pointer-events: none; 
+    font-size: 16px;
+    color: #777; 
+}
+
+#edit-jobs {
+    height: 38px;
+    width: 100%;
+    padding: 5px 15px;
+    background-color: #ececec;
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    -webkit-appearance: none; /* for webkit browsers */
+    -moz-appearance: none; /* for firefox */
+    appearance: none; /* for modern browsers */
+    padding-right: 20px;
+
+}
+
+/* remove default caret for ie */
+#edit-jobs::-ms-expand {
+   display:none;
 }

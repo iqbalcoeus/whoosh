@@ -269,7 +269,8 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
   foreach ($auctioned_jobs as $job) {
     unset($customer_jobs[$job->job_nid]);
   }
-  $defult_job_nid = NULL;
+  $nid = $_GET['node'];
+  $defult_job_nid = $nid;
   $count_jobs = count($customer_jobs);
   if ($count_jobs) {
     if ($count_jobs == 1) {
@@ -291,7 +292,7 @@ function mp_booking_job_model_invite_form($form, &$form_state, $model_uid, $cust
         $form['jobs'] = array(
           '#type' => 'select',
           '#options' => $customer_jobs,
-          '#default_value' => $defult_job_nid,
+          '#default_value' => $nid,
         );
       }
 

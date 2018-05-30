@@ -123,3 +123,10 @@
   };
 
 })(jQuery);
+jQuery(document).ready(function(){
+  jQuery('.filtered-views-block .views-field-picture a[href]').each(function(){ 
+      var oldUrl = jQuery(this).attr("href"); // Get current url
+      var newUrl = oldUrl + '?node=' + jQuery('.node-id').text(); // Create new url
+      jQuery(this).attr("href", newUrl); // Set herf value
+  });
+});
