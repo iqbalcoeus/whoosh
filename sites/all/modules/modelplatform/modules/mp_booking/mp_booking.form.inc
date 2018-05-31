@@ -154,7 +154,7 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
             }
           }
           $items[]=null;
-          $items[] = '<span class="' . $class . '">' . $prefix . t('Option @option_num', array('@option_num' => $key + 1)) . $suffix . '</span>';
+          $items[] = '<span class="' . $class . '">' . $prefix . t('Shortlist @option_num', array('@option_num' => $key + 1)) . $suffix . '</span>';
         }
 
         $form['job_number'] = array(
@@ -198,7 +198,7 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
           } else {
             $form['actions']['confirm'] = array(
               '#type' => 'submit',
-              '#value' => t('option'),
+              '#value' => t('Shortlist '),
               '#name' => 'job_confirm',
               '#disabled' => !$enabled,
               '#submit' => array(
@@ -422,7 +422,7 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
                 ->condition('uid', arg(2), '=')
                 ->execute();
   module_invoke_all('mpb_option_model', $event);
-  drupal_set_message(t('Model was optioned'));
+  drupal_set_message(t('Model was Shortlisted'));
 }
 /**
  * Form submit.

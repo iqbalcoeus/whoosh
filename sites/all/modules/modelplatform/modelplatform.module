@@ -223,7 +223,7 @@ function modelplatform_block_view($delta = '') {
             . '<div class="filtered-views-block"><h4 class="job-models-title">' . t('Filtered models') . '</h4>'
               . $filtered_models_view
             . '</div>'
-            . '<div class="hired-views-block"><h4 class="job-models-title">' . t('Optioned models') . '</h4>'
+            . '<div class="hired-views-block"><h4 class="job-models-title">' . t('Shortlisted models') . '</h4>'
             . $hired_models_view
 //            . $hired_models_view .$browseOptionedBtn
             . '</div>'
