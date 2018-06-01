@@ -5877,7 +5877,13 @@ div.sf-accordion-toggle.sf-style-white a {
 #edit-profile-model-private-data-field-identity-card-or-pasport-und-0-remove-button,
 #edit-profile-model-private-data-field-other-documents-und-0-remove-button,
 #edit-profile-model-private-data-field-travel-passport-und-0-remove-button,
-#edit-profile-model-private-data-field-local-registration-documen-und-0-remove-button{
+#edit-profile-model-private-data-field-local-registration-documen-und-0-remove-button,
+#edit-profile-model-private-data-field-income-tax-certificate-und-0-upload-button,
+#edit-profile-model-private-data-field-parental-approval-for-mino-und-0-upload-button,
+#edit-profile-model-private-data-field-identity-card-or-pasport-und-0-upload-button,
+#edit-profile-model-private-data-field-other-documents-und-0-upload-button,
+#edit-profile-model-private-data-field-travel-passport-und-0-upload-button,
+#edit-profile-model-private-data-field-local-registration-documen-und-0-upload-button{
   margin-left: 40px;
 }
 

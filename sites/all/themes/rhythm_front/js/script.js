@@ -123,10 +123,52 @@
   };
 
 })(jQuery);
+
 jQuery(document).ready(function(){
   jQuery('.filtered-views-block .views-field-picture a[href]').each(function(){ 
       var oldUrl = jQuery(this).attr("href"); // Get current url
       var newUrl = oldUrl + '?node=' + jQuery('.node-id').text(); // Create new url
       jQuery(this).attr("href", newUrl); // Set herf value
   });
+
+    var imgUrls = jQuery('.hired-views-block .view-id-job_models.view-display-id-block_1').find('img').map(function() {
+    var image = new Image(); 
+    image.src = this.src;
+    if (image.width > 0) {
+      return this.src;
+    }
+  }).get();
+ jQuery(".hired-views-block .view-id-job_models.view-display-id-block_1").append('<div class="form-actions form-wrapper"><input class="btn-medium btn btn-mod btn-round form-submit" type="button" id="download-shortlisted-pictures" name="op" value="Download Pictures"></div>');
+  if(imgUrls.length>0){
+    jQuery("#download-shortlisted-pictures").click(function() {
+
+      var zip = new JSZip();
+      var count = 0;
+      var zipFilename = "model_shortlisted_images.zip";
+
+      var imgTitle = 1;
+      imgUrls.forEach(function(url){
+
+        var filename = "img_"+imgTitle+(url.match(/.gif|.png|.jpg|.jpeg|.tiff|.bmp|.ppm|.svg/));
+
+        imgTitle = imgTitle+1;
+
+            // loading a file and add it in a zip file
+            JSZipUtils.getBinaryContent(url, function (err, data) {
+              if(!err) {
+                zip.file(filename, data, {binary:true});
+                count++;
+
+                if (count == imgUrls.length) {
+                  var zipFile = zip.generate({type: "blob"});
+                  saveAs(zipFile, zipFilename);
+                }
+              }
+            });
+        });
+
+    });
+  }else{
+        jQuery("#download-shortlisted-pictures").hide();
+  }
 });

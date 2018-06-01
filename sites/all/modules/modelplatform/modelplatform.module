@@ -470,6 +470,11 @@ function modelplatform_views_pre_view(&$view, &$display_id, &$args) {
           $view->display_handler->override_option('filters', $view_filters);
         }
       }
+      // libraries to add download images feature
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/FileSaver.js', 'file');
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/jszip.min_2x.js', 'file');
+         drupal_add_js(drupal_get_path('libraries', 'jszip') . '/sites/all/libraries/jszip/jszip-utils.js', 'file');
+
       break;
   }
 }
