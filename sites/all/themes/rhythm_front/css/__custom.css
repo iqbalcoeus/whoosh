@@ -5931,3 +5931,9 @@ div.sf-accordion-toggle.sf-style-white a {
 #edit-jobs::-ms-expand {
    display:none;
 }
+.view.view-my-jobs .pagination{
+  margin-top: 50px;
+}
+.view.view-my-jobs .views-row{
+  width: 500px;
+}
