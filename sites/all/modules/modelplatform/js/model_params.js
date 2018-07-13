@@ -44,7 +44,7 @@ jQuery( document ).ready(function() {
 
 			var zip = new JSZip();
 			var count = 0;
-			var zipFilename = "model_images.zip";
+			var zipFilename = "Modelbook-"+jQuery('#page-title').text().slice(8) +".zip";
 
 			var imgTitle = 1;
 			imgUrls.forEach(function(url){

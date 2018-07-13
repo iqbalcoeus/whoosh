@@ -144,7 +144,7 @@ jQuery(document).ready(function(){
 
       var zip = new JSZip();
       var count = 0;
-      var zipFilename = "model_shortlisted_images.zip";
+      var zipFilename = "Shortlist-"+jQuery('#page-title').text()+".zip";
 
       var imgTitle = 1;
       imgUrls.forEach(function(url){
