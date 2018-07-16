@@ -92,7 +92,7 @@ function _mp_emails_customer_job_option_model_confirm($email_params) {
   $message = _mp_emails_prepare_message($message_text, $email_params);
 
   $params = array(
-    'subject' => 'The Reminder for the option request.',
+    'subject' => 'Offer accepted',
     'message' => $message,
   );
   $send = TRUE;
