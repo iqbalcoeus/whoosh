@@ -5989,3 +5989,7 @@ div.sf-accordion-toggle.sf-style-white a {
 #edit-field-job-status-tid::-ms-expand {
    display:none;
 }
+.form-type-select .form-control.round.form-select{
+  visibility: hidden;
+  display: none;
+}

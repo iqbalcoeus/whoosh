@@ -12,7 +12,9 @@
  */
 function _mp_emails_get_var_model_job_reminder_notification($language) {
   $message_text = array();
-
+  if(empty($language)){
+    $language = 'en';
+  }
   $message_text['en'] = '
     @model_salutation, @model_full_name.
 
