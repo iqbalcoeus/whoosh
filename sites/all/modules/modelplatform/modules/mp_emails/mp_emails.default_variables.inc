@@ -12,7 +12,7 @@
  */
 function _mp_emails_get_var_model_job_reminder_notification($language) {
   $message_text = array();
-  if(empty($language)){
+  if(!isset($language)){
     $language = 'en';
   }
   $message_text['en'] = '
@@ -45,6 +45,9 @@ function _mp_emails_get_var_model_job_reminder_notification($language) {
  */
 function _mp_emails_get_var_customer_job_option_notification($language) {
   $message_text = array();
+  if(!isset($language)){
+    $language = 'en';
+  }
 
   $message_text['en'] = '
     @customer_salutation, @customer_full_name.     
@@ -75,6 +78,9 @@ function _mp_emails_get_var_customer_job_option_notification($language) {
  */
 function _mp_emails_get_var_model_job_option_notification($language) {
   $message_text = array();
+  if(!isset($language)){
+    $language = 'en';
+  }
 
   $message_text['en'] = '
     @model_salutation, @model_full_name.
@@ -117,6 +123,9 @@ function _mp_emails_get_var_model_job_option_notification($language) {
  */
 function _mp_emails_get_var_customer_job_option_model_confirm($language) {
   $message_text = array();
+  if(!isset($language)){
+    $language = 'en';
+  }
 
   $message_text['en'] = '
     @customer_salutation, @customer_full_name.     
@@ -143,6 +152,9 @@ function _mp_emails_get_var_customer_job_option_model_confirm($language) {
  */
 function _mp_emails_get_var_customer_job_auction($language) {
   $message_text = array();
+  if(!isset($language)){
+    $language = 'en';
+  }
 
   $message_text['en'] = '
     @customer_salutation, @customer_full_name.
@@ -175,6 +187,9 @@ function _mp_emails_get_var_customer_job_auction($language) {
  */
 function _mp_emails_get_var_model_job_confirmed($language) {
   $message_text = array();
+  if(!isset($language)){
+    $language = 'en';
+  }
 
   $message_text['en'] = '
     @model_salutation, @model_full_name.
@@ -204,7 +219,10 @@ function _mp_emails_get_var_model_job_confirmed($language) {
  */
 function _mp_emails_get_var_model_calendar($language) {
   $message_text = array();
-
+  if(!isset($language)){
+    $language = 'en';
+  }
+  
   $message_text['en'] = '
     @model_salutation, @model_full_name.
     

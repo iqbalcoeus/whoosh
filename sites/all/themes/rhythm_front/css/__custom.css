@@ -521,8 +521,7 @@ input[type="search"],
 input[type="tel"],
 input[type="password"],
 input[type="date"],
-input[type="color"],
-select {
+input[type="color"] {
   width: auto;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -5886,51 +5885,6 @@ div.sf-accordion-toggle.sf-style-white a {
 #edit-profile-model-private-data-field-local-registration-documen-und-0-upload-button{
   margin-left: 40px;
 }
-
-#mp-booking-job-model-invite-form .form-group {
-    height: 40px;
-    width: 200px;
-    /*border: 1px solid #e3e3e3;*/
-    color: #616263;
-    overflow: hidden;
-    position: relative;
-    border-radius: 3px;
-}
-
-#mp-booking-job-model-invite-form .form-group:after {
-    content: "▼";
-    padding: 12px 8px;
-    position: absolute;
-    right: 10px;
-    top: -5px;
-    z-index: 1;
-    text-align: center;
-    width: 8%;
-    height: 100%;
-    pointer-events: none; 
-    font-size: 16px;
-    color: #777; 
-}
-
-#edit-jobs {
-    height: 38px;
-    width: 100%;
-    padding: 5px 15px;
-    background-color: #ececec;
-    border: 0;
-    outline: none;
-    font-size: 16px;
-    -webkit-appearance: none; /* for webkit browsers */
-    -moz-appearance: none; /* for firefox */
-    appearance: none; /* for modern browsers */
-    padding-right: 20px;
-
-}
-
-/* remove default caret for ie */
-#edit-jobs::-ms-expand {
-   display:none;
-}
 .view.view-my-jobs .pagination{
   margin-top: 50px;
 }
@@ -5944,52 +5898,14 @@ div.sf-accordion-toggle.sf-style-white a {
   width: 100%;
   max-width: 100%;
 }
-
-.pane-views-my-jobs-block .form-group {
-    height: 40px;
-    width: 150px;
-    /*border: 1px solid #e3e3e3;*/
-    color: #616263;
-    overflow: hidden;
-    position: relative;
-    border-radius: 3px;
-}
-
-.pane-views-my-jobs-block .form-group:after {
-    content: "▼";
-    padding: 12px 8px;
-    position: absolute;
-    right: 23px;
-    top: -5px;
-    z-index: 1;
-    text-align: center;
-    width: 8%;
-    height: 100%;
-    pointer-events: none; 
-    font-size: 16px;
-    color: #777; 
-}
-
-#edit-field-job-status-tid {
-    height: 38px;
-    width: 140px;
-    padding: 5px 15px;
-    background-color: #ececec;
-    border: 0;
-    outline: none;
-    font-size: 16px;
-    -webkit-appearance: none; /* for webkit browsers */
-    -moz-appearance: none; /* for firefox */
-    appearance: none; /* for modern browsers */
-    padding-right: 20px;
-
-}
-
-/* remove default caret for ie */
-#edit-field-job-status-tid::-ms-expand {
-   display:none;
-}
 .field-name-field-job-additional-documents .form-type-select .form-control.round.form-select{
   visibility: hidden;
   display: none;
+}
+.form-managed-file .form-submit {
+   position: absolute;
+   right: 10px;
+}
+.page-user-edit .field-type-field-collection.field-name-field-c-base-city td input[type="submit"] {
+   margin-top: 0;
 }
