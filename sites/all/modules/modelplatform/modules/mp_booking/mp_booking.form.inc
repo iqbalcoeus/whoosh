@@ -521,14 +521,21 @@ function mp_booking_job_auction_form($form, &$form_state, $event = NULL) {
       mp_auction_save($auction);
     }
 
+$enabled = (
+              !isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+          &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] == $user->uid
+          )
+          || (
+              isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
+          &&  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] != 'Accept'
+          &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] != $user->uid
+        );
+
     $decision_form_show = FALSE;
-    if ($auction->uid != $user->uid) {
-      if (!isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
-        || !$auction->field_auction_decision[LANGUAGE_NONE][0]['value']
-      ) {
+    if ($enabled){
         $decision_form_show = TRUE;
       }
-    }
+    
     else {
       if (isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
         && $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Decline'
@@ -923,7 +930,7 @@ function mp_booking_job_cancel_form_submit($form, &$form_state) {
     $job_event->uid = $user->uid;
     $job_event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 6;
 
-    bat_event_save($job_event);
+    bat_event_delete($job_event);
   }
 
   $form_state['redirect'] = $form_state['#direct_path'];
