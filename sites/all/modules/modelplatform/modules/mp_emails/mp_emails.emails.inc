@@ -19,6 +19,16 @@ function _mp_emails_model_job_reminder_notification($email_params) {
   $language = $email_params['@model_language'];
 
   $message_text = i18n_variable_get('mpe_job_reminder_notification', $language);
+  $message_text= '
+    @model_salutation, @model_full_name.
+
+    Unfortunately you have not responded to the request of our customer @customer_full_name. 
+    It would be nice if you could report, so that it is clear for both sides whether a cooperation is coming. 
+    This is the only chance you have a new order!
+
+    Best regards,
+    Your team of MegaOnline
+  ';
   $message = _mp_emails_prepare_message($message_text, $email_params);
 
   $params = array(
