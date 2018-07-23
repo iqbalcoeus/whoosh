@@ -109,7 +109,6 @@ Greetings Mega Models";
     $notification = array('title' => $noti_title, 'text' => $noti_text);
 
     _send_push_notification($to,$notification);
-
   drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
@@ -128,7 +127,7 @@ function _mp_emails_customer_job_option_model_confirm($email_params) {
   $message = _mp_emails_prepare_message($message_text, $email_params);
 
   $params = array(
-    'subject' => 'Offer accepted',
+    'subject' => t('Offer Accepted.'),
     'message' => $message,
   );
   $send = TRUE;

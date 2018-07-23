@@ -206,3 +206,7 @@ function rhythm_front_form_alter(&$form, $form_state, $form_id) {
     array_unshift($form['#submit'], 'modelplatform_views_exposed_form_submit');
   }
 }
+
+function rhythm_front_file_widget_multiple(&$variables) {
+  hide($variables['header']);
+}
