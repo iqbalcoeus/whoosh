@@ -96,8 +96,8 @@ function _mp_emails_model_job_option_notification($email_params) {
         $noti_title='Die Optionsanfrage für das Model.';
         $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
         
-        Unser Kunde {$email_params['@customer_full_name']} hat eine Option für ein Projekt mit Dir gewählt.
-        Herzliche Grüße Mega Models";
+Unser Kunde {$email_params['@customer_full_name']} hat eine Option für ein Projekt mit Dir gewählt.
+Herzliche Grüße Mega Models";
     } else {
         $noti_title='The option request for the model.';
         $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
