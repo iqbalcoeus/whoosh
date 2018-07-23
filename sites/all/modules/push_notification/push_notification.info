@@ -1,0 +1,9 @@
+name = Push Notification
+description = "A module to implement Firebase push notifications"
+package = Push Notification
+core = 7.x
+configure = admin/config/services/push_notification
+version = "7.x-1.0"
+core = "7.x"
+project = "push_notification"
+datestamp = "1531831687"

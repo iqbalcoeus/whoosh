@@ -27,7 +27,25 @@ function _mp_emails_model_job_reminder_notification($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+    if($language=='de'){
+        $noti_title='Der Reminder für die Optionsanfrage.';
+        $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
+        
+leider hast Du nicht noch auf die Anfrage unseres Kunden {$email_params['@customer_full_name']} reagiert. Bitte gehe ins Backend.
+Greetings Mega Models";
+    } else {
+        $noti_title='The reminder for the option request.';
+        $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
+        
+Unfortunately, you have not responded to the request of our customer {$email_params['@customer_full_name']}. Please go to the backend.
+Greetings Mega Models";
+    }
+
+    $notification = array('title' => $noti_title, 'text' => $noti_text);
+
+    _send_push_notification($to,$notification);
+
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -50,7 +68,7 @@ function _mp_emails_customer_job_option_notification($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -74,7 +92,25 @@ function _mp_emails_model_job_option_notification($email_params) {
 
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+    if($language=='de'){
+        $noti_title='Die Optionsanfrage für das Model.';
+        $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
+        
+        Unser Kunde {$email_params['@customer_full_name']} hat eine Option für ein Projekt mit Dir gewählt.
+        Herzliche Grüße Mega Models";
+    } else {
+        $noti_title='The option request for the model.';
+        $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
+        
+Our customer {$email_params['@customer_full_name']} has chosen an option for a project with you.
+Greetings Mega Models";
+    }
+
+    $notification = array('title' => $noti_title, 'text' => $noti_text);
+
+    _send_push_notification($to,$notification);
+
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -97,7 +133,7 @@ function _mp_emails_customer_job_option_model_confirm($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -120,7 +156,7 @@ function _mp_emails_customer_job_auction($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -143,7 +179,25 @@ function _mp_emails_model_job_confirmed($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+    if($language=='de'){
+        $noti_title='Option wird Festbuchung.';
+        $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
+        
+Deine Option durch {$email_params['@customer_full_name']} ist nun eine Festbuchung geworden.
+Herzlichen Glückwunsch – wir wünschen eine erfolgreiche Zusammenarbeit!";
+    } else {
+        $noti_title='Option becomes fixed booking.';
+        $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
+        
+Your option through {$email_params['@customer_full_name']} has now become a fixed booking.
+Congratulations - we wish you a successful cooperation!";
+    }
+
+    $notification = array('title' => $noti_title, 'text' => $noti_text);
+
+    _send_push_notification($to,$notification);
+
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
 /**
@@ -166,5 +220,23 @@ function _mp_emails_model_calendar($email_params) {
   );
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
+}
+
+
+function _get_admin_email(){
+    if($user_fields = user_load(1)){
+        return $user_fields->mail;
+    }
+    return '';
+}
+
+
+function _send_push_notification($to,$notification){
+    if (function_exists('push_notification_send')) {
+        if($user_fields=user_load_by_mail($to)) {
+            $data = array("alert" => "");
+            push_notification_send($user_fields->uid, $notification, $data);
+        }
+    }
 }

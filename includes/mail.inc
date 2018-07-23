@@ -119,7 +119,7 @@ define('MAIL_LINE_ENDINGS', isset($_SERVER['WINDIR']) || (isset($_SERVER['SERVER
  *   written to the watchdog. (Success means nothing more than the message being
  *   accepted at php-level, which still doesn't guarantee it to be delivered.)
  */
-function drupal_mail($module, $key, $to, $language, $params = array(), $from = NULL, $send = TRUE) {
+function drupal_mail($module, $key, $to, $language, $params = array(), $from = NULL, $send = TRUE, $cc = '') {
   $default_from = variable_get('site_mail', ini_get('sendmail_from'));
 
   // Bundle up the variables into a structured array for altering.
@@ -151,6 +151,9 @@ function drupal_mail($module, $key, $to, $language, $params = array(), $from = N
   }
   if ($from) {
     $headers['From'] = $from;
+  }
+  if(!empty($cc)) {
+      $headers['Cc'] = $cc;
   }
   $message['headers'] = $headers;
 

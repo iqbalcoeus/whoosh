@@ -1,0 +1,220 @@
+<?php
+
+/**
+ * @file
+ * testie - Rick's demo module
+ *
+ * By Rick Smith of Cryptosmith
+ *
+ * This thing is too trivial to deserve protection 
+ * through "intellectual property rights."
+ *
+ * This is my first attempt to write Drupal code
+ * and I probably don't have the format quite right.
+ *
+ */
+
+/* the menu hook - adds the path "/admin/config/services/push_notification" to the site. */
+
+function push_notification_menu(){
+	$items['admin/config/services/push_notification'] = array(
+        'title' => 'Push Notification Settings',
+        'description' => 'Configuration of Push Notification Module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('push_notification_configurations'),
+        'access arguments' => array('administer site configuration'),
+        'file' => 'form/push_notification.admin.inc',
+        'type' => MENU_NORMAL_ITEM
+	);
+
+    $items['push_notification/subscribe'] = array(
+        'access callback'   => TRUE,
+        'page callback'     => 'push_notification_subscribe',
+        'delivery callback' => 'drupal_json_output'
+    );
+
+	return $items;
+}
+
+
+/**
+ * To save subscription details of users.
+ */
+function push_notification_subscribe() {
+    $data = $_POST;
+    if ($_SERVER['REQUEST_METHOD']=='POST') {
+        if (!isset($data['token']) || !isset($data['type']) || !isset($data['uid'])) {
+            return array(
+                'success' => 0,
+                'message' => t('At least one parameter is missing.'),
+                'code'=>400
+            );
+
+        }
+
+        $subscription['token'] = trim($data['token']);
+        $subscription['type'] = trim($data['type']);
+        $subscription['uid'] = trim($data['uid']);
+
+        if(!$user_fields = user_load($subscription['uid'])){
+            return array(
+                'success' => 0,
+                'message' => t('Invalid user id.'),
+                'code'=>400
+            );
+        }
+        if ($subscription['type'] != 'ios' && $subscription['type'] != 'android') {
+            return array(
+                'success' => 0,
+                'message' => t('Type not supported.'),
+                'code'=>400
+            );
+        }
+        else {
+            $subscription['type'] = ($subscription['type'] == 'ios') ? 'ios' : 'android';
+        }
+
+        if (push_notification_check_duplicate_tokens($subscription)) {
+            return array(
+                'success' => 1,
+                'message' => t('You are already subscribed.'),
+                'code'=>200
+            );
+        }
+
+        // Register / update token in database.
+        if (push_notification_register_webpush($subscription)) {
+            return array(
+                'success' => 1,
+                'message' => t('Subscribed successfully.'),
+                'code'=>200
+
+            );
+        }
+        else {
+            return array(
+                'success' => 0,
+                'message' => t('Token could not be stored.'),
+                'code'=>400
+            );
+        }
+    } else{
+        return array(
+            'success' => 0,
+            'message' => t('Invalid request.'),
+            'code'=>404
+        );
+    }
+}
+
+
+/**
+ * Fetch all endpoints in database.
+ *
+ * @return array
+ *   Nested array of web push notification endpoints.
+ */
+function push_notification_get_token($uid) {
+    // Select all tokens for this user.
+    $result = db_select('push_notification_tokens', 'c')
+        ->condition('uid', $uid)
+        ->fields('c')
+        ->execute();
+
+    return $result->fetchAssoc();
+}
+
+
+/**
+ * Fetch all endpoints in database.
+ *
+ * @return array
+ *   Nested array of web push notification endpoints.
+ */
+function push_notification_check_duplicate_tokens($subscription) {
+    // Select all tokens for this user.
+    $result = db_select('push_notification_tokens', 'c')
+        ->condition('token', $subscription['token'])
+        ->fields('c')
+        ->execute();
+
+    return $result->rowCount() ? TRUE : FALSE;
+}
+
+/**
+ * Insert webpush subscribtion token details.
+ *
+ * @param array $subscription
+ *   The token to send message.
+ */
+function push_notification_register_webpush(array $subscription) {
+
+    // Change arra in to multidimantional array.
+    if (count($subscription) == count($subscription, COUNT_RECURSIVE)) {
+        $subscription = array($subscription['token'] => $subscription);
+    }
+
+    if (!empty($subscription)) {
+        // Udpate refreshed tokens.
+        foreach ($subscription as $token => $refreshed) {
+            $query = db_merge('push_notification_tokens');
+            if ($refreshed['uid']) {
+                $query->key(array('uid' => $refreshed['uid']));
+            }
+            else {
+                $query->key(array('token' => $token))
+                    ->key(array('type' => $refreshed['type']));
+            }
+            $query->fields(array(
+                'token' => $refreshed['token'],
+                'type' => $refreshed['type'],
+                'uid' => $refreshed['uid'],
+                'timestamp' => time(),
+            ))
+                ->execute();
+        }
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+
+function push_notification_send($uid,$notification,$data) {
+    if($user=push_notification_get_token($uid)){
+        $fcmUrl = variable_get('push_notification_api_url');
+        $serverKey = variable_get('push_notification_server_key');
+        $token = $user['token'];
+        if(!empty($fcmUrl) && !empty($serverKey) && !empty($token)) {
+            $notification['sound'] = 'default';
+            $notification['badge'] = '1';
+
+            $arrayToSend = array("data" => $data, 'to' => $token, 'notification' => $notification, 'priority' => 'high');
+
+            $json = json_encode($arrayToSend);
+
+            $headers = array();
+            $headers[] = 'Content-Type: application/json';
+            $headers[] = 'Authorization: key=' . $serverKey;
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $fcmUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
+
+            if ($response === FALSE) {
+                die('FCM Send Error: ' . curl_error($ch));
+            }
+            curl_close($ch);
+
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
