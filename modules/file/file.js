@@ -83,7 +83,8 @@ Drupal.file = Drupal.file || {
           '%filename': this.value.replace('C:\\fakepath\\', ''),
           '%extensions': extensionPattern.replace(/\|/g, ', ')
         });
-        $(this).closest('div.form-managed-file').prepend('<div class="messages error file-upload-js-error" aria-live="polite">' + error + '</div>');
+        $('<div class="messages error file-upload-js-error" aria-live="polite">' + error + '</div>').insertAfter($(this).closest('div.form-managed-file'));
+        // $(this).closest('div.form-managed-file').prepend('<div class="messages error file-upload-js-error" aria-live="polite">' + error + '</div>');
         this.value = '';
         return false;
       }
