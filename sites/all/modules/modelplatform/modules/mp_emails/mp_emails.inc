@@ -35,8 +35,8 @@ function _mp_emails_get_event_params($event) {
       'de' => 'Liebe',
     );
     $customer_salutation = array(
-      'en' => 'Dear Mrs',
-      'de' => 'Lieber Frau',
+      'en' => 'Hello',
+      'de' => 'Hallo',
     );
   }
   else {
@@ -45,8 +45,8 @@ function _mp_emails_get_event_params($event) {
       'de' => 'Lieber',
     );
     $customer_salutation = array(
-      'en' => 'Dear Mr.',
-      'de' => 'Lieber Herr',
+      'en' => 'Hello',
+      'de' => 'Hallo',
     );
   }
 
