@@ -5909,3 +5909,11 @@ div.sf-accordion-toggle.sf-style-white a {
 .page-user-edit .field-type-field-collection.field-name-field-c-base-city td input[type="submit"] {
    margin-top: 0;
 }
+.form div.error {
+   margin-top: 0;
+   padding: 13px 20px;
+   text-align: center;
+   background: rgba(228,25,25, .90);
+   color: #fff;
+   position: absolute;
+}
