@@ -156,6 +156,24 @@ function _mp_emails_customer_job_option_model_confirm($email_params) {
   );
   $send = TRUE;
 
+    if($language=='de'){
+        $noti_title='Option wird Festbuchung.';
+        $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
+        
+Deine Option durch {$email_params['@customer_full_name']} ist nun eine Festbuchung geworden.
+Herzlichen Glückwunsch – wir wünschen eine erfolgreiche Zusammenarbeit!";
+    } else {
+        $noti_title='Option becomes fixed booking.';
+        $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
+        
+Your option through {$email_params['@customer_full_name']} has now become a fixed booking.
+Congratulations - we wish you a successful cooperation!";
+    }
+
+    $notification = array('title' => $noti_title, 'text' => $noti_text);
+
+    _send_push_notification($to,$notification);
+
   drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }
 
@@ -201,24 +219,6 @@ function _mp_emails_model_job_confirmed($email_params) {
     'message' => $message,
   );
   $send = TRUE;
-
-    if($language=='de'){
-        $noti_title='Option wird Festbuchung.';
-        $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
-        
-Deine Option durch {$email_params['@customer_full_name']} ist nun eine Festbuchung geworden.
-Herzlichen Glückwunsch – wir wünschen eine erfolgreiche Zusammenarbeit!";
-    } else {
-        $noti_title='Option becomes fixed booking.';
-        $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
-        
-Your option through {$email_params['@customer_full_name']} has now become a fixed booking.
-Congratulations - we wish you a successful cooperation!";
-    }
-
-    $notification = array('title' => $noti_title, 'text' => $noti_text);
-
-    _send_push_notification($to,$notification);
 
   drupal_mail($module, $key, $to, $language, $params, $from, $send, $cc = _get_admin_email());
 }

@@ -572,7 +572,7 @@ $enabled = (
       );
       $form['decision']['accept'] = array(
         '#type' => 'submit',
-        '#value' => t('Agrees to the daily rate'),
+        '#value' => t('Agree to the daily rate'),
         '#name' => 'auction_decision_accept',
         '#submit' => array(
           'mp_booking_job_auction_form_accept',
