@@ -5916,4 +5916,6 @@ div.sf-accordion-toggle.sf-style-white a {
    background: rgba(228,25,25, .90);
    color: #fff;
    position: absolute;
+   width: 80%;
+   margin-left: 18%;
 }
