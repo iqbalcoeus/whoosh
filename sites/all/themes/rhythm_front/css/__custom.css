@@ -5919,3 +5919,12 @@ div.sf-accordion-toggle.sf-style-white a {
    width: 80%;
    margin-left: 18%;
 }
+.i18n-de .description p.en  {
+    display: none;
+  }
+  .i18n-en .description p.de  {
+    display: none;
+  }
+ .description p.de, .description p.en  {
+    margin: 0;
+  } 
