@@ -398,7 +398,7 @@ function modelplatform_node_view($node, $view_mode, $langcode) {
   if ($view_mode === 'full') {
     switch ($node->type) {
       case 'news':
-        drupal_set_title(t('Mega inside'));
+        drupal_set_title(t('Inside myfab'));
         break;
 
       default:
