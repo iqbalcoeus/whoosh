@@ -12,12 +12,12 @@ function rhythm_front_preprocess_page(&$vars) {
   global $language;
   global $user;
 
-  $role_class = array('status'=>'yet_not_login', 'uid' => null, 'user_name' => null, 'path_uri' => null );
+  $role_class = array('status'=>'yet_not_login', 'uid' => null, 'user_name' => null, 'path_uri' => null, 'language'=> $language->language );
   if (_modelplatform_user_is_model($user)) {
-    $role_class = array('status'=>'login_as_model', 'uid' => $user->uid, 'user_name' => $user->name, 'path_uri'=>drupal_get_path_alias('user/'.$user->uid));
+    $role_class = array('status'=>'login_as_model', 'uid' => $user->uid, 'user_name' => $user->name, 'path_uri'=>drupal_get_path_alias('user/'.$user->uid), 'language'=> $language->language );
   }
   elseif (_modelplatform_user_is_customer($user)) {
-    $role_class = array('status'=>'login_as_customer', 'uid' => $user->uid, 'user_name' => $user->name, 'path_uri'=>drupal_get_path_alias('user/'.$user->uid));
+    $role_class = array('status'=>'login_as_customer', 'uid' => $user->uid, 'user_name' => $user->name, 'path_uri'=>drupal_get_path_alias('user/'.$user->uid), 'language'=> $language->language );
   }
 
   $image = variable_get('modelplatform_body_image_404_url', '');
