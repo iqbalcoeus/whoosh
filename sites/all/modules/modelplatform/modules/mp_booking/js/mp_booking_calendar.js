@@ -80,8 +80,8 @@
         Drupal.rcCalendar.init();
 
         // Placeholders.
-        $('input[name="bat_start_date[date]"]').attr('placeholder', 'Start date');
-        $('input[name="bat_end_date[date]"]').attr('placeholder', 'End date');
+        $('input[name="bat_start_date[date]"]').attr('placeholder', Drupal.t('Start date'));
+        $('input[name="bat_end_date[date]"]').attr('placeholder', Drupal.t('End date'));
         $('input[name="bat_start_date[time]"]').attr('placeholder', '16:00');
         $('input[name="bat_end_date[time]"]').attr('placeholder', '16:00');
 

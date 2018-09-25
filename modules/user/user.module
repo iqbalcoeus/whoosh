@@ -2958,7 +2958,7 @@ function user_roles($membersonly = FALSE, $permission = NULL) {
         $roles[$role->rid] = t($role->name);
         break;
       default:
-        $roles[$role->rid] = $role->name;
+        $roles[$role->rid] = t($role->name);
     }
   }
 

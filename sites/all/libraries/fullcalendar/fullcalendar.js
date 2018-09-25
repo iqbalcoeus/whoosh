@@ -10270,15 +10270,15 @@ Calendar.defaults = {
 	// locale
 	isRTL: false,
 	buttonText: {
-		prev: "prev",
-		next: "next",
-		prevYear: "prev year",
-		nextYear: "next year",
-		year: 'year', // TODO: locale files need to specify this
-		today: 'today',
-		month: 'month',
-		week: 'week',
-		day: 'day'
+		prev: Drupal.t("prev"),
+		next: Drupal.t("next"),
+		prevYear: Drupal.t("prev year"),
+		nextYear: Drupal.t("next year"),
+		year: Drupal.t('year'), // TODO: locale files need to specify this
+		today: Drupal.t('today'),
+		month: Drupal.t('month'),
+		week: Drupal.t('week'),
+		day: Drupal.t('day')
 	},
 
 	buttonIcons: {
@@ -13466,7 +13466,7 @@ fcViews.list = {
 	'class': ListView,
 	buttonTextKey: 'list', // what to lookup in locale files
 	defaults: {
-		buttonText: 'list', // text to display for English
+		buttonText: Drupal.t('list'), // text to display for English
 		listDayFormat: 'LL', // like "January 1, 2016"
 		noEventsMessage: 'No events to display'
 	}

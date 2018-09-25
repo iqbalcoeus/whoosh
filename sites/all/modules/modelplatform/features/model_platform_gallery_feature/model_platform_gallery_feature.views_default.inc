@@ -35,7 +35,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<a href="/node/add/node-gallery-item?destination=user/[uid]/edit/galleries" class="add-more-images">Add more images</a>
+  $handler->display->display_options['header']['area']['content'] = '<a href="/node/add/node-gallery-item?destination=user/[uid]/edit/galleries" class="add-more-images">'.t('Add more images').'</a>
 <div id="model-gallery-next"></div>
 <div id="model-gallery-prev"></div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
@@ -223,7 +223,7 @@ function model_platform_gallery_feature_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<a href="/node/add/node-gallery-item" class="add-more-images">Add more images</a>';
+  $handler->display->display_options['empty']['area']['content'] = '<a href="/node/add/node-gallery-item" class="add-more-images">'.t('Add more images').'</a>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
