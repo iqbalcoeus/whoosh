@@ -28,7 +28,7 @@ function _mp_emails_model_job_reminder_notification($email_params) {
     Nur so hast Du die Chance auf einen neuen Auftrag!
     
     Herzliche Grüße, 
-    Dein Team von MegaOnline
+    Dein Team von myFab Models
   ';
 
   } else {
@@ -40,7 +40,7 @@ function _mp_emails_model_job_reminder_notification($email_params) {
       This is the only chance you have a new order!
 
       Best regards,
-      Your team of MegaOnline
+      Your team of myFab Models
     ';
   }
   $message = _mp_emails_prepare_message($message_text, $email_params);
@@ -56,13 +56,13 @@ function _mp_emails_model_job_reminder_notification($email_params) {
         $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
         
 leider hast Du nicht noch auf die Anfrage unseres Kunden {$email_params['@customer_full_name']} reagiert. Bitte gehe ins Backend.
-Greetings Mega Models";
+Greetings myFab Models";
     } else {
         $noti_title='The reminder for the option request.';
         $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
         
 Unfortunately, you have not responded to the request of our customer {$email_params['@customer_full_name']}. Please go to the backend.
-Greetings Mega Models";
+Greetings myFab Models";
     }
 
     $notification = array('title' => $noti_title, 'text' => $noti_text);
@@ -121,13 +121,13 @@ function _mp_emails_model_job_option_notification($email_params) {
         $noti_text="Liebe {$email_params['@model_full_name']}, lieber {$email_params['@model_full_name']}, 
         
 Unser Kunde {$email_params['@customer_full_name']} hat eine Option für ein Projekt mit Dir gewählt.
-Herzliche Grüße Mega Models";
+Herzliche Grüße myFab Models";
     } else {
         $noti_title='The option request for the model.';
         $noti_text="Love {$email_params['@model_full_name']}, dear {$email_params['@model_full_name']}, 
         
 Our customer {$email_params['@customer_full_name']} has chosen an option for a project with you.
-Greetings Mega Models";
+Greetings myFab Models";
     }
 
     $notification = array('title' => $noti_title, 'text' => $noti_text);
