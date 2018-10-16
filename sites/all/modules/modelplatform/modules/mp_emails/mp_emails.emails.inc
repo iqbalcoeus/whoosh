@@ -80,7 +80,7 @@ function _mp_emails_customer_job_option_notification($email_params) {
   $key = 'mp_emeils_job_propose';
 
   $to = $email_params['@customer_mail'];
-  $from = variable_get('site_mail', 'admin@megaonline.com');
+  $from = variable_get('site_mail', 'admin@myfabmodels.com');
   $language = $email_params['@customer_language'];
 
   $message_text = i18n_variable_get('mpe_customer_job_option_notification', $language);

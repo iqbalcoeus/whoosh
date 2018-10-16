@@ -23,7 +23,7 @@ function _mp_emails_get_var_model_job_reminder_notification($language) {
     This is the only chance you have a new order!
 
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @model_salutation, @model_full_name.
@@ -33,7 +33,7 @@ function _mp_emails_get_var_model_job_reminder_notification($language) {
     Nur so hast Du die Chance auf einen neuen Auftrag!
     
     Herzliche Grüße, 
-    Dein Team von MegaOnline
+    Dein Team von myFab Models
   ';
   
 
@@ -57,7 +57,7 @@ function _mp_emails_get_var_customer_job_option_notification($language) {
     If you do not have a response within 24 hours, or if you have any questions whatsoever, please do not hesitate to contact our friendly team on (phone number).
     
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @customer_salutation, @customer_full_name.
@@ -67,7 +67,7 @@ function _mp_emails_get_var_customer_job_option_notification($language) {
     Sollten Sie innerhalb der nächsten 24 Stunden keine Nachricht von dem gewünschten Model bekommen oder noch Fragen haben, melden Sie sich gerne telefonisch bei uns.
      
     Herzliche Grüße, 
-    Ihr Team von MegaOnline
+    Ihr Team von myFab Models
   ';
 
   return $message_text[$language];
@@ -97,7 +97,7 @@ function _mp_emails_get_var_model_job_option_notification($language) {
     Daily rate: @job_daily_rate
     
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @model_salutation, @model_full_name.
@@ -112,7 +112,7 @@ function _mp_emails_get_var_model_job_option_notification($language) {
     Tagessatz: @job_daily_rate
      
     Herzliche Grüße, 
-    Dein Team von MegaOnline
+    Dein Team von myFab Models
   ';
 
   return $message_text[$language];
@@ -133,7 +133,7 @@ function _mp_emails_get_var_customer_job_option_model_confirm($language) {
     We are pleased to inform you that @model_full_name has accepted your offer.
     
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @customer_salutation, @customer_full_name.
@@ -141,7 +141,7 @@ function _mp_emails_get_var_customer_job_option_model_confirm($language) {
     das von Ihnen angefragte @model_full_name hat Ihre Option bestätigt.
     
     Herzliche Grüße, 
-    Ihr Team von MegaOnline
+    Ihr Team von myFab Models
   ';
 
   return $message_text[$language];
@@ -166,7 +166,7 @@ function _mp_emails_get_var_customer_job_auction($language) {
     We will immediately notify the model that the job is set.
     
     Good luck with the cooperation and cordial greetings,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @customer_salutation, @customer_full_name.
@@ -176,7 +176,7 @@ function _mp_emails_get_var_customer_job_auction($language) {
     Wir informieren dann umgehend das von Ihnen gewählte Model.
     
     Viel Erfolg bei der Zusammenarbeit und herzliche Grüße, 
-    Ihr Team von MegaOnline
+    Ihr Team von myFab Models
   ';
 
   return $message_text[$language];
@@ -198,7 +198,7 @@ function _mp_emails_get_var_model_job_confirmed($language) {
     Congratulations.  We wish you a fun and successful shoot.
     
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
 
   $message_text['de'] = '
@@ -208,7 +208,7 @@ function _mp_emails_get_var_model_job_confirmed($language) {
     Herzlichen Glückwunsch – wir wünschen eine erfolgreiche Zusammenarbeit!
     
     Herzliche Grüße, 
-    Dein Team von MegaOnline
+    Dein Team von myFab Models
   ';
 
   return $message_text[$language];
@@ -235,7 +235,7 @@ function _mp_emails_get_var_model_calendar($language) {
     We hope this helps us both towards more efficient booking.
     
     Best regards,
-    Your team of MegaOnline
+    Your team of myFab Models
   ';
   $message_text['de'] = '
     @model_salutation, @model_full_name.
@@ -247,7 +247,7 @@ function _mp_emails_get_var_model_calendar($language) {
     Vielen Dank für Dein Verständnis!
     
     Herzliche Grüße, 
-    Dein Team von MegaOnline
+    Dein Team von myFab Models
   ';
 
   return $message_text[$language];
