@@ -256,6 +256,32 @@ function theme_mp_invoices_page($page_variables) {
   $footer = '<div class="mpi-footer">';
   $footer .= $footer_part_1;
   $footer .= $footer_part_2;
+  $footer .= '<div>
+      <div style="width: 20%; display: inline-block;">
+        <h3>myfab</h3>
+        <p>ist ein Projekt</p>
+        <p>der Black Jam Labs GmbH</p>
+        <p> Kanalstraße 28, D-22085 Hamburg</p>
+      </div>
+      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
+        <h3>Kontakt: </h3>
+        <p>Tel.: +49 40 / 300 366 13</p>
+        <p>hello@myfabmodels.com </p>
+        <p>www.myfabmodels.com</p>
+      </div>
+      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
+        <h3>Geschäftsführer:</h3> 
+        <p>Jörn Kelterer HRB Hamburg 141510
+        <p>Steuer-Nr.: 43/708/01547</p>
+        <p>Ust.-ID: DE 306252645</p>
+      </div>
+      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
+        <h3>Bankverbindung:</h3>
+        <p>Hamburger Sparkasse</p>
+        <p><span style="font-weight: bold;">IBAN:</span> DE58 2005 0550 1261 1989 05</p>
+        <p><span style="font-weight: bold;">BIC:</span> HASPDEHHXXX</p>
+      </div>
+    </div>';
   $footer .= '</div>';
 
   $output = '<div class="mpi-invoice">';
