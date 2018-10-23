@@ -274,15 +274,30 @@ html {
 .mpi-footer-part-3 .part-3,
 .mpi-footer-part-3 .part-4 {
   display: inline-block;
-  width: 25%;
   float: left;
 }
+.mpi-footer-part-3 .part-1{
+  width: 22%;
+}
+.mpi-footer-part-3 .part-2{
+  width: 20%;
+}
+.mpi-footer-part-3 .part-3,
+.mpi-footer-part-3 .part-4 {
+  width: 24%;
+}
+.mpi-footer-part-3 .part-2,
+.mpi-footer-part-3 .part-3,
+.mpi-footer-part-3 .part-4 {
+  border-left: 1px solid #000; 
+  padding-left: 20px;
+}
 .mpi-footer-part-3 .text,
-.mpi-footer-part-3 h3 {
+.mpi-footer-part-3 .heading {
   display: inline;
   width: auto;
 }
-.mpi-footer-part-3 h3.heading{
+.mpi-footer-part-3 .heading{
   font-weight: bold;
   font-size: 14px;
 }
