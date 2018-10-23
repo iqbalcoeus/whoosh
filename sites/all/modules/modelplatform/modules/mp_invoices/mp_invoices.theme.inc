@@ -16,7 +16,7 @@ function theme_mp_invoices_page($page_variables) {
 
   $header_img = theme('image', array('path' => $header_variables['img']));
   $header_div_img = '<div class="mpi-image">' . $header_img . '</div>';
-
+// print_r($header_img); die;
   $header_text_column1 = '<div class="mpi-text-column mpi-text-column-1">';
   $header_text_column1 .= $header_variables['text']['column1'];
   $header_text_column1 .= '</div>';
@@ -256,30 +256,30 @@ function theme_mp_invoices_page($page_variables) {
   $footer = '<div class="mpi-footer">';
   $footer .= $footer_part_1;
   $footer .= $footer_part_2;
-  $footer .= '<div>
-      <div style="width: 20%; display: inline-block;">
-        <h3>myfab</h3>
-        <p>ist ein Projekt</p>
-        <p>der Black Jam Labs GmbH</p>
-        <p> Kanalstraße 28, D-22085 Hamburg</p>
+  $footer2 .= '<div class="mpi-footer-part-3">
+      <div class="part-1">
+        <h3 class = "heading">myfab</h3>
+        <div class="text">ist ein Projekt</div>
+        <div class="text">der Black Jam Labs GmbH</div>
+        <div class="text"> Kanalstraße 28, D-22085 Hamburg</div>
       </div>
-      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
-        <h3>Kontakt: </h3>
-        <p>Tel.: +49 40 / 300 366 13</p>
-        <p>hello@myfabmodels.com </p>
-        <p>www.myfabmodels.com</p>
+      <div class="part-2">
+        <h3 class="heading">Kontakt: </h3>
+        <div class="text">Tel.: +49 40 / 300 366 13</div>
+        <div class="text">hello@myfabmodels.com </div>
+        <div class="text">www.myfabmodels.com</div>
       </div>
-      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
-        <h3>Geschäftsführer:</h3> 
-        <p>Jörn Kelterer HRB Hamburg 141510
-        <p>Steuer-Nr.: 43/708/01547</p>
-        <p>Ust.-ID: DE 306252645</p>
+      <div class="part-3">
+        <h3 class="heading">Geschäftsführer:</h3> 
+        <div class="text">Jörn Kelterer HRB Hamburg 141510</div>
+        <div class="text">Steuer-Nr.: 43/708/01547</div>
+        <div class="text">Ust.-ID: DE 306252645</div>
       </div>
-      <div style="width: 20%; display: inline-block; border-left: 1px solid #000; padding-left: 20px;">
-        <h3>Bankverbindung:</h3>
-        <p>Hamburger Sparkasse</p>
-        <p><span style="font-weight: bold;">IBAN:</span> DE58 2005 0550 1261 1989 05</p>
-        <p><span style="font-weight: bold;">BIC:</span> HASPDEHHXXX</p>
+      <div class="part-4">
+        <h3 class="heading">Bankverbindung:</h3>
+        <div class="text">Hamburger Sparkasse</div>
+        <div class="text"><span style="font-weight: bold;">IBAN:</span> DE58 2005 0550 1261 1989 05</div>
+        <div class="text"><span style="font-weight: bold;">BIC:</span> HASPDEHHXXX</div>
       </div>
     </div>';
   $footer .= '</div>';
@@ -288,7 +288,8 @@ function theme_mp_invoices_page($page_variables) {
   $output .= $header;
   $output .= $content;
   $output .= $footer;
+  $output .= $footer2;
   $output .= '</div>';
-
+ // print_r($output); die;
   return $output;
 }

@@ -89,7 +89,7 @@ html {
 
 .mpi-invoice .mpi-header .mpi-image {
   display: block;
-  float: left;
+  float: right;
   width: 220px;
 }
 
@@ -99,7 +99,7 @@ html {
 
 .mpi-invoice .mpi-header .mpi-text {
   display: block;
-  float: right;
+  float: left;
   width: 50%;
   margin-bottom: 0.3cm;
   overflow: hidden;
@@ -261,5 +261,29 @@ html {
 }
 .mpi-footer-part-2 {
   padding-top: 20px;
+}
+.mpi-footer-part-3{
+  width: 100%;
+  display: block;
+  margin-top: 40px;
+  font-size: 9px;
+  overflow: hidden;
+}
+.mpi-footer-part-3 .part-1,
+.mpi-footer-part-3 .part-2,
+.mpi-footer-part-3 .part-3,
+.mpi-footer-part-3 .part-4 {
+  display: inline-block;
+  width: 25%;
+  float: left;
+}
+.mpi-footer-part-3 .text,
+.mpi-footer-part-3 h3 {
+  display: inline;
+  width: auto;
+}
+.mpi-footer-part-3 h3.heading{
+  font-weight: bold;
+  font-size: 14px;
 }
 /* Invoice end */
