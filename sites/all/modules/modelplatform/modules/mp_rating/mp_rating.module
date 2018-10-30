@@ -41,25 +41,27 @@ function mp_rating_votingapi_insert($votes) {
 function mp_rating_modelplatform_job_complete($job_nid, $event_id) {
   $job = node_load($job_nid);
   $event = bat_event_load($event_id);
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
-  $unit = $event_wrapper->event_bat_unit_reference->value();
+  if(!empty($event)){
+    $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+    $unit = $event_wrapper->event_bat_unit_reference->value();
 
-  if ($unit->uid && $event_id && $job->nid && $job->uid) {
-    if (!$event_wrapper->field_customer_rate->value()) {
-      $customer_item = array(
-        'uid' => $job->uid,
-        'event_id' => $event_id,
-        'job_nid' => $job->nid,
-      );
-      _mp_rating_fill_row($customer_item);
-    }
-    if (!$event_wrapper->field_model_rate->value()) {
-      $model_item = array(
-        'uid' => $unit->uid,
-        'event_id' => $event_id,
-        'job_nid' => $job->nid,
-      );
-      _mp_rating_fill_row($model_item);
+    if ($unit->uid && $event_id && $job->nid && $job->uid) {
+      if (!$event_wrapper->field_customer_rate->value()) {
+        $customer_item = array(
+          'uid' => $job->uid,
+          'event_id' => $event_id,
+          'job_nid' => $job->nid,
+        );
+        _mp_rating_fill_row($customer_item);
+      }
+      if (!$event_wrapper->field_model_rate->value()) {
+        $model_item = array(
+          'uid' => $unit->uid,
+          'event_id' => $event_id,
+          'job_nid' => $job->nid,
+        );
+        _mp_rating_fill_row($model_item);
+      }
     }
   }
 }
