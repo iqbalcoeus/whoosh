@@ -303,11 +303,13 @@ function _modelplatform_job_is_confirmed($nid) {
  */
 function modelplatform_complited_jobs_callback($job_info) {
   $job = node_load($job_info->job_nid);
-  $job_wrapper = entity_metadata_wrapper('node', $job);
-  $job_wrapper->field_job_status = 98;
-  $job_wrapper->save();
-
-  module_invoke_all('modelplatform_job_complete', $job_info->job_nid, $job_info->event_id);
+  if(!empty($job)) {
+    $job_wrapper = entity_metadata_wrapper('node', $job);
+    
+    $job_wrapper->field_job_status->set(98);
+    $job_wrapper->save();
+    module_invoke_all('modelplatform_job_complete', $job_info->job_nid, $job_info->event_id);
+  }
 }
 
 function _modelplatform_job_creation_access($customer) {

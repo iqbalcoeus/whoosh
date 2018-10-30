@@ -509,7 +509,7 @@ function modelplatform_cron() {
 function modelplatform_cron_queue_info() {
   $queues['modelplatform_complited_jobs'] = array(
     'worker callback' => 'modelplatform_complited_jobs_callback',
-    'time' => 60,
+    'time' => 100,
   );
 
   return $queues;
