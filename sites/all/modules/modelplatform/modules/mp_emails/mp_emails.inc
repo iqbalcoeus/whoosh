@@ -13,15 +13,17 @@
 function _mp_emails_get_event_params($event) {
   global $base_url;
 
-  $event_wrapper = entity_metadata_wrapper('bat_event', $event);
+  if(!empty($event)){
+    $event_wrapper = entity_metadata_wrapper('bat_event', $event);
 
-  $unit = $event_wrapper->event_bat_unit_reference->value();
-  $job = $event_wrapper->field_job->value();
-  $job_wrapper = entity_metadata_wrapper('node', $job);
+    $unit = $event_wrapper->event_bat_unit_reference->value();
+    $job = $event_wrapper->field_job->value();
+    $job_wrapper = entity_metadata_wrapper('node', $job);
 
-  $model_uid = $unit->uid;
-  $model = user_load($model_uid);
-  $customer = user_load($job->uid);
+    $model_uid = $unit->uid;
+    $model = user_load($model_uid);
+    $customer = user_load($job->uid);
+  }
   if(!empty($model) && !empty($customer)){
       $model_wrapper = entity_metadata_wrapper('user', $model);
       $customer_wrapper = entity_metadata_wrapper('user', $customer);
