@@ -112,8 +112,8 @@ function mp_invoices_commerce_order_status_info() {
  */
 function mp_invoices_entity_update($entity, $type) {
   if ($type == 'bat_event') {
-    $event_wrapper = entity_metadata_wrapper($type, $entity);
-    $state_id = $event_wrapper->event_state_reference->value()['state_id'];
+    $state_id = $entity->event_state_reference['und'][0]['state_id'];
+
     if ($state_id == MP_BOOKING_STATE_JOB_CONTRACT) {
       _mp_invoices_create_order_job_contract($entity);
     }
