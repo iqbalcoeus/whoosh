@@ -5928,3 +5928,39 @@ div.sf-accordion-toggle.sf-style-white a {
  .description p.de, .description p.en  {
     margin: 0;
   } 
+
+  /* 
+        CSS for Cookies consent
+  */
+  #sliding-popup .agree-button.eu-cookie-compliance-default-button{
+    background: #000;
+    color: #fff;
+    border-radius: 0;
+    text-shadow: none;
+    border: 1px solid #000;
+    box-shadow: none;
+    border-radius: 6px;
+    
+  }
+  #sliding-popup .agree-button.eu-cookie-compliance-default-button:focus,
+  #sliding-popup .agree-button.eu-cookie-compliance-default-button:active,
+  #sliding-popup .agree-button.eu-cookie-compliance-default-button:hover,
+  #sliding-popup .find-more-button.eu-cookie-compliance-more-button:focus,
+  #sliding-popup .find-more-button.eu-cookie-compliance-more-button:active,
+  #sliding-popup .find-more-button.eu-cookie-compliance-more-button:hover{
+    opacity: 0.7;
+  }
+  #sliding-popup .popup-content{
+    width:90%;
+    max-width: 90%;
+    font-size: 1em;
+  }
+  #sliding-popup .popup-content #popup-text{
+    margin-top: 1em;
+    width: 80%;
+    max-width: 80%;
+    font-size: 1em;
+  }
+  #sliding-popup .popup-content #popup-text p{
+    font-size: 1em;
+  }
