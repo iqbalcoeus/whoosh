@@ -171,7 +171,7 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
               isset($auction->field_auction_decision[LANGUAGE_NONE][0]['value'])
           &&  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] == 'Accept'
           &&  $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] != $user->uid
-        ) && $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] !=3;
+        );
 
         $form['actions'] = array(
           '#type' => 'container',
@@ -184,8 +184,18 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
         $result = $query->execute()->fetchAssoc();
 
         if ($enabled && $auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] !=97) {
-
+          //print_r($event); die;
           if($result['job_status'] =='accepted'){
+
+            $form['payment']['payment'] = array(
+                  '#type' => 'link',
+                  '#title' => t('Make Payment'),
+                  '#href' => 'user/'.$user->uid.'/invoices/'.$event->field_order['und'][0]['target_id'],
+                  '#id' => 'payment-link',
+                  '#options' => array(
+                    'html' => true,
+                  )
+                );
             $form['actions']['book'] = array(
               '#type' => 'submit',
               '#value' => t('Book'),
@@ -409,7 +419,14 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
   global $user;
 
   $values = $form_state['values'];
+  $mp_auction_id = $form_state['values']['auction_id'];
+  $auction = mp_auction_load($mp_auction_id);
+
   $event = bat_event_load($form_state['values']['event_id']);
+  $event->field_job_cost = $auction->field_auction_cost_propose;
+  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
+  bat_event_save($event);
+
   $job_nid = $values['jobs'];
   $job = node_load($job_nid);
 
