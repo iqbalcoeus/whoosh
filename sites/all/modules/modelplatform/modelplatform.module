@@ -15,7 +15,20 @@ define('MODELPLATFORM_ROLE_MODEL', 5);
 define('MODELPLATFORM_ROLE_CUSTOMER', 4);
 
 define('MODELPLATFORM_MODERATE_DOCUMENTS', 'moderate modelplatform documents');
-
+/**
+ * Implements hook_init().
+ *
+ * <soapbox>The Drupal team decided to remove support for anonymous user sessions
+ * starting in Drupal 7.37. This fundamentally breaks several things related to Drupal.
+ * I cannot find any documentation of this change in any changeme dating back to 7.33.
+ * The answer comes to us from:</soapbox>
+ *
+ * https://dgtlmoon.com/drupal_7_anonymous_sessions
+ */
+function modelplatform_init() {
+  drupal_session_start();
+  $_SESSION['nosave'] = TRUE;
+}
 /**
  * Implements hook_menu().
  */
