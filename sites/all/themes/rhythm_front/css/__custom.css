@@ -5964,3 +5964,6 @@ div.sf-accordion-toggle.sf-style-white a {
   #sliding-popup .popup-content #popup-text p{
     font-size: 1em;
   }
+  .views-label.views-label-field-height{
+    text-transform: none !important;
+  }

@@ -189,7 +189,7 @@ function _mp_forms_model_basic_informaiton_form(&$form, &$form_state, $profile_i
     ),
   ), 'setting');
 
-  $form[$profile_id]['field_verification_status']['#disabled'] = !isset($user->roles[3]);
+  //$form[$profile_id]['field_verification_status']['#disabled'] = !isset($user->roles[3]);
   $form[$profile_id]['field_age_category']['#access'] = FALSE;
 }
 
