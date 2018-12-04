@@ -4,7 +4,7 @@
  * Login with xing button page.
  */
 ?>
-<script id="lwx" src="login.js"></script>
+<script id="lwx" src="sites/all/modules/xing_connect/templates/login.js"></script>
 <script>
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + String(getUrl.host).replace(/^www\./,'') + "/";
