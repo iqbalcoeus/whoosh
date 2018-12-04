@@ -8,6 +8,7 @@
   <title><?php print $head_title; ?></title>
   <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
   <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="nnBavD6zsRTGSw0HaUNftl6IBWxh7SzUkVIn0lTB3tY" />
 
   <?php print $styles; ?>
   <?php 
@@ -37,5 +38,6 @@
     <!--[if lt IE 10]><script type="text/javascript" src="<?php print base_path() . path_to_theme(); ?>/js/placeholder.js"></script><![endif]-->
     <?php print $page_bottom; ?>
   </div>
+  
 </body>
 </html>

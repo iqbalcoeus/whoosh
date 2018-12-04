@@ -7,7 +7,7 @@
 <script id="lwx" src="https://www.xing-share.com/plugins/login.js"></script>
 <script>
     var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+    var baseUrl = getUrl .protocol + "//" + String(getUrl.host).replace(/^www\./,'') + "/";
 
     onXingLogout();
 
