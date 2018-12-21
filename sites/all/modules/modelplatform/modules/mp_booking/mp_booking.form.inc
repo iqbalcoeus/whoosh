@@ -184,27 +184,35 @@ function mp_booking_job_model_invite_form_2($form, &$form_state, $model_uid, $cu
         $result = $query->execute()->fetchAssoc();
 
         if ($enabled && $auctioned_job->field_job_status[LANGUAGE_NONE][0]['tid'] !=97) {
-          //print_r($event); die;
+
           if($result['job_status'] =='accepted'){
 
-            $form['payment']['payment'] = array(
-                  '#type' => 'link',
-                  '#title' => t('Make Payment'),
-                  '#href' => 'user/'.$user->uid.'/invoices/'.$event->field_order['und'][0]['target_id'],
-                  '#id' => 'payment-link',
-                  '#options' => array(
-                    'html' => true,
-                  )
-                );
-            $form['actions']['book'] = array(
-              '#type' => 'submit',
-              '#value' => t('Book'),
-              '#name' => 'job_book',
-              '#disabled' => !$enabled,
-              '#submit' => array(
-                'mp_booking_job_model_invite_form_confirm_submit',
-              ),
-            );
+            $order_id = $event->field_order['und'][0]['target_id'];
+            $order =commerce_order_load($order_id);
+            if($order->status =='job_invoice_status'){
+
+              $_SESSION['payment_goto_booking_link'] = current_path();
+              $form['actions']['payment'] = array(
+                    '#type' => 'link',
+                    '#title' => t('Make Payment'),
+                    '#href' => 'user/'.$user->uid.'/invoices/'.$order_id,
+                    '#id' => 'payment-link',
+                    '#attributes' => array('class' => array('btn-medium btn btn-mod btn-round')),
+                    '#options' => array(
+                      'html' => true,
+                    )
+                  );
+            } else{
+              $form['actions']['book'] = array(
+                '#type' => 'submit',
+                '#value' => t('Book'),
+                '#name' => 'job_book',
+                '#disabled' => !$enabled,
+                '#submit' => array(
+                  'mp_booking_job_model_invite_form_confirm_submit',
+                ),
+              );
+            }
           } else {
             $form['actions']['confirm'] = array(
               '#type' => 'submit',
@@ -447,30 +455,39 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
  * @see mp_booking_job_model_invite_form()
  */
 function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
-  $mp_auction_id = $form_state['values']['auction_id'];
-  $event_id = $form_state['values']['event_id'];
-  $auction = mp_auction_load($mp_auction_id);
-  $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
-  mp_auction_save($auction);
-  module_invoke_all('mpb_option_model_accept', $auction);
 
   $event = bat_event_load($form_state['values']['event_id']);
+  $order_id = $event->field_order['und'][0]['target_id'];
+  $order =commerce_order_load($order_id);
+  if($order->status == 'completed'){
 
-  $event->field_job_cost = $auction->field_auction_cost_propose;
-  $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
+    $mp_auction_id = $form_state['values']['auction_id'];
+    $event_id = $form_state['values']['event_id'];
+    $auction = mp_auction_load($mp_auction_id);
+    $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
+    mp_auction_save($auction);
+    module_invoke_all('mpb_option_model_accept', $auction);
 
-  bat_event_save($event);
+    $event = bat_event_load($form_state['values']['event_id']);
 
-  // Set booked status for the job.
-  $values = $form_state['values'];
-  $job_nid = $values['jobs'];
+    $event->field_job_cost = $auction->field_auction_cost_propose;
+    $event->event_state_reference[LANGUAGE_NONE][0]['state_id'] = 3;
 
-  $job = node_load($job_nid);
-  $job_wrapper = entity_metadata_wrapper('node', $job);
-  $job_wrapper->field_job_status = 97;
-  $job_wrapper->save();
+    bat_event_save($event);
 
-  _mp_booking_cancel_other_events($job_nid, $event_id);
+    // Set booked status for the job.
+    $values = $form_state['values'];
+    $job_nid = $values['jobs'];
+
+    $job = node_load($job_nid);
+    $job_wrapper = entity_metadata_wrapper('node', $job);
+    $job_wrapper->field_job_status = 97;
+    $job_wrapper->save();
+
+    _mp_booking_cancel_other_events($job_nid, $event_id);
+  }else{
+    drupal_set_message(t('You have not completed Payment yet.'), 'error');
+  }
 }
 
 /**

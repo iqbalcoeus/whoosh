@@ -56,6 +56,14 @@ function mp_mangopay_payment_form($account, $order) {
   $uid = $user->uid;
   drupal_add_js(drupal_get_path('module', 'mp_mangopay') . '/js/card_form.js');
 
+  $query = db_select('profile', 'p');
+  $query->condition('type', 'customer_private_data');
+  $query->condition('uid', $uid);
+  $query->innerJoin('field_data_field_payment_method_credit_card', 'pc',
+    'pc.entity_id = p.pid');
+  $query->fields('pc', array('field_payment_method_credit_card_value'));
+  $customer_card_number = $query->execute()->fetchAll();
+
   $form = '';
   if ($order->status == 'job_invoice_status') {
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -86,7 +94,7 @@ function mp_mangopay_payment_form($account, $order) {
         <label for="cardNumber">Card Number</label>
       </div>
       <div>
-        <input type="text" required name="cardNumber" value="" />
+        <input type="text" required name="cardNumber" value="'.$customer_card_number[0]->field_payment_method_credit_card_value.'" />
       </div>
     </div>    
 
@@ -185,7 +193,7 @@ function mp_mangopay_payment_callback_form($account, $order) {
         . 'Wallet Id = ' . $createdWallet->Id ;
 
         drupal_set_message(t($msg));
-        drupal_goto($link);
+        drupal_goto($_SESSION['payment_goto_booking_link']);
 
       $link = "/user/$account->uid/invoices/$order->order_id";
     }
