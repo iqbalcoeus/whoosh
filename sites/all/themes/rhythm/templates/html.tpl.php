@@ -5,10 +5,16 @@
 <head>
   <?php print $head; ?>
 
+  <?php 
+    if(drupal_is_front_page()) {
+      $head_title .= '24H MODELBOOKING | '.t('With the Support of Modeling Agency');
+    }
+   ?>
   <title><?php print $head_title; ?></title>
   <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
   <meta name=viewport content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="nnBavD6zsRTGSw0HaUNftl6IBWxh7SzUkVIn0lTB3tY" />
+  <meta name="description" content="<?php echo t('A very well known Modeling Agency in Hamburg provides the experience and support behind myfabmodels.') ?>">
 
   <?php print $styles; ?>
   <?php 
