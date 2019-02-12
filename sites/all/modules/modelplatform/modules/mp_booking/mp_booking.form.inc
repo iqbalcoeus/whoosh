@@ -840,9 +840,35 @@ function _rcb_bat_event_form_validate($form, &$form_state) {
  */
 function mp_booking_calendar_form_submit($form, &$form_state) {
   // Call exists BAT submit function.
+  // 
   bat_event_edit_form_submit($form, $form_state);
-
   $form_state['redirect'] = NULL;
+  
+    db_insert('field_data_event_state_reference') // Table name no longer needs {}
+      ->fields(array(
+        'entity_type' => 'bat_event',
+        'bundle' => 'model_availability',
+        'deleted' => 0,
+        'entity_id' =>$form_state['bat_event']->event_id ,
+        'revision_id' =>$form_state['bat_event']->event_id,
+        'language' => 'en',
+        'delta' => 0,
+        'event_state_reference_state_id' => 2,
+      ))
+      ->execute();
+
+      db_insert('field_revision_event_state_reference') // Table name no longer needs {}
+      ->fields(array(
+        'entity_type' => 'bat_event',
+        'bundle' => 'model_availability',
+        'deleted' => 0,
+        'entity_id' =>$form_state['bat_event']->event_id ,
+        'revision_id' =>$form_state['bat_event']->event_id,
+        'language' => 'en',
+        'delta' => 0,
+        'event_state_reference_state_id' => 2,
+      ))
+      ->execute();
 }
 
 /**
