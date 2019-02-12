@@ -79,7 +79,7 @@ function _mp_emails_customer_job_option_notification($email_params) {
   $module = 'mp_emails';
   $key = 'mp_emeils_job_propose';
 
-  $to = $email_params['@customer_mail'];
+  $to = $email_params['@model_mail'];
   $from = variable_get('site_mail', 'admin@myfabmodels.com');
   $language = $email_params['@customer_language'];
 
@@ -143,7 +143,7 @@ function _mp_emails_customer_job_option_model_confirm($email_params) {
   $module = 'mp_emails';
   $key = 'mp_emeils_job_propose';
 
-  $to = $email_params['@model_mail'];
+  $to = $email_params['@customer_mail'];
   $from = variable_get('site_mail', 'admin@example.com');
   $language = $email_params['@model_language'];
 
