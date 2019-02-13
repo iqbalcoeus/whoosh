@@ -5967,3 +5967,13 @@ div.sf-accordion-toggle.sf-style-white a {
   .views-label.views-label-field-height{
     text-transform: none !important;
   }
+  @media screen and (max-width: 767px) {
+    .not-front.page-blog #block-delta-blocks-page-title h1,
+    .not-front #block-delta-blocks-page-title h1 {
+        margin: 20px;
+        font-size: 24px;
+    }
+    .not-front #content_top {
+       margin-bottom: 20px;
+    }
+}
