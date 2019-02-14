@@ -461,10 +461,12 @@ function mp_booking_job_model_invite_form_confirm_submit($form, $form_state) {
   $order =commerce_order_load($order_id);
   if($order->status == 'completed'){
 
+    global $user;
     $mp_auction_id = $form_state['values']['auction_id'];
     $event_id = $form_state['values']['event_id'];
     $auction = mp_auction_load($mp_auction_id);
     $auction->field_auction_decision[LANGUAGE_NONE][0]['value'] = 'Accept';
+    $auction->field_decision_user[LANGUAGE_NONE][0]['target_id'] = $user->uid;
     mp_auction_save($auction);
     module_invoke_all('mpb_option_model_accept', $auction);
 
