@@ -446,7 +446,7 @@ function mp_booking_job_model_optioned_form_submit($form, &$form_state) {
                 ->condition('job_id', $job_nid, '=')
                 ->condition('uid', arg(2), '=')
                 ->execute();
-  module_invoke_all('mpb_option_model', $event);
+  //module_invoke_all('mpb_option_model', $event);
   drupal_set_message(t('Model was Shortlisted'));
 }
 /**
