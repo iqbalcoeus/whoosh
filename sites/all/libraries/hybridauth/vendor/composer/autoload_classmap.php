@@ -20,6 +20,7 @@ return array(
     'Hybrid_Providers_Facebook' => $baseDir . '/hybridauth/Hybrid/Providers/Facebook.php',
     'Hybrid_Providers_Foursquare' => $baseDir . '/hybridauth/Hybrid/Providers/Foursquare.php',
     'Hybrid_Providers_Google' => $baseDir . '/hybridauth/Hybrid/Providers/Google.php',
+    'Hybrid_Providers_Instagram' => $baseDir . '/hybridauth/Hybrid/Providers/Instagram.php',
     'Hybrid_Providers_LinkedIn' => $baseDir . '/hybridauth/Hybrid/Providers/LinkedIn.php',
     'Hybrid_Providers_Live' => $baseDir . '/hybridauth/Hybrid/Providers/Live.php',
     'Hybrid_Providers_OpenID' => $baseDir . '/hybridauth/Hybrid/Providers/OpenID.php',
