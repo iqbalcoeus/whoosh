@@ -26,6 +26,30 @@
         }
       }
   ?>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "LocalBusiness",
+      "name": "MyFab Models",
+      "description": "A very well known Modeling Agency in Hamburg provides the experience and support behind myfabmodels.",
+      "logo": "https://www.myfabmodels.com/sites/default/files/MegaOnlineButtonBlack_100mm_trimmed_90px.png",
+      "image": "https://www.myfabmodels.com/sites/default/files/styles/462_267/public/DSC_8094_0.jpg?itok=2bCSuSgV",
+      "url": "https://www.myfabmodels.com",
+      "telephone": "+49 40 30036613",
+      "email": "hello@myfabmodels.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kanalstr. 28",
+        "addressLocality": "Hamburg",
+        "postalCode": "22085",
+        "addressCountry": "DE"
+      },
+      "sameAs": [
+        "https://www.facebook.com/myfabmodels/",
+        "https://www.instagram.com/myfabmodels/"
+      ]
+    }
+</script>
 </head>
 <body class="appear-animate <?php print $classes; ?>"<?php print $attributes; ?>>
   <div class="main-wrap">
